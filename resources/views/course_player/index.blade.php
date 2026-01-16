@@ -2,13 +2,34 @@
 <html lang="en">
 
 <head>
-    <title>{{ get_phrase('Course Playing Page') }}| {{ config('app.name') }}</title>
+    @php
+        $course_title = isset($course_details) && $course_details->title ? $course_details->title : get_phrase('Course Playing Page');
+        $page_title = $course_title . ' | ' . config('app.name');
+        $meta_description = isset($course_details) && $course_details->short_description ? strip_tags($course_details->short_description) : get_phrase('Learn from the best courses on our platform');
+    @endphp
+    <title>{{ $page_title }}</title>
     <!-- all the meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
+    <meta name="description" content="{{ $meta_description }}" />
+    <meta name="author" content="{{ config('app.name') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:title" content="{{ $page_title }}" />
+    <meta property="og:description" content="{{ $meta_description }}" />
+    @if(isset($course_details) && $course_details->thumbnail)
+    <meta property="og:image" content="{{ get_image($course_details->thumbnail) }}" />
+    @endif
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{ url()->current() }}" />
+    <meta property="twitter:title" content="{{ $page_title }}" />
+    <meta property="twitter:description" content="{{ $meta_description }}" />
+    @if(isset($course_details) && $course_details->thumbnail)
+    <meta property="twitter:image" content="{{ get_image($course_details->thumbnail) }}" />
+    @endif
     <!-- all the css files -->
     <link rel="shortcut icon" href="{{ asset(get_frontend_settings('favicon')) }}" />
     <!-- Bootstrap CSS -->
