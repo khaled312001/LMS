@@ -54,7 +54,23 @@ class OpenAiController extends Controller
 
         $response_arr = json_decode($response, true);
         if (array_key_exists('error', $response_arr)) {
-            return 'Error: ' . $response_arr['error']['message'];
+            $error_code = $response_arr['error']['code'] ?? '';
+            $error_message = $response_arr['error']['message'] ?? '';
+            
+            // Handle insufficient quota error with helpful message
+            if ($error_code == 'insufficient_quota' || strpos($error_message, 'quota') !== false || strpos($error_message, 'billing') !== false) {
+                $helpful_message = [
+                    'error' => [
+                        'message' => 'Your OpenAI API quota has been exceeded. Please check your billing and add credits to your account at https://platform.openai.com/account/billing',
+                        'type' => 'insufficient_quota',
+                        'code' => 'insufficient_quota',
+                        'help' => 'To resolve this: 1) Go to https://platform.openai.com/account/billing 2) Add payment method or top up credits 3) Wait a few minutes for the quota to update'
+                    ]
+                ];
+                return json_encode($helpful_message);
+            }
+            
+            return 'Error: ' . $error_message;
         } else {
             return json_encode($response_arr['data']);
         }
@@ -64,6 +80,19 @@ class OpenAiController extends Controller
     {
         $open_ai_secret_key = get_settings('open_ai_secret_key');
         $open_ai_model = get_settings('open_ai_model');
+        
+        // Default to gpt-3.5-turbo-0125 if no model is set
+        if (!$open_ai_model) {
+            $open_ai_model = 'gpt-3.5-turbo-0125';
+        }
+        
+        // Auto-migrate deprecated model names
+        if ($open_ai_model == 'gpt-4-0125-preview') {
+            $open_ai_model = 'gpt-3.5-turbo-0125';
+            // Update database with new model name
+            Setting::where('type', 'open_ai_model')->update(['description' => $open_ai_model]);
+        }
+        
         $endpoint = "https://api.openai.com/v1/chat/completions";
 
         $data = array(
@@ -95,7 +124,70 @@ class OpenAiController extends Controller
 
         if ($response) {
             $response = json_decode($response, true);
-            if (is_array($response)) {
+            if(isset($response['error'])){
+                $error_code = $response['error']['code'] ?? '';
+                $error_message = $response['error']['message'] ?? '';
+                
+                // Handle insufficient quota error with helpful message
+                if ($error_code == 'insufficient_quota' || strpos($error_message, 'quota') !== false || strpos($error_message, 'billing') !== false) {
+                    $helpful_message = [
+                        'error' => [
+                            'message' => 'Your OpenAI API quota has been exceeded. Please check your billing and add credits to your account at https://platform.openai.com/account/billing',
+                            'type' => 'insufficient_quota',
+                            'code' => 'insufficient_quota',
+                            'help' => 'To resolve this: 1) Go to https://platform.openai.com/account/billing 2) Add payment method or top up credits 3) Wait a few minutes for the quota to update'
+                        ]
+                    ];
+                    return json_encode($helpful_message);
+                }
+                
+                // If GPT-4 model fails and user has GPT-4 selected, fallback to GPT-3.5
+                $is_gpt4_model = in_array($open_ai_model, ['gpt-4-turbo', 'gpt-4o']);
+                $is_model_error = strpos($error_code, 'model_not_found') !== false || 
+                     strpos($error_message, 'does not exist') !== false ||
+                     strpos($error_message, 'not have access') !== false;
+                
+                if ($is_gpt4_model && $is_model_error) {
+                    // Fallback to GPT-3.5
+                    $fallback_model = 'gpt-3.5-turbo-0125';
+                    $data['model'] = $fallback_model;
+                    
+                    $ch = curl_init($endpoint);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        "Content-Type: application/json",
+                        "Authorization: Bearer " . $open_ai_secret_key
+                    ));
+                    
+                    $response = curl_exec($ch);
+                    curl_close($ch);
+                    
+                    if ($response) {
+                        $response = json_decode($response, true);
+                        if(isset($response['error'])){
+                            // Check if fallback also has quota error
+                            if (isset($response['error']['code']) && $response['error']['code'] == 'insufficient_quota') {
+                                $helpful_message = [
+                                    'error' => [
+                                        'message' => 'Your OpenAI API quota has been exceeded. Please check your billing and add credits to your account at https://platform.openai.com/account/billing',
+                                        'type' => 'insufficient_quota',
+                                        'code' => 'insufficient_quota',
+                                        'help' => 'To resolve this: 1) Go to https://platform.openai.com/account/billing 2) Add payment method or top up credits 3) Wait a few minutes for the quota to update'
+                                    ]
+                                ];
+                                return json_encode($helpful_message);
+                            }
+                            return json_encode($response);
+                        }elseif(is_array($response)) {
+                            return $response['choices'][0]['message']['content'] ?? '';
+                        }
+                    }
+                } else {
+                    return json_encode($response);
+                }
+            }elseif(is_array($response)) {
                 return $response['choices'][0]['message']['content'] ?? '';
             }
         }
