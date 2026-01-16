@@ -132,6 +132,38 @@
     top: -5px !important;
 }
 
+/* Fix mega menu dropdown for laptop screens */
+@media (min-width: 992px) and (max-width: 1366px) {
+    .main-mega-menu {
+        left: 0 !important;
+        transform: translate(0) !important;
+        width: 350px !important;
+        max-width: 90vw;
+    }
+    
+    .main-menu-ul > li.have-mega-menu:hover .main-mega-menu {
+        left: 0 !important;
+        transform: translate(0) !important;
+    }
+    
+    /* Adjust child menu position for laptop */
+    .child_category_menu {
+        left: calc(100% + 10px) !important;
+        width: 280px !important;
+    }
+}
+
+/* Ensure menu doesn't overflow on smaller laptop screens */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .main-mega-menu {
+        width: 320px !important;
+    }
+    
+    .child_category_menu {
+        width: 250px !important;
+    }
+}
+
 .mega_list li a {
     border-radius: 5px;
 }
