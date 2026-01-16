@@ -40,46 +40,7 @@
                                     </div>
                                 </ul>
                             </li> --}}
-                            <li class="have-mega-menu"><a class="menu-parent-a @if ($current_route == 'courses') active @endif" href="{{ route('courses') }}"><i class="fa-solid fa-book me-2"></i>{{ get_phrase('Courses') }}</a>
-                                <ul class="mega-dropdown-menu mega main-mega-menu">
-                                    <div class="mega-menu-items">
-                                        <ul class="mega_list">
-                                            @foreach ($parent_categories->take(10) as $parent_category)
-                                                @php
-                                                    $child_categories = App\Models\Category::where('parent_id', $parent_category->id);
-                                                @endphp
-                                                <li>
-                                                    <a href="{{ route('courses', $parent_category->slug) }}">
-                                                        <span class="me-3"><i class="{{ $parent_category->icon }}"></i></span>
-                                                        <span class="me-auto">{{ ucfirst($parent_category->title) }}</span>
-                                                        @if ($child_categories->count() > 0)
-                                                            <span><i class="fi fi-sr-angle-small-right"></i></span>
-                                                        @endif
-                                                    </a>
-
-                                                    @if ($child_categories->count() > 0)
-                                                        <ul class="child_category_menu">
-                                                            @foreach ($child_categories->get() as $child_category)
-                                                                <li>
-                                                                    <a href="{{ route('courses', $child_category->slug) }}">
-                                                                        {{ ucfirst($child_category->title) }}
-                                                                    </a>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    @endif
-                                                </li>
-                                            @endforeach
-                                            <li>
-                                                <a href="{{ route('courses') }}">
-                                                    <span class="me-3"><i class="fas fa-list-ul"></i></span>
-                                                    <span class="me-auto">{{ get_phrase('All Courses') }}</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </ul>
-                            </li>
+                            <li><a href="{{ route('courses') }}" class="@if ($current_route == 'courses') active @endif"><i class="fa-solid fa-book me-2"></i>{{ get_phrase('Courses') }}</a></li>
                             <li class="pe-2 ps-5"><a href="{{ route('bootcamps') }}" class="@if ($current_route == 'bootcamps' || $current_route == 'bootcamp.details') active @endif"><i class="fa-solid fa-graduation-cap me-2"></i>{{ get_phrase('Bootcamp') }}</a></li>
                             {{-- <li><a href="{{ route('team.packages') }}" class="@if ($current_route == 'team.packages' || $current_route == 'team.package.details') active @endif">{{ get_phrase('Team Training') }}</a></li> --}}
                             <li><a href="{{ route('tutor_list') }}" class="@if ($current_route == 'tutor_list') active @endif"><i class="fa-solid fa-chalkboard-user me-2"></i>{{ get_phrase('Find A Tutor') }}</a></li>
