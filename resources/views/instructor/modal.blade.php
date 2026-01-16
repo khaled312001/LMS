@@ -205,6 +205,31 @@
             },
             complete: function(xhr) {
                 var response = xhr.responseText;
+                
+                // Check if response is a JSON error
+                try {
+                    var parsedResponse = JSON.parse(response);
+                    if (parsedResponse.error) {
+                        var errorHtml = '<div class="alert alert-danger" role="alert">';
+                        errorHtml += '<h5><i class="fas fa-exclamation-triangle"></i> ' + (parsedResponse.error.type || 'Error') + '</h5>';
+                        errorHtml += '<p><strong>' + parsedResponse.error.message + '</strong></p>';
+                        if (parsedResponse.error.help) {
+                            errorHtml += '<hr><p class="mb-0"><small>' + parsedResponse.error.help + '</small></p>';
+                        }
+                        if (parsedResponse.error.code == 'insufficient_quota') {
+                            errorHtml += '<p class="mt-2"><a href="https://platform.openai.com/account/billing" target="_blank" class="btn btn-sm btn-primary">Go to Billing Dashboard</a></p>';
+                        }
+                        errorHtml += '</div>';
+                        $('#aiGeneratedText').html(errorHtml);
+                        $('#aiResultHeader').html('<span class="text-14px text-danger">{{ get_phrase('Error') }}:</span>');
+                        $('#aiGeneratedText').attr('contenteditable', 'false');
+                        $('#aiSubmissionBtn').html("{{ get_phrase('Generate') }}");
+                        $('#aiSubmissionBtn').attr('disabled', false);
+                        return;
+                    }
+                } catch (e) {
+                    // Not JSON, continue with normal processing
+                }
 
                 if (/^[\],:{}\s]*$/.test(response.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
                         ']').replace(/(?:^|:|,)(?:\s*\[)+/g, '')) && $('#ai_service_selector').val() == 'Course thumbnail') {

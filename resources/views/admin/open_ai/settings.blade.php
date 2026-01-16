@@ -27,13 +27,13 @@
                         <div class="mb-3">
                             <label class="form-label ol-form-label" for="">{{ get_phrase('Select ai model') }}</label>
                             <select class="ol-form-control ol-select2" name="open_ai_model">
-                                <option value="gpt-3.5-turbo-0125" @if (get_settings('open_ai_model') == 'gpt-3.5-turbo-0125' || !get_settings('open_ai_model')) selected @endif>gpt-3.5-turbo-0125 ({{ get_phrase('Recommended for basic plans') }})</option>
-                                <option value="gpt-4-turbo" @if (get_settings('open_ai_model') == 'gpt-4-turbo') selected @endif>gpt-4-turbo ({{ get_phrase('Requires paid API credits') }})
-                                </option>
-                                <option value="gpt-4o" @if (get_settings('open_ai_model') == 'gpt-4o') selected @endif>gpt-4o ({{ get_phrase('Requires paid API credits') }})
-                                </option>
+                                <option value="gpt-3.5-turbo" @if (get_settings('open_ai_model') == 'gpt-3.5-turbo' || !get_settings('open_ai_model')) selected @endif>gpt-3.5-turbo ({{ get_phrase('Recommended - Most compatible') }})</option>
+                                <option value="gpt-3.5-turbo-0125" @if (get_settings('open_ai_model') == 'gpt-3.5-turbo-0125') selected @endif>gpt-3.5-turbo-0125 ({{ get_phrase('Snapshot version') }})</option>
+                                <option value="gpt-4o-mini" @if (get_settings('open_ai_model') == 'gpt-4o-mini') selected @endif>gpt-4o-mini ({{ get_phrase('Faster and cheaper GPT-4') }})</option>
+                                <option value="gpt-4o" @if (get_settings('open_ai_model') == 'gpt-4o') selected @endif>gpt-4o ({{ get_phrase('Latest GPT-4 - Requires credits') }})</option>
+                                <option value="gpt-4-turbo" @if (get_settings('open_ai_model') == 'gpt-4-turbo') selected @endif>gpt-4-turbo ({{ get_phrase('Requires paid API credits') }})</option>
                             </select>
-                            <small class="form-text text-muted">{{ get_phrase('GPT-3.5 works with free/basic API plans. GPT-4 models require paid API credits.') }}</small>
+                            <small class="form-text text-muted">{{ get_phrase('Start with gpt-3.5-turbo for best compatibility. System will auto-fallback if selected model is unavailable.') }}</small>
                         </div>
 
                         <div class="mb-3">
