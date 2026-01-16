@@ -7198,7 +7198,26 @@ span[class*="fi-rr-"]:before {
 
 /* Fix menu scrolling on desktop/PC size */
 @media (min-width: 992px) {
-    .header-area,
+    /* Remove overflow from header menu containers */
+    .header-area .container,
+    .header-area .row,
+    .header-area .row .col-auto:has(.nav-menu),
+    .header-area .row .col-auto:has(.header-menu) {
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+    }
+    
+    /* Direct targeting for col-auto with nav-menu (browser compatibility) */
+    .header-area .col-auto .header-menu,
+    .header-area .col-auto .nav-menu {
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        max-height: none !important;
+        height: auto !important;
+    }
+    
     .header-menu,
     .nav-menu,
     .primary-menu,
@@ -7210,40 +7229,16 @@ span[class*="fi-rr-"]:before {
         height: auto !important;
     }
     
-    /* Stop scrolling in col-auto that contains nav-menu */
-    .header-area .row .col-auto:has(.nav-menu),
-    .header-area .row .col-auto:has(.header-menu) {
-        overflow: visible !important;
-        overflow-y: visible !important;
-        overflow-x: visible !important;
-        max-height: none !important;
-        height: auto !important;
-    }
-    
-    /* Direct targeting for col-auto with nav-menu (browser compatibility) */
-    .header-area .col-auto .nav-menu,
-    .header-area .col-auto .header-menu,
-    .header-area .row .col-auto .nav-menu,
-    .header-area .row .col-auto .header-menu {
-        overflow: visible !important;
-        overflow-y: visible !important;
-        overflow-x: visible !important;
-        max-height: none !important;
-        height: auto !important;
-    }
-    
-    /* Prevent col-auto from creating scroll container */
-    .header-area .row .col-auto {
-        overflow: visible !important;
-        overflow-y: visible !important;
-        overflow-x: visible !important;
-    }
-    
-    /* Stop scrolling in top bar (sub-header) social media section */
-    .sub-header,
+    /* Remove overflow from top bar (sub-header) */
+    .sub-header .container,
     .sub-header .row,
     .sub-header .col-lg-6,
-    .sub-header .col-md-6,
+    .sub-header .col-md-6 {
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+    }
+    
     .sub-header-left,
     .sub-header-left.right-sub,
     .sub-header-left ul,
@@ -7269,6 +7264,20 @@ span[class*="fi-rr-"]:before {
     
     .primary-menu li {
         white-space: nowrap !important;
+    }
+    
+    /* Hide scrollbars if they appear */
+    .header-area *::-webkit-scrollbar,
+    .sub-header *::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+    
+    .header-area *,
+    .sub-header * {
+        -ms-overflow-style: none !important;
+        scrollbar-width: none !important;
     }
 }
 
