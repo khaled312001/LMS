@@ -11,6 +11,13 @@ class TutorCanTeach extends Model
 
     protected $table = 'tutor_can_teach';
 
+    protected $fillable = [
+        'instructor_id',
+        'category_id',
+        'subject_id',
+        'price',
+    ];
+
     public function category_to_tutorCategory()
     {
         return $this->belongsTo(TutorCategory::class,'category_id','id');

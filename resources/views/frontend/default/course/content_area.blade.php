@@ -1,7 +1,7 @@
 <div class="ps-box p-0 shadow-none">
     <h4 class="g-title mb-15">{{ get_phrase('Course curriculum') }}</h4>
     <div class="lesson-play-list p-0">
-        @if ($sections->count() > 0)
+        @if (isset($sections) && $sections && $sections->count() > 0)
             <div class="accordion" id="accordionExample">
                 @foreach ($sections as $key => $section)
                     <div class="accordion-item">

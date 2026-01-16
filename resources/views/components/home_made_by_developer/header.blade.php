@@ -88,21 +88,14 @@
                 </div>
             </div>
             <div class="col-sm-5 col-md-3 col-xl-4 ms-lg-0 col-auto ms-auto">
-                <form action="{{ route('courses') }}" method="get" class="Esearch_entry d-none d-sm-inline-block w-100 ms-4 mt-2">
-                    <input type="text" name="search" class="form-control" placeholder="{{ get_phrase('Search...') }}" @if (request()->has('search')) value="{{ request()->input('search') }}" @endif>
+                <form action="{{ route('courses') }}" method="get" class="Esearch_entry d-none d-lg-inline-block ms-4 mt-2" style="max-width: 100%; overflow: visible;">
+                    <input type="text" name="search" class="form-control" placeholder="{{ get_phrase('Search...') }}" @if (request()->has('search')) value="{{ request()->input('search') }}" @endif style="overflow: hidden; resize: none; max-height: 40px;">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
-                <div class="floating-searchbar d-inline-block d-sm-none @auth loged-in @endauth">
-                    <button type="button" class="mt-1 py-3" onclick="this.parentElement.querySelector('form').classList.toggle('show')"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <form action="{{ route('courses') }}" method="get">
-                        <input type="text" name="search" class="form-control" @if (request()->has('search')) value="{{ request()->input('search') }}" @endif placeholder="{{ get_phrase('Search courses') }}">
-                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                </div>
             </div>
             <div class="ms-lg-auto col-auto">
                 <div class="primary-end d-flex align-items-center">
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-2 d-none d-lg-flex">
 
                         @isset(auth()->user()->id)
                             <a href="{{ route('cart') }}" class="me-2 me-md-4 position-relative" data-bs-toggle="tooltip" data-bs-title="{{ get_phrase('Cart') }}" data-bs-placement="bottom">
@@ -276,17 +269,118 @@
 
 <!-- Off Canves Menu For Mobile Device-->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"></h5>
+    <div class="offcanvas-header border-bottom">
+        <div class="logo-image">
+            <a href="{{ route('home') }}">
+                <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo" style="max-height: 40px;">
+            </a>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body px-4">
         <div class="off-menu">
-            <div class="logo-image d-flex align-items-center justify-content-between mb-4">
-                <a href="{{ route('home') }}">
-                    <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo">
-                </a>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <!-- Sub-Header Section in Sidebar -->
+            <div class="mobile-sub-header-section mb-4 pb-3 border-bottom">
+                <h6 class="mb-3 d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-info-circle text-primary"></i>
+                    <span>{{ get_phrase('Contact Information') }}</span>
+                </h6>
+                <!-- Contact Info -->
+                <div class="mb-3">
+                    @if(get_settings('phone'))
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fa-solid fa-phone text-primary"></i>
+                            <a href="tel:{{ get_settings('phone') }}" class="text-decoration-none text-dark">
+                                <small>{{ get_settings('phone') }}</small>
+                            </a>
+                        </div>
+                    @endif
+                    @if(get_settings('address'))
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-primary"></i>
+                            <span class="text-dark">
+                                <small>{{ get_settings('address') }}</small>
+                            </span>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Language Selector -->
+                <div class="mb-3">
+                    <label class="form-label small d-flex align-items-center gap-2 mb-2">
+                        <i class="fa-solid fa-language text-primary"></i>
+                        <span>{{ get_phrase('Language') }}</span>
+                    </label>
+                    <form action="{{ route('select.lng') }}" method="get">
+                        <select name="language" id="lng-selector-mobile" class="form-select form-select-sm">
+                            @php
+                                $activated_language = strtolower(session('language') ?? get_settings('language'));
+                            @endphp
+                            @foreach (App\Models\Language::all() as $lng)
+                                <option value="{{ $lng->name }}" @selected(strtolower($lng->name) == $activated_language)>{{ $lng->name }}</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+
+                <!-- Social Media Links -->
+                @if(get_frontend_settings('facebook') != '' || get_frontend_settings('twitter') != '' || get_frontend_settings('linkedin') != '')
+                    <div class="mt-3">
+                        <h6 class="mb-2 d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-share-nodes text-primary"></i>
+                            <span>{{ get_phrase('Follow Us') }}</span>
+                        </h6>
+                        <div class="d-flex align-items-center gap-2">
+                            @if (get_frontend_settings('facebook') != '')
+                                <a href="{{ get_frontend_settings('facebook') }}" class="btn btn-sm btn-outline-primary rounded-circle p-2" target="_blank" data-bs-toggle="tooltip" title="Facebook">
+                                    <i class="fa-brands fa-square-facebook"></i>
+                                </a>
+                            @endif
+                            @if (get_frontend_settings('twitter') != '')
+                                <a href="{{ get_frontend_settings('twitter') }}" class="btn btn-sm btn-outline-info rounded-circle p-2" target="_blank" data-bs-toggle="tooltip" title="Twitter">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                            @endif
+                            @if (get_frontend_settings('linkedin') != '')
+                                <a href="{{ get_frontend_settings('linkedin') }}" class="btn btn-sm btn-outline-primary rounded-circle p-2" target="_blank" data-bs-toggle="tooltip" title="LinkedIn">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                @endif
             </div>
+
+            <!-- Search Section in Sidebar -->
+            <div class="mobile-search-section mb-4 pb-3 border-bottom">
+                <form action="{{ route('courses') }}" method="get" class="d-flex gap-2">
+                    <input type="text" name="search" class="form-control" placeholder="{{ get_phrase('Search courses') }}" @if (request()->has('search')) value="{{ request()->input('search') }}" @endif>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+
+            <!-- Cart Section in Sidebar -->
+            <div class="mobile-cart-section mb-4 pb-3 border-bottom">
+                <a href="{{ route('cart') }}" class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between py-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>{{ get_phrase('Cart') }}</span>
+                    </div>
+                    @php
+                        if(isset(auth()->user()->id)) {
+                            $cart_count = App\Models\CartItem::where('user_id', auth()->user()->id)->count();
+                        } else {
+                            $cart_count = 0;
+                        }
+                    @endphp
+                    @if($cart_count > 0)
+                        <span class="badge bg-primary rounded-pill">{{ $cart_count }}</span>
+                    @else
+                        <span class="badge bg-secondary rounded-pill">0</span>
+                    @endif
+                </a>
+            </div>
+
             <div class="mt-3 flex-shrink-0">
                 <ul class="list-unstyled ps-0">
                     @auth
@@ -304,22 +398,45 @@
                             @php
                                 $numberof_wishlist_item = App\Models\Wishlist::where('user_id', auth()->user()->id)->count();
                             @endphp
-                            <li><a href="{{ route('my.courses') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3"> {{ get_phrase('My Courses') }}</a></li>
-                            <li><a href="{{ route('wishlist') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3"> {{ get_phrase('Wishlist') }} <span class="badge bg-pink ms-auto">{{ $numberof_wishlist_item }}</span></a></li>
-                            <li><a href="{{ route('my.profile') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3"> {{ get_phrase('My profile') }}</a></li>
-                            <li><a href="{{ route('message') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3"> {{ get_phrase('Message') }}</a></li>
-                            <li><a href="{{ route('purchase.history') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3"> {{ get_phrase('Purchase History') }}</a></li>
+                            <li><a href="{{ route('my.courses') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                                <i class="fa-solid fa-book-open me-2"></i>
+                                {{ get_phrase('My Courses') }}
+                            </a></li>
+                            <li><a href="{{ route('wishlist') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                                <i class="fa-solid fa-heart me-2"></i>
+                                {{ get_phrase('Wishlist') }}
+                                <span class="badge bg-pink ms-auto">{{ $numberof_wishlist_item }}</span>
+                            </a></li>
+                            <li><a href="{{ route('my.profile') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                                <i class="fa-solid fa-user me-2"></i>
+                                {{ get_phrase('My profile') }}
+                            </a></li>
+                            <li><a href="{{ route('message') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                                <i class="fa-solid fa-message me-2"></i>
+                                {{ get_phrase('Message') }}
+                            </a></li>
+                            <li><a href="{{ route('purchase.history') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                                <i class="fa-solid fa-receipt me-2"></i>
+                                {{ get_phrase('Purchase History') }}
+                            </a></li>
                         @elseif (auth()->user() && auth()->user()->role == 'admin')
-                            <li><a href="{{ route('admin.dashboard') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3"> {{ get_phrase('Admin Dashboard') }}</a></li>
+                            <li><a href="{{ route('admin.dashboard') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                                <i class="fa-solid fa-gauge-high me-2"></i>
+                                {{ get_phrase('Admin Dashboard') }}
+                            </a></li>
                         @endif
                         <li>
                             <hr>
                         </li> @endauth
 
                     <li><a href="{{ route('home') }}"
-                    class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3"> {{ get_phrase('Home') }}</a></li>
+                    class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                        <i class="fa-solid fa-house me-2"></i>
+                        {{ get_phrase('Home') }}
+                    </a></li>
                     <li>
                         <button class="btn btn-toggle d-inline-flex align-items-center text-16px fw-500 w-100 collapsed rounded border-0 py-3" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
+                            <i class="fa-solid fa-book me-2"></i>
                             {{ get_phrase('Courses') }}
                             <span class="icons float-end ms-auto"><i class="fa-solid fa-angle-down"></i></span>
                         </button>
@@ -330,20 +447,39 @@
                                 @endphp
                                 @foreach ($parent_categories->take(30) as $parent_category)
                                     <li>
-                                        <a class="w-100 px-3 py-2" href="{{ route('courses', $parent_category->slug) }}">{{ $parent_category->title }}</a>
+                                        <a class="w-100 px-3 py-2 d-flex align-items-center" href="{{ route('courses', $parent_category->slug) }}">
+                                            <i class="{{ $parent_category->icon ?? 'fa-solid fa-folder' }} me-2"></i>
+                                            {{ $parent_category->title }}
+                                        </a>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
                     </li>
-                    <li><a href="{{ route('bootcamps') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">{{ get_phrase('Bootcamp') }}</a></li>
-                    {{-- <li><a href="{{ route('team.packages') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">{{ get_phrase('Team Training') }}</a></li> --}}
+                    <li><a href="{{ route('bootcamps') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                        <i class="fa-solid fa-graduation-cap me-2"></i>
+                        {{ get_phrase('Bootcamp') }}
+                    </a></li>
+                    <li><a href="{{ route('tutor_list') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                        <i class="fa-solid fa-chalkboard-user me-2"></i>
+                        {{ get_phrase('Find A Tutor') }}
+                    </a></li>
+                    {{-- <li><a href="{{ route('team.packages') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
+                        <i class="fa-solid fa-users me-2"></i>
+                        {{ get_phrase('Team Training') }}
+                    </a></li> --}}
                     </ul>
                 </div>
                 @guest
                     <div class="btn-off">
-                        <a href="{{ route('login') }}" class="eBtn btn gradient mb-3">{{ get_phrase('Login') }}</a>
-                        <a href="{{ route('register.form') }}" class="eBtn btn gradient sign">{{ get_phrase('Sign Up') }}</a>
+                        <a href="{{ route('login') }}" class="eBtn btn gradient mb-3 w-100 d-flex align-items-center justify-content-center gap-2">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            {{ get_phrase('Login') }}
+                        </a>
+                        <a href="{{ route('register.form') }}" class="eBtn btn gradient sign w-100 d-flex align-items-center justify-content-center gap-2">
+                            <i class="fa-solid fa-user-plus"></i>
+                            {{ get_phrase('Sign Up') }}
+                        </a>
                     </div>
                 @endguest
             </div>
@@ -358,6 +494,12 @@
         "use strict";
         $(document).ready(function() {
             $('#lng-selector').change(function(e) {
+                e.preventDefault();
+                $(this).parent().trigger('submit');
+            });
+            
+            // Language selector in mobile sidebar
+            $('#lng-selector-mobile').change(function(e) {
                 e.preventDefault();
                 $(this).parent().trigger('submit');
             });

@@ -4,9 +4,13 @@
 @push('css')@endpush
 @section('content')
     @php
-        $instructor_review = App\Models\Instructor_review::where('instructor_id', get_course_creator_id($course_details->id)->id)
-            ->orderBy('id', 'DESC')
-            ->get();
+        $course_creator = get_course_creator_id($course_details->id);
+        $instructor_review = collect([]);
+        if ($course_creator && isset($course_creator->id)) {
+            $instructor_review = App\Models\Instructor_review::where('instructor_id', $course_creator->id)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
 
         $review = App\Models\Review::where('course_id', $course_details->id)
             ->orderBy('id', 'DESC')

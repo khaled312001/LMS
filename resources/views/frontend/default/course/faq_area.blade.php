@@ -1,9 +1,13 @@
 @php
-    $faqs = $course_details->faqs ? json_decode($course_details->faqs, true) : [];
+    $faqs = [];
+    if (!empty($course_details->faqs)) {
+        $decoded = json_decode($course_details->faqs, true);
+        $faqs = is_array($decoded) ? $decoded : [];
+    }
 @endphp
 <div class="ps-box p-0 shadow-none">
     <h4 class="g-title mb-15">{{ get_phrase('FAQ') }}</h4>
-    @if (count($faqs) > 0)
+    @if (!empty($faqs) && is_array($faqs) && count($faqs) > 0)
         <div class="faq p-0">
             <div class="accordion" id="accordionExample">
                 @foreach ($faqs as $key => $faq)

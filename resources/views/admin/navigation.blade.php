@@ -534,10 +534,7 @@
                                 <a href="{{ route('admin.seo.settings') }}">{{ get_phrase('SEO Settings') }}</a>
                             </li>
                         @endif
-                        @if (has_permission('admin.about'))
-                            <li class="sidebar-second-li {{ $current_route == 'admin.about' ? 'active' : '' }}"><a
-                                    href="{{ route('admin.about') }}">{{ get_phrase('About') }}</a></li>
-                        @endif
+                   
                     </ul>
                 </li>
 

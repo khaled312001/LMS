@@ -49,7 +49,7 @@
                         <button class="btn lms1-sidebar-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar"><span class=" fi-rr-bars-staggered"></span></button>
                     </div>
                     <div class="d-flex align-items-center gap-3 justify-content-between flex-wrap mb-3 flex-column flex-sm-row">
-                        <p class="in-subtitle-14px">{{ get_phrase('Showing') . ' ' . count($tutors) . ' ' . get_phrase('of') . ' ' . $tutors->total() . ' ' . get_phrase('Results') }}</p>
+                        <p class="in-subtitle-14px">{{ get_phrase('Showing') . ' ' . ($tutors->count() ?? 0) . ' ' . get_phrase('of') . ' ' . ($tutors->total() ?? 0) . ' ' . get_phrase('Results') }}</p>
                         <div class="d-flex align-items-center gap-14px flex-wrap flex-column flex-sm-row">
                             <form action="{{ route('tutor_list') }}" method="get">
                                 <div class="lms1-search-wrap position-relative">
@@ -62,7 +62,8 @@
                         </div>
                     </div>
                     <div class="row g-20px mb-30px">
-                        @foreach ($tutors as $key => $tutor)
+                        @if (isset($tutors) && $tutors->count() > 0)
+                            @foreach ($tutors as $key => $tutor)
                             @php
                                 $index = ++$key;
                                 // Get reviews for the specified tutor
@@ -159,10 +160,15 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                            @endforeach
+                        @else
+                            <div class="col-12">
+                                <p class="text-center">{{ get_phrase('No tutors found.') }}</p>
+                            </div>
+                        @endif
                     </div>
                     <!-- Pagination -->
-                    @if (count($tutors) > 0)
+                    @if (isset($tutors) && $tutors->count() > 0)
                         <div class="entry-pagination">
                             <nav aria-label="Page navigation example">
                                 {{ $tutors->links() }}
@@ -179,9 +185,11 @@
 @push('js')
 
     <script>
-        @foreach ($tutors as $key => $tutor)
-            var tutorPlayer = new Plyr('.lms-player{{ ++$key }}');
-        @endforeach
+        @if (isset($tutors) && $tutors->count() > 0)
+            @foreach ($tutors as $key => $tutor)
+                var tutorPlayer = new Plyr('.lms-player{{ ++$key }}');
+            @endforeach
+        @endif
     </script>
 
 @endpush

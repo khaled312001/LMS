@@ -43,7 +43,8 @@
         </div>
 
         <div class="reviews">
-            @foreach ($reviews as $review)
+            @if (isset($reviews) && $reviews && $reviews->count() > 0)
+                @foreach ($reviews as $review)
                 <div class="E-review" id="review-{{ $review->id }}">
                     <div class="istructor-info">
                         <div class="ins-left">
@@ -118,9 +119,12 @@
                         </li>
                     </ul>
                 </div>
-            @endforeach
+                @endforeach
+            @else
+                <p class="text-center">{{ get_phrase('No reviews yet.') }}</p>
+            @endif
         </div>
-        @if ($reviews->count() > 6)
+        @if (isset($reviews) && $reviews && $reviews->count() > 6)
             <a href="javascript: void(0);" class="see-more d-inline-block mt-4" id="see-more">
                 {{ get_phrase('See More') }}<i class="fa-solid fa-angle-right me-2"></i>
             </a>

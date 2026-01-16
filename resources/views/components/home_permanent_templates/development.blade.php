@@ -84,6 +84,119 @@
             background-color: #fafeff;
         }
         
+        /* Enhanced Background Animation for Hero Section - Gradient Animation */
+        .development-hero-section1 {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #FAFEFF 0%,
+                #FFF5F0 15%,
+                #FFE8D9 30%,
+                #FFD4B8 45%,
+                #FFE8D9 60%,
+                #FFF5F0 75%,
+                #FAFEFF 90%,
+                #FFF5F0 100%
+            );
+            background-size: 300% 300%;
+            animation: gradientFlow 12s ease-in-out infinite;
+            border-top: 1px solid rgba(249, 92, 22, 0.15);
+        }
+        
+        .development-hero-section1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(249, 92, 22, 0.1) 0%,
+                transparent 25%,
+                rgba(249, 92, 22, 0.08) 50%,
+                transparent 75%,
+                rgba(249, 92, 22, 0.1) 100%
+            );
+            background-size: 200% 200%;
+            animation: gradientWave 10s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        
+        .development-hero-section1::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(249, 92, 22, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(249, 92, 22, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 20%, rgba(249, 92, 22, 0.08) 0%, transparent 35%);
+            animation: gradientPulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .development-hero-section1 .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes gradientWave {
+            0%, 100% {
+                background-position: 0% 0%;
+                opacity: 0.6;
+            }
+            25% {
+                background-position: 100% 0%;
+                opacity: 0.8;
+            }
+            50% {
+                background-position: 100% 100%;
+                opacity: 1;
+            }
+            75% {
+                background-position: 0% 100%;
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes gradientPulse {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.7;
+            }
+            33% {
+                transform: scale(1.1) rotate(120deg);
+                opacity: 0.9;
+            }
+            66% {
+                transform: scale(1.05) rotate(240deg);
+                opacity: 0.8;
+            }
+        }
+        
     </style>
 @endpush
 @section('content')
@@ -126,7 +239,7 @@
     <!-- Banner Area End -->
 
     <!-- Hero Area Start -->
-    <section class="development-hero-section1 mb-80">
+    <section class="development-hero-section1 mb-80" style="margin-top: 2px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -423,7 +536,7 @@
             <!-- Testimonials -->
             <div class="row mb-100">
                 <div class="col-md-12">
-                    <div class="swiper dev-student-swiper">
+                    <div class="swiper dev-student-swiper" id="testimonials-swiper">
                         <div class="swiper-wrapper">
                             @php
                                 $reviews = DB::table('user_reviews')->get();
@@ -457,17 +570,44 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="swiper-button-wrap d-flex align-items-center justify-content-center">
-                            <div class="swiper-button-prev">
-                                <i class="fi-rr-arrow-alt-left ms-3 ps-1"></i>
-                            </div>
-                            <div class="swiper-button-next">
-                                <i class="fi-rr-arrow-alt-right ms-3 ps-1"></i>
-                            </div>
-                        </div>
+                        <!-- Add Swiper navigation if desired -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var testimonialsSwiper = new Swiper('#testimonials-swiper', {
+                        loop: true,
+                        autoplay: {
+                            delay: 3500,
+                            disableOnInteraction: false,
+                        },
+                        slidesPerView: 2,
+                        spaceBetween: 24,
+                        breakpoints: {
+                            0: {
+                                slidesPerView: 1,
+                                spaceBetween: 12,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 24,
+                            }
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                    });
+                });
+            </script>
         </div>
     </section>
     <!-- Student Testimonials Area End -->

@@ -16,12 +16,20 @@ class LiveClassController extends Controller
     {
         $live_class = Live_class::where('id', $id)->first();
 
+        if (!$live_class) {
+            return redirect()->back()->with('error', get_phrase('Live class not found'));
+        }
+
         if ($live_class->provider == 'zoom') {
             if (get_settings('zoom_web_sdk') == 'active') {
                 return view('course_player.live_class.zoom_live_class', ['live_class' => $live_class]);
             } else {
                 $meeting_info = json_decode($live_class->additional_info, true);
-                return redirect($meeting_info['start_url']);
+                if (is_array($meeting_info) && isset($meeting_info['start_url'])) {
+                    return redirect($meeting_info['start_url']);
+                } else {
+                    return redirect()->back()->with('error', get_phrase('Meeting information not found'));
+                }
             }
         } else {
             return view('course_player.live_class.zoom_live_class', ['live_class' => $live_class]);
@@ -36,29 +44,64 @@ class LiveClassController extends Controller
             'user_id'             => 'required',
         ]);
 
-        $data['class_topic']         = $request->class_topic;
-        $data['course_id']           = $request->course_id;
-        $data['user_id']             = $request->user_id;
-        $data['provider']            = $request->provider;
-        $data['class_date_and_time'] = date('Y-m-d\TH:i:s', strtotime($request->class_date_and_time));
-        $data['note']                = $request->note;
-
-        if ($request->provider == 'zoom') {
-            $meeting_info     = $this->create_zoom_live_class($request->class_topic, $request->class_date_and_time);
-            $meeting_info_arr = json_decode($meeting_info, true);
-            if (array_key_exists('code', $meeting_info_arr) && $meeting_info_arr) {
-                return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('error', get_phrase($meeting_info_arr['message']));
+        try {
+            $data['class_topic']         = $request->class_topic;
+            $data['course_id']           = $request->course_id ?? $course_id;
+            $data['user_id']             = $request->user_id;
+            $data['provider']            = $request->provider ?? 'zoom';
+            
+            // Validate and format date
+            $date_timestamp = strtotime($request->class_date_and_time);
+            if ($date_timestamp === false) {
+                return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('error', get_phrase('Invalid date format.'));
             }
-            $data['additional_info'] = $meeting_info;
-        }
-        Live_class::insert($data);
+            $data['class_date_and_time'] = date('Y-m-d\TH:i:s', $date_timestamp);
+            $data['note']                = $request->note ?? null;
+            $data['created_at']          = date('Y-m-d H:i:s');
+            $data['updated_at']          = date('Y-m-d H:i:s');
 
-        return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('success', get_phrase('Live class added successfully'));
+            if ($request->provider == 'zoom') {
+                $meeting_info     = $this->create_zoom_live_class($request->class_topic, $request->class_date_and_time);
+                
+                if ($meeting_info === false || empty($meeting_info)) {
+                    return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('error', get_phrase('Failed to create Zoom meeting. Please check your Zoom credentials.'));
+                }
+                
+                $meeting_info_arr = json_decode($meeting_info, true);
+                
+                // Check for errors in the response
+                if (!is_array($meeting_info_arr)) {
+                    return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('error', get_phrase('Failed to create Zoom meeting. Invalid response.'));
+                }
+                
+                if (isset($meeting_info_arr['code']) && $meeting_info_arr['code'] != 0) {
+                    $error_message = $meeting_info_arr['message'] ?? 'Unknown error occurred';
+                    return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('error', get_phrase($error_message));
+                }
+                
+                // Verify that meeting ID exists (required for joining)
+                if (!isset($meeting_info_arr['id']) || empty($meeting_info_arr['id'])) {
+                    return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('error', get_phrase('Failed to create Zoom meeting. Meeting ID is missing.'));
+                }
+                
+                $data['additional_info'] = $meeting_info;
+            }
+            
+            Live_class::insert($data);
+
+            return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('success', get_phrase('Live class added successfully'));
+        } catch (\Exception $e) {
+            return redirect(route('instructor.course.edit', ['id' => $course_id, 'tab' => 'live-class']))->with('error', get_phrase('An error occurred: ') . $e->getMessage());
+        }
     }
 
     public function live_class_update(Request $request, $id)
     {
         $previous_meeting_data = Live_class::where('id', $id)->first();
+
+        if (!$previous_meeting_data) {
+            return redirect()->back()->with('error', get_phrase('Live class not found'));
+        }
 
         $request->validate([
             'class_topic'         => 'required|max:255',
@@ -73,10 +116,12 @@ class LiveClassController extends Controller
 
         if ($previous_meeting_data->provider == 'zoom') {
             $previous_meeting_info = json_decode($previous_meeting_data->additional_info, true);
-            $this->update_zoom_live_class($request->class_topic, $request->class_date_and_time, $previous_meeting_info['id']);
-            $previous_meeting_info["start_time"] = date('Y-m-d\TH:i:s', strtotime($request->class_date_and_time));
-            $previous_meeting_info["topic"]      = $request->class_topic;
-            $data['additional_info']             = json_encode($previous_meeting_info);
+            if (is_array($previous_meeting_info) && isset($previous_meeting_info['id'])) {
+                $this->update_zoom_live_class($request->class_topic, $request->class_date_and_time, $previous_meeting_info['id']);
+                $previous_meeting_info["start_time"] = date('Y-m-d\TH:i:s', strtotime($request->class_date_and_time));
+                $previous_meeting_info["topic"]      = $request->class_topic;
+                $data['additional_info']             = json_encode($previous_meeting_info);
+            }
         }
         Live_class::where('id', $id)->update($data);
 
@@ -86,11 +131,18 @@ class LiveClassController extends Controller
     public function live_class_delete($id)
     {
         $previous_meeting_data = Live_class::where('id', $id)->first();
-        $course                = Course::where('id', $previous_meeting_data->course_id)->first();
+        
+        if (!$previous_meeting_data) {
+            return redirect()->back()->with('error', get_phrase('Live class not found'));
+        }
 
-        if ($course->instructors()->count() > 0) {
+        $course = Course::where('id', $previous_meeting_data->course_id)->first();
+
+        if ($course && $course->instructors()->count() > 0) {
             $previous_meeting_info = json_decode($previous_meeting_data->additional_info, true);
-            $this->delete_zoom_live_class($previous_meeting_info['id']);
+            if (is_array($previous_meeting_info) && isset($previous_meeting_info['id'])) {
+                $this->delete_zoom_live_class($previous_meeting_info['id']);
+            }
             Live_class::where('id', $id)->delete();
         }
 
@@ -127,23 +179,41 @@ class LiveClassController extends Controller
     {
         $zoom_account_email = get_settings('zoom_account_email');
         $token              = $this->create_zoom_token();
+        
+        // Validate token
+        if (empty($token)) {
+            return false;
+        }
+        
+        // Validate required settings
+        if (empty($zoom_account_email)) {
+            return false;
+        }
+        
         // API Endpoint for creating a meeting
         $zoomEndpoint = 'https://api.zoom.us/v2/users/me/meetings';
+
+        // Validate and format date
+        $date_timestamp = strtotime($date_and_time);
+        if ($date_timestamp === false) {
+            return false;
+        }
 
         // Meeting data
         $meetingData = [
             'topic'        => $topic,
             'schedule_for' => $zoom_account_email,
             'type'         => 2, // Scheduled meeting
-            'start_time' => date('Y-m-d\TH:i:s', strtotime($date_and_time)), // Start time (in UTC)
+            'start_time' => date('Y-m-d\TH:i:s', $date_timestamp), // Start time (in UTC)
             'duration' => 60, // Duration in minutes
-            'timezone' => get_settings('timezone'), // Timezone
+            'timezone' => get_settings('timezone') ?? 'UTC', // Timezone
             'settings' => [
                 'approval_type'    => 2,
                 'join_before_host' => true,
                 'jbh_time'         => 0,
             ],
         ];
+        
         // Prepare headers
         $headers = [
             'Authorization: Bearer ' . $token,
@@ -157,8 +227,18 @@ class LiveClassController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($meetingData));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        
         $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
         curl_close($ch);
+
+        // Check for curl errors
+        if ($response === false || !empty($curlError)) {
+            return false;
+        }
 
         // JSON response
         return $response;
@@ -229,7 +309,12 @@ class LiveClassController extends Controller
         $clientId     = get_settings('zoom_client_id');
         $clientSecret = get_settings('zoom_client_secret');
         $accountId    = get_settings('zoom_account_id');
-        $oauthUrl     = 'https://zoom.us/oauth/token?grant_type=account_credentials&account_id=' . $accountId; // Replace with your OAuth endpoint URL
+        
+        // Validate required credentials
+        if (empty($clientId) || empty($clientSecret) || empty($accountId)) {
+            return '';
+        }
+        
         $authHeader = 'Basic ' . base64_encode($clientId . ':' . $clientSecret);
 
         $curl = curl_init();
@@ -239,22 +324,33 @@ class LiveClassController extends Controller
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
+            CURLOPT_TIMEOUT => 30,
             CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/x-www-form-urlencoded',
                 'Authorization: ' . $authHeader,
-                'Cookie: __cf_bm=kn5ec2sntPlDgQWVWtSYdPeISb6bp6F7NHwuAFJQaGk-1736318967-1.0.1.1-SeM4z5pIb.nrMno35jg3y5BdXib.GPP13s2_yNnqz6LxbU9zsFTfZQc3a_Di94qx3DoyQjBT2Osz7idFMWWOrw; _zm_chtaid=816; _zm_ctaid=nbT15WlMTsCEAgCyUg3rYw.1736318967206.63747957ef3128f771210fb69e8d6831; _zm_mtk_guid=fa77ae1ac8e349bea690b72d942d6de6; _zm_page_auth=us04_c_uqPDVOshQQK6FRkhQPiPRA; _zm_ssid=us04_c_atJ4QboaQZG4Lw4U-Wpx6A; cred=A404810ADF33AFC21FF517216A4CB862'
             ),
         ));
 
         $response = curl_exec($curl);
-
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($curl);
         curl_close($curl);
-        $oauthResponse = json_decode($response, true) ?? ['access_token' => ''];
-        $accessToken   = $oauthResponse['access_token'];
+
+        // Check for curl errors or non-200 response
+        if ($response === false || !empty($curlError) || $httpCode != 200) {
+            return '';
+        }
+
+        $oauthResponse = json_decode($response, true);
+        if (!is_array($oauthResponse) || !isset($oauthResponse['access_token'])) {
+            return '';
+        }
+        
+        $accessToken = $oauthResponse['access_token'];
         return $accessToken;
     }
 }

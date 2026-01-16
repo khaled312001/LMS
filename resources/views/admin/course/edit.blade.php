@@ -38,11 +38,11 @@
                             </a>
 
                             @php
-                                $watch_history = App\Models\Watch_history::where('course_id', $course_details->course_id)
+                                $watch_history = App\Models\Watch_history::where('course_id', $course_details->id)
                                     ->where('student_id', auth()->user()->id)
                                     ->first();
 
-                                $lesson = App\Models\Lesson::where('course_id', $course_details->course_id)
+                                $lesson = App\Models\Lesson::where('course_id', $course_details->id)
                                     ->orderBy('sort', 'asc')
                                     ->first();
 

@@ -1155,7 +1155,11 @@ if (!function_exists('count_bootcamp_classes')) {
 if (!function_exists('theme_path')) {
     function theme_path()
     {
-        return 'frontend.' . get_frontend_settings('theme') . '.';
+        $theme = get_frontend_settings('theme');
+        if (empty($theme) || $theme === false) {
+            $theme = 'default';
+        }
+        return 'frontend.' . $theme . '.';
     }
 }
 

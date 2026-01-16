@@ -1,9 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+@php
+    $active_lan = session('language') ?? get_settings('language');
+    $active_lan_id = DB::table('languages')->where('name', 'like', $active_lan)->value('id');
+    $language_direction = DB::table('languages')->where('id', $active_lan_id)->value('direction') ?? 'ltr';
+    $html_lang = ($active_lan == 'arabic' || $active_lan == 'Arabic') ? 'ar' : 'en';
+@endphp
+<html lang="{{ $html_lang }}" dir="{{ $language_direction }}">
 
 <head>
     @include('layouts.seo')
     @stack('meta')
+    
+    @if($language_direction == 'rtl')
+    <style>
+        html, body {
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .container, .row, [class*="col-"] {
+            direction: rtl;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        img, video, iframe {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        .text-start {
+            text-align: right !important;
+        }
+        .text-end {
+            text-align: left !important;
+        }
+        .ms-auto {
+            margin-right: auto !important;
+            margin-left: 0 !important;
+        }
+        .me-auto {
+            margin-left: auto !important;
+            margin-right: 0 !important;
+        }
+        .ps-0 {
+            padding-right: 0 !important;
+        }
+        .pe-0 {
+            padding-left: 0 !important;
+        }
+        .ms-0 {
+            margin-right: 0 !important;
+        }
+        .me-0 {
+            margin-left: 0 !important;
+        }
+        @media (max-width: 768px) {
+            body, html {
+                overflow-x: hidden !important;
+                position: relative;
+                width: 100%;
+            }
+            .container-fluid, .container {
+                padding-left: 15px;
+                padding-right: 15px;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            .row {
+                margin-left: 0;
+                margin-right: 0;
+                max-width: 100%;
+            }
+            [class*="col-"] {
+                padding-left: 15px;
+                padding-right: 15px;
+                max-width: 100%;
+            }
+            section, div {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+        }
+    </style>
+    @else
+    <style>
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        img, video, iframe {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        @media (max-width: 768px) {
+            body, html {
+                overflow-x: hidden !important;
+                position: relative;
+                width: 100%;
+            }
+            .container-fluid, .container {
+                padding-left: 15px;
+                padding-right: 15px;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            .row {
+                margin-left: 0;
+                margin-right: 0;
+                max-width: 100%;
+            }
+            [class*="col-"] {
+                padding-left: 15px;
+                padding-right: 15px;
+                max-width: 100%;
+            }
+            section, div {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+        }
+    </style>
+    @endif
 
     <!-- fav icon -->
     <link rel="shortcut icon" href="{{ asset(get_frontend_settings('favicon')) }}" />

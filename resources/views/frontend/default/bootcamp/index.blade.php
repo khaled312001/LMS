@@ -22,7 +22,7 @@
             <div class="row align-items-center mt-3">
                 <div class="col-lg-8 col-md-6 col-sm-6 col-6">
                     <p class="showing-text">
-                        {{ get_phrase('Showing') . ' ' . count($bootcamps) . ' ' . get_phrase('of') . ' ' . $bootcamps->total() . ' ' . get_phrase('data') }}
+                        {{ get_phrase('Showing') . ' ' . ($bootcamps->count() ?? 0) . ' ' . get_phrase('of') . ' ' . ($bootcamps->total() ?? 0) . ' ' . get_phrase('data') }}
                     </p>
                 </div>
             </div>
@@ -41,15 +41,21 @@
                 </div>
                 <div class="col-lg-9 col-md-8">
                     <div class="row">
-                        @foreach ($bootcamps as $bootcamp)
-                            @include('frontend.default.bootcamp.bootcamp_grid')
-                        @endforeach
+                        @if (isset($bootcamps) && $bootcamps->count() > 0)
+                            @foreach ($bootcamps as $bootcamp)
+                                @include('frontend.default.bootcamp.bootcamp_grid')
+                            @endforeach
+                        @else
+                            <div class="col-12">
+                                <p class="text-center">{{ get_phrase('No bootcamps found.') }}</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
 
             <!-- Pagination -->
-            @if (count($bootcamps) > 0)
+            @if (isset($bootcamps) && $bootcamps->count() > 0)
                 <div class="entry-pagination">
                     <nav aria-label="Page navigation example">
                         {{ $bootcamps->links() }}

@@ -28,7 +28,13 @@ class BootcampController extends Controller
         }
 
         $page_data['bootcamps'] = $query->paginate(9)->appends(request()->query());
-        return view(theme_path() . 'bootcamp.index', $page_data);
+        
+        $theme = get_frontend_settings('theme');
+        if (empty($theme) || $theme === false) {
+            $theme = 'default';
+        }
+        $view_path = 'frontend.' . $theme . '.bootcamp.index';
+        return view($view_path, $page_data);
     }
 
     public function show($slug)
@@ -42,8 +48,13 @@ class BootcampController extends Controller
 
         $bootcamp_details              = $bootcamp->first();
         $page_data['bootcamp_details'] = $bootcamp_details;
-        $page_data['modules']          = BootcampModule::where('bootcamp_id', $bootcamp_details->id)->get();
+        $page_data['modules']          = BootcampModule::where('bootcamp_id', $bootcamp_details->id)->get() ?? collect([]);
 
-        return view(theme_path() . 'bootcamp.details', $page_data);
+        $theme = get_frontend_settings('theme');
+        if (empty($theme) || $theme === false) {
+            $theme = 'default';
+        }
+        $view_path = 'frontend.' . $theme . '.bootcamp.details';
+        return view($view_path, $page_data);
     }
 }

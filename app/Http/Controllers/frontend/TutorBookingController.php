@@ -21,6 +21,20 @@ class TutorBookingController extends Controller
         // Convert to an array if needed
         $tutorIdsArray = $tutorIds->toArray();
 
+        // If no tutor schedules exist, return empty results
+        if (empty($tutorIdsArray)) {
+            $page_data['tutors'] = User::where('id', 0)->paginate(10)->appends(request()->query());
+            $page_data['categories'] = TutorCategory::where('status', 1)->get() ?? collect([]);
+            $page_data['subjects'] = TutorSubject::where('status', 1)->get() ?? collect([]);
+
+            $theme = get_frontend_settings('theme');
+            if (empty($theme) || $theme === false) {
+                $theme = 'default';
+            }
+            $view_path = 'frontend.' . $theme . '.tutor_booking.index';
+            return view($view_path, $page_data);
+        }
+
         // Initialize the query to get users based on tutor_ids
         $query = User::whereIn('id', $tutorIdsArray);
 
@@ -119,11 +133,20 @@ class TutorBookingController extends Controller
         }
 
         // Retrieve the filtered users
-        $page_data['tutors'] = $query->whereIn('id', $filteredTutorIds)->paginate(10)->appends(request()->query());
-        $page_data['categories'] = TutorCategory::where('status', 1)->get();
-        $page_data['subjects'] = TutorSubject::where('status', 1)->get();
+        if (empty($filteredTutorIds)) {
+            // If no filtered IDs, return empty pagination
+            $page_data['tutors'] = User::where('id', 0)->paginate(10)->appends(request()->query());
+        } else {
+            $page_data['tutors'] = $query->whereIn('id', $filteredTutorIds)->paginate(10)->appends(request()->query());
+        }
+        $page_data['categories'] = TutorCategory::where('status', 1)->get() ?? collect([]);
+        $page_data['subjects'] = TutorSubject::where('status', 1)->get() ?? collect([]);
 
-        $view_path = 'frontend' . '.' . get_frontend_settings('theme') . '.tutor_booking.index';
+        $theme = get_frontend_settings('theme');
+        if (empty($theme) || $theme === false) {
+            $theme = 'default';
+        }
+        $view_path = 'frontend.' . $theme . '.tutor_booking.index';
         return view($view_path, $page_data);
 
     }
@@ -177,7 +200,11 @@ class TutorBookingController extends Controller
         $page_data['categories'] = TutorCategory::where('status', 1)->get();
         $page_data['subjects'] = TutorSubject::where('status', 1)->get();
 
-        $view_path = 'frontend' . '.' . get_frontend_settings('theme') . '.tutor_booking.index';
+        $theme = get_frontend_settings('theme');
+        if (empty($theme) || $theme === false) {
+            $theme = 'default';
+        }
+        $view_path = 'frontend.' . $theme . '.tutor_booking.index';
         return view($view_path, $page_data);
     }
 
@@ -205,11 +232,26 @@ class TutorBookingController extends Controller
         $todayStart = strtotime('today');
         $todayEnd = strtotime('tomorrow') - 1;
 
-        // Retrieve tutors with schedules starting and ending within today
-        $page_data['schedules'] = TutorSchedule::where('tutor_id', $id)
+        // Retrieve schedules for today (for initial display)
+        $todaySchedules = TutorSchedule::where('tutor_id', $id)
             ->where('start_time', '>=', $todayStart)
             ->where('end_time', '<=', $todayEnd)
+            ->where('status', 1)
+            ->orderBy('start_time', 'asc')
             ->get();
+        
+        // Also get all available future schedules (for calendar display)
+        $allSchedules = TutorSchedule::where('tutor_id', $id)
+            ->where('start_time', '>=', $todayStart)
+            ->where('status', 1)
+            ->orderBy('start_time', 'asc')
+            ->get();
+        
+        // Show today's schedules if available, otherwise show first available schedules
+        $page_data['schedules'] = $todaySchedules->count() > 0 ? $todaySchedules : $allSchedules->take(10);
+        
+        // Pass all schedules for calendar availability check
+        $page_data['all_schedules'] = $allSchedules;
 
         // Generate date data for the Swiper calendar
         $page_data['dateSwiperData'] = [];
@@ -241,7 +283,11 @@ class TutorBookingController extends Controller
         $page_data['reviews'] = TutorReview::where('tutor_id', $id)->get();
 
         // Define the view path based on frontend settings
-        $view_path = 'frontend' . '.' . get_frontend_settings('theme') . '.tutor_booking.tutor_schedule';
+        $theme = get_frontend_settings('theme');
+        if (empty($theme) || $theme === false) {
+            $theme = 'default';
+        }
+        $view_path = 'frontend.' . $theme . '.tutor_booking.tutor_schedule';
 
         // Return the view with the prepared data
         return view($view_path, $page_data);

@@ -61,7 +61,7 @@ class OfflinePaymentController extends Controller
         }
 
         // return to courses
-        Session::flash('success', get_phrase('The payment will be completed once the admin reviews and approves it.'));
+        Session::flash('success', get_phrase('سيتم إتمام عملية الدفع بمجرد أن يقوم المسؤول بمراجعتها والموافقة عليها.'));
         return redirect()->route($url);
     }
 }

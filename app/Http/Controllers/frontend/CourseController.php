@@ -103,11 +103,15 @@ class CourseController extends Controller
         if ($course->exists()) {
             $course_details              = $course->first();
             $page_data['course_details'] = $course_details;
-            $page_data['sections']       = Section::where('course_id', $course_details->id)->orderBy('sort')->get();
+            $page_data['sections']       = Section::where('course_id', $course_details->id)->orderBy('sort')->get() ?? collect([]);
             $page_data['total_lesson']   = Lesson::where('course_id', $course_details->id)->count();
             $page_data['enroll']         = Enrollment::where('course_id', $course_details->id)->count('user_id');
 
-            $view_path = 'frontend.' . get_frontend_settings('theme') . '.course.course_details';
+            $theme = get_frontend_settings('theme');
+            if (empty($theme) || $theme === false) {
+                $theme = 'default';
+            }
+            $view_path = 'frontend.' . $theme . '.course.course_details';
             return view($view_path, $page_data);
         } else {
             return redirect()->back();
