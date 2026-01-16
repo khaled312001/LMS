@@ -7210,6 +7210,51 @@ span[class*="fi-rr-"]:before {
         height: auto !important;
     }
     
+    /* Stop scrolling in col-auto that contains nav-menu */
+    .header-area .row .col-auto:has(.nav-menu),
+    .header-area .row .col-auto:has(.header-menu) {
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        max-height: none !important;
+        height: auto !important;
+    }
+    
+    /* Direct targeting for col-auto with nav-menu (browser compatibility) */
+    .header-area .col-auto .nav-menu,
+    .header-area .col-auto .header-menu,
+    .header-area .row .col-auto .nav-menu,
+    .header-area .row .col-auto .header-menu {
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        max-height: none !important;
+        height: auto !important;
+    }
+    
+    /* Prevent col-auto from creating scroll container */
+    .header-area .row .col-auto {
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+    }
+    
+    /* Stop scrolling in top bar (sub-header) social media section */
+    .sub-header,
+    .sub-header .row,
+    .sub-header .col-lg-6,
+    .sub-header .col-md-6,
+    .sub-header-left,
+    .sub-header-left.right-sub,
+    .sub-header-left ul,
+    .right-sub ul {
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        max-height: none !important;
+        height: auto !important;
+    }
+    
     /* Allow mega menu dropdown to scroll if needed */
     .main-mega-menu {
         overflow-y: auto;
