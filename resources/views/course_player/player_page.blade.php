@@ -6,15 +6,30 @@
             </div>
         </div>
     @elseif ($lesson_details->lesson_type == 'video-url')
+        @php
+            $lesson_src = $lesson_details->lesson_src ?? '';
+            // Filter out example.com and example.org URLs
+            if (stripos($lesson_src, 'example.com') !== false || stripos($lesson_src, 'example.org') !== false) {
+                $lesson_src = '';
+            }
+        @endphp
+        @if (!empty($lesson_src))
         <div class="course-video-area border-primary border">
             <!-- Video -->
             <div class="course-video-wrap">
                 <div id="player">
-                    <iframe src="{{ $lesson_details->lesson_src }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                    <iframe src="{{ $lesson_src }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
                 </div>
                 @include('course_player.player_config')
             </div>
         </div>
+        @else
+        <div class="course-video-area border-primary border">
+            <div class="alert alert-warning">
+                {{ get_phrase('Invalid video source. Please update the lesson video URL.') }}
+            </div>
+        </div>
+        @endif
     @elseif ($lesson_details->lesson_type == 'scorm')
         <div class="course-video-area">
             <div class="course-video-wrap">
@@ -134,7 +149,20 @@
             @include('course_player.quiz.index')
         </div>
     @else
-        <iframe class="embed-responsive-item" width="100%" src="{{ $lesson_details->lesson_src }}" allowfullscreen></iframe>
+        @php
+            $lesson_src = $lesson_details->lesson_src ?? '';
+            // Filter out example.com and example.org URLs
+            if (stripos($lesson_src, 'example.com') !== false || stripos($lesson_src, 'example.org') !== false) {
+                $lesson_src = '';
+            }
+        @endphp
+        @if (!empty($lesson_src))
+        <iframe class="embed-responsive-item" width="100%" src="{{ $lesson_src }}" allowfullscreen></iframe>
+        @else
+        <div class="alert alert-warning">
+            {{ get_phrase('Invalid content source. Please update the lesson source URL.') }}
+        </div>
+        @endif
     @endif
 @endif
 
