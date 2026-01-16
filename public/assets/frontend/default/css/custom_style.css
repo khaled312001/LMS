@@ -161,12 +161,13 @@
         max-height: calc(100vh - 100px) !important;
         overflow-y: auto !important;
         overflow-x: visible !important;
-        position: fixed !important;
+        position: absolute !important;
         z-index: 99999 !important;
+        top: 48px !important;
     }
     
     .main-menu-ul > li.have-mega-menu {
-        position: static !important;
+        position: relative !important;
     }
     
     .main-menu-ul > li.have-mega-menu:hover .main-mega-menu {
@@ -219,6 +220,21 @@
         text-overflow: ellipsis;
         display: flex !important;
         width: 100% !important;
+    }
+    
+    /* Make sure the last item is visible */
+    .mega_list li:last-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    /* Ensure padding doesn't cut off content */
+    .mega-menu-items {
+        padding-bottom: 10px !important;
+    }
+    
+    .main-mega-menu {
+        padding-bottom: 15px !important;
     }
 }
 
