@@ -297,24 +297,27 @@ class CourseController extends Controller
             }
             $data['faqs'] = json_encode($faqs);
         } elseif ($request->tab == 'media') {
+            $course = $query->first();
+            $course_title = $request->title ?? $course->title;
+            
             if ($request->thumbnail) {
-                $data['thumbnail'] = "uploads/course-thumbnail/" . nice_file_name($request->title, $request->thumbnail->extension());
+                $data['thumbnail'] = "uploads/course-thumbnail/" . nice_file_name($course_title, $request->thumbnail->extension());
                 FileUploader::upload($request->thumbnail, $data['thumbnail'], 400, null, 200, 200);
-                remove_file($query->first()->thumbnail);
+                remove_file($course->thumbnail);
             }
 
             if ($request->banner) {
-                $data['banner'] = "uploads/course-banner/" . nice_file_name($request->title, $request->banner->extension());
+                $data['banner'] = "uploads/course-banner/" . nice_file_name($course_title, $request->banner->extension());
                 FileUploader::upload($request->banner, $data['banner'], 1400, null, 300, 300);
-                remove_file($query->first()->banner);
+                remove_file($course->banner);
             }
 
             if($request->preview_video_provider == 'link'){
                 $data['preview'] = $request->preview_link;
             }elseif($request->preview_video_provider == 'file' && $request->preview){
-                $data['preview'] = "uploads/course-preview/" . nice_file_name($request->title, $request->preview->extension());
+                $data['preview'] = "uploads/course-preview/" . nice_file_name($course_title, $request->preview->extension());
                 FileUploader::upload($request->preview, $data['preview']);
-                remove_file($query->first()->preview);
+                remove_file($course->preview);
             }
             
         } elseif ($request->tab == 'seo') {

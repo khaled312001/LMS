@@ -1,7 +1,28 @@
+<style>
+    .image_preview {
+        width: 100%;
+        height: 250px;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .image_preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>
+
 <div class="row mb-3">
     <label for="thumbnail" class="form-label ol-form-label col-sm-2 col-form-label">{{get_phrase('Thumbnail')}}</label>
     <div class="col-sm-10">
         <input type="file" name="thumbnail" class="form-control ol-form-control" id="thumbnail" accept="image/*" />
+        <div class="image_preview mt-3">
+            <img src="{{ get_image($course_details->thumbnail) }}" id="preview_thumbnail" alt="course-thumbnail">
+        </div>
     </div>
 </div>
 
@@ -9,6 +30,9 @@
     <label for="banner" class="form-label ol-form-label col-sm-2 col-form-label">{{get_phrase('Banner')}}</label>
     <div class="col-sm-10">
         <input type="file" name="banner" class="form-control ol-form-control" id="banner" accept="image/*" />
+        <div class="image_preview mt-3">
+            <img src="{{ get_image($course_details->banner) }}" id="preview_banner" alt="course-banner">
+        </div>
     </div>
 </div>
 
@@ -43,3 +67,21 @@
         <small class="text-muted">{{get_phrase('Supported Video file')}}: <b>.{{get_phrase('mp4')}}</b> {{get_phrase('or')}} <b>.{{get_phrase('webm')}}</b> {{get_phrase('or')}} <b>.{{get_phrase('ogg')}}</b></small>
     </div>
 </div>
+
+@push('js')
+    <script>
+        $(function() {
+            $('#banner, #thumbnail').change(function(e) {
+                e.preventDefault();
+                var img_type = $(this).attr('id');
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#preview_' + img_type).attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+    </script>
+@endpush
