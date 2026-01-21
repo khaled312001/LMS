@@ -55,13 +55,26 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Complete Web Development Bootcamp, online course, learn, tutorial',
                 'meta_description' => 'Master web development from scratch. Learn HTML, CSS, JavaScript, React, and Node.js.',
                 'description' => 'This comprehensive course will take you from beginner to advanced level in web development. You\'ll learn through hands-on projects and real-world examples. Our step-by-step approach ensures you understand every concept thoroughly. By the end of this course, you\'ll have the skills and confidence to build modern, responsive websites and web applications using the latest technologies.',
-                'requirements' => 'Basic computer skills, internet connection, willingness to learn, no prior programming experience required',
-                'outcomes' => 'Master HTML5 and CSS3 fundamentals, Build responsive websites, Learn JavaScript ES6+, Create React applications, Develop Node.js backend, Deploy web applications, Build a portfolio of projects',
+                'requirements' => json_encode([
+                    'Basic computer skills',
+                    'Internet connection',
+                    'Willingness to learn',
+                    'No prior programming experience required'
+                ]),
+                'outcomes' => json_encode([
+                    'Master HTML5 and CSS3 fundamentals',
+                    'Build responsive websites',
+                    'Learn JavaScript ES6+',
+                    'Create React applications',
+                    'Develop Node.js backend',
+                    'Deploy web applications',
+                    'Build a portfolio of projects'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Is this course suitable for beginners?', 'answer' => 'Yes, this course is designed for all skill levels, including complete beginners.'],
-                    ['question' => 'How long do I have access?', 'answer' => 'Lifetime access to all course materials and future updates.'],
-                    ['question' => 'What tools do I need?', 'answer' => 'Just a computer with internet connection. All software is free and we\'ll guide you through installation.'],
-                    ['question' => 'Will I get a certificate?', 'answer' => 'Yes, you\'ll receive a certificate of completion after finishing the course.']
+                    ['title' => 'Is this course suitable for beginners?', 'description' => 'Yes, this course is designed for all skill levels, including complete beginners.'],
+                    ['title' => 'How long do I have access?', 'description' => 'Lifetime access to all course materials and future updates.'],
+                    ['title' => 'What tools do I need?', 'description' => 'Just a computer with internet connection. All software is free and we\'ll guide you through installation.'],
+                    ['title' => 'Will I get a certificate?', 'description' => 'Yes, you\'ll receive a certificate of completion after finishing the course.']
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 4)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
@@ -157,12 +170,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Advanced JavaScript and React, online course, learn, tutorial',
                 'meta_description' => 'Deep dive into modern JavaScript and React development patterns.',
                 'description' => 'Take your JavaScript and React skills to the next level. This course covers advanced patterns, performance optimization, state management, and building scalable applications. Perfect for developers who already know the basics and want to master advanced concepts.',
-                'requirements' => 'Solid understanding of JavaScript fundamentals, Basic React knowledge, Experience with ES6+ features, Familiarity with npm and build tools',
-                'outcomes' => 'Master advanced JavaScript patterns, Implement complex state management, Optimize React performance, Build scalable applications, Understand design patterns, Master testing strategies',
+                'requirements' => json_encode([
+                    'Solid understanding of JavaScript fundamentals',
+                    'Basic React knowledge',
+                    'Experience with ES6+ features',
+                    'Familiarity with npm and build tools'
+                ]),
+                'outcomes' => json_encode([
+                    'Master advanced JavaScript patterns',
+                    'Implement complex state management',
+                    'Optimize React performance',
+                    'Build scalable applications',
+                    'Understand design patterns',
+                    'Master testing strategies'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'What level is this course?', 'answer' => 'This is an intermediate to advanced course. You should have solid JavaScript and React fundamentals.'],
-                    ['question' => 'Do I need to know Redux?', 'answer' => 'No, we\'ll cover Redux and other state management solutions in the course.'],
-                    ['question' => 'Will this cover React 18?', 'answer' => 'Yes, we cover the latest React features including hooks, concurrent rendering, and more.'],
+                    ['title' => 'What level is this course?', 'description' => 'This is an intermediate to advanced course. You should have solid JavaScript and React fundamentals.'],
+                    ['title' => 'Do I need to know Redux?', 'description' => 'No, we\'ll cover Redux and other state management solutions in the course.'],
+                    ['title' => 'Will this cover React 18?', 'description' => 'Yes, we cover the latest React features including hooks, concurrent rendering, and more.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 5)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
@@ -240,12 +265,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Python for Data Science, online course, learn, tutorial',
                 'meta_description' => 'Learn Python programming and data analysis with real-world projects.',
                 'description' => 'Master Python for data science with hands-on projects. Learn to analyze data, create visualizations, and build machine learning models. This comprehensive course covers everything from Python basics to advanced data science techniques.',
-                'requirements' => 'Basic computer skills, No prior programming experience required, Willingness to learn, Internet connection',
-                'outcomes' => 'Master Python programming fundamentals, Work with NumPy and Pandas, Create data visualizations, Perform statistical analysis, Build machine learning models, Handle real-world datasets',
+                'requirements' => json_encode([
+                    'Basic computer skills',
+                    'No prior programming experience required',
+                    'Willingness to learn',
+                    'Internet connection'
+                ]),
+                'outcomes' => json_encode([
+                    'Master Python programming fundamentals',
+                    'Work with NumPy and Pandas',
+                    'Create data visualizations',
+                    'Perform statistical analysis',
+                    'Build machine learning models',
+                    'Handle real-world datasets'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Do I need prior programming experience?', 'answer' => 'No, this course starts from the basics and is suitable for beginners.'],
-                    ['question' => 'What tools will I use?', 'answer' => 'We\'ll use Jupyter Notebooks, Python, and popular data science libraries like Pandas and NumPy.'],
-                    ['question' => 'Will I work on real projects?', 'answer' => 'Yes, you\'ll complete multiple real-world data science projects throughout the course.'],
+                    ['title' => 'Do I need prior programming experience?', 'description' => 'No, this course starts from the basics and is suitable for beginners.'],
+                    ['title' => 'What tools will I use?', 'description' => 'We\'ll use Jupyter Notebooks, Python, and popular data science libraries like Pandas and NumPy.'],
+                    ['title' => 'Will I work on real projects?', 'description' => 'Yes, you\'ll complete multiple real-world data science projects throughout the course.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 10)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 4,
@@ -319,12 +356,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Machine Learning Masterclass, online course, learn, tutorial',
                 'meta_description' => 'Comprehensive machine learning course covering algorithms and practical applications.',
                 'description' => 'Master machine learning from theory to production. This advanced course covers deep learning, neural networks, and deploying ML models. Perfect for data scientists and developers who want to build production-ready ML systems.',
-                'requirements' => 'Strong Python programming skills, Understanding of statistics and linear algebra, Experience with data science libraries, Basic machine learning knowledge',
-                'outcomes' => 'Master advanced ML algorithms, Build deep neural networks, Implement computer vision models, Work with NLP, Deploy ML models to production, Optimize model performance',
+                'requirements' => json_encode([
+                    'Strong Python programming skills',
+                    'Understanding of statistics and linear algebra',
+                    'Experience with data science libraries',
+                    'Basic machine learning knowledge'
+                ]),
+                'outcomes' => json_encode([
+                    'Master advanced ML algorithms',
+                    'Build deep neural networks',
+                    'Implement computer vision models',
+                    'Work with NLP',
+                    'Deploy ML models to production',
+                    'Optimize model performance'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'What level is this course?', 'answer' => 'This is an advanced course. You should have strong Python and data science fundamentals.'],
-                    ['question' => 'Do I need a GPU?', 'answer' => 'Helpful but not required. We\'ll show you how to use cloud GPU services.'],
-                    ['question' => 'What frameworks will we use?', 'answer' => 'TensorFlow, PyTorch, and scikit-learn for various projects.'],
+                    ['title' => 'What level is this course?', 'description' => 'This is an advanced course. You should have strong Python and data science fundamentals.'],
+                    ['title' => 'Do I need a GPU?', 'description' => 'Helpful but not required. We\'ll show you how to use cloud GPU services.'],
+                    ['title' => 'What frameworks will we use?', 'description' => 'TensorFlow, PyTorch, and scikit-learn for various projects.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 4)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
@@ -396,12 +445,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'UI/UX Design Fundamentals, online course, learn, tutorial',
                 'meta_description' => 'Learn the principles of user interface and user experience design.',
                 'description' => 'Master the fundamentals of UI/UX design. Learn to create beautiful, user-friendly interfaces and improve user experiences. This course covers design principles, tools, and real-world projects.',
-                'requirements' => 'No prior design experience needed, Access to design software (we\'ll cover free options), Creative mindset, Willingness to practice',
-                'outcomes' => 'Understand design principles, Create wireframes and prototypes, Design user interfaces, Conduct user research, Build a design portfolio, Use design tools effectively',
+                'requirements' => json_encode([
+                    'No prior design experience needed',
+                    'Access to design software (we\'ll cover free options)',
+                    'Creative mindset',
+                    'Willingness to practice'
+                ]),
+                'outcomes' => json_encode([
+                    'Understand design principles',
+                    'Create wireframes and prototypes',
+                    'Design user interfaces',
+                    'Conduct user research',
+                    'Build a design portfolio',
+                    'Use design tools effectively'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Do I need design experience?', 'answer' => 'No, this course is designed for complete beginners.'],
-                    ['question' => 'What software will I use?', 'answer' => 'We\'ll use Figma (free) and cover other popular tools like Adobe XD and Sketch.'],
-                    ['question' => 'Will I build a portfolio?', 'answer' => 'Yes, you\'ll complete multiple projects to build your design portfolio.'],
+                    ['title' => 'Do I need design experience?', 'description' => 'No, this course is designed for complete beginners.'],
+                    ['title' => 'What software will I use?', 'description' => 'We\'ll use Figma (free) and cover other popular tools like Adobe XD and Sketch.'],
+                    ['title' => 'Will I build a portfolio?', 'description' => 'Yes, you\'ll complete multiple projects to build your design portfolio.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 9)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 4,
@@ -480,12 +541,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Digital Marketing Complete Guide, online course, learn, tutorial',
                 'meta_description' => 'Master digital marketing strategies including SEO, social media, and content marketing.',
                 'description' => 'Master digital marketing from strategy to execution. Learn SEO, social media marketing, content creation, email marketing, and paid advertising. Build campaigns that drive real results.',
-                'requirements' => 'Basic computer skills, Internet connection, Interest in marketing, No prior experience needed',
-                'outcomes' => 'Create effective marketing strategies, Master SEO techniques, Run social media campaigns, Create engaging content, Set up email marketing, Understand analytics and metrics',
+                'requirements' => json_encode([
+                    'Basic computer skills',
+                    'Internet connection',
+                    'Interest in marketing',
+                    'No prior experience needed'
+                ]),
+                'outcomes' => json_encode([
+                    'Create effective marketing strategies',
+                    'Master SEO techniques',
+                    'Run social media campaigns',
+                    'Create engaging content',
+                    'Set up email marketing',
+                    'Understand analytics and metrics'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Is this course for beginners?', 'answer' => 'Yes, we start from the basics and build up to advanced strategies.'],
-                    ['question' => 'Will I learn about paid advertising?', 'answer' => 'Yes, we cover Google Ads, Facebook Ads, and other paid platforms.'],
-                    ['question' => 'Do I need marketing experience?', 'answer' => 'No prior experience needed. This course is perfect for beginners.'],
+                    ['title' => 'Is this course for beginners?', 'description' => 'Yes, we start from the basics and build up to advanced strategies.'],
+                    ['title' => 'Will I learn about paid advertising?', 'description' => 'Yes, we cover Google Ads, Facebook Ads, and other paid platforms.'],
+                    ['title' => 'Do I need marketing experience?', 'description' => 'No prior experience needed. This course is perfect for beginners.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 8)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
@@ -566,12 +639,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Mobile App Development with Flutter, online course, learn, tutorial',
                 'meta_description' => 'Build cross-platform mobile apps using Flutter framework.',
                 'description' => 'Learn Flutter and Dart to build beautiful, native mobile apps for iOS and Android from a single codebase. This course covers everything from basics to publishing your app.',
-                'requirements' => 'Basic programming knowledge, Familiarity with object-oriented programming, Willingness to learn Dart, Computer with Flutter SDK',
-                'outcomes' => 'Master Flutter framework, Build iOS and Android apps, Understand Dart programming, Create beautiful UIs, Handle state management, Publish apps to stores',
+                'requirements' => json_encode([
+                    'Basic programming knowledge',
+                    'Familiarity with object-oriented programming',
+                    'Willingness to learn Dart',
+                    'Computer with Flutter SDK'
+                ]),
+                'outcomes' => json_encode([
+                    'Master Flutter framework',
+                    'Build iOS and Android apps',
+                    'Understand Dart programming',
+                    'Create beautiful UIs',
+                    'Handle state management',
+                    'Publish apps to stores'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Do I need to know Dart?', 'answer' => 'No, we\'ll teach Dart as part of the course.'],
-                    ['question' => 'Can I build for both iOS and Android?', 'answer' => 'Yes, Flutter allows you to build for both platforms with one codebase.'],
-                    ['question' => 'Will I publish a real app?', 'answer' => 'Yes, you\'ll build and publish a complete app by the end of the course.'],
+                    ['title' => 'Do I need to know Dart?', 'description' => 'No, we\'ll teach Dart as part of the course.'],
+                    ['title' => 'Can I build for both iOS and Android?', 'description' => 'Yes, Flutter allows you to build for both platforms with one codebase.'],
+                    ['title' => 'Will I publish a real app?', 'description' => 'Yes, you\'ll build and publish a complete app by the end of the course.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 4)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
@@ -659,12 +744,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Professional Photography Course, online course, learn, tutorial',
                 'meta_description' => 'Learn professional photography techniques and post-processing.',
                 'description' => 'Master professional photography from camera basics to advanced techniques. Learn composition, lighting, editing, and build a photography portfolio. Perfect for aspiring photographers.',
-                'requirements' => 'A camera (DSLR, mirrorless, or smartphone), Basic computer skills, Interest in photography, No prior experience needed',
-                'outcomes' => 'Master camera settings, Understand composition rules, Work with natural and artificial light, Edit photos professionally, Build a photography portfolio, Start a photography business',
+                'requirements' => json_encode([
+                    'A camera (DSLR, mirrorless, or smartphone)',
+                    'Basic computer skills',
+                    'Interest in photography',
+                    'No prior experience needed'
+                ]),
+                'outcomes' => json_encode([
+                    'Master camera settings',
+                    'Understand composition rules',
+                    'Work with natural and artificial light',
+                    'Edit photos professionally',
+                    'Build a photography portfolio',
+                    'Start a photography business'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Do I need an expensive camera?', 'answer' => 'No, you can start with a smartphone or entry-level camera. We\'ll cover all types.'],
-                    ['question' => 'What editing software will I learn?', 'answer' => 'We\'ll cover Lightroom and Photoshop, plus free alternatives.'],
-                    ['question' => 'Is this for beginners?', 'answer' => 'Yes, we start from the very basics and build up to professional techniques.'],
+                    ['title' => 'Do I need an expensive camera?', 'description' => 'No, you can start with a smartphone or entry-level camera. We\'ll cover all types.'],
+                    ['title' => 'What editing software will I learn?', 'description' => 'We\'ll cover Lightroom and Photoshop, plus free alternatives.'],
+                    ['title' => 'Is this for beginners?', 'description' => 'Yes, we start from the very basics and build up to professional techniques.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 9)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
@@ -745,12 +842,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Cybersecurity Essentials, online course, learn, tutorial',
                 'meta_description' => 'Learn cybersecurity fundamentals and ethical hacking techniques.',
                 'description' => 'Master cybersecurity fundamentals and ethical hacking. Learn to protect systems, identify vulnerabilities, and understand security best practices. Perfect for IT professionals and security enthusiasts.',
-                'requirements' => 'Basic computer knowledge, Understanding of networking basics, Interest in security, Ethical mindset',
-                'outcomes' => 'Understand cybersecurity fundamentals, Identify security vulnerabilities, Perform ethical hacking, Implement security measures, Understand compliance and regulations, Build security awareness',
+                'requirements' => json_encode([
+                    'Basic computer knowledge',
+                    'Understanding of networking basics',
+                    'Interest in security',
+                    'Ethical mindset'
+                ]),
+                'outcomes' => json_encode([
+                    'Understand cybersecurity fundamentals',
+                    'Identify security vulnerabilities',
+                    'Perform ethical hacking',
+                    'Implement security measures',
+                    'Understand compliance and regulations',
+                    'Build security awareness'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Is this for ethical hacking?', 'answer' => 'Yes, we focus on ethical hacking and defensive security.'],
-                    ['question' => 'Do I need programming knowledge?', 'answer' => 'Basic knowledge is helpful but we\'ll cover scripting basics.'],
-                    ['question' => 'Will I learn about tools?', 'answer' => 'Yes, we\'ll cover popular security tools like Wireshark, Nmap, and Metasploit.'],
+                    ['title' => 'Is this for ethical hacking?', 'description' => 'Yes, we focus on ethical hacking and defensive security.'],
+                    ['title' => 'Do I need programming knowledge?', 'description' => 'Basic knowledge is helpful but we\'ll cover scripting basics.'],
+                    ['title' => 'Will I learn about tools?', 'description' => 'Yes, we\'ll cover popular security tools like Wireshark, Nmap, and Metasploit.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 8)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
@@ -831,12 +940,24 @@ class CourseSeeder extends Seeder
                 'meta_keywords' => 'Business Strategy and Leadership, online course, learn, tutorial',
                 'meta_description' => 'Develop strategic thinking and leadership skills for business success.',
                 'description' => 'Master business strategy and leadership. Learn to develop strategic plans, lead teams effectively, make data-driven decisions, and drive organizational success. Perfect for managers, executives, and entrepreneurs.',
-                'requirements' => 'Business experience helpful but not required, Interest in leadership, Willingness to learn strategic thinking, Open to new perspectives',
-                'outcomes' => 'Develop strategic thinking, Lead teams effectively, Make data-driven decisions, Create business strategies, Understand organizational dynamics, Drive business growth',
+                'requirements' => json_encode([
+                    'Business experience helpful but not required',
+                    'Interest in leadership',
+                    'Willingness to learn strategic thinking',
+                    'Open to new perspectives'
+                ]),
+                'outcomes' => json_encode([
+                    'Develop strategic thinking',
+                    'Lead teams effectively',
+                    'Make data-driven decisions',
+                    'Create business strategies',
+                    'Understand organizational dynamics',
+                    'Drive business growth'
+                ]),
                 'faqs' => json_encode([
-                    ['question' => 'Is this for executives only?', 'answer' => 'No, this course is valuable for anyone in a leadership role or aspiring to lead.'],
-                    ['question' => 'Will I learn about specific frameworks?', 'answer' => 'Yes, we cover SWOT, Porter\'s Five Forces, and other strategic frameworks.'],
-                    ['question' => 'Is there practical application?', 'answer' => 'Yes, you\'ll work on real case studies and develop your own strategic plans.'],
+                    ['title' => 'Is this for executives only?', 'description' => 'No, this course is valuable for anyone in a leadership role or aspiring to lead.'],
+                    ['title' => 'Will I learn about specific frameworks?', 'description' => 'Yes, we cover SWOT, Porter\'s Five Forces, and other strategic frameworks.'],
+                    ['title' => 'Is there practical application?', 'description' => 'Yes, you\'ll work on real case studies and develop your own strategic plans.'],
                 ]),
                 'instructor_ids' => json_encode([$instructors->where('id', 7)->first()->id ?? $instructors->first()->id]),
                 'average_rating' => 5,
