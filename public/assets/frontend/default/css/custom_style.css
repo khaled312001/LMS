@@ -6804,20 +6804,37 @@ span[class*="fi-rr-"]:before {
         position: sticky;
         top: 5px;
         margin-top: -365px;
+        overflow: visible !important;
+    }
+
+    .page-static-sidebar .ps-box {
+        overflow: visible !important;
     }
 
     .page-static-sidebar .hero-details {
-        margin-top: 0;
-        position: relative;
-        z-index: 1;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        position: relative !important;
+        z-index: 10 !important;
+        overflow: visible !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        min-height: 200px;
     }
 
     .page-static-sidebar .hero-details img {
-        display: block;
-        width: 100%;
-        height: auto;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 200px;
         max-height: 480px;
         object-fit: cover;
+        position: relative !important;
+        z-index: 10 !important;
     }
 
     .details-page-content {
@@ -6827,6 +6844,31 @@ span[class*="fi-rr-"]:before {
 
     .page-content-pb-100 {
         padding-bottom: 100px !important;
+    }
+
+    /* Ensure parent containers don't hide the image */
+    section .container,
+    section .row,
+    section .col-lg-4 {
+        overflow: visible !important;
+    }
+
+    /* Ensure breadcum area doesn't hide sidebar content */
+    .breadcum-area {
+        overflow: visible !important;
+    }
+
+    .breadcum-area .container {
+        overflow: visible !important;
+    }
+
+    .breadcum-area .row {
+        overflow: visible !important;
+    }
+
+    /* Make sure the sidebar column doesn't clip content */
+    .col-lg-4.order-1.order-lg-2 {
+        overflow: visible !important;
     }
 }
 
