@@ -6806,8 +6806,18 @@ span[class*="fi-rr-"]:before {
         margin-top: -365px;
     }
 
-    .hero-details {
-        margin-top: -100px;
+    .page-static-sidebar .hero-details {
+        margin-top: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-static-sidebar .hero-details img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 480px;
+        object-fit: cover;
     }
 
     .details-page-content {
