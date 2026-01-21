@@ -6806,9 +6806,13 @@ span[class*="fi-rr-"]:before {
         margin-top: -365px;
     }
 
-    .hero-details,
-    .details-page-content {
+    .hero-details {
         margin-top: -100px;
+    }
+
+    .details-page-content {
+        margin-top: 0;
+        padding-top: 20px;
     }
 
     .page-content-pb-100 {
