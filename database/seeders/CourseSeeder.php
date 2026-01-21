@@ -973,7 +973,9 @@ class CourseSeeder extends Seeder
                 }
             }
 
-            $this->command->info("  - Created {$sectionSort - 1} sections with " . ($lessonSort - 1) . " lessons");
+            $totalSections = $sectionSort - 1;
+            $totalLessons = $lessonSort - 1;
+            $this->command->info("  - Created {$totalSections} sections with {$totalLessons} lessons");
         }
 
         $this->command->info('Courses seeded successfully!');
