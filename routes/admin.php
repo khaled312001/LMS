@@ -255,6 +255,7 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
         Route::post('homepage_sections/{id}/update', 'homepage_section_update')->name('homepage.section.update');
         Route::get('homepage_sections/{id}/delete', 'homepage_section_delete')->name('homepage.section.delete');
         Route::post('homepage_sections/sort', 'homepage_section_sort')->name('homepage.section.sort');
+        Route::post('homepage_sections/import', 'homepage_section_import')->name('homepage.section.import');
 
         // About settings
         Route::get('about', 'about')->name('about');

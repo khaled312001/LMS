@@ -1117,7 +1117,66 @@ class SettingController extends Controller
     public function homepage_sections()
     {
         $sections = HomepageSection::orderBy('sort_order')->get();
-        return view('admin.setting.homepage_sections', compact('sections'));
+        
+        // Define current website sections from development.blade.php
+        $current_sections = [
+            [
+                'key' => 'banner',
+                'name' => get_phrase('Banner Section'),
+                'title' => get_frontend_settings('banner_title'),
+                'description' => 'Banner section with title and video button'
+            ],
+            [
+                'key' => 'hero',
+                'name' => get_phrase('Hero Section'),
+                'title' => get_frontend_settings('banner_sub_title'),
+                'description' => 'Hero section with user count and CTA button'
+            ],
+            [
+                'key' => 'software_development',
+                'name' => get_phrase('Software Development Section'),
+                'title' => 'Software Development',
+                'description' => 'Section about software development with image and description'
+            ],
+            [
+                'key' => 'learning_coding',
+                'name' => get_phrase('Learning Coding Section'),
+                'title' => get_phrase('Start Learning Coding Languages'),
+                'description' => 'Section showing learning options (Online Courses, Top Instructors, Online Certificates)'
+            ],
+            [
+                'key' => 'pick_course',
+                'name' => get_phrase('Pick A Course Section'),
+                'title' => get_phrase('Pick A Course To Get Started'),
+                'description' => 'Featured courses display section'
+            ],
+            [
+                'key' => 'bootcamp',
+                'name' => get_phrase('Bootcamp Section'),
+                'title' => get_phrase('Bootcamp'),
+                'description' => 'Bootcamp courses display section'
+            ],
+            [
+                'key' => 'testimonials',
+                'name' => get_phrase('Student Testimonials Section'),
+                'title' => get_phrase('What Our Students Have To Say'),
+                'description' => 'Student reviews and testimonials section'
+            ],
+            [
+                'key' => 'faq',
+                'name' => get_phrase('FAQ Section'),
+                'title' => get_phrase('Frequently Asked Questions'),
+                'description' => 'Frequently asked questions accordion section'
+            ],
+            [
+                'key' => 'blog',
+                'name' => get_phrase('Blog Section'),
+                'title' => get_phrase('Get News with Academy'),
+                'description' => 'Latest blog posts display section'
+            ],
+        ];
+        
+        return view('admin.setting.homepage_sections', compact('sections', 'current_sections'));
     }
 
     public function homepage_section_store(Request $request)
@@ -1192,5 +1251,42 @@ class SettingController extends Controller
     {
         $section = HomepageSection::findOrFail($id);
         return response()->json($section);
+    }
+
+    public function homepage_section_import(Request $request)
+    {
+        $current_sections = [
+            ['key' => 'banner', 'name' => get_phrase('Banner Section'), 'title' => get_frontend_settings('banner_title'), 'description' => 'Banner section with title and video button'],
+            ['key' => 'hero', 'name' => get_phrase('Hero Section'), 'title' => get_frontend_settings('banner_sub_title'), 'description' => 'Hero section with user count and CTA button'],
+            ['key' => 'software_development', 'name' => get_phrase('Software Development Section'), 'title' => 'Software Development', 'description' => 'Section about software development'],
+            ['key' => 'learning_coding', 'name' => get_phrase('Learning Coding Section'), 'title' => get_phrase('Start Learning Coding Languages'), 'description' => 'Learning options section'],
+            ['key' => 'pick_course', 'name' => get_phrase('Pick A Course Section'), 'title' => get_phrase('Pick A Course To Get Started'), 'description' => 'Featured courses section'],
+            ['key' => 'bootcamp', 'name' => get_phrase('Bootcamp Section'), 'title' => get_phrase('Bootcamp'), 'description' => 'Bootcamp courses section'],
+            ['key' => 'testimonials', 'name' => get_phrase('Student Testimonials Section'), 'title' => get_phrase('What Our Students Have To Say'), 'description' => 'Student reviews section'],
+            ['key' => 'faq', 'name' => get_phrase('FAQ Section'), 'title' => get_phrase('Frequently Asked Questions'), 'description' => 'FAQ accordion section'],
+            ['key' => 'blog', 'name' => get_phrase('Blog Section'), 'title' => get_phrase('Get News with Academy'), 'description' => 'Latest blog posts section'],
+        ];
+
+        $max_sort = HomepageSection::max('sort_order') ?? 0;
+        $imported = 0;
+
+        foreach ($current_sections as $index => $section_data) {
+            // Check if section already exists
+            $exists = HomepageSection::where('section_key', $section_data['key'])->first();
+            if (!$exists) {
+                HomepageSection::create([
+                    'section_key' => $section_data['key'],
+                    'section_name' => $section_data['name'],
+                    'title' => $section_data['title'],
+                    'description' => $section_data['description'],
+                    'sort_order' => $max_sort + $index + 1,
+                    'is_active' => 1,
+                ]);
+                $imported++;
+            }
+        }
+
+        Session::flash('success', get_phrase('Sections imported successfully') . ' (' . $imported . ' ' . get_phrase('sections') . ')');
+        return redirect()->back();
     }
 }

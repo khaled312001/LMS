@@ -63,8 +63,55 @@
                     <div class="mb-4">
                         <p class="text-muted">{{ get_phrase('Drag and drop sections to reorder them. Click edit to modify content.') }}</p>
                     </div>
+
+                    @if(isset($current_sections) && count($current_sections) > 0)
+                        <div class="mb-4">
+                            <div class="alert alert-info d-flex align-items-center justify-content-between">
+                                <div>
+                                    <strong>{{ get_phrase('Current Website Sections') }}:</strong>
+                                    <span class="ms-2">{{ count($current_sections) }} {{ get_phrase('sections available') }}</span>
+                                </div>
+                                <form action="{{ route('admin.homepage.section.import') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm ol-btn-primary">
+                                        <i class="fi-rr-download"></i> {{ get_phrase('Import Current Sections') }}
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="row g-3 mb-4">
+                                @foreach($current_sections as $current)
+                                    @php
+                                        $exists = $sections->where('section_key', $current['key'])->first();
+                                    @endphp
+                                    <div class="col-md-4">
+                                        <div class="card border {{ $exists ? 'border-success' : 'border-info' }}">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-2">
+                                                    {{ $current['name'] }}
+                                                    @if($exists)
+                                                        <span class="badge bg-success ms-2">{{ get_phrase('Imported') }}</span>
+                                                    @endif
+                                                </h6>
+                                                <small class="text-muted d-block mb-1"><strong>{{ get_phrase('Key') }}:</strong> {{ $current['key'] }}</small>
+                                                @if(isset($current['title']))
+                                                    <small class="text-muted d-block mb-1"><strong>{{ get_phrase('Title') }}:</strong> {{ Str::limit($current['title'], 40) }}</small>
+                                                @endif
+                                                <small class="text-muted d-block">{{ Str::limit($current['description'], 60) }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                     
                     <div id="sections-list" class="sections-container">
+                        @if($sections->count() == 0)
+                            <div class="text-center py-5">
+                                <p class="text-muted">{{ get_phrase('No sections found') }}</p>
+                                <p class="text-muted small">{{ get_phrase('Click "Import Current Sections" above to import existing sections or add a new section manually.') }}</p>
+                            </div>
+                        @endif
                         @foreach ($sections as $section)
                             <div class="section-item" data-id="{{ $section->id }}">
                                 <div class="section-header">
@@ -76,7 +123,7 @@
                                                 {{ $section->is_active ? get_phrase('Active') : get_phrase('Inactive') }}
                                             </span>
                                         </h5>
-                                        <small class="text-muted">Key: {{ $section->section_key }} | Order: {{ $section->sort_order }}</small>
+                                        <small class="text-muted">{{ get_phrase('Key') }}: {{ $section->section_key }} | {{ get_phrase('Order') }}: {{ $section->sort_order }}</small>
                                     </div>
                                     <div class="section-actions">
                                         <button type="button" class="btn btn-sm ol-btn-primary" onclick="editSection({{ $section->id }})">
