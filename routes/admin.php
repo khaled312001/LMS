@@ -256,6 +256,7 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
         Route::get('homepage_sections/{id}/delete', 'homepage_section_delete')->name('homepage.section.delete');
         Route::post('homepage_sections/sort', 'homepage_section_sort')->name('homepage.section.sort');
         Route::post('homepage_sections/import', 'homepage_section_import')->name('homepage.section.import');
+        Route::post('import_arabic_translations', 'import_arabic_translations')->name('import.arabic.translations');
 
         // About settings
         Route::get('about', 'about')->name('about');

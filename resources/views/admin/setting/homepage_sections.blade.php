@@ -48,10 +48,16 @@
                     <i class="fi-rr-settings-sliders me-2"></i>
                     {{ get_phrase('Homepage Sections Management') }}
                 </h4>
-                <button type="button" class="btn ol-btn-primary" data-bs-toggle="modal" data-bs-target="#addSectionModal">
-                    <span class="fi-rr-plus"></span>
-                    {{ get_phrase('Add New Section') }}
-                </button>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn ol-btn-primary" onclick="importArabicTranslations()" title="{{ get_phrase('Import Arabic translations from arabic.json') }}">
+                        <span class="fi-rr-language"></span>
+                        {{ get_phrase('Import Translations') }}
+                    </button>
+                    <button type="button" class="btn ol-btn-primary" data-bs-toggle="modal" data-bs-target="#addSectionModal">
+                        <span class="fi-rr-plus"></span>
+                        {{ get_phrase('Add New Section') }}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -349,6 +355,29 @@
         function deleteSection(id) {
             if (confirm(get_phrase('Are you sure?') + '\n' + get_phrase("You can't bring it back!"))) {
                 window.location.href = "{{ route('admin.homepage.section.delete', '') }}/" + id;
+            }
+        }
+
+        // Import Arabic translations
+        function importArabicTranslations() {
+            if (confirm('{{ get_phrase("Are you sure you want to import Arabic translations from arabic.json?") }}')) {
+                $.ajax({
+                    url: "{{ route('admin.import.arabic.translations') }}",
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        success(response.message || '{{ get_phrase("Translations imported successfully") }}');
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
+                    },
+                    error: function(xhr) {
+                        var message = xhr.responseJSON?.error || '{{ get_phrase("Failed to import translations") }}';
+                        error(message);
+                    }
+                });
             }
         }
     </script>

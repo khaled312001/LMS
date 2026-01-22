@@ -1289,4 +1289,63 @@ class SettingController extends Controller
         Session::flash('success', get_phrase('Sections imported successfully') . ' (' . $imported . ' ' . get_phrase('sections') . ')');
         return redirect()->back();
     }
+
+    // Import Arabic translations from arabic.json file
+    public function import_arabic_translations()
+    {
+        $arabic_language = Language::where('name', 'like', 'Arabic')->orWhere('name', 'like', 'arabic')->first();
+        
+        if (!$arabic_language) {
+            return response()->json(['error' => 'Arabic language not found in database'], 404);
+        }
+
+        $jsonPath = base_path('arabic.json');
+        
+        if (!file_exists($jsonPath)) {
+            return response()->json(['error' => 'arabic.json file not found'], 404);
+        }
+
+        $content = file_get_contents($jsonPath);
+        $translations = json_decode($content, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($translations)) {
+            return response()->json(['error' => 'Invalid JSON format'], 400);
+        }
+
+        $imported = 0;
+        $updated = 0;
+
+        foreach ($translations as $phrase => $translated) {
+            if (!is_string($phrase) || !is_string($translated)) {
+                continue;
+            }
+
+            $languagePhrase = Language_phrase::firstOrCreate(
+                [
+                    'language_id' => $arabic_language->id,
+                    'phrase' => trim($phrase)
+                ],
+                [
+                    'translated' => trim($translated),
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]
+            );
+
+            if ($languagePhrase->wasRecentlyCreated) {
+                $imported++;
+            } else {
+                // Update existing translation
+                $languagePhrase->translated = trim($translated);
+                $languagePhrase->updated_at = date('Y-m-d H:i:s');
+                $languagePhrase->save();
+                $updated++;
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Translations imported successfully. New: {$imported}, Updated: {$updated}"
+        ]);
+    }
 }
