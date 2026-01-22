@@ -241,14 +241,14 @@ if (!function_exists('is_course_instructor')) {
 if (!function_exists('get_homepage_settings')) {
     function get_homepage_settings($type = "", $return_type = false)
     {
-        $value = DB::table('home_page_settings')->where('key', $type);
-        if ($value->count() > 0) {
+        $value = DB::table('home_page_settings')->where('key', $type)->first();
+        if ($value) {
             if ($return_type === true) {
-                return json_decode($value->value('value'), true);
+                return json_decode($value->value, true);
             } elseif ($return_type === "object") {
-                return json_decode($value->value('value'));
+                return json_decode($value->value);
             } else {
-                return $value->value('value');
+                return $value->value;
             }
         } else {
             return false;
@@ -830,14 +830,14 @@ if (!function_exists('random')) {
 if (!function_exists('get_settings')) {
     function get_settings($type = "", $return_type = false)
     {
-        $value = App\Models\Setting::where('type', $type);
-        if ($value->count() > 0) {
+        $value = App\Models\Setting::where('type', $type)->first();
+        if ($value) {
             if ($return_type === true) {
-                return json_decode($value->value('description'), true);
+                return json_decode($value->description, true);
             } elseif ($return_type === "object") {
-                return json_decode($value->value('description'));
+                return json_decode($value->description);
             } else {
-                return $value->value('description');
+                return $value->description;
             }
         } else {
             return false;
@@ -880,14 +880,14 @@ if (!function_exists('htmlspecialchars_decode')) {
 if (!function_exists('get_frontend_settings')) {
     function get_frontend_settings($type = "", $return_type = false)
     {
-        $value = DB::table('frontend_settings')->where('key', $type);
-        if ($value->count() > 0) {
+        $value = DB::table('frontend_settings')->where('key', $type)->first();
+        if ($value) {
             if ($return_type === true) {
-                return json_decode($value->value('value'), true);
+                return json_decode($value->value, true);
             } elseif ($return_type === "object") {
-                return json_decode($value->value('value'));
+                return json_decode($value->value);
             } else {
-                return $value->value('value');
+                return $value->value;
             }
         } else {
             return false;
@@ -1258,14 +1258,14 @@ if (!function_exists('remove_resource_data')) {
 if (! function_exists('get_player_settings')) {
     function get_player_settings($title = "", $return_type = false)
     {
-        $value = App\Models\PlayerSettings::where('title', $title);
-        if ($value->count() > 0) {
+        $value = App\Models\PlayerSettings::where('title', $title)->first();
+        if ($value) {
             if ($return_type === true) {
-                return json_decode($value->value('description'), true);
+                return json_decode($value->description, true);
             } elseif ($return_type === "object") {
-                return json_decode($value->value('description'));
+                return json_decode($value->description);
             } else {
-                return $value->value('description');
+                return $value->description;
             }
         } else {
             return false;
