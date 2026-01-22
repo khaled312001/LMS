@@ -110,6 +110,53 @@
         </div>
     </section>
     <!------------------- Blog Details Area End  --------->
+
+    <!------------------- Related Blogs Area Start  --------->
+    @if(isset($related_blogs) && $related_blogs->count() > 0)
+    <section class="blog-details related-blogs-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title mb-4">
+                        <h3 class="g-title text-center mb-4">{{ get_phrase('Related Articles') }}</h3>
+                        <p class="text-center text-muted">{{ get_phrase('You might also like these articles') }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($related_blogs as $blog)
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                        <div class="Ecard card b-card h-100">
+                            <div class="card-head">
+                                <a href="{{ route('blog.details', $blog->slug) }}">
+                                    <img src="{{ get_image($blog->thumbnail) }}" alt="blog-thumbnail">
+                                </a>
+                                <span>{{ get_blog_category_name($blog->category_id) }}</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="ellipsis-2">
+                                    <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark">
+                                        {{ ucfirst($blog->title) }}
+                                    </a>
+                                </h4>
+                                <div class="description ellipsis-line-2 mt-3">
+                                    {{ ellipsis(strip_tags($blog->description), 160) }}
+                                </div>
+                                <div class="b_bottom d-flex justify-content-between mt-3">
+                                    <a href="{{ route('blog.details', $blog->slug) }}"
+                                        class="read-text mt-0 stretched-link">{{ get_phrase('Read More') }}<i
+                                            class="fa-solid fa-arrow-right-long ms-2"></i></a>
+                                    <span>{{ date('d M, Y', strtotime($blog->created_at)) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+    <!------------------- Related Blogs Area End  --------->
 @endsection
 @push('js')
     <script>

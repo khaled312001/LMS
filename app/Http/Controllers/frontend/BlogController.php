@@ -65,6 +65,36 @@ class BlogController extends Controller
             ->where('blog_comments.parent_id', null)
             ->latest('id')->get();
 
+        // Get related blogs - same category first, then other blogs
+        $related_blogs = Blog::where('status', 1)
+            ->where('id', '!=', $blog_details->id)
+            ->where(function($query) use ($blog_details) {
+                // Same category
+                if ($blog_details->category_id) {
+                    $query->where('category_id', $blog_details->category_id);
+                }
+            })
+            ->latest('id')
+            ->take(3)
+            ->get();
+
+        // If not enough blogs from same category, add more from other categories
+        if ($related_blogs->count() < 3) {
+            $additional_blogs = Blog::where('status', 1)
+                ->where('id', '!=', $blog_details->id)
+                ->whereNotIn('id', $related_blogs->pluck('id'))
+                ->when($blog_details->category_id, function($query) use ($blog_details) {
+                    $query->where('category_id', '!=', $blog_details->category_id);
+                })
+                ->latest('id')
+                ->take(3 - $related_blogs->count())
+                ->get();
+            
+            $related_blogs = $related_blogs->merge($additional_blogs);
+        }
+
+        $page_data['related_blogs'] = $related_blogs;
+
         $view_path = 'frontend' . '.' . get_frontend_settings('theme') . '.blog.details';
         return view($view_path, $page_data);
     }
