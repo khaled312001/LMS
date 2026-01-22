@@ -15,6 +15,7 @@ use App\Models\NotificationSetting;
 use App\Models\Payment_gateway;
 use App\Models\Setting;
 use App\Models\HomepageSection;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
@@ -1184,21 +1185,34 @@ class SettingController extends Controller
         $request->validate([
             'section_key' => 'required|unique:homepage_sections,section_key',
             'section_name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'video_url' => 'nullable|url|max:500',
         ]);
 
         $max_sort = HomepageSection::max('sort_order') ?? 0;
 
-        HomepageSection::create([
+        $data = [
             'section_key' => $request->section_key,
             'section_name' => $request->section_name,
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'content' => $request->content,
             'description' => $request->description,
+            'video_url' => $request->video_url,
+            'design_type' => $request->design_type ?? 'default',
+            'background_color' => $request->background_color,
+            'text_color' => $request->text_color,
             'sort_order' => $max_sort + 1,
             'is_active' => $request->has('is_active') ? 1 : 0,
             'settings' => $request->settings ? json_decode($request->settings, true) : null,
-        ]);
+        ];
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $data['image'] = FileUploader::upload($request->file('image'), 'uploads/homepage_sections', 1920, null, 500);
+        }
+
+        HomepageSection::create($data);
 
         Session::flash('success', get_phrase('Section added successfully'));
         return redirect()->back();
@@ -1209,7 +1223,11 @@ class SettingController extends Controller
         $request->validate([
             'section_key' => 'required|unique:homepage_sections,section_key,' . $id,
             'section_name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'video_url' => 'nullable|url|max:500',
         ]);
+
+        $section = HomepageSection::findOrFail($id);
 
         $data = [
             'section_key' => $request->section_key,
@@ -1218,11 +1236,32 @@ class SettingController extends Controller
             'subtitle' => $request->subtitle,
             'content' => $request->content,
             'description' => $request->description,
+            'video_url' => $request->video_url,
+            'design_type' => $request->design_type ?? 'default',
+            'background_color' => $request->background_color,
+            'text_color' => $request->text_color,
             'is_active' => $request->has('is_active') ? 1 : 0,
         ];
 
         if ($request->settings) {
             $data['settings'] = json_decode($request->settings, true);
+        }
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($section->image && file_exists(public_path($section->image))) {
+                File::delete(public_path($section->image));
+            }
+            $data['image'] = FileUploader::upload($request->file('image'), 'uploads/homepage_sections', 1920, null, 500);
+        }
+
+        // Handle image deletion
+        if ($request->has('delete_image') && $request->delete_image == '1') {
+            if ($section->image && file_exists(public_path($section->image))) {
+                File::delete(public_path($section->image));
+            }
+            $data['image'] = null;
         }
 
         HomepageSection::where('id', $id)->update($data);

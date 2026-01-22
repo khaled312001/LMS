@@ -38,6 +38,11 @@
         .sortable-ghost {
             opacity: 0.4;
         }
+        .form-control-color {
+            width: 60px;
+            height: 40px;
+            cursor: pointer;
+        }
     </style>
 @endpush
 @section('content')
@@ -155,6 +160,24 @@
                                         <strong>{{ get_phrase('Description') }}:</strong> {{ Str::limit($section->description, 100) }}
                                     </div>
                                 @endif
+                                @if($section->image)
+                                    <div class="mb-2">
+                                        <strong>{{ get_phrase('Image') }}:</strong>
+                                        <img src="{{ asset($section->image) }}" alt="" class="img-thumbnail ms-2" style="max-width: 100px; max-height: 100px;">
+                                    </div>
+                                @endif
+                                @if($section->video_url)
+                                    <div class="mb-2">
+                                        <strong>{{ get_phrase('Video') }}:</strong>
+                                        <a href="{{ $section->video_url }}" target="_blank" class="ms-2">{{ Str::limit($section->video_url, 50) }}</a>
+                                    </div>
+                                @endif
+                                @if($section->design_type)
+                                    <div class="mb-2">
+                                        <strong>{{ get_phrase('Design Type') }}:</strong>
+                                        <span class="badge bg-info ms-2">{{ $section->design_type }}</span>
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -179,7 +202,7 @@
                     <h5 class="modal-title" id="addSectionModalLabel">{{ get_phrase('Add New Section') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('admin.homepage.section.store') }}" method="POST">
+                <form action="{{ route('admin.homepage.section.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -190,6 +213,39 @@
                         <div class="mb-3">
                             <label class="form-label">{{ get_phrase('Section Name') }} <span class="text-danger">*</span></label>
                             <input type="text" name="section_name" class="form-control" required placeholder="e.g., Banner Section">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Design Type') }}</label>
+                            <select name="design_type" class="form-control" id="add_design_type">
+                                <option value="default">{{ get_phrase('Default') }}</option>
+                                <option value="image_left">{{ get_phrase('Image Left') }}</option>
+                                <option value="image_right">{{ get_phrase('Image Right') }}</option>
+                                <option value="full_width">{{ get_phrase('Full Width') }}</option>
+                                <option value="grid">{{ get_phrase('Grid') }}</option>
+                                <option value="centered">{{ get_phrase('Centered') }}</option>
+                                <option value="split">{{ get_phrase('Split Layout') }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Image') }}</label>
+                            <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(this, 'add_image_preview')">
+                            <small class="text-muted">{{ get_phrase('Upload section image (Max: 5MB)') }}</small>
+                            <div id="add_image_preview" class="mt-2"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Video URL') }}</label>
+                            <input type="url" name="video_url" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+                            <small class="text-muted">{{ get_phrase('YouTube, Vimeo, or direct video URL') }}</small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ get_phrase('Background Color') }}</label>
+                                <input type="color" name="background_color" class="form-control form-control-color" value="#ffffff">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ get_phrase('Text Color') }}</label>
+                                <input type="color" name="text_color" class="form-control form-control-color" value="#000000">
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">{{ get_phrase('Title') }}</label>
@@ -233,7 +289,7 @@
                     <h5 class="modal-title" id="editSectionModalLabel">{{ get_phrase('Edit Section') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="editSectionForm" method="POST">
+                <form id="editSectionForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="_method" value="PUT">
                     <div class="modal-body">
@@ -244,6 +300,47 @@
                         <div class="mb-3">
                             <label class="form-label">{{ get_phrase('Section Name') }} <span class="text-danger">*</span></label>
                             <input type="text" name="section_name" id="edit_section_name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Design Type') }}</label>
+                            <select name="design_type" class="form-control" id="edit_design_type">
+                                <option value="default">{{ get_phrase('Default') }}</option>
+                                <option value="image_left">{{ get_phrase('Image Left') }}</option>
+                                <option value="image_right">{{ get_phrase('Image Right') }}</option>
+                                <option value="full_width">{{ get_phrase('Full Width') }}</option>
+                                <option value="grid">{{ get_phrase('Grid') }}</option>
+                                <option value="centered">{{ get_phrase('Centered') }}</option>
+                                <option value="split">{{ get_phrase('Split Layout') }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Image') }}</label>
+                            <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(this, 'edit_image_preview')">
+                            <small class="text-muted">{{ get_phrase('Upload section image (Max: 5MB)') }}</small>
+                            <div id="edit_image_preview" class="mt-2"></div>
+                            <div id="edit_current_image" class="mt-2"></div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" name="delete_image" id="edit_delete_image" value="1">
+                                <label class="form-check-label text-danger" for="edit_delete_image">
+                                    {{ get_phrase('Delete current image') }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Video URL') }}</label>
+                            <input type="url" name="video_url" id="edit_video_url" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+                            <small class="text-muted">{{ get_phrase('YouTube, Vimeo, or direct video URL') }}</small>
+                            <div id="edit_video_preview" class="mt-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ get_phrase('Background Color') }}</label>
+                                <input type="color" name="background_color" id="edit_background_color" class="form-control form-control-color" value="#ffffff">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">{{ get_phrase('Text Color') }}</label>
+                                <input type="color" name="text_color" id="edit_text_color" class="form-control form-control-color" value="#000000">
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">{{ get_phrase('Title') }}</label>
@@ -331,6 +428,42 @@
             });
         }
 
+        // Preview image
+        function previewImage(input, previewId) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#' + previewId).html('<img src="' + e.target.result + '" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Preview video
+        function previewVideo(url, previewId) {
+            if (url) {
+                var embedUrl = '';
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    var videoId = '';
+                    if (url.includes('youtube.com/watch?v=')) {
+                        videoId = url.split('v=')[1].split('&')[0];
+                    } else if (url.includes('youtu.be/')) {
+                        videoId = url.split('youtu.be/')[1].split('?')[0];
+                    }
+                    embedUrl = 'https://www.youtube.com/embed/' + videoId;
+                } else if (url.includes('vimeo.com')) {
+                    var videoId = url.split('vimeo.com/')[1].split('?')[0];
+                    embedUrl = 'https://player.vimeo.com/video/' + videoId;
+                }
+                
+                if (embedUrl) {
+                    $('#' + previewId).html('<div class="ratio ratio-16x9"><iframe src="' + embedUrl + '" frameborder="0" allowfullscreen></iframe></div>');
+                } else {
+                    $('#' + previewId).html('<video controls class="w-100" style="max-height: 300px;"><source src="' + url + '" type="video/mp4"></video>');
+                }
+            }
+        }
+
         // Edit section
         function editSection(id) {
             $.ajax({
@@ -339,14 +472,42 @@
                 success: function(response) {
                     $('#edit_section_key').val(response.section_key);
                     $('#edit_section_name').val(response.section_name);
+                    $('#edit_design_type').val(response.design_type || 'default');
                     $('#edit_title').val(response.title || '');
                     $('#edit_subtitle').val(response.subtitle || '');
                     $('#edit_description').val(response.description || '');
                     $('#edit_content').val(response.content || '');
+                    $('#edit_video_url').val(response.video_url || '');
+                    $('#edit_background_color').val(response.background_color || '#ffffff');
+                    $('#edit_text_color').val(response.text_color || '#000000');
                     $('#edit_is_active').prop('checked', response.is_active == 1);
+                    
+                    // Show current image
+                    if (response.image) {
+                        $('#edit_current_image').html('<p class="text-muted small">Current Image:</p><img src="{{ asset("") }}' + response.image + '" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">');
+                    } else {
+                        $('#edit_current_image').html('');
+                    }
+                    
+                    // Preview video if exists
+                    if (response.video_url) {
+                        previewVideo(response.video_url, 'edit_video_preview');
+                    } else {
+                        $('#edit_video_preview').html('');
+                    }
                     
                     $('#editSectionForm').attr('action', "{{ route('admin.homepage.section.update', '') }}/" + id);
                     $('#editSectionModal').modal('show');
+                    
+                    // Preview video on URL change
+                    $('#edit_video_url').off('change').on('change', function() {
+                        var url = $(this).val();
+                        if (url) {
+                            previewVideo(url, 'edit_video_preview');
+                        } else {
+                            $('#edit_video_preview').html('');
+                        }
+                    });
                 }
             });
         }
