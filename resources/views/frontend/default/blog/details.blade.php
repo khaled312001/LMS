@@ -47,12 +47,6 @@
                         <div class="details-intro">
                             <h4 class="g-title text-center f-40 mt-4">{{ $blog_details->title }}</h4>
                             <ul class="course-motion-top flex-wrap gap-4 justify-content-center">
-                                <li>
-                                    <div class="figar d-flex align-items-center mb-0 me-auto">
-                                        <img src="{{ get_image($blog_details->author_photo) }}" alt="author-image">
-                                        <p class="description">{{ $blog_details->author_name }}</p>
-                                    </div>
-                                </li>
                                 @if ($blog_details->keywords)
                                     <li>
                                         <img class="pro-20" src="{{ asset('assets/frontend/default/image/elearn.png') }}" alt="blog-tag">
@@ -110,9 +104,6 @@
                             @endauth
                         </div>
 
-                        <div class="comment-wrap">
-                            @include('frontend.default.blog.author_details')
-                        </div>
                     </div>
                 </div>
             </div>
