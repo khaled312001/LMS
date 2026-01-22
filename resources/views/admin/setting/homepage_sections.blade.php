@@ -1,0 +1,308 @@
+@extends('layouts.admin')
+@push('title', get_phrase('Homepage Sections Management'))
+@push('meta')@endpush
+@push('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.css">
+    <style>
+        .section-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #fff;
+            cursor: move;
+            transition: all 0.3s;
+        }
+        .section-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .section-item.dragging {
+            opacity: 0.5;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .section-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .badge-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .sortable-ghost {
+            opacity: 0.4;
+        }
+    </style>
+@endpush
+@section('content')
+    <div class="ol-card radius-8px">
+        <div class="ol-card-body my-3 py-12px px-20px">
+            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap flex-md-nowrap">
+                <h4 class="title fs-16px">
+                    <i class="fi-rr-settings-sliders me-2"></i>
+                    {{ get_phrase('Homepage Sections Management') }}
+                </h4>
+                <button type="button" class="btn ol-btn-primary" data-bs-toggle="modal" data-bs-target="#addSectionModal">
+                    <span class="fi-rr-plus"></span>
+                    {{ get_phrase('Add New Section') }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ol-card">
+                <div class="ol-card-body p-4">
+                    <div class="mb-4">
+                        <p class="text-muted">{{ get_phrase('Drag and drop sections to reorder them. Click edit to modify content.') }}</p>
+                    </div>
+                    
+                    <div id="sections-list" class="sections-container">
+                        @foreach ($sections as $section)
+                            <div class="section-item" data-id="{{ $section->id }}">
+                                <div class="section-header">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="fi-rr-menu-dots-vertical me-2 text-muted"></i>
+                                            {{ $section->section_name }}
+                                            <span class="badge badge-status {{ $section->is_active ? 'bg-success' : 'bg-secondary' }}">
+                                                {{ $section->is_active ? get_phrase('Active') : get_phrase('Inactive') }}
+                                            </span>
+                                        </h5>
+                                        <small class="text-muted">Key: {{ $section->section_key }} | Order: {{ $section->sort_order }}</small>
+                                    </div>
+                                    <div class="section-actions">
+                                        <button type="button" class="btn btn-sm ol-btn-primary" onclick="editSection({{ $section->id }})">
+                                            <i class="fi-rr-edit"></i> {{ get_phrase('Edit') }}
+                                        </button>
+                                        <button type="button" class="btn btn-sm ol-btn-danger" onclick="deleteSection({{ $section->id }})">
+                                            <i class="fi-rr-trash"></i> {{ get_phrase('Delete') }}
+                                        </button>
+                                    </div>
+                                </div>
+                                @if($section->title)
+                                    <div class="mb-2">
+                                        <strong>{{ get_phrase('Title') }}:</strong> {{ $section->title }}
+                                    </div>
+                                @endif
+                                @if($section->subtitle)
+                                    <div class="mb-2">
+                                        <strong>{{ get_phrase('Subtitle') }}:</strong> {{ $section->subtitle }}
+                                    </div>
+                                @endif
+                                @if($section->description)
+                                    <div class="mb-2">
+                                        <strong>{{ get_phrase('Description') }}:</strong> {{ Str::limit($section->description, 100) }}
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+
+                    @if($sections->count() > 0)
+                        <div class="mt-4">
+                            <button type="button" class="btn ol-btn-primary" onclick="saveSortOrder()">
+                                <i class="fi-rr-check"></i> {{ get_phrase('Save Order') }}
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Section Modal -->
+    <div class="modal fade" id="addSectionModal" tabindex="-1" aria-labelledby="addSectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSectionModalLabel">{{ get_phrase('Add New Section') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('admin.homepage.section.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Section Key') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="section_key" class="form-control" required placeholder="e.g., banner, hero, courses">
+                            <small class="text-muted">{{ get_phrase('Unique identifier for this section (lowercase, no spaces)') }}</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Section Name') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="section_name" class="form-control" required placeholder="e.g., Banner Section">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Title') }}</label>
+                            <input type="text" name="title" class="form-control" placeholder="Section title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Subtitle') }}</label>
+                            <input type="text" name="subtitle" class="form-control" placeholder="Section subtitle">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Description') }}</label>
+                            <textarea name="description" class="form-control" rows="3" placeholder="Section description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Content') }}</label>
+                            <textarea name="content" class="form-control text_editor" rows="5" placeholder="HTML content"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_active" id="is_active" checked>
+                                <label class="form-check-label" for="is_active">
+                                    {{ get_phrase('Active') }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ get_phrase('Cancel') }}</button>
+                        <button type="submit" class="btn ol-btn-primary">{{ get_phrase('Add Section') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Section Modal -->
+    <div class="modal fade" id="editSectionModal" tabindex="-1" aria-labelledby="editSectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editSectionModalLabel">{{ get_phrase('Edit Section') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editSectionForm" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Section Key') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="section_key" id="edit_section_key" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Section Name') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="section_name" id="edit_section_name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Title') }}</label>
+                            <input type="text" name="title" id="edit_title" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Subtitle') }}</label>
+                            <input type="text" name="subtitle" id="edit_subtitle" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Description') }}</label>
+                            <textarea name="description" id="edit_description" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ get_phrase('Content') }}</label>
+                            <textarea name="content" id="edit_content" class="form-control text_editor" rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_active" id="edit_is_active">
+                                <label class="form-check-label" for="edit_is_active">
+                                    {{ get_phrase('Active') }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ get_phrase('Cancel') }}</button>
+                        <button type="submit" class="btn ol-btn-primary">{{ get_phrase('Update Section') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+        "use strict";
+        
+        // Initialize Sortable
+        let sortable = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            const sectionsList = document.getElementById('sections-list');
+            if (sectionsList) {
+                sortable = new Sortable(sectionsList, {
+                    animation: 150,
+                    handle: '.section-item',
+                    ghostClass: 'sortable-ghost',
+                    onEnd: function(evt) {
+                        // Visual feedback
+                    }
+                });
+            }
+        });
+
+        // Save sort order
+        function saveSortOrder() {
+            const items = document.querySelectorAll('#sections-list .section-item');
+            const itemArray = [];
+            
+            items.forEach(function(item) {
+                itemArray.push(item.getAttribute('data-id'));
+            });
+
+            $.ajax({
+                url: "{{ route('admin.homepage.section.sort') }}",
+                type: 'POST',
+                data: {
+                    itemJSON: JSON.stringify(itemArray),
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    success(get_phrase('Sections sorted successfully'));
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function() {
+                    error(get_phrase('Failed to save order'));
+                }
+            });
+        }
+
+        // Edit section
+        function editSection(id) {
+            $.ajax({
+                url: "{{ route('admin.homepage.section.show', '') }}/" + id,
+                type: 'GET',
+                success: function(response) {
+                    $('#edit_section_key').val(response.section_key);
+                    $('#edit_section_name').val(response.section_name);
+                    $('#edit_title').val(response.title || '');
+                    $('#edit_subtitle').val(response.subtitle || '');
+                    $('#edit_description').val(response.description || '');
+                    $('#edit_content').val(response.content || '');
+                    $('#edit_is_active').prop('checked', response.is_active == 1);
+                    
+                    $('#editSectionForm').attr('action', "{{ route('admin.homepage.section.update', '') }}/" + id);
+                    $('#editSectionModal').modal('show');
+                }
+            });
+        }
+
+        // Delete section
+        function deleteSection(id) {
+            if (confirm(get_phrase('Are you sure?') + '\n' + get_phrase("You can't bring it back!"))) {
+                window.location.href = "{{ route('admin.homepage.section.delete', '') }}/" + id;
+            }
+        }
+    </script>
+@endpush

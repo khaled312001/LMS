@@ -446,12 +446,13 @@
             has_permission('admin.open.ai.settings') ||
             has_permission('admin.pages') ||
             has_permission('admin.seo.settings') ||
-            has_permission('admin.about'))
+            has_permission('admin.about') ||
+            has_permission('admin.homepage.sections'))
         <nav class="sidebar-nav">
             <h3 class="sidebar-title fs-12px px-30px text-uppercase pb-3">{{ get_phrase('Settings') }}</h3>
             <ul class="px-14px pb-24px mb-5 pb-5">
                 <li
-                    class="sidebar-first-li first-li-have-sub {{ $current_route == 'admin.system.settings' || $current_route == 'admin.website.settings' || $current_route == 'admin.language.phrase.edit' || $current_route == 'admin.payment.settings' || $current_route == 'admin.manage.language' || $current_route == 'admin.notification.settings' || $current_route == 'admin.live.class.settings' || $current_route == 'admin.live.class.settings' || $current_route == 'admin.certificate.settings' || $current_route == 'admin.player.settings' || $current_route == 'admin.open.ai.settings' || $current_route == 'admin.pages' || $current_route == 'admin.seo.settings' || $current_route == 'admin.about' ? 'active' : '' }}">
+                    class="sidebar-first-li first-li-have-sub {{ $current_route == 'admin.system.settings' || $current_route == 'admin.website.settings' || $current_route == 'admin.language.phrase.edit' || $current_route == 'admin.payment.settings' || $current_route == 'admin.manage.language' || $current_route == 'admin.notification.settings' || $current_route == 'admin.live.class.settings' || $current_route == 'admin.live.class.settings' || $current_route == 'admin.certificate.settings' || $current_route == 'admin.player.settings' || $current_route == 'admin.open.ai.settings' || $current_route == 'admin.pages' || $current_route == 'admin.seo.settings' || $current_route == 'admin.about' || $current_route == 'admin.homepage.sections' ? 'active' : '' }}">
                     <a href="javascript:void(0);">
                         <span class="icon fi fi-rr-settings"></span>
                         <div class="text">
@@ -472,6 +473,13 @@
                                 class="sidebar-second-li {{ $current_route == 'admin.website.settings' ? 'active' : '' }}">
                                 <a
                                     href="{{ route('admin.website.settings') }}">{{ get_phrase('Website Settings') }}</a>
+                            </li>
+                        @endif
+                        @if (has_permission('admin.homepage.sections'))
+                            <li
+                                class="sidebar-second-li {{ $current_route == 'admin.homepage.sections' ? 'active' : '' }}">
+                                <a
+                                    href="{{ route('admin.homepage.sections') }}">{{ get_phrase('Homepage Sections') }}</a>
                             </li>
                         @endif
                         @if (has_permission('admin.payment.settings'))

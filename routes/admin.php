@@ -248,6 +248,14 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
         Route::get('player-settings', 'player_settings')->name('player.settings');
         Route::post('player-settings/update', 'player_settings_update')->name('player.settings.update');
 
+        // homepage sections management
+        Route::get('homepage_sections', 'homepage_sections')->name('homepage.sections');
+        Route::post('homepage_sections/store', 'homepage_section_store')->name('homepage.section.store');
+        Route::get('homepage_sections/{id}', 'homepage_section_show')->name('homepage.section.show');
+        Route::post('homepage_sections/{id}/update', 'homepage_section_update')->name('homepage.section.update');
+        Route::get('homepage_sections/{id}/delete', 'homepage_section_delete')->name('homepage.section.delete');
+        Route::post('homepage_sections/sort', 'homepage_section_sort')->name('homepage.section.sort');
+
         // About settings
         Route::get('about', 'about')->name('about');
         Route::any('admin/save_valid_purchase_code/{action_type?}', 'save_valid_purchase_code')->name('save_valid_purchase_code');

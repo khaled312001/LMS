@@ -197,6 +197,88 @@
             }
         }
         
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+        
+        .animate-fade-in.animated {
+            opacity: 1;
+        }
+        
+        .animate-slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .animate-slide-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .animate-slide-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .animate-scale.animated {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Stagger animation for cards */
+        .animate-stagger > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-stagger.animated > *:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+        
+        .animate-stagger.animated > *:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+        
+        .animate-stagger.animated > *:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+        
+        .animate-stagger.animated > *:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+        
+        .animate-stagger.animated > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
     </style>
 @endpush
 @section('content')
@@ -285,11 +367,11 @@
                 return '<span class="highlight">' . $text . '</span>';
             }
         @endphp
-        <section>
+        <section class="animate-on-scroll">
             <div class="container">
                 <div class="row row-20 mb-80 align-items-center">
                     <div class="col-lg-6">
-                        <div class="software-development-banner">
+                        <div class="software-development-banner animate-slide-left">
                             @if (isset($stordetails->image))
                                 <img src="{{ asset('uploads/home_page_image/development/' . $stordetails->image) }}" alt="">
                             @else
@@ -298,7 +380,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="software-development-details">
+                        <div class="software-development-details animate-slide-right">
                             <h2 class="title">{!! removeScripts(highlightLastWord($stordetails->title)) !!}</h2>
                             <p class="info mb-20">{!! $stordetails->description !!}</p>
                             <a href="{{ route('about.us') }}" class="btn-black-arrow1">
@@ -315,18 +397,18 @@
     <!-- Software Development Area End -->
 
     <!-- Learning Coding Area Start -->
-    <section>
+    <section class="animate-on-scroll">
         <div class="container">
             <!-- Section Title -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="dev-section-title">
+                    <div class="dev-section-title animate-fade-in">
                         <h1 class="title mb-20">{{ get_phrase('Start Learning') }} <span class="highlight">{{ get_phrase('Coding') }}</span> {{ get_phrase('Languages') }}</h1>
                         <p class="info">{{ get_phrase("The industry's standard dummy text ever since the  unknown printer took a galley of type and scrambled") }}</p>
                     </div>
                 </div>
             </div>
-            <div class="row row-20 mb-100 justify-content-center">
+            <div class="row row-20 mb-100 justify-content-center animate-stagger">
                 <!-- Card -->
                 <div class="col-lg-4 col-md-6">
                     <div class="learning-coding-card pt-3">
@@ -363,18 +445,18 @@
     <!-- Learning Coding Area End -->
 
     <!-- Pick A Course Area Start -->
-    <section>
+    <section class="animate-on-scroll">
         <div class="container">
             <!-- Section Title -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="dev-section-title">
+                    <div class="dev-section-title animate-fade-in">
                         <h1 class="title mb-20">{{ get_phrase('Pick A Course To') }} <span class="highlight">{{ get_phrase('Get Started') }}</span></h1>
                         <p class="info">{{ get_phrase("The industry's standard dummy text ever since the  unknown printer took a galley of type and scrambled") }}</p>
                     </div>
                 </div>
             </div>
-            <div class="row row-20 mb-110">
+            <div class="row row-20 mb-110 animate-stagger">
                 @php
                     $featured_courses = DB::table('courses')->where('status', 'active')->latest('id')->get();
                 @endphp
@@ -461,18 +543,18 @@
     <!-- Programming Ebook Area End -->
 
     <!-- Ask Question Area Start -->
-    <section>
+    <section class="animate-on-scroll">
         <div class="container">
             <!-- Section Title -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="dev-section-title">
+                    <div class="dev-section-title animate-fade-in">
                         <h1 class="title">{{ get_phrase('Frequently Asked') }} <span class="highlight">{{ get_phrase('Questions') }}</span></h1>
                     </div>
                 </div>
             </div>
             <!-- QNA Accordion -->
-            <div class="row mb-100">
+            <div class="row mb-100 animate-scale">
                 <div class="col-md-12">
                     <div class="accordion qna-three-accordion" id="accordionExample4">
                         @php
@@ -500,19 +582,19 @@
     <!-- Ask Question Area End -->
 
     <!-- Student Testimonials Area Start -->
-    <section>
+    <section class="animate-on-scroll">
         <div class="container">
             <!-- Section Title -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="dev-section-title">
+                    <div class="dev-section-title animate-fade-in">
                         <h1 class="title mb-20">{{ get_phrase('What Our') }} <span class="highlight">{{ get_phrase('Students') }}</span> {{ get_phrase('Have To Say') }}</h1>
                         <p class="info">{{ get_phrase("The industry's standard dummy text ever since the  unknown printer took a galley of type and scrambled") }}</p>
                     </div>
                 </div>
             </div>
             <!-- Testimonials -->
-            <div class="row mb-100">
+            <div class="row mb-100 animate-scale">
                 <div class="col-md-12">
                     @php
                         $reviews = DB::table('user_reviews')->get();
@@ -632,18 +714,18 @@
 
     <!-- News Blog Area Start -->
     @if (get_frontend_settings('blog_visibility_on_the_home_page'))
-        <section>
+        <section class="animate-on-scroll">
             <div class="container">
                 <!-- Section Title -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="dev-section-title">
+                        <div class="dev-section-title animate-fade-in">
                             <h1 class="title mb-20">{{ get_phrase('Get News with') }} <span class="highlight">{{ get_phrase('Academy') }}</span></h1>
                             <p class="info">{{ get_phrase("The industry's standard dummy text ever since the  unknown printer took a galley of type and scrambled") }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="row row-20 mb-100">
+                <div class="row row-20 mb-100 animate-stagger">
                     @foreach ($blogs as $key => $blog)
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <a href="{{ route('blog.details', $blog->slug) }}" class="dev-news-link">
@@ -716,6 +798,37 @@
         myModalEl.addEventListener('shown.bs.modal', event => {
             promoPlayer.play();
             $('#promoVideo').toggleClass('in');
+        });
+    </script>
+
+    <!-- Scroll Animation Script -->
+    <script>
+        "use strict";
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        // Stop observing once animated
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all elements with animation classes
+            const animatedElements = document.querySelectorAll(
+                '.animate-on-scroll, .animate-fade-in, .animate-slide-left, .animate-slide-right, .animate-scale, .animate-stagger'
+            );
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
         });
     </script>
 

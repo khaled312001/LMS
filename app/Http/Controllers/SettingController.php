@@ -14,6 +14,7 @@ use App\Models\PlayerSettings;
 use App\Models\NotificationSetting;
 use App\Models\Payment_gateway;
 use App\Models\Setting;
+use App\Models\HomepageSection;
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
@@ -1110,5 +1111,86 @@ class SettingController extends Controller
 
         Session::flash('success', get_phrase('Your changes has been saved.'));
         return redirect()->route('admin.player.settings');
+    }
+
+    // Homepage Sections Management
+    public function homepage_sections()
+    {
+        $sections = HomepageSection::orderBy('sort_order')->get();
+        return view('admin.setting.homepage_sections', compact('sections'));
+    }
+
+    public function homepage_section_store(Request $request)
+    {
+        $request->validate([
+            'section_key' => 'required|unique:homepage_sections,section_key',
+            'section_name' => 'required|string|max:255',
+        ]);
+
+        $max_sort = HomepageSection::max('sort_order') ?? 0;
+
+        HomepageSection::create([
+            'section_key' => $request->section_key,
+            'section_name' => $request->section_name,
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'content' => $request->content,
+            'description' => $request->description,
+            'sort_order' => $max_sort + 1,
+            'is_active' => $request->has('is_active') ? 1 : 0,
+            'settings' => $request->settings ? json_decode($request->settings, true) : null,
+        ]);
+
+        Session::flash('success', get_phrase('Section added successfully'));
+        return redirect()->back();
+    }
+
+    public function homepage_section_update(Request $request, $id)
+    {
+        $request->validate([
+            'section_key' => 'required|unique:homepage_sections,section_key,' . $id,
+            'section_name' => 'required|string|max:255',
+        ]);
+
+        $data = [
+            'section_key' => $request->section_key,
+            'section_name' => $request->section_name,
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'content' => $request->content,
+            'description' => $request->description,
+            'is_active' => $request->has('is_active') ? 1 : 0,
+        ];
+
+        if ($request->settings) {
+            $data['settings'] = json_decode($request->settings, true);
+        }
+
+        HomepageSection::where('id', $id)->update($data);
+
+        Session::flash('success', get_phrase('Section updated successfully'));
+        return redirect()->back();
+    }
+
+    public function homepage_section_delete($id)
+    {
+        HomepageSection::where('id', $id)->delete();
+        Session::flash('success', get_phrase('Section deleted successfully'));
+        return redirect()->back();
+    }
+
+    public function homepage_section_sort(Request $request)
+    {
+        $sections = json_decode($request->itemJSON);
+        foreach ($sections as $key => $value) {
+            HomepageSection::where('id', $value)->update(['sort_order' => $key + 1]);
+        }
+        return response()->json(['success' => true, 'message' => get_phrase('Sections sorted successfully')]);
+    }
+
+    public function homepage_section_show($id)
+    {
+        $section = HomepageSection::findOrFail($id);
+        return response()->json($section);
     }
 }
