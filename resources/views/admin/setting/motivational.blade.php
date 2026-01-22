@@ -6,7 +6,18 @@
         <div class="col-md-8">
             <div id = "motivational_speech_area">
                 @php
-                    $motivational_speeches = count(json_decode(get_frontend_settings('motivational_speech'), true)) > 0 ? json_decode(get_frontend_settings('motivational_speech'), true) : [['title' => '', 'description' => '', 'image' => '']];
+                    $motivational_speech_data = get_frontend_settings('motivational_speech');
+                    $motivational_speeches = [];
+                    if ($motivational_speech_data) {
+                        $decoded = json_decode($motivational_speech_data, true);
+                        if (is_array($decoded) && count($decoded) > 0) {
+                            $motivational_speeches = $decoded;
+                        } else {
+                            $motivational_speeches = [['title' => '', 'description' => '', 'designation' => '', 'image' => '']];
+                        }
+                    } else {
+                        $motivational_speeches = [['title' => '', 'description' => '', 'designation' => '', 'image' => '']];
+                    }
                 @endphp
                 @foreach ($motivational_speeches as $key => $motivational_speech)
                     <div class="d-flex mt-2">

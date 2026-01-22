@@ -6,7 +6,18 @@
         <div class="col-md-8">
             <div id = "faq_area">
                 @php
-                    $faqs = count(json_decode(get_frontend_settings('website_faqs'), true)) > 0 ? json_decode(get_frontend_settings('website_faqs'), true) : [['question' => '', 'answer' => '']];
+                    $faqs_data = get_frontend_settings('website_faqs');
+                    $faqs = [];
+                    if ($faqs_data) {
+                        $decoded = json_decode($faqs_data, true);
+                        if (is_array($decoded) && count($decoded) > 0) {
+                            $faqs = $decoded;
+                        } else {
+                            $faqs = [['question' => '', 'answer' => '']];
+                        }
+                    } else {
+                        $faqs = [['question' => '', 'answer' => '']];
+                    }
                 @endphp
                 @foreach ($faqs as $key => $faq)
                     <div class="d-flex mt-2">

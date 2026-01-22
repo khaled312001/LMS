@@ -2,10 +2,17 @@
 @php
     $contact_info = get_frontend_settings('contact_info');
     if ($contact_info) {
-        $contact_info = json_decode($contact_info, true);
+        $decoded = json_decode($contact_info, true);
+        if (is_array($decoded)) {
+            $contact_info = $decoded;
+        } else {
+            $contact_info = ['email' => '', 'phone' => '', 'address' => '', 'office_hours' => ''];
+        }
     } else {
         $contact_info = ['email' => '', 'phone' => '', 'address' => '', 'office_hours' => ''];
     }
+    // Ensure all keys exist
+    $contact_info = array_merge(['email' => '', 'phone' => '', 'address' => '', 'office_hours' => '', 'location' => ''], $contact_info);
 @endphp
 
 <form action="{{ route('admin.website.settings.update') }}" method="post" enctype="multipart/form-data">
