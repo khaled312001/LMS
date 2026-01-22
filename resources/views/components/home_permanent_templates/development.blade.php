@@ -514,78 +514,118 @@
             <!-- Testimonials -->
             <div class="row mb-100">
                 <div class="col-md-12">
-                    <div class="swiper dev-student-swiper" id="testimonials-swiper">
-                        <div class="swiper-wrapper">
-                            @php
-                                $reviews = DB::table('user_reviews')->get();
-                            @endphp
-                            @foreach ($reviews as $review)
-                                @php
-                                    $userDetails = App\Models\User::where('id', $review->user_id)->firstOrNew();
-                                @endphp
-                                <div class="swiper-slide">
-                                    <div class="dev-student-testimonial">
-                                        <div class="ratings d-flex align-items-center">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                @if ($i <= $review->rating)
-                                                    <img src="{{ asset('assets/frontend/default/image/star-yellow-14.svg') }}" alt="">
-                                                @else
-                                                    <img src="{{ asset('assets/frontend/default/image/star.svg') }}" alt="">
-                                                @endif
-                                            @endfor
-                                        </div>
-                                        <p class="feedback"><span class="bold">{{ $review->review }}</p>
-                                        <div class="profile-wrap d-flex align-items-center">
-                                            <div class="profile">
-                                                <img src="{{ get_image_by_id($userDetails->id) }}" alt="">
+                    @php
+                        $reviews = DB::table('user_reviews')->get();
+                    @endphp
+                    @if(count($reviews) > 0)
+                        <div class="swiper dev-student-swiper" id="testimonials-swiper">
+                            <div class="swiper-wrapper">
+                                @foreach ($reviews as $review)
+                                    @php
+                                        $userDetails = App\Models\User::where('id', $review->user_id)->first();
+                                        if (!$userDetails) {
+                                            continue;
+                                        }
+                                    @endphp
+                                    <div class="swiper-slide">
+                                        <div class="dev-student-testimonial">
+                                            <div class="ratings d-flex align-items-center">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->rating)
+                                                        <img src="{{ asset('assets/frontend/default/image/star-yellow-14.svg') }}" alt="">
+                                                    @else
+                                                        <img src="{{ asset('assets/frontend/default/image/star.svg') }}" alt="">
+                                                    @endif
+                                                @endfor
                                             </div>
-                                            <div class="name-role">
-                                                <h5 class="name">{{ $userDetails->name }}</h5>
-                                                <p class="role">{{ get_phrase('Student') }}</p>
+                                            <p class="feedback"><span class="bold">{{ $review->review }}</span></p>
+                                            <div class="profile-wrap d-flex align-items-center">
+                                                <div class="profile">
+                                                    <img src="{{ get_image_by_id($userDetails->id) }}" alt="{{ $userDetails->name }}">
+                                                </div>
+                                                <div class="name-role">
+                                                    <h5 class="name">{{ $userDetails->name }}</h5>
+                                                    <p class="role">{{ get_phrase('Student') }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
+                            <!-- Add Swiper navigation if desired -->
+                            @if(count($reviews) > 1)
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-pagination"></div>
+                            @endif
                         </div>
-                        <!-- Add Swiper navigation if desired -->
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-pagination"></div>
-                    </div>
+                    @else
+                        <div class="text-center py-5">
+                            <p class="text-muted">{{ get_phrase('No reviews available yet') }}</p>
+                        </div>
+                    @endif
                 </div>
             </div>
+            @if(count($reviews) > 0)
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+                    var testimonialsContainer = document.getElementById('testimonials-swiper');
+                    if (!testimonialsContainer) {
+                        return;
+                    }
+                    
+                    // Destroy existing swiper if it exists
+                    if (window.testimonialsSwiperInstance) {
+                        window.testimonialsSwiperInstance.destroy(true, true);
+                    }
+                    
+                    var reviewsCount = parseInt('{{ count($reviews) }}');
                     var testimonialsSwiper = new Swiper('#testimonials-swiper', {
-                        loop: true,
-                        autoplay: {
+                        loop: reviewsCount > 1,
+                        autoplay: reviewsCount > 1 ? {
                             delay: 3500,
                             disableOnInteraction: false,
-                        },
-                        slidesPerView: 2,
-                        spaceBetween: 24,
+                        } : false,
+                        slidesPerView: 1,
+                        spaceBetween: 16,
+                        centeredSlides: true,
                         breakpoints: {
                             0: {
                                 slidesPerView: 1,
-                                spaceBetween: 12,
+                                spaceBetween: 16,
+                                centeredSlides: true,
+                            },
+                            576: {
+                                slidesPerView: 1,
+                                spaceBetween: 20,
+                                centeredSlides: true,
                             },
                             768: {
                                 slidesPerView: 2,
                                 spaceBetween: 24,
+                                centeredSlides: false,
+                            },
+                            992: {
+                                slidesPerView: 2,
+                                spaceBetween: 24,
+                                centeredSlides: false,
                             }
                         },
-                        pagination: {
+                        pagination: reviewsCount > 1 ? {
                             el: '.swiper-pagination',
                             clickable: true,
-                        },
-                        navigation: {
+                            dynamicBullets: true,
+                        } : false,
+                        navigation: reviewsCount > 1 ? {
                             nextEl: '.swiper-button-next',
                             prevEl: '.swiper-button-prev',
-                        },
+                        } : false,
                     });
+                    
+                    window.testimonialsSwiperInstance = testimonialsSwiper;
                 });
             </script>
+            @endif
         </div>
     </section>
     <!-- Student Testimonials Area End -->
@@ -617,10 +657,6 @@
                                             <div class="date-wrap d-flex align-items-center">
                                                 <img src="{{ asset('assets/frontend/default/image/calendar-black-16.svg') }}" alt="">
                                                 <p class="value">{{ $blog->created_at->format('d M, Y') }}</p>
-                                            </div>
-                                            <div class="comment-wrap mt-0 d-flex align-items-center">
-                                                <img src="{{ asset('assets/frontend/default/image/messages-black-16.svg') }}" alt="">
-                                                <p class="value">{{ count_comments_by_blog_id($blog->id) }}</p>
                                             </div>
                                         </div>
                                         <p class="info ellipsis-line-2">{{ ellipsis(strip_tags($blog->description), 160) }}</p>

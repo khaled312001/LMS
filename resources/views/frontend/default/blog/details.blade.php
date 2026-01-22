@@ -66,10 +66,6 @@
                                     </li>
                                 @endif
                                 <li>
-                                    <img class="pro-20" src="{{ asset('assets/frontend/default/image/elearn2.png') }}" alt="blog-comment">
-                                    {{ $total_comments }}
-                                </li>
-                                <li>
                                     <img class="pro-20" src="{{ asset('assets/frontend/default/image/elearn3.png') }}" alt="created-date">
                                     {{ date('d M, Y', strtotime($blog_details->created_at)) }}
                                 </li>
@@ -116,23 +112,6 @@
 
                         <div class="comment-wrap">
                             @include('frontend.default.blog.author_details')
-
-                            <div class="comment-head">
-                                <h4 class="g-title"> {{ $total_comments }} </h4>
-                            </div>
-
-                            @isset(auth()->user()->id)
-                                <h4 class="g-title g_font mt-5 mb-0">{{ get_phrase('Post A Comment') }}</h4>
-                                <form action="{{ route('blog.comment.store') }}" class="comment-form" method="post">@csrf
-                                    <input type="hidden" name="blog_id" value="{{ $blog_details->id }}">
-                                    <textarea name="comment" id="comment" class="form-control" placeholder="{{ get_phrase('Write your comment ...') }}"></textarea>
-                                    <button type="submit" class="eBtn gradient">{{ get_phrase('Post Comment') }}</button>
-                                </form>
-                            @endisset
-
-                            @foreach ($blog_comments as $comment)
-                                @include('frontend.default.blog.comment')
-                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -145,18 +124,6 @@
     <script>
         "use strict";
         $(document).ready(function() {
-            $('.replay').on('click', function(e) {
-                e.preventDefault();
-                let comment_id = $(this).attr('id');
-
-                if ($('#replay-' + comment_id).hasClass('d-none')) {
-                    $('#replay-' + comment_id).removeClass('d-none');
-                } else {
-                    $('#replay-' + comment_id).addClass('d-none');
-                }
-                $('.replay-form:not(#replay-' + comment_id + ')').addClass('d-none');
-            });
-
             $('.like-svg').on('click', function(e) {
                 e.preventDefault();
                 $.ajax({

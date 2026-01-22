@@ -457,23 +457,27 @@ if (typeof Swiper !== 'undefined') {
     });
 
 
-    var swiper4 = new Swiper(".dev-student-swiper", {
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        keyboard: true,
-        slidesPerView: 1,
-        spaceBetween: 20,
-        breakpoints: {
-            768: {
-                slidesPerView: 1,
+    // Development theme student testimonials swiper - handled inline in blade template
+    // This prevents double initialization
+    if (document.querySelector(".dev-student-swiper:not(#testimonials-swiper)")) {
+        var swiper4 = new Swiper(".dev-student-swiper:not(#testimonials-swiper)", {
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
             },
-            991: {
-                slidesPerView: 2,
+            keyboard: true,
+            slidesPerView: 1,
+            spaceBetween: 20,
+            breakpoints: {
+                768: {
+                    slidesPerView: 1,
+                },
+                991: {
+                    slidesPerView: 2,
+                },
             },
-        },
-    });
+        });
+    }
 
 
 
