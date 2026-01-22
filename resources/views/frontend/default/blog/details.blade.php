@@ -10,6 +10,124 @@
         .breadcum-area {
             z-index: -1;
         }
+
+        /* Fix for blog content visibility */
+        .blog-details {
+            overflow: visible;
+        }
+
+        .blog-details .blog-f-image {
+            overflow: visible !important;
+            word-wrap: break-word;
+            width: 100%;
+        }
+
+        .blog-details .description-style {
+            overflow: visible !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            white-space: normal !important;
+            text-overflow: unset !important;
+            max-height: none !important;
+            height: auto !important;
+            min-height: auto !important;
+            line-height: 1.8;
+            margin: 20px 0;
+            padding: 0;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        .blog-details .description-style * {
+            max-width: 100% !important;
+            overflow: visible !important;
+        }
+
+        .blog-details .description-style p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .blog-details .description-style img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        .blog-details .description-style h1,
+        .blog-details .description-style h2,
+        .blog-details .description-style h3,
+        .blog-details .description-style h4,
+        .blog-details .description-style h5,
+        .blog-details .description-style h6 {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .blog-details .ps-box {
+            overflow: visible !important;
+            max-width: 100%;
+        }
+
+        .blog-details .blog-box {
+            overflow: visible !important;
+            padding: 30px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .blog-details .container {
+            overflow: visible;
+        }
+
+        .blog-details .row {
+            overflow: visible;
+        }
+
+        .blog-details .col-lg-12 {
+            overflow: visible;
+        }
+
+        /* Related articles section */
+        .related-blogs-section {
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .related-blogs-section .section-title {
+            margin-bottom: 40px;
+        }
+
+        /* Ensure cards display properly */
+        .related-blogs-section .b-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .related-blogs-section .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .related-blogs-section .b_bottom {
+            margin-top: auto;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .blog-details .blog-box {
+                padding: 20px 15px;
+            }
+
+            .related-blogs-section {
+                margin-top: 30px;
+                padding-top: 30px;
+            }
+        }
     </style>
 @endpush
 @section('content')
