@@ -230,6 +230,7 @@ class UsersController extends Controller
         $validated = $request->validate([
             'name'  => 'required|max:255',
             'email' => "required|email|unique:users,email,$id",
+            'password' => 'nullable|min:8',
         ]);
 
         $data['name']        = $request->name;
@@ -242,6 +243,11 @@ class UsersController extends Controller
         $data['website']     = $request->website;
         $data['linkedin']    = $request->linkedin;
         $data['paymentkeys'] = json_encode($request->paymentkeys);
+
+        // Update password if provided
+        if (!empty($request->password)) {
+            $data['password'] = Hash::make($request->password);
+        }
 
         if (isset($request->photo) && $request->hasFile('photo')) {
             remove_file(User::where('id', $id)->first()->photo);
