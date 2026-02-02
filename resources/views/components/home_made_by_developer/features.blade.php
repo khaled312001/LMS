@@ -4,6 +4,11 @@
 
 <section class="performance-wrapper section-padding">
     <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="title">{{ get_phrase('Why Choose Us') }}</h2>
+            </div>
+        </div>
         <div class="pr-wrap">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6  ps-border">

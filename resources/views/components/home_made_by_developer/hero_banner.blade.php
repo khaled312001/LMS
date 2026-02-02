@@ -14,7 +14,7 @@
                     </h1>
                     <p class="builder-editable" builder-identity="5">{{ get_phrase('Welcome Platform Description')}}</p>
                     <div class="banner-btn">
-                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable" builder-identity="6">{{ get_phrase('Start Your Journey') }}</a>
+                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable" builder-identity="6">{{ get_phrase('Get Started') }}</a>
                         <a data-bs-toggle="modal" data-bs-target="#promoVideo" href="#" class="eBtn learn-btn"><i class="fa-solid fa-play"></i>{{ get_phrase('Learn More') }}</a>
                     </div>
                 </div>
