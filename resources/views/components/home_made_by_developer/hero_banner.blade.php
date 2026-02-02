@@ -7,14 +7,14 @@
         <div class="row justify-content-center">
             <div class="col-md-6 order-2 order-md-1">
                 <div class="banner-content">
-                    <h5 class="d-flex"><img class="builder-editable" builder-identity="1" src="{{asset('assets/page-builder/block-image/roket.svg')}}" alt="..."> <span class="builder-editable" builder-identity="2">{{ get_phrase('The Leader in online learning')}}</span></h5>
+                    <h5 class="d-flex"><img class="builder-editable" builder-identity="1" src="{{asset('assets/page-builder/block-image/roket.svg')}}" alt="..."> <span class="builder-editable" builder-identity="2">{{ get_phrase('Welcome to Our Learning Platform')}}</span></h5>
                     <h1>
-                        <span class="builder-editable" builder-identity="3">{{ get_phrase("Start learning from the world's pro")}}</span>
-                        <span class="gradient color shadow-none builder-editable" builder-identity="4">{{ get_phrase('instructors')}}</span>
+                        <span class="builder-editable" builder-identity="3">{{ get_phrase("Swiss Quality Standards")}}</span>
+                        <span class="gradient color shadow-none builder-editable" builder-identity="4">{{ get_phrase('Interactive Modern Content')}}</span>
                     </h1>
-                    <p class="builder-editable" builder-identity="5">{{ get_phrase('We invites learners to explore courses designed by industry experts, offering cutting-edge content for skill development.')}}</p>
+                    <p class="builder-editable" builder-identity="5">{{ get_phrase('Welcome Platform Description')}}</p>
                     <div class="banner-btn">
-                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable" builder-identity="6">{{ get_phrase('Get Started') }}</a>
+                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable" builder-identity="6">{{ get_phrase('Start Your Journey') }}</a>
                         <a data-bs-toggle="modal" data-bs-target="#promoVideo" href="#" class="eBtn learn-btn"><i class="fa-solid fa-play"></i>{{ get_phrase('Learn More') }}</a>
                     </div>
                 </div>

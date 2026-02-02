@@ -65,29 +65,20 @@
                 <div class="col-lg-12">
                     <div class="ps-box p-4">
                         <h2 class="g-title mb-4">{{ get_phrase('Welcome to Our Learning Platform') }}</h2>
-                        @if (!empty($about_content))
-                            <div class="description-style">
-                                {!! htmlspecialchars_decode(removeScripts($about_content)) !!}
-                            </div>
-                        @else
-                            <div class="description-style">
-                                <p class="mb-4">{{ get_phrase('We are a leading online learning platform dedicated to providing high-quality education to students worldwide. Our mission is to make education accessible, affordable, and engaging for everyone.') }}</p>
-                                
-                                <p class="mb-4">{{ get_phrase('With a diverse range of courses taught by expert instructors, we offer comprehensive learning experiences that help students achieve their educational and professional goals. Whether you are looking to advance your career, learn a new skill, or pursue a passion, we have something for everyone.') }}</p>
-                                
-                                <p class="mb-4">{{ get_phrase('Our platform features:') }}</p>
-                                <ul class="mb-4">
-                                    <li>{{ get_phrase('High-quality video lessons and interactive content') }}</li>
-                                    <li>{{ get_phrase('Expert instructors with real-world experience') }}</li>
-                                    <li>{{ get_phrase('Flexible learning schedules that fit your lifestyle') }}</li>
-                                    <li>{{ get_phrase('Certificates of completion for your achievements') }}</li>
-                                    <li>{{ get_phrase('Lifetime access to course materials') }}</li>
-                                    <li>{{ get_phrase('Community support and peer interaction') }}</li>
-                                </ul>
-                                
-                                <p>{{ get_phrase('Join thousands of satisfied students who have transformed their lives through our comprehensive online courses. Start your learning journey today!') }}</p>
-                            </div>
-                        @endif
+                        <div class="description-style">
+                            <p class="mb-4">{{ get_phrase('About Us Full') }}</p>
+                            <p class="mb-4">{{ get_phrase('Flexible Learning Full') }}</p>
+                            <p class="mb-4">{{ get_phrase('Our Goal') }}</p>
+                            <p class="mb-4">{{ get_phrase('Our Team Description') }}</p>
+                            
+                            <h4 class="g-title mb-3 mt-5">{{ get_phrase('Post-Graduation Service') }}</h4>
+                            <p class="mb-3">{{ get_phrase('Career Support Services') }}</p>
+                            <ul class="mb-4">
+                                <li>{{ get_phrase('Professional CV Preparation') }}</li>
+                                <li>{{ get_phrase('Interview Preparation') }}</li>
+                                <li>{{ get_phrase('Profile Building') }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,7 +95,7 @@
                             <i class="fa-solid fa-bullseye text-primary fs-32px me-3"></i>
                             <h3 class="g-title mb-0">{{ get_phrase('Our Mission') }}</h3>
                         </div>
-                        <p class="description">{{ get_phrase('Our mission is to democratize education by providing high-quality, accessible, and affordable online learning opportunities to students worldwide. We strive to empower individuals to achieve their personal and professional goals through comprehensive, engaging, and practical educational content.') }}</p>
+                        <p class="description">{{ get_phrase('Mission Statement') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -113,7 +104,7 @@
                             <i class="fa-solid fa-eye text-primary fs-32px me-3"></i>
                             <h3 class="g-title mb-0">{{ get_phrase('Our Vision') }}</h3>
                         </div>
-                        <p class="description">{{ get_phrase('We envision a world where quality education is accessible to everyone, regardless of geographical location or financial constraints. Our vision is to become the most trusted and comprehensive online learning platform, recognized for excellence in education delivery and student success.') }}</p>
+                        <p class="description">{{ get_phrase('Vision Statement') }}</p>
                     </div>
                 </div>
             </div>
@@ -133,37 +124,28 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="ps-box p-4 text-center h-100">
                         <div class="mb-3">
+                            <i class="fa-solid fa-globe text-primary fs-48px"></i>
+                        </div>
+                        <h4 class="g-title mb-3">{{ get_phrase('Trusted Swiss Management') }}</h4>
+                        <p class="description">{{ get_phrase('Swiss Management Description') }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="ps-box p-4 text-center h-100">
+                        <div class="mb-3">
                             <i class="fa-solid fa-graduation-cap text-primary fs-48px"></i>
                         </div>
-                        <h4 class="g-title mb-3">{{ get_phrase('Expert Instructors') }}</h4>
-                        <p class="description">{{ get_phrase('Learn from industry experts and experienced professionals who bring real-world knowledge to every lesson.') }}</p>
+                        <h4 class="g-title mb-3">{{ get_phrase('Professional Trainers') }}</h4>
+                        <p class="description">{{ get_phrase('Professional Trainers Description') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="ps-box p-4 text-center h-100">
                         <div class="mb-3">
-                            <i class="fa-solid fa-certificate text-primary fs-48px"></i>
+                            <i class="fa-solid fa-laptop-house text-primary fs-48px"></i>
                         </div>
-                        <h4 class="g-title mb-3">{{ get_phrase('Certified Courses') }}</h4>
-                        <p class="description">{{ get_phrase('Earn recognized certificates upon course completion that can boost your resume and career prospects.') }}</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="ps-box p-4 text-center h-100">
-                        <div class="mb-3">
-                            <i class="fa-solid fa-clock text-primary fs-48px"></i>
-                        </div>
-                        <h4 class="g-title mb-3">{{ get_phrase('Flexible Learning') }}</h4>
-                        <p class="description">{{ get_phrase('Study at your own pace, anytime, anywhere. Our flexible schedule fits your busy lifestyle.') }}</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="ps-box p-4 text-center h-100">
-                        <div class="mb-3">
-                            <i class="fa-solid fa-video text-primary fs-48px"></i>
-                        </div>
-                        <h4 class="g-title mb-3">{{ get_phrase('High-Quality Content') }}</h4>
-                        <p class="description">{{ get_phrase('Access professionally produced video lessons, interactive quizzes, and comprehensive study materials.') }}</p>
+                        <h4 class="g-title mb-3">{{ get_phrase('Flexible Learning Options') }}</h4>
+                        <p class="description">{{ get_phrase('Flexible Learning Description') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -171,17 +153,42 @@
                         <div class="mb-3">
                             <i class="fa-solid fa-users text-primary fs-48px"></i>
                         </div>
-                        <h4 class="g-title mb-3">{{ get_phrase('Community Support') }}</h4>
-                        <p class="description">{{ get_phrase('Join a vibrant community of learners, interact with peers, and get support from instructors.') }}</p>
+                        <h4 class="g-title mb-3">{{ get_phrase('Supportive Community') }}</h4>
+                        <p class="description">{{ get_phrase('Community Description') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="ps-box p-4 text-center h-100">
                         <div class="mb-3">
-                            <i class="fa-solid fa-infinity text-primary fs-48px"></i>
+                            <i class="fa-solid fa-certificate text-primary fs-48px"></i>
                         </div>
-                        <h4 class="g-title mb-3">{{ get_phrase('Lifetime Access') }}</h4>
-                        <p class="description">{{ get_phrase('Get lifetime access to course materials, so you can revisit and review content whenever you need.') }}</p>
+                        <h4 class="g-title mb-3">{{ get_phrase('Certified Completion') }}</h4>
+                        <p class="description">{{ get_phrase('Certificates Description') }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="ps-box p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-briefcase text-primary fs-48px"></i>
+                        </div>
+                        <h4 class="g-title mb-3">{{ get_phrase('Post-Graduation Service') }}</h4>
+                        <p class="description">{{ get_phrase('Post-Graduation Description') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-80px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="ps-box p-5">
+                        <h2 class="g-title mb-4">{{ get_phrase('Join Us Today') }}</h2>
+                        <p class="description mb-4">{{ get_phrase('Start Your Journey') }}</p>
+                        <p class="description mb-4">{{ get_phrase('Learn Programming From Zero') }}</p>
+                        <a href="{{ route('courses') }}" class="btn btn-primary btn-lg mt-3">{{ get_phrase('Get Started') }}</a>
                     </div>
                 </div>
             </div>
@@ -190,7 +197,7 @@
 
     <!-- Featured Instructors Section -->
     @if (isset($instructors) && $instructors->count() > 0)
-    <section class="py-80px">
+    <section class="py-80px bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
@@ -221,7 +228,7 @@
     @endif
 
     <!-- Course Statistics Section -->
-    <section class="py-80px bg-light">
+    <section class="py-80px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">

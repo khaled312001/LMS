@@ -8,8 +8,18 @@
         </div>
         <div class="row mb-110 mt-5">
             @php
-                $faqs = json_decode(get_frontend_settings('website_faqs'), true);
-                $faqs = count($faqs) > 0 ? $faqs : [['question' => '', 'answer' => '']];
+                // $faqs = json_decode(get_frontend_settings('website_faqs'), true);
+                // $faqs = count($faqs) > 0 ? $faqs : [['question' => '', 'answer' => '']];
+                $faqs = [
+                    ['question' => get_phrase('FAQ Learning Methods Question'), 'answer' => get_phrase('FAQ Learning Methods Answer')],
+                    ['question' => get_phrase('FAQ Language Question'), 'answer' => get_phrase('FAQ Language Answer')],
+                    ['question' => get_phrase('FAQ Certificate Question'), 'answer' => get_phrase('FAQ Certificate Answer')],
+                    ['question' => get_phrase('FAQ Support Question'), 'answer' => get_phrase('FAQ Support Answer')],
+                    ['question' => get_phrase('FAQ Experience Question'), 'answer' => get_phrase('FAQ Experience Answer')],
+                    ['question' => get_phrase('FAQ Payment Question'), 'answer' => get_phrase('FAQ Payment Answer')],
+                    ['question' => get_phrase('FAQ Refund Question'), 'answer' => get_phrase('FAQ Refund Answer')],
+                    ['question' => get_phrase('FAQ Contact Question'), 'answer' => get_phrase('FAQ Contact Answer')],
+                ];
             @endphp
             <div class="col-md-12">
                 <div class="accordion qnaaccordion-two" id="accordionExampleLeft">
