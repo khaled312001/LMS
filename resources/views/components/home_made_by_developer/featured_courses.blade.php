@@ -22,18 +22,18 @@
     }
 </style>
 
-<section class="feature-wrapper section-padding">
+<section class="feature-wrapper section-padding bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-lg-12">
                 <div class="res-control d-flex align-items-center justify-content-between">
-                    <div class="section-title mb-0">
-                        <span class="title-head builder-editable" builder-identity="1">{{get_phrase('Courses')}}</span>
-                        <h2 class="title builder-editable" builder-identity="2">{{get_phrase('Featured Courses')}}
+                    <div class="section-title mb-0 text-center text-md-start">
+                        <span class="title-head builder-editable text-primary fw-bold" builder-identity="1">{{get_phrase('Courses')}}</span>
+                        <h2 class="title builder-editable fw-bolder" builder-identity="2">{{get_phrase('Featured Courses')}}
                         </h2>
                     </div>
-                    <span class="featured-course-all-button">
-                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable" builder-identity="3">{{ get_phrase('View All Courses') }}</a>
+                    <span class="featured-course-all-button d-none d-md-block">
+                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable rounded-pill px-4 shadow-sm" builder-identity="3">{{ get_phrase('View All Courses') }}</a>
                     </span>
                 </div>
             </div>

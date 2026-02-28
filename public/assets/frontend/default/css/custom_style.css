@@ -99,6 +99,7 @@
 .card_preview_text {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     height: 53px;
@@ -107,6 +108,7 @@
 .card_preview_text_blog {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     height: 53px;
@@ -115,6 +117,7 @@
 .card_preview_text_course {
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     height: 78px;
@@ -134,25 +137,26 @@
 
 /* Fix mega menu dropdown for laptop screens */
 @media (min-width: 992px) and (max-width: 1366px) {
+
     /* Ensure parent containers don't clip the dropdown */
     body,
     html,
     .header-area,
     .header-area .container,
     .header-area .row,
-    .header-area .row > div,
+    .header-area .row>div,
     .header-area .col-auto,
     .header-menu,
     .nav-menu,
     .primary-menu,
     .main-menu-ul,
-    .main-menu-ul > li,
-    .main-menu-ul > li.have-mega-menu {
+    .main-menu-ul>li,
+    .main-menu-ul>li.have-mega-menu {
         overflow: visible !important;
         overflow-x: visible !important;
         overflow-y: visible !important;
     }
-    
+
     .main-mega-menu {
         left: 0 !important;
         transform: translate(0) !important;
@@ -165,19 +169,19 @@
         z-index: 99999 !important;
         top: 48px !important;
     }
-    
-    .main-menu-ul > li.have-mega-menu {
+
+    .main-menu-ul>li.have-mega-menu {
         position: relative !important;
     }
-    
-    .main-menu-ul > li.have-mega-menu:hover .main-mega-menu {
+
+    .main-menu-ul>li.have-mega-menu:hover .main-mega-menu {
         left: 0 !important;
         transform: translate(0) !important;
         visibility: visible !important;
         opacity: 1 !important;
         display: block !important;
     }
-    
+
     /* Adjust child menu position for laptop */
     .child_category_menu {
         left: calc(100% + 10px) !important;
@@ -187,7 +191,7 @@
         position: absolute !important;
         z-index: 999999 !important;
     }
-    
+
     /* Ensure mega menu items are fully visible */
     .mega-menu-items {
         overflow: visible !important;
@@ -195,7 +199,7 @@
         display: block !important;
         width: 100% !important;
     }
-    
+
     .mega_list {
         overflow: visible !important;
         max-height: none !important;
@@ -205,14 +209,14 @@
         padding: 0 !important;
         margin: 0 !important;
     }
-    
+
     .mega_list li {
         display: block !important;
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
     }
-    
+
     /* Ensure all items in dropdown are visible */
     .mega_list li a {
         white-space: nowrap !important;
@@ -221,18 +225,18 @@
         display: flex !important;
         width: 100% !important;
     }
-    
+
     /* Make sure the last item is visible */
     .mega_list li:last-child {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
     }
-    
+
     /* Ensure padding doesn't cut off content */
     .mega-menu-items {
         padding-bottom: 10px !important;
     }
-    
+
     .main-mega-menu {
         padding-bottom: 15px !important;
     }
@@ -243,7 +247,7 @@
     .main-mega-menu {
         width: 320px !important;
     }
-    
+
     .child_category_menu {
         width: 250px !important;
     }
@@ -363,12 +367,18 @@
 }
 
 :root {
-    --skinColor1: #13BE95;
-    --skinColor2: #5363D2;
-    --skinColor3: #00907f;
-    --skinColor4: #f95c16;
-    --skinColor5: #264871;
-    --skinColor6: #ff2458;
+    --skinColor1: #4F46E5;
+    /* Indigo / modern blue */
+    --skinColor2: #10B981;
+    /* Emerald / green success */
+    --skinColor3: #6366F1;
+    /* Primary Hover */
+    --skinColor4: #F59E0B;
+    /* Amber / warnings */
+    --skinColor5: #1E293B;
+    /* Slate / dark text */
+    --skinColor6: #EF4444;
+    /* Red / danger */
     --whiteColor: #FFF;
     --blackColor: #000;
 }
@@ -3128,7 +3138,8 @@ span[class="fi-rr-"]:before {
     height: 100%;
     transition: box-shadow 0.3s;
 }
-.cooking-course-card:hover{
+
+.cooking-course-card:hover {
     box-shadow: 0 14px 32px 0 rgba(96, 97, 109, 0.247);
     transition: box-shadow 0.3s;
 }
@@ -3560,7 +3571,8 @@ span[class="fi-rr-"]:before {
     width: 100%;
     height: 230px;
 }
-.cooking-popular-instructor .profile-img img{
+
+.cooking-popular-instructor .profile-img img {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -4755,6 +4767,7 @@ span[class="fi-rr-"]:before {
     overflow: hidden;
     transition: 0.3s;
 }
+
 i:not(.fas, .fa, .fab) {
     line-height: 1.5em !important;
     vertical-align: -0.12em !important;
@@ -4983,14 +4996,17 @@ span[class*="fi-rr-"]:before {
 .grid-view-banner1 {
     border-radius: 8px;
 }
-.grid-view-banner1>a{
+
+.grid-view-banner1>a {
     width: 100%;
 }
-.grid-view-banner1>a>img, .grid-view-banner1>img {
+
+.grid-view-banner1>a>img,
+.grid-view-banner1>img {
     width: 100%;
     height: 207px;
     border-radius: 8px;
-    object-fit:cover;
+    object-fit: cover;
 }
 
 .grid-view-banner2>img {
@@ -6173,11 +6189,13 @@ span[class*="fi-rr-"]:before {
     margin-bottom: 44px;
 
 }
-.uv-banner-content .title-5 span.highlight-title{
+
+.uv-banner-content .title-5 span.highlight-title {
     position: relative;
     display: inline-block;
 }
-.uv-banner-content .title-5 span.highlight-title::after{
+
+.uv-banner-content .title-5 span.highlight-title::after {
     content: "";
     background-image: url(../image/highlight_right.png);
     background-size: auto;
@@ -6189,7 +6207,8 @@ span[class*="fi-rr-"]:before {
     right: -42px;
     z-index: 99;
 }
-.uv-banner-content .title-5 span.highlight-title::before{
+
+.uv-banner-content .title-5 span.highlight-title::before {
     content: "";
     background-image: url(../image/highlight_left.png);
     background-size: auto;
@@ -6387,11 +6406,13 @@ span[class*="fi-rr-"]:before {
     width: 100%;
     margin: 0 auto;
 }
+
 .max-w-765px {
     max-width: 765px;
     width: 100%;
     margin: 0 auto;
 }
+
 .max-w-850px {
     max-width: 765px;
     width: 100%;
@@ -7339,7 +7360,8 @@ span[class*="fi-rr-"]:before {
     margin: initial;
     padding: 0px 0px 0px 17.5px;
 }
-.description-style-sm p{
+
+.description-style-sm p {
     font-size: 14px;
 }
 
@@ -7371,6 +7393,7 @@ span[class*="fi-rr-"]:before {
 
 /* Fix menu scrolling on desktop/PC size */
 @media (min-width: 992px) {
+
     /* Remove overflow from header menu containers */
     .header-area .container,
     .header-area .row,
@@ -7380,7 +7403,7 @@ span[class*="fi-rr-"]:before {
         overflow-y: visible !important;
         overflow-x: visible !important;
     }
-    
+
     /* Direct targeting for col-auto with nav-menu (browser compatibility) */
     .header-area .col-auto .header-menu,
     .header-area .col-auto .nav-menu {
@@ -7390,7 +7413,7 @@ span[class*="fi-rr-"]:before {
         max-height: none !important;
         height: auto !important;
     }
-    
+
     .header-menu,
     .nav-menu,
     .primary-menu,
@@ -7401,7 +7424,7 @@ span[class*="fi-rr-"]:before {
         max-height: none !important;
         height: auto !important;
     }
-    
+
     /* Remove overflow from top bar (sub-header) */
     .sub-header .container,
     .sub-header .row,
@@ -7411,7 +7434,7 @@ span[class*="fi-rr-"]:before {
         overflow-y: visible !important;
         overflow-x: visible !important;
     }
-    
+
     .sub-header-left,
     .sub-header-left.right-sub,
     .sub-header-left ul,
@@ -7422,23 +7445,23 @@ span[class*="fi-rr-"]:before {
         max-height: none !important;
         height: auto !important;
     }
-    
+
     /* Allow mega menu dropdown to scroll if needed */
     .main-mega-menu {
         overflow-y: auto;
         max-height: 80vh;
     }
-    
+
     /* Ensure menu items display horizontally without wrapping */
     .primary-menu {
         flex-wrap: nowrap !important;
         white-space: nowrap !important;
     }
-    
+
     .primary-menu li {
         white-space: nowrap !important;
     }
-    
+
     /* Hide scrollbars if they appear */
     .header-area *::-webkit-scrollbar,
     .sub-header *::-webkit-scrollbar {
@@ -7446,7 +7469,7 @@ span[class*="fi-rr-"]:before {
         width: 0 !important;
         height: 0 !important;
     }
-    
+
     .header-area *,
     .sub-header * {
         -ms-overflow-style: none !important;
@@ -7614,9 +7637,10 @@ span[class*="fi-rr-"]:before {
 .blog-post1-link,
 .dev-course-card,
 .dev-news-card,
-.lms-1-card{
+.lms-1-card {
     transition: box-shadow 0.3s !important;
 }
+
 .course-card1-link:hover,
 .blog-post1-link:hover,
 .dev-course-card:hover,
@@ -7708,13 +7732,16 @@ span[class*="fi-rr-"]:before {
         padding-right: 15px;
     }
 }
-.meditation-testimonial-1 .swiper-slide{
+
+.meditation-testimonial-1 .swiper-slide {
     height: unset;
 }
-.kindergarden-home .swiper-button-prev{
+
+.kindergarden-home .swiper-button-prev {
     left: 0px;
 }
-.kindergarden-home .swiper-button-next{
+
+.kindergarden-home .swiper-button-next {
     right: 0px;
 }
 
@@ -7722,12 +7749,17 @@ span[class*="fi-rr-"]:before {
 
 
 
-#schedule-list .swiper-button-prev, #schedule-list .swiper-button-next{
+#schedule-list .swiper-button-prev,
+#schedule-list .swiper-button-next {
     border: none !important;
 }
-.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after{
+
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
     content: "\f12c" !important;
 }
-.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after{
+
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after {
     content: "\f12d" !important;
 }

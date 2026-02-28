@@ -7,21 +7,21 @@
         <div class="row justify-content-center">
             <div class="col-md-6 order-2 order-md-1">
                 <div class="banner-content">
-                    <h5 class="d-flex"><img class="builder-editable" builder-identity="1" src="{{asset('assets/page-builder/block-image/roket.svg')}}" alt="..."> <span class="builder-editable" builder-identity="2">{{ get_phrase('Welcome to Our Learning Platform')}}</span></h5>
-                    <h1>
-                        <span class="builder-editable" builder-identity="3">{{ get_phrase("Swiss Quality Standards")}}</span>
+                    <h5 class="d-flex align-items-center mb-3"><img class="builder-editable me-2" builder-identity="1" src="{{asset('assets/page-builder/block-image/roket.svg')}}" alt="..." style="width: 24px; height: 24px;"> <span class="builder-editable fw-bold text-primary" builder-identity="2">{{ get_phrase('Welcome to Our Learning Platform')}}</span></h5>
+                    <h1 class="display-4 fw-bolder mb-4" style="line-height: 1.2;">
+                        <span class="builder-editable d-block mb-2" builder-identity="3">{{ get_phrase("Swiss Quality Standards")}}</span>
                         <span class="gradient color shadow-none builder-editable" builder-identity="4">{{ get_phrase('Interactive Modern Content')}}</span>
                     </h1>
-                    <p class="builder-editable" builder-identity="5">{{ get_phrase('Welcome Platform Description')}}</p>
-                    <div class="banner-btn">
-                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable" builder-identity="6">{{ get_phrase('Get Started') }}</a>
-                        <a data-bs-toggle="modal" data-bs-target="#promoVideo" href="#" class="eBtn learn-btn"><i class="fa-solid fa-play"></i>{{ get_phrase('Learn More') }}</a>
+                    <p class="builder-editable text-muted mb-4 fs-5" builder-identity="5">{{ get_phrase('Welcome Platform Description')}}</p>
+                    <div class="banner-btn d-flex gap-3 mt-4">
+                        <a href="{{ route('courses') }}" class="eBtn gradient builder-editable px-5 py-3 rounded-pill fw-bold shadow-sm" builder-identity="6">{{ get_phrase('Get Started') }}</a>
+                        <a data-bs-toggle="modal" data-bs-target="#promoVideo" href="#" class="eBtn learn-btn px-4 py-3 rounded-pill d-flex align-items-center gap-2"><i class="fa-solid fa-play"></i>{{ get_phrase('Learn More') }}</a>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8 col-md-6 order-1 order-md-2">
-                <div class="banner-image mt-0 mt-md-5">
-                    <img class="large-img" src="{{ asset(get_frontend_settings('banner_image')) }}" alt="banner-image">
+            <div class="col-sm-8 col-md-6 order-1 order-md-2 mb-5 mb-md-0">
+                <div class="banner-image text-center">
+                    <img class="img-fluid rounded-4 shadow-lg builder-editable" src="{{ asset(get_frontend_settings('banner_image')) }}" alt="banner-image" builder-identity="7" style="max-height: 500px; object-fit: cover;">
                 </div>
             </div>
         </div>

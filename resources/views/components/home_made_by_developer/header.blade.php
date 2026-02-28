@@ -24,26 +24,7 @@
                     <div class="nav-menu w-100">
                         <ul class="primary-menu main-menu-ul d-flex align-items-center w-100">
                             <li><a href="{{ route('home') }}" class="@if ($current_route == 'home') active @endif"><i class="fa-solid fa-house me-2"></i>{{ get_phrase('Home') }}</a></li>
-                            {{-- <li class="have-mega-menu"><a class="menu-parent-a @if ($current_route == 'home') active @endif" href="{{ route('home') }}">{{ get_phrase('Home') }}</a>
-                                <ul class="mega-dropdown-menu mega main-mega-menu">
-                                    <div class="mega-menu-items">
-                                        <ul class="mega_list">
-                                            @foreach (App\Models\Builder_page::get() as $home_page)
-                                                <li>
-                                                    <a href="{{ route('home.switch', ['id' => $home_page->id]) }}">
-                                                        <span class="me-3"></span>
-                                                        <span class="me-auto">{{ $home_page->name }}</span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </ul>
-                            </li> --}}
                             <li><a href="{{ route('courses') }}" class="@if ($current_route == 'courses') active @endif"><i class="fa-solid fa-book me-2"></i>{{ get_phrase('Courses') }}</a></li>
-                            <li class="pe-2 ps-5"><a href="{{ route('bootcamps') }}" class="@if ($current_route == 'bootcamps' || $current_route == 'bootcamp.details') active @endif"><i class="fa-solid fa-graduation-cap me-2"></i>{{ get_phrase('Bootcamp') }}</a></li>
-                            {{-- <li><a href="{{ route('team.packages') }}" class="@if ($current_route == 'team.packages' || $current_route == 'team.package.details') active @endif">{{ get_phrase('Team Training') }}</a></li> --}}
-                            <li><a href="{{ route('tutor_list') }}" class="@if ($current_route == 'tutor_list') active @endif"><i class="fa-solid fa-chalkboard-user me-2"></i>{{ get_phrase('Find A Tutor') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -412,18 +393,6 @@
                             </ul>
                         </div>
                     </li>
-                    <li><a href="{{ route('bootcamps') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
-                        <i class="fa-solid fa-graduation-cap me-2"></i>
-                        {{ get_phrase('Bootcamp') }}
-                    </a></li>
-                    <li><a href="{{ route('tutor_list') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
-                        <i class="fa-solid fa-chalkboard-user me-2"></i>
-                        {{ get_phrase('Find A Tutor') }}
-                    </a></li>
-                    {{-- <li><a href="{{ route('team.packages') }}" class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
-                        <i class="fa-solid fa-users me-2"></i>
-                        {{ get_phrase('Team Training') }}
-                    </a></li> --}}
                     </ul>
                 </div>
                 @guest
