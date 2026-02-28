@@ -300,7 +300,7 @@
                 <div class="col-md-12">
                     <div class="development-banner-area">
                         @php
-                            $banner_title = get_frontend_settings('banner_title');
+                            $banner_title = get_phrase(get_frontend_settings('banner_title'));
                             $arr = explode(' ', $banner_title);
                             $phrase_two = end($arr);
                             $phrase_one = str_replace($phrase_two, '', $banner_title);
@@ -343,7 +343,7 @@
                             </ul>
                             <p class="info">{{ count($total_students) }}+ {{ get_phrase('User already register and signing up for using it') }}</p>
                         </div>
-                        <p class="hero-info">{{ get_frontend_settings('banner_sub_title') }}</p>
+                        <p class="hero-info">{{ get_phrase(get_frontend_settings('banner_sub_title')) }}</p>
                         <a href="{{ route('courses') }}" class="btn-black1">{{ get_phrase('Get Courses') }}</a>
                     </div>
                 </div>
@@ -381,8 +381,8 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="software-development-details animate-slide-right">
-                            <h2 class="title">{!! removeScripts(highlightLastWord($stordetails->title)) !!}</h2>
-                            <p class="info mb-20">{!! $stordetails->description !!}</p>
+                            <h2 class="title">{!! removeScripts(highlightLastWord(get_phrase($stordetails->title))) !!}</h2>
+                            <p class="info mb-20">{!! get_phrase(strip_tags($stordetails->description)) !!}</p>
                             <a href="{{ route('about.us') }}" class="btn-black-arrow1">
                                 <span>{{ get_phrase('Learn More') }}</span>
                                 <i class="fi-rr-angle-small-right"></i>

@@ -10,19 +10,19 @@
 <!-----------  Header Area Start  ------------->
 <header class="header-area shadow-sm">
     <div class="container">
-        <div class="row flex-md-nowrap">
+        <div class="row align-items-center flex-md-nowrap w-100 justify-content-between m-0">
             <div class="col-auto">
                 <div class="logo-image">
                     <a href="{{ route('home') }}">
-                        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo" class="object-fit-cover rounded header-dark-logo">
-                        <img src="{{ get_image(get_frontend_settings('light_logo')) }}" alt="system logo" class="object-fit-cover rounded header-light-logo d-none">
+                        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo" class="object-fit-contain rounded header-dark-logo" style="max-height: 45px;">
+                        <img src="{{ get_image(get_frontend_settings('light_logo')) }}" alt="system logo" class="object-fit-contain rounded header-light-logo d-none" style="max-height: 45px;">
                     </a>
                 </div>
             </div>
-            <div class="col-auto">
-                <div class="header-menu d-flex justify-content-end me-lg-auto ms-lg-0 ms-auto mt-2 pt-1">
+            <div class="col-auto flex-grow-1 d-none d-lg-flex justify-content-center">
+                <div class="header-menu mt-2 pt-1">
                     <div class="nav-menu w-100">
-                        <ul class="primary-menu main-menu-ul d-flex align-items-center w-100">
+                        <ul class="primary-menu main-menu-ul d-flex align-items-center justify-content-center w-100 m-0">
                             <li><a href="{{ route('home') }}" class="@if ($current_route == 'home') active @endif"><i class="fa-solid fa-house me-2"></i>{{ get_phrase('Home') }}</a></li>
                             <li><a href="{{ route('courses') }}" class="@if ($current_route == 'courses') active @endif"><i class="fa-solid fa-book me-2"></i>{{ get_phrase('Courses') }}</a></li>
                         </ul>
@@ -30,7 +30,7 @@
                 </div>
             </div>
            
-            <div class="ms-lg-auto col-auto">
+            <div class="col-auto">
                 <div class="primary-end d-flex align-items-center">
                     <div class="d-flex align-items-center gap-2 d-none d-lg-flex">
 
