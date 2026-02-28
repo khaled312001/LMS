@@ -637,6 +637,23 @@ span[class="fi-rr-"]:before {
     padding: 14px !important;
 }
 
+/* Custom Backgrounds for Distinct Sections */
+.bg-soft-primary {
+    background-color: rgba(79, 70, 229, 0.05) !important;
+}
+
+.bg-soft-success {
+    background-color: rgba(16, 185, 129, 0.05) !important;
+}
+
+.bg-gradient-light {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+}
+
+.section-padding {
+    padding: 80px 0 !important;
+}
+
 .p-16px {
     padding: 16px !important;
 }

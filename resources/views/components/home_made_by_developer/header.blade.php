@@ -8,7 +8,7 @@
 @endphp
 
 <!-----------  Header Area Start  ------------->
-<header class="header-area">
+<header class="header-area shadow-sm">
     <div class="container">
         <div class="row flex-md-nowrap">
             <div class="col-auto">

@@ -8,7 +8,7 @@
     @endpush
 @endif
 
-<footer class="footer-area">
+<footer class="footer-area bg-dark text-white">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4">
@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget">
-                            <h4>{{ get_phrase('Top Categories') }}</h4>
+                            <h4 class="text-white">{{ get_phrase('Top Categories') }}</h4>
                             <ul>
                                 @foreach (top_categories() as $category)
                                     <li>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget">
-                            <h4>{{ get_phrase('Useful links') }}</h4>
+                            <h4 class="text-white">{{ get_phrase('Useful links') }}</h4>
                             <ul>
                                 <li><a href="{{ route('courses') }}">{{ get_phrase('Course') }}</a></li>
                                 <li><a href="{{ route('blogs') }}">{{ get_phrase('Blog') }}</a></li>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer-widget">
-                            <h4>{{ get_phrase('Company') }}</h4>
+                            <h4 class="text-white">{{ get_phrase('Company') }}</h4>
                             <ul>
                                 <li>
                                     <a href="#">
@@ -73,8 +73,8 @@
                                 </li>
                             </ul>
                             <div class="newslater-bottom">
-                                <h4 class="builder-editable" builder-identity="2">{{ get_phrase('Newsletter') }}</h4>
-                                <p class="description builder-editable" builder-identity="3">{{ get_phrase("Subscribe to stay tuned for new web design and latest updates. Let's do it!") }}</p>
+                                <h4 class="builder-editable text-white" builder-identity="2">{{ get_phrase('Newsletter') }}</h4>
+                                <p class="description builder-editable text-light opacity-75" builder-identity="3">{{ get_phrase("Subscribe to stay tuned for new web design and latest updates. Let's do it!") }}</p>
                                 <form action="{{ route('newsletter.store') }}" method="post" class="newslater-form" id="newslater-form">
                                     @csrf
                                     <input type="text" name="email" class="form-control" placeholder="{{ get_phrase('Email address') }}">
