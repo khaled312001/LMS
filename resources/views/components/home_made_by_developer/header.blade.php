@@ -14,8 +14,8 @@
             <div class="col-auto">
                 <div class="logo-image">
                     <a href="{{ route('home') }}">
-                        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo" class="object-fit-contain rounded header-dark-logo" style="max-height: 45px;">
-                        <img src="{{ get_image(get_frontend_settings('light_logo')) }}" alt="system logo" class="object-fit-contain rounded header-light-logo d-none" style="max-height: 45px;">
+                        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo" class="object-fit-contain rounded header-dark-logo" style="max-height: 65px; width: auto;">
+                        <img src="{{ get_image(get_frontend_settings('light_logo')) }}" alt="system logo" class="object-fit-contain rounded header-light-logo d-none" style="max-height: 65px; width: auto;">
                     </a>
                 </div>
             </div>
@@ -206,13 +206,11 @@
 
 <!-- Off Canves Menu For Mobile Device-->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-    <div class="offcanvas-header border-bottom">
-        <div class="logo-image">
-            <a href="{{ route('home') }}">
-                <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo" style="max-height: 40px;">
-            </a>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas-header pb-2 border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">
+            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="system logo" class="object-fit-contain rounded" style="max-height: 50px;">
+        </h5>
+        <button type="button" class="btn-close text-reset bg-light rounded-circle p-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body px-4">
         <div class="off-menu">
@@ -231,6 +229,14 @@
                                 <small>{{ get_settings('phone') }}</small>
                             </a>
                         </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="header-menu d-flex d-lg-none">
+                        <div class="offcanvas-toggle ms-3">
+                            <a class="bar-icon d-flex align-items-center justify-content-center p-2 rounded bg-light text-dark" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                <i class="fa-solid fa-bars fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
                     @endif
                     @if(get_settings('address'))
                         <div class="d-flex align-items-center gap-2">
@@ -366,16 +372,16 @@
                             <hr>
                         </li> @endauth
 
-                    <li><a href="{{ route('home') }}"
-                    class="btn btn-toggle-list d-inline-flex align-items-center text-16px fw-500 w-100 rounded border-0 py-3">
-                        <i class="fa-solid fa-house me-2"></i>
+                    <li class="mb-2"><a href="{{ route('home') }}"
+                    class="btn btn-outline-secondary d-flex align-items-center text-16px fw-500 w-100 rounded py-3 justify-content-start">
+                        <i class="fa-solid fa-house me-3 fs-5"></i>
                         {{ get_phrase('Home') }}
                     </a></li>
-                    <li>
-                        <button class="btn btn-toggle d-inline-flex align-items-center text-16px fw-500 w-100 collapsed rounded border-0 py-3" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
-                            <i class="fa-solid fa-book me-2"></i>
+                    <li class="mb-3">
+                        <button class="btn btn-outline-secondary d-flex align-items-center text-16px fw-500 w-100 collapsed rounded py-3 justify-content-start" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
+                            <i class="fa-solid fa-book me-3 fs-5"></i>
                             {{ get_phrase('Courses') }}
-                            <span class="icons float-end ms-auto"><i class="fa-solid fa-angle-down"></i></span>
+                            <span class="icons ms-auto"><i class="fa-solid fa-angle-down"></i></span>
                         </button>
                         <div class="collapse" id="category-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal small bg-white pb-1 pb-3 pt-0">
