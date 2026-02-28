@@ -564,12 +564,12 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="{{ $key }}">
                                     <button class="accordion-button {{ $key == 0 ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#qnaOne{{ $key }}" aria-expanded="true" aria-controls="qnaOne">
-                                        {{ $faq['question'] }}
+                                        {{ get_phrase($faq['question']) }}
                                     </button>
                                 </h2>
                                 <div id="qnaOne{{ $key }}" class="accordion-collapse collapse px-0  {{ $key == 0 ? 'show' : '' }}" data-bs-parent="#accordionExample4" aria-labelledby="{{ $key }}">
                                     <div class="accordion-body">
-                                        <p class="answer">{{ $faq['answer'] }}</p>
+                                        <p class="answer">{{ get_phrase($faq['answer']) }}</p>
                                     </div>
                                 </div>
                             </div>
