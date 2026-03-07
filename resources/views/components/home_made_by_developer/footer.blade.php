@@ -52,7 +52,7 @@
             <p class="small mb-0 opacity-50">© {{ date('Y') }} {{ get_settings('system_name') }}. {{ get_phrase('All Rights Reserved.') }}</p>
             <div class="d-flex gap-4 small opacity-50">
                 <span class="text-white">{{ get_phrase('Status: Operational') }}</span>
-                <span class="text-white">{{ get_phrase('v2.0.4-Release') }}</span>
+                <span class="text-white">{{ get_phrase('v2.1-HighImpact') }}</span>
             </div>
         </div>
     </div>
