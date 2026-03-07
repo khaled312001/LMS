@@ -37,6 +37,14 @@
         border: 1px dashed rgba(79, 70, 229, 0.2);
     }
     @php $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic'; @endphp
+    .mesh-gradient-breadcrumb {
+        padding: 180px 0 80px !important;
+        background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.08), transparent),
+                    radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.08), transparent) !important;
+        background-color: #f8fafc !important;
+        position: relative;
+        overflow: hidden;
+    }
 </style>
 @endpush
 
@@ -54,7 +62,7 @@
         </div>
     </section>
 
-    <section class="register-section">
+    <section class="register-section" style="min-height: 100vh;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-11">

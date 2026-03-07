@@ -31,6 +31,22 @@
         box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1) !important;
     }
     @php $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic'; @endphp
+    /* Breadcrumb Clearance */
+    .mesh-gradient-breadcrumb {
+        padding: 180px 0 80px !important;
+        background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.08), transparent),
+                    radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.08), transparent) !important;
+        background-color: #f8fafc !important;
+        position: relative;
+        overflow: hidden;
+    }
+    .login-section {
+        background-color: #f8fafc;
+        padding: 80px 0;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
 </style>
 @endpush
 

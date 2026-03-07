@@ -4,9 +4,9 @@
 @push('css')
 <style>
     .custom-vibrant-tabs .nav-link {
-        color: rgba(255,255,255,0.6);
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
+        color: rgba(15, 23, 42, 0.6);
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
     }
     .custom-vibrant-tabs .nav-link.active {
@@ -27,11 +27,11 @@
         border: none !important;
     }
     .tab-content {
-        background: rgba(255,255,255,0.05);
+        background: var(--vibrant-white);
         border-radius: 30px;
         padding: 40px;
-        border: 1px solid rgba(255,255,255,0.1);
-        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
     }
     .tab-content .g-title, 
     .tab-content h4, 
@@ -42,7 +42,7 @@
     .tab-content i,
     .tab-content a:not(.btn):not(.eBtn),
     .tab-content span:not(.badge) {
-        color: white !important;
+        color: var(--vibrant-dark) !important;
     }
     .s_stext {
         color: white !important;
@@ -84,7 +84,7 @@
         border-radius: 10px;
     }
     .body-bg {
-        background: var(--vibrant-dark) !important;
+        background: var(--vibrant-light) !important;
     }
 
     /* Pricing Card Specifics */
@@ -198,12 +198,12 @@
         $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
     @endphp
     <!------------------- Breadcum Area Start  ------>
-    <section class="breadcum-area position-relative overflow-hidden py-5 pt-150" style="background: var(--vibrant-dark); min-height: 400px;">
+    <section class="breadcum-area position-relative overflow-hidden py-5 pt-200" style="background: var(--vibrant-dark); min-height: 500px;">
         <!-- Mesh Gradient Background -->
         <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.15) 0%, transparent 50%); z-index: 0;"></div>
         
         <div class="container position-relative" style="z-index: 1;">
-            <div class="row align-items-center">
+            <div class="row">
                 <div class="col-lg-8">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-4">
@@ -244,6 +244,11 @@
                             {{ ucfirst($is_arabic ? 'الإنجليزية' : $course_details->language) }}
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-4">
+                     <div class="pricing-card-wrapper position-relative" style="z-index: 10;">
+                        @include('frontend.default.course.pricing_card')
+                     </div>
                 </div>
             </div>
         </div>
@@ -293,9 +298,6 @@
                             </div>
                         </div>
                      </div>
-                </div>
-                <div class="col-lg-4 order-1 order-lg-2">
-                    @include('frontend.default.course.pricing_card')
                 </div>
             </div>
             <!------------------- Player Feature Area End  --------->
