@@ -1,299 +1,230 @@
-@extends('layouts.default')
+@extends('layouts.landing')
 @push('title', get_phrase('Blog Details'))
 @push('meta')@endpush
 @push('css')
-    <style>
-        .playing-breadcum {
-            height: 350px;
-        }
-
-        .breadcum-area {
-            z-index: -1;
-        }
-
-        /* Fix for blog content visibility */
-        .blog-details {
-            overflow: visible;
-        }
-
-        .blog-details .blog-f-image {
-            overflow: visible !important;
-            word-wrap: break-word;
-            width: 100%;
-        }
-
-        .blog-details .description-style {
-            overflow: visible !important;
-            word-wrap: break-word !important;
-            word-break: break-word !important;
-            white-space: normal !important;
-            text-overflow: unset !important;
-            max-height: none !important;
-            height: auto !important;
-            min-height: auto !important;
-            line-height: 1.8;
-            margin: 20px 0;
-            padding: 0;
-            display: block !important;
-            visibility: visible !important;
-        }
-
-        .blog-details .description-style * {
-            max-width: 100% !important;
-            overflow: visible !important;
-        }
-
-        .blog-details .description-style p {
-            margin-bottom: 15px;
-            line-height: 1.8;
-        }
-
-        .blog-details .description-style img {
-            max-width: 100%;
-            height: auto;
-            margin: 20px 0;
-        }
-
-        .blog-details .description-style h1,
-        .blog-details .description-style h2,
-        .blog-details .description-style h3,
-        .blog-details .description-style h4,
-        .blog-details .description-style h5,
-        .blog-details .description-style h6 {
-            margin-top: 25px;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .blog-details .ps-box {
-            overflow: visible !important;
-            max-width: 100%;
-        }
-
-        .blog-details .blog-box {
-            overflow: visible !important;
-            padding: 30px;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .blog-details .container {
-            overflow: visible;
-        }
-
-        .blog-details .row {
-            overflow: visible;
-        }
-
-        .blog-details .col-lg-12 {
-            overflow: visible;
-        }
-
-        /* Related articles section */
-        .related-blogs-section {
-            margin-top: 50px;
-            padding-top: 50px;
-            border-top: 1px solid #e5e5e5;
-        }
-
-        .related-blogs-section .section-title {
-            margin-bottom: 40px;
-        }
-
-        /* Ensure cards display properly */
-        .related-blogs-section .b-card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .related-blogs-section .card-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .related-blogs-section .b_bottom {
-            margin-top: auto;
-        }
-
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            .blog-details .blog-box {
-                padding: 20px 15px;
-            }
-
-            .related-blogs-section {
-                margin-top: 30px;
-                padding-top: 30px;
-            }
-        }
-    </style>
+<style>
+    .mesh-gradient-breadcrumb {
+        background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                    linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        padding: 180px 0 80px !important;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .breadcrumb-item a {
+        color: var(--vibrant-primary) !important;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .breadcrumb-item.active {
+        color: var(--vibrant-dark) !important;
+        font-weight: 700;
+    }
+    .blog-details-section {
+        background-color: #f8fafc;
+        padding: 80px 0;
+    }
+    .article-container {
+        background: #fff;
+        border-radius: 40px;
+        padding: 60px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.02);
+    }
+    .article-header {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    .article-meta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 30px;
+        color: #64748b;
+        font-weight: 600;
+    }
+    .article-meta i {
+        color: var(--vibrant-primary);
+        margin-right: 8px;
+    }
+    .article-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1.1;
+        color: #0f172a;
+        margin-bottom: 30px;
+    }
+    .article-thumbnail {
+        border-radius: 30px;
+        overflow: hidden;
+        margin-bottom: 50px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+    }
+    .article-content {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: #334155;
+    }
+    .article-content p {
+        margin-bottom: 30px;
+    }
+    .article-content img {
+        max-width: 100%;
+        border-radius: 20px;
+        margin: 40px 0;
+    }
+    .tag-cloud {
+        padding-top: 40px;
+        border-top: 1px solid #f1f5f9;
+        margin-top: 50px;
+    }
+    .sidebar-widget {
+        background: #fff;
+        border-radius: 30px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    }
+    .like-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+    .like-button.active {
+        background: var(--vibrant-primary);
+        color: #fff;
+        border-color: var(--vibrant-primary);
+        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+    }
+    @media (max-width: 991px) {
+        .article-container { padding: 30px; }
+        .article-title { font-size: 2.5rem; }
+    }
+</style>
 @endpush
+
 @section('content')
     @php
         $total_comments = count_comments_by_blog_id($blog_details->id);
         $total_likes = count_likes_by_blog_id($blog_details->id);
     @endphp
-    <!------------------- Breadcum Area Start  ------>
-    <section class="breadcum-area playing-breadcum details-breadcum">
+
+    <!-- Breadcrumb Area -->
+    <section class="mesh-gradient-breadcrumb">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="eNtry-breadcum">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ get_phrase('Home') }}</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('blogs') }}">{{ get_phrase('Blogs') }}</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ get_phrase('Blog Details') }}</li>
-                            </ol>
-                        </nav>
-                    </div>
+                    <nav aria-label="breadcrumb" class="mb-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ get_phrase('Home') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('blogs') }}">{{ get_phrase('Blogs') }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ get_phrase('Blog Details') }}</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
     </section>
-    <!------------------- Breadcum Area End  --------->
 
-    <!------------------- Blog Details Area Start  --------->
-    <section class="blog-details">
+    <!-- Blog Details Section -->
+    <section class="blog-details-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ps-box blog-box">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <article class="article-container">
+                        <header class="article-header">
+                            <div class="article-meta">
+                                <span><i class="fa-solid fa-folder"></i> {{ get_blog_category_name($blog_details->category_id) }}</span>
+                                <span><i class="fa-solid fa-calendar-alt"></i> {{ date('d M, Y', strtotime($blog_details->created_at)) }}</span>
+                                <span><i class="fa-solid fa-heart"></i> <span id="total-blog-likes">{{ $total_likes }}</span> {{ get_phrase('Likes') }}</span>
+                            </div>
+                            <h1 class="article-title">{{ $blog_details->title }}</h1>
+                        </header>
 
-                        <div class="details-intro">
-                            <h4 class="g-title text-center f-40 mt-4">{{ $blog_details->title }}</h4>
-                            <ul class="course-motion-top flex-wrap gap-4 justify-content-center">
-                                @if ($blog_details->keywords)
-                                    <li>
-                                        <img class="pro-20" src="{{ asset('assets/frontend/default/image/elearn.png') }}" alt="blog-tag">
-                                        @php
-                                            $tags = json_decode($blog_details->keywords, true);
-                                            if (is_array($tags) && count($tags) > 0) {
-                                                $tags = array_column($tags, 'value');
-                                            }
-                                        @endphp
-                                        {{ $tags ? implode(', ', $tags) : '' }}
-                                    </li>
-                                @endif
-                                <li>
-                                    <img class="pro-20" src="{{ asset('assets/frontend/default/image/elearn3.png') }}" alt="created-date">
-                                    {{ date('d M, Y', strtotime($blog_details->created_at)) }}
-                                </li>
-                            </ul>
+                        <div class="article-thumbnail">
+                            <img src="{{ get_image($blog_details->banner) }}" class="w-100 h-100 object-fit-cover" alt="{{ $blog_details->title }}">
                         </div>
 
-
-                        <div class="blog-f-image">
-                            <img src="{{ get_image($blog_details->banner) }}" alt="blog-thumbnail">
-                            <div class="description description-style">{!! removeScripts($blog_details->description) !!}</div>
-                            <ul class="tags">
-                                @php
-                                    $tags = $blog_details->keywords ? json_decode($blog_details->keywords, true) : [];
-                                    if (is_array($tags) && count($tags) > 0) {
-                                        $tags = array_column($tags, 'value');
-                                    } else {
-                                        $tags = [];
-                                    }
-                                @endphp
-                                @foreach ($tags as $tag)
-                                    <li><a href="#">{{ ucfirst($tag) }}</a></li>
-                                @endforeach
-                            </ul>
-                            @auth
-                                <div class="details-socialsLink d-flex justify-content-between">
-                                    <span>
-                                        @php
-                                            $is_liked = App\Models\BlogLike::where('blog_id', $blog_details->id)
-                                                ->where('user_id', auth()->user()->id)
-                                                ->first();
-                                        @endphp
-                                        <div class="like-svg @if ($is_liked) active @endif">
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6.01026 17.0834V7.0626L10.5038 2.6732C10.7389 2.43816 10.9932 2.29419 11.2667 2.2413C11.5402 2.18841 11.7907 2.23276 12.0182 2.37432C12.2458 2.51588 12.406 2.73008 12.499 3.01693C12.5919 3.30379 12.5978 3.61495 12.5166 3.95041L11.7859 7.0626H17.1609C17.5711 7.0626 17.9386 7.22499 18.2634 7.54978C18.5882 7.87456 18.7506 8.24208 18.7506 8.65235V9.99847C18.7506 10.0859 18.7463 10.1796 18.7378 10.2796C18.7292 10.3796 18.7041 10.4659 18.6625 10.5385L16.2743 16.1324C16.1687 16.4128 15.9733 16.6413 15.6878 16.8182C15.4023 16.995 15.1044 17.0834 14.7942 17.0834H6.01026ZM7.3644 7.61547V15.7501H14.7346C14.7934 15.7501 14.8534 15.734 14.9149 15.702C14.9763 15.6699 15.0231 15.6165 15.0551 15.5417L17.4173 10.0626V8.65235C17.4173 8.57755 17.3933 8.51612 17.3452 8.46803C17.2971 8.41995 17.2357 8.39591 17.1609 8.39591H10.0808L11.1465 3.91193L7.3644 7.61547ZM3.67373 17.0834C3.23655 17.0834 2.8623 16.9277 2.55098 16.6164C2.23965 16.3051 2.08398 15.9308 2.08398 15.4936V8.65235C2.08398 8.21517 2.23965 7.84092 2.55098 7.5296C2.8623 7.21826 3.23655 7.0626 3.67373 7.0626H6.01026L6.03109 8.39591H3.67373C3.59894 8.39591 3.53751 8.41995 3.48942 8.46803C3.44134 8.51612 3.4173 8.57755 3.4173 8.65235V15.4936C3.4173 15.5684 3.44134 15.6299 3.48942 15.6779C3.53751 15.726 3.59894 15.7501 3.67373 15.7501H6.03109V17.0834H3.67373Z"
-                                                    fill="#6B7385" />
-                                            </svg>
-                                        </div>
-                                        <span id="total-blog-likes">{{ $total_likes }}</span>
-                                    </span>
-                                </div>
-                            @endauth
+                        <div class="article-content">
+                            {!! removeScripts($blog_details->description) !!}
                         </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!------------------- Blog Details Area End  --------->
-
-    <!------------------- Related Blogs Area Start  --------->
-    @if(isset($related_blogs) && $related_blogs->count() > 0)
-    <section class="blog-details related-blogs-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title mb-4">
-                        <h3 class="g-title text-center mb-4">{{ get_phrase('Related Articles') }}</h3>
-                        <p class="text-center text-muted">{{ get_phrase('You might also like these articles') }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($related_blogs as $blog)
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-                        <div class="Ecard card b-card h-100">
-                            <div class="card-head">
-                                <a href="{{ route('blog.details', $blog->slug) }}">
-                                    <img src="{{ get_image($blog->thumbnail) }}" alt="blog-thumbnail">
+                        <div class="tag-cloud d-flex flex-wrap gap-2 align-items-center">
+                            <span class="fw-bold me-2 text-dark">{{ get_phrase('Tags:') }}</span>
+                            @php
+                                $tags = $blog_details->keywords ? json_decode($blog_details->keywords, true) : [];
+                                if (is_array($tags) && count($tags) > 0) {
+                                    $tags = array_column($tags, 'value');
+                                } else { $tags = []; }
+                            @endphp
+                            @foreach ($tags as $tag)
+                                <a href="{{ route('blogs', ['tag' => $tag]) }}" class="badge rounded-pill bg-light text-dark text-decoration-none px-3 py-2 transition-all hover-bg-primary">
+                                    {{ ucfirst($tag) }}
                                 </a>
-                                <span>{{ get_blog_category_name($blog->category_id) }}</span>
+                            @endforeach
+                        </div>
+
+                        @auth
+                            <div class="d-flex justify-content-center mt-5">
+                                @php
+                                    $is_liked = App\Models\BlogLike::where('blog_id', $blog_details->id)
+                                        ->where('user_id', auth()->user()->id)
+                                        ->first();
+                                @endphp
+                                <div class="like-button @if ($is_liked) active @endif" id="blog-like-toggle">
+                                    <i class="fa-solid fa-heart"></i>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h4 class="ellipsis-2">
-                                    <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark">
-                                        {{ ucfirst($blog->title) }}
-                                    </a>
-                                </h4>
-                                <div class="description ellipsis-line-2 mt-3">
-                                    {{ ellipsis(strip_tags($blog->description), 160) }}
-                                </div>
-                                <div class="b_bottom d-flex justify-content-between mt-3">
-                                    <a href="{{ route('blog.details', $blog->slug) }}"
-                                        class="read-text mt-0 stretched-link">{{ get_phrase('Read More') }}<i
-                                            class="fa-solid fa-arrow-right-long ms-2"></i></a>
-                                    <span>{{ date('d M, Y', strtotime($blog->created_at)) }}</span>
-                                </div>
+                        @endauth
+                    </article>
+
+                    <!-- Related Articles -->
+                    @if(isset($related_blogs) && $related_blogs->count() > 0)
+                        <div class="mt-100">
+                            <div class="text-center mb-5">
+                                <h2 class="display-5 fw-900 letter-spacing-tight">{{ get_phrase('Related Articles') }}</h2>
+                                <p class="text-muted">{{ get_phrase('Deepen your knowledge with these similar topics.') }}</p>
+                            </div>
+                            <div class="row g-4">
+                                @foreach ($related_blogs as $r_blog)
+                                    <div class="col-lg-4 col-md-6">
+                                        @php $blog = $r_blog; @endphp
+                                        @include('frontend.default.blog.card')
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endif
+                </div>
             </div>
         </div>
     </section>
-    @endif
-    <!------------------- Related Blogs Area End  --------->
 @endsection
+
 @push('js')
     <script>
-        "use strict";
         $(document).ready(function() {
-            $('.like-svg').on('click', function(e) {
-                e.preventDefault();
+            $('#blog-like-toggle').on('click', function() {
                 $.ajax({
                     type: "get",
                     url: "{{ route('blog.like') }}",
-                    data: {
-                        blog_id: "{{ $blog_details->id }}",
-                    },
+                    data: { blog_id: "{{ $blog_details->id }}" },
                     success: function(response) {
-                        let likes = +($('#total-blog-likes').text());
+                        let likes = parseInt($('#total-blog-likes').text());
                         if (response.like) {
-                            $('.like-svg').addClass('active');
+                            $('#blog-like-toggle').addClass('active');
+                            $('#total-blog-likes').text(likes + 1);
                         } else {
-                            $('.like-svg').removeClass('active');
+                            $('#blog-like-toggle').removeClass('active');
+                            $('#total-blog-likes').text(likes - 1);
                         }
                     }
                 });
