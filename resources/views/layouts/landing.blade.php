@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/default/vendors/swiper/swiper-bundle.min.css') }}">
     
     <!-- Custom Style -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/custom_style.css') }}?v=2.4">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/custom_style.css') }}?v=2.5">
 
     <!-- Jquery Js -->
     <script src="{{ asset('assets/frontend/default/js/jquery-3.7.1.min.js') }}"></script>

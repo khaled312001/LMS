@@ -30,7 +30,7 @@
                 @foreach (DB::table('languages')->get() as $language)
                     <li>
                         <a class="dropdown-item rounded-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'active bg-vibrant-primary text-white' : '' }}" 
-                           href="{{ route('select_lng', ['language' => $language->name]) }}">
+                           href="{{ route('select.lng', ['language' => $language->name]) }}">
                             {{ ucfirst($language->name) }}
                         </a>
                     </li>
@@ -83,7 +83,7 @@
             <p class="text-white opacity-50 small fw-bold mb-3">{{ get_phrase('Language') }}</p>
             <div class="d-flex flex-wrap gap-2">
                 @foreach (DB::table('languages')->get() as $language)
-                    <a href="{{ route('select_lng', ['language' => $language->name]) }}" 
+                    <a href="{{ route('select.lng', ['language' => $language->name]) }}" 
                        class="btn btn-sm rounded-pill px-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'bg-vibrant-primary text-white' : 'btn-outline-light' }}">
                         {{ ucfirst($language->name) }}
                     </a>
