@@ -6,32 +6,34 @@
 <style>
     .vibrant-hero {
         padding: 180px 0 100px;
-        background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.05), transparent),
-                    radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.05), transparent);
+        background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.1), transparent),
+                    radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.1), transparent) !important;
+        background-color: var(--vibrant-light) !important;
     }
     
     .bento-hero-grid {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: repeat(2, 300px);
-        gap: 20px;
+        gap: 24px;
     }
 
-    .hero-main { grid-column: span 8; grid-row: span 2; }
-    .hero-stat-1 { grid-column: span 4; grid-row: span 1; background: var(--vibrant-primary); color: #fff; }
-    .hero-stat-2 { grid-column: span 4; grid-row: span 1; background: var(--vibrant-accent); color: #fff; }
+    .hero-main { grid-column: span 8; grid-row: span 2; background: #fff !important; }
+    .hero-stat-1 { grid-column: span 4; grid-row: span 1; background: var(--vibrant-primary) !important; color: #fff !important; }
+    .hero-stat-2 { grid-column: span 4; grid-row: span 1; background: var(--vibrant-accent) !important; color: #fff !important; }
 
     .category-circle {
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        background: #fff;
+        background: #fff !important;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2.5rem;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 2px solid transparent;
+        border: 2px solid rgba(0,0,0,0.05) !important;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     }
 
     .category-item:hover .category-circle {
@@ -85,8 +87,8 @@
 <section class="vibrant-hero">
     <div class="container">
         <div class="bento-hero-grid">
-            <div class="bento-item hero-main d-flex flex-column justify-content-center p-5">
-                <span class="vibrant-tag mb-4 w-fit-content px-3 py-2 text-primary" style="background: rgba(79, 70, 229, 0.08); border-radius: 50px;">🌟 {{ get_phrase('New Era of LMS') }}</span>
+            <div class="bento-item hero-main d-flex flex-column justify-content-center p-5 shadow-sm">
+                <span class="vibrant-tag mb-4 w-fit-content px-4 py-2" style="background: rgba(79, 70, 229, 0.1); border-radius: 50px; color: var(--vibrant-primary); font-weight: 800;">🌟 {{ get_phrase('New Era of LMS') }}</span>
                 <h1 class="display-3 fw-800 mb-4 lh-1">
                     {!! str_replace(['Learning', 'Education'], ['<span class="text-vibrant-gradient">Learning</span>', '<span class="text-vibrant-gradient">Education</span>'], get_frontend_settings('banner_title')) !!}
                 </h1>

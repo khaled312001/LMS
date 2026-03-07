@@ -7781,7 +7781,7 @@ span[class*="fi-rr-"]:before {
     content: "\f12d" !important;
 }
 
-/* --- Total Redesign 2.0: Vibrant & Creative --- */
+/* --- Total Redesign 2.0: Vibrant & Creative (Robust Edition) --- */
 
 :root {
     --vibrant-primary: #4f46e5;
@@ -7789,16 +7789,29 @@ span[class*="fi-rr-"]:before {
     --vibrant-accent: #06b6d4;
     --vibrant-dark: #0f172a;
     --vibrant-darker: #020617;
-    --vibrant-light: #f8fafc;
-    --vibrant-neon-pink: #db2777;
+    --vibrant-light: #f1f5f9;
+    --vibrant-white: #ffffff;
     --vibrant-glow: 0 0 20px rgba(79, 70, 229, 0.4);
     --bento-radius: 32px;
 }
 
-/* Base Aesthetics */
+/* Global Fixes */
 body {
-    background-color: var(--vibrant-light);
-    color: var(--vibrant-dark);
+    background-color: var(--vibrant-light) !important;
+    color: var(--vibrant-dark) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* RTL Helper */
+[dir="rtl"] .ms-auto {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
+
+[dir="rtl"] .me-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
 }
 
 .bg-vibrant-dark {
@@ -7806,132 +7819,181 @@ body {
 }
 
 .text-vibrant-gradient {
-    background: linear-gradient(135deg, var(--vibrant-primary), var(--vibrant-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: linear-gradient(135deg, var(--vibrant-primary), var(--vibrant-accent)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
 
 /* Bento Grid Utilities */
 .bento-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(150px, auto);
-    gap: 24px;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-auto-rows: minmax(150px, auto) !important;
+    gap: 24px !important;
 }
 
 .bento-item {
-    background: #fff;
-    border-radius: var(--bento-radius);
-    padding: 32px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    position: relative;
-    overflow: hidden;
+    background: var(--vibrant-white) !important;
+    border-radius: var(--bento-radius) !important;
+    padding: 32px !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
 }
 
 .bento-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px) !important;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Button Stylings V2 */
 .btn-vibrant {
-    background: linear-gradient(135deg, var(--vibrant-primary), var(--vibrant-secondary));
+    background: linear-gradient(135deg, var(--vibrant-primary), var(--vibrant-secondary)) !important;
     color: #fff !important;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 32px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    box-shadow: var(--vibrant-glow);
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 14px 32px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: var(--vibrant-glow) !important;
+    display: inline-block !important;
+    text-decoration: none !important;
 }
 
 .btn-vibrant:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(79, 70, 229, 0.6);
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 30px rgba(79, 70, 229, 0.6) !important;
+}
+
+.btn-outline-vibrant {
+    background: transparent !important;
+    color: var(--vibrant-primary) !important;
+    border: 2px solid var(--vibrant-primary) !important;
+    border-radius: 50px !important;
+    padding: 10px 24px !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+}
+
+.btn-outline-vibrant:hover {
+    background: var(--vibrant-primary) !important;
+    color: #fff !important;
 }
 
 /* Vibrant Header */
 .vibrant-header {
-    position: fixed;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1200px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50px;
-    padding: 12px 24px;
-    z-index: 1000;
-    transition: all 0.4s ease;
+    position: fixed !important;
+    top: 24px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 48px) !important;
+    max-width: 1200px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 100px !important;
+    padding: 12px 32px !important;
+    z-index: 10000 !important;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .vibrant-header.scrolled {
-    width: 100%;
-    top: 0;
-    border-radius: 0;
-    background: rgba(15, 23, 42, 0.9);
-    border-color: rgba(255, 255, 255, 0.1);
+    width: 100% !important;
+    max-width: 100% !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    background: rgba(15, 23, 42, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    padding: 10px 48px !important;
 }
 
-.vibrant-header.scrolled .nav-link-vibrant {
+.scrolled .nav-link-vibrant {
     color: #fff !important;
+}
+
+.scrolled .logo-area img {
+    filter: brightness(0) invert(1) !important;
 }
 
 .nav-link-vibrant {
     color: var(--vibrant-dark) !important;
-    font-weight: 600;
-    padding: 10px 20px !important;
-    border-radius: 30px;
-    transition: all 0.3s ease;
+    font-weight: 600 !important;
+    padding: 10px 24px !important;
+    border-radius: 30px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
 }
 
 .nav-link-vibrant:hover,
 .nav-link-vibrant.active {
-    background: var(--vibrant-primary);
+    background: var(--vibrant-primary) !important;
     color: #fff !important;
 }
 
 /* Neon Footer */
 .neon-footer {
-    background: var(--vibrant-darker);
-    padding: 100px 0 60px;
-    color: #94a3b8;
+    background: var(--vibrant-darker) !important;
+    padding: 100px 0 60px !important;
+    color: #94a3b8 !important;
+    margin-top: 50px !important;
 }
 
 .neon-footer .footer-title {
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
+    color: #fff !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 2rem !important;
+    font-weight: 800 !important;
 }
 
 .neon-link {
-    color: #94a3b8;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 12px;
+    color: #94a3b8 !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: block !important;
+    margin-bottom: 12px !important;
 }
 
 .neon-link:hover {
-    color: var(--vibrant-accent);
-    text-shadow: 0 0 10px var(--vibrant-accent);
-    padding-left: 8px;
+    color: var(--vibrant-accent) !important;
+    text-shadow: 0 0 10px var(--vibrant-accent) !important;
+    padding-left: 8px !important;
 }
 
-@media (max-width: 768px) {
+.whatsapp-v2 {
+    position: fixed !important;
+    bottom: 40px !important;
+    right: 40px !important;
+    width: 70px !important;
+    height: 70px !important;
+    background: #25d366 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #fff !important;
+    font-size: 32px !important;
+    z-index: 10000 !important;
+    text-decoration: none !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4) !important;
+}
+
+@media (max-width: 991px) {
     .bento-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 
     .vibrant-header {
-        width: 100%;
-        top: 0;
-        border-radius: 0;
+        width: 100% !important;
+        top: 0 !important;
+        border-radius: 0 !important;
+        padding: 12px 20px !important;
     }
 }
