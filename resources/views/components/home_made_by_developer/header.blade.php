@@ -1,13 +1,14 @@
 @php
     $parent_categories = DB::table('categories')->where('parent_id', 0)->latest('id')->get();
     $current_route = Route::currentRouteName();
+    $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
 @endphp
 
 <header class="vibrant-header d-flex align-items-center justify-content-between">
     <div class="logo-area">
         <a href="{{ route('home') }}">
-            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="{{ get_phrase('Logo') }}" style="max-height: 40px;">
-            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="{{ get_phrase('Logo') }}" style="max-height: 40px;">
+            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 40px;">
+            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 40px;">
         </a>
     </div>
 
@@ -56,7 +57,7 @@
             </div>
         @else
             <a href="{{ route('login') }}" class="text-dark fw-bold text-decoration-none d-none d-sm-block">{{ get_phrase('Login') }}</a>
-            <a href="{{ route('register.form') }}" class="btn-vibrant">{{ get_phrase('Join Free') }}</a>
+            <a href="{{ route('register.form') }}" class="btn-vibrant">{{ $is_arabic ? 'انضم مجاناً' : get_phrase('Join Free') }}</a>
         @endauth
         
         <button class="btn btn-light rounded-circle p-2 d-lg-none shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#vibrantMobileNav">
@@ -68,7 +69,7 @@
 <!-- Vibrant Mobile Nav -->
 <div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="vibrantMobileNav" style="border-radius: 30px 0 0 30px;">
     <div class="offcanvas-header p-4">
-        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="Logo" style="max-height: 40px;">
+        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 40px;">
         <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body p-4 bg-vibrant-dark text-white">
@@ -92,8 +93,8 @@
         </div>
         <hr class="my-5 opacity-25">
         @guest
-            <a href="{{ route('login') }}" class="btn btn-outline-light w-100 py-3 rounded-4 mb-3 fw-bold">{{ get_phrase('Login') }}</a>
-            <a href="{{ route('register.form') }}" class="btn btn-primary w-100 py-3 rounded-4 fw-bold" style="background: var(--vibrant-primary); border: none;">{{ get_phrase('Get Started') }}</a>
+            <a href="{{ route('login') }}" class="btn btn-outline-light w-100 py-3 rounded-4 mb-3 fw-bold">{{ $is_arabic ? 'تسجيل الدخول' : get_phrase('Login') }}</a>
+            <a href="{{ route('register.form') }}" class="btn btn-primary w-100 py-3 rounded-4 fw-bold" style="background: var(--vibrant-primary); border: none;">{{ $is_arabic ? 'ابدأ الآن' : get_phrase('Get Started') }}</a>
         @else
             <a href="{{ route('logout') }}" class="btn btn-danger w-100 py-3 rounded-4 fw-bold">{{ get_phrase('Logout') }}</a>
         @endguest

@@ -1,12 +1,13 @@
 <footer class="neon-footer">
+    @php $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic'; @endphp
     <div class="container pb-5">
         <div class="row g-5">
             <div class="col-lg-4">
                 <div class="footer-brand mb-5">
                     <a href="{{ route('home') }}">
-                        <img src="{{ get_image(get_frontend_settings('light_logo')) }}" alt="Logo" style="max-height: 50px;" class="mb-4">
+                        <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="mb-4" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 45px;">
                     </a>
-                    <p class="opacity-50 lh-lg" style="max-width: 300px;">{{ get_phrase('Empowering the next generation of creators and leaders through world-class education and modern learning experiences.') }}</p>
+                    <p class="opacity-50 mb-4">{{ $is_arabic ? 'تمكين الجيل القادم من المبدعين والقادة من خلال تعليم عالمي المستوى وتجارب تعليمية حديثة.' : get_phrase('Empowering the next generation of creators and leaders through world-class education and modern learning experiences.') }}</p>
                 </div>
                 <div class="d-flex gap-4">
                     <a href="{{ get_frontend_settings('facebook') }}" class="text-white opacity-50 hover-opacity-100 fs-5"><i class="fa-brands fa-facebook"></i></a>
@@ -16,7 +17,7 @@
             </div>
             
             <div class="col-lg-2 col-6">
-                <h5 class="footer-title">{{ get_phrase('Platform') }}</h5>
+                <h5 class="footer-title">{{ $is_arabic ? 'المنصة' : get_phrase('Platform') }}</h5>
                 <ul class="list-unstyled">
                     <li><a href="{{ route('courses') }}" class="neon-link">{{ get_phrase('Courses') }}</a></li>
                     <li><a href="{{ route('blogs') }}" class="neon-link">{{ get_phrase('Blog') }}</a></li>
@@ -26,23 +27,23 @@
             </div>
             
             <div class="col-lg-2 col-6">
-                <h5 class="footer-title">{{ get_phrase('Resources') }}</h5>
+                <h5 class="footer-title">{{ $is_arabic ? 'الموارد' : get_phrase('Resources') }}</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('about.us') }}" class="neon-link">{{ get_phrase('About') }}</a></li>
-                    <li><a href="{{ route('contact.us') }}" class="neon-link">{{ get_phrase('Contact') }}</a></li>
-                    <li><a href="{{ route('privacy.policy') }}" class="neon-link">{{ get_phrase('Privacy') }}</a></li>
+                    <li><a href="{{ route('about.us') }}" class="neon-link">{{ $is_arabic ? 'حول' : get_phrase('About') }}</a></li>
+                    <li><a href="{{ route('contact.us') }}" class="neon-link">{{ $is_arabic ? 'اتصل بنا' : get_phrase('Contact') }}</a></li>
+                    <li><a href="{{ route('privacy.policy') }}" class="neon-link">{{ $is_arabic ? 'الخصوصية' : get_phrase('Privacy') }}</a></li>
                     <li><a href="{{ route('terms.condition') }}" class="neon-link">{{ get_phrase('Terms') }}</a></li>
                 </ul>
             </div>
             
             <div class="col-lg-4">
-                <h5 class="footer-title">{{ get_phrase('Stay Vibrant') }}</h5>
+                <h5 class="footer-title">{{ $is_arabic ? 'ابق متألقاً' : get_phrase('Stay Vibrant') }}</h5>
                 <p class="small opacity-50 mb-4">{{ get_phrase('Join our community to get the latest updates on new courses and creative insights.') }}</p>
                 <form action="{{ route('newsletter.store') }}" method="post" class="position-relative">
                     @csrf
-                    <input type="email" name="email" class="form-control bg-transparent border-secondary text-white rounded-pill px-4 py-3 shadow-none no-focus-glow" placeholder="{{ get_phrase('Email Address') }}" required style="border-width: 2px;">
+                    <input type="email" name="email" class="form-control bg-transparent border-secondary text-white rounded-pill px-4 py-3 shadow-none no-focus-glow" placeholder="{{ $is_arabic ? 'عنوان البريد الإلكتروني' : get_phrase('Email Address') }}" required style="border-width: 2px;">
                     <div class="version-marker" style="position: absolute; bottom: 10px; right: 10px; opacity: 0.2; font-size: 0.7rem;">{{ get_phrase('v2.7-Stable') }}</div>
-                    <button class="btn btn-vibrant position-absolute end-0 top-0 h-100 px-4 rounded-pill" type="submit">{{ get_phrase('Join') }}</button>
+                    <button class="btn btn-vibrant position-absolute end-0 top-0 h-100 px-4 rounded-pill" type="submit">{{ $is_arabic ? 'انضم' : get_phrase('Join') }}</button>
                 </form>
             </div>
         </div>
