@@ -28,27 +28,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        if(session('home')){
-            $page_builder = Builder_page::where('id', session('home'))->first();
-        }else{
-            $page_builder = Builder_page::where('status', 1)->first();
-        }
+        $page_data['blogs']    = Blog::where('status', 1)->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
+        $page_data['reviews']  = Review::all();
+        $page_data['instructor'] = User::join('courses', 'users.id', 'courses.user_id')
+            ->select('users.*', 'courses.title as course_title')
+            ->get()->unique()->take(4);
+        $page_data['category'] = Category::take(8)->get();
 
-        if ($page_builder && $page_builder->is_permanent == 1) {
-            $page_data['blogs']    = Blog::where('status', 1)->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
-            $page_data['reviews']    = Review::all();
-            return view('components.home_permanent_templates.' . $page_builder->identifier, $page_data);
-        } else {
-            $page_data['instructor'] = User::join('courses', 'users.id', 'courses.user_id')
-                ->select('users.*', 'courses.title as course_title')
-                ->get()->unique()->take(4);
-
-            $page_data['blogs']    = Blog::where('status', 1)->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
-            $page_data['category'] = Category::take(8)->get();
-
-            $view_path = 'frontend' . '.' . get_frontend_settings('theme') . '.home.index';
-            return view($view_path, $page_data);
-        }
+        return view('components.home_permanent_templates.professional_landing', $page_data);
     }
 
     public function download_certificate($identifier)
