@@ -147,16 +147,30 @@
             <p class="text-white opacity-50">{{ get_phrase('Explore over 1200+ courses across various domains') }}</p>
         </div>
         
-        <div class="d-flex flex-wrap justify-content-center gap-5">
-            @foreach (App\Models\Category::take(6)->get() as $category)
-                <div class="category-item text-center">
-                    <a href="{{ route('courses', $category->slug) }}" class="text-decoration-none">
-                        <div class="category-circle mb-3 mx-auto shadow-lg">
-                            <i class="{{ $category->icon ?? 'fa-solid fa-graduation-cap' }} text-vibrant-gradient"></i>
-                        </div>
-                        <p class="text-white fw-bold mb-0">{{ $category->title }}</p>
-                        <small class="text-white opacity-50">{{ count_category_courses($category->id) }} {{ get_phrase('Courses') }}</small>
-                    </a>
+        <div class="row g-4 justify-content-center">
+            @php
+                $icons = [
+                    'Node.js' => 'fa-brands fa-node-js',
+                    'Vue.js' => 'fa-brands fa-vuejs',
+                    'React' => 'fa-brands fa-react',
+                    'JavaScript' => 'fa-brands fa-js',
+                    'HTML/CSS' => 'fa-solid fa-code',
+                    'Web Development' => 'fa-solid fa-laptop-code',
+                    'Mobile Development' => 'fa-solid fa-mobile-screen-button',
+                    'Design' => 'fa-solid fa-palette'
+                ];
+            @endphp
+            @foreach (App\Models\Category::take(8)->get() as $category)
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="category-item text-center animate__animated animate__fadeInUp">
+                        <a href="{{ route('courses', $category->slug) }}" class="text-decoration-none d-block p-4 rounded-5 transition-all h-100 bento-item border-0" style="background: rgba(255,255,255,0.03) !important; backdrop-filter: blur(10px);">
+                            <div class="category-circle mb-4 mx-auto shadow-lg" style="background: linear-gradient(135deg, #fff, #f8f9fa) !important;">
+                                <i class="{{ $icons[$category->title] ?? ($category->icon ?? 'fa-solid fa-graduation-cap') }} text-vibrant-gradient fs-1"></i>
+                            </div>
+                            <h5 class="text-white fw-900 mb-2">{{ $category->title }}</h5>
+                            <span class="badge rounded-pill bg-vibrant-primary px-3 py-2">{{ count_category_courses($category->id) }} {{ get_phrase('Courses') }}</span>
+                        </a>
+                    </div>
                 </div>
             @endforeach
         </div>

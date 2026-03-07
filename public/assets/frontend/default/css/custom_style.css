@@ -7988,8 +7988,20 @@ body {
     color: #fff !important;
 }
 
-.scrolled .logo-area img {
-    filter: brightness(0) invert(1) !important;
+.vibrant-header.scrolled .light-logo {
+    display: block !important;
+}
+
+.vibrant-header.scrolled .dark-logo {
+    display: none !important;
+}
+
+.vibrant-header:not(.scrolled) .light-logo {
+    display: none !important;
+}
+
+.vibrant-header:not(.scrolled) .dark-logo {
+    display: block !important;
 }
 
 .nav-link-vibrant {

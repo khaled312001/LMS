@@ -6,7 +6,8 @@
 <header class="vibrant-header d-flex align-items-center justify-content-between">
     <div class="logo-area">
         <a href="{{ route('home') }}">
-            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="Logo" style="max-height: 40px;">
+            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="Logo" style="max-height: 40px;">
+            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="Logo" style="max-height: 40px;">
         </a>
     </div>
 
@@ -20,6 +21,23 @@
     </nav>
 
     <div class="action-area d-flex align-items-center gap-3">
+        <!-- Language Switcher -->
+        <div class="dropdown">
+            <button class="btn btn-light rounded-pill px-3 py-2 border-0 shadow-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown">
+                <i class="fa-solid fa-globe me-1"></i> {{ ucfirst(session('language') ?? get_settings('language')) }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2 mt-3 animate-fade-up" style="border-radius: 20px;">
+                @foreach (DB::table('languages')->get() as $language)
+                    <li>
+                        <a class="dropdown-item rounded-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'active bg-vibrant-primary text-white' : '' }}" 
+                           href="{{ route('select_lng', ['language' => $language->name]) }}">
+                            {{ ucfirst($language->name) }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
         @auth
             <div class="dropdown">
                 <button class="btn p-0 border-0 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">
@@ -60,6 +78,18 @@
             <li><a href="#categories" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Categories') }}</a></li>
             <li><a href="#blog" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Blog') }}</a></li>
         </ul>
+        <hr class="my-4 opacity-25">
+        <div class="mb-4">
+            <p class="text-white opacity-50 small fw-bold mb-3">{{ get_phrase('Language') }}</p>
+            <div class="d-flex flex-wrap gap-2">
+                @foreach (DB::table('languages')->get() as $language)
+                    <a href="{{ route('select_lng', ['language' => $language->name]) }}" 
+                       class="btn btn-sm rounded-pill px-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'bg-vibrant-primary text-white' : 'btn-outline-light' }}">
+                        {{ ucfirst($language->name) }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
         <hr class="my-5 opacity-25">
         @guest
             <a href="{{ route('login') }}" class="btn btn-outline-light w-100 py-3 rounded-4 mb-3 fw-bold">{{ get_phrase('Login') }}</a>

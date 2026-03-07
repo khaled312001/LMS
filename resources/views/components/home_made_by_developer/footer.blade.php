@@ -41,6 +41,7 @@
                 <form action="{{ route('newsletter.store') }}" method="post" class="position-relative">
                     @csrf
                     <input type="email" name="email" class="form-control bg-transparent border-secondary text-white rounded-pill px-4 py-3 shadow-none no-focus-glow" placeholder="{{ get_phrase('Email Address') }}" required style="border-width: 2px;">
+                    <div class="version-marker" style="position: absolute; bottom: 10px; right: 10px; opacity: 0.2; font-size: 0.7rem;">v2.4-MegaPolish</div>
                     <button class="btn btn-vibrant position-absolute end-0 top-0 h-100 px-4 rounded-pill" type="submit">{{ get_phrase('Join') }}</button>
                 </form>
             </div>
