@@ -202,6 +202,10 @@
         <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.15) 0%, transparent 50%); z-index: 0;"></div>
         
         <div class="container position-relative" style="z-index: 1;">
+            <!-- Content moved to body section below -->
+        </div>
+    </section>
+
     <section class="body-bg pb-5">
         <div class="container">
             <div class="row align-items-start position-relative" style="margin-top: -150px; z-index: 10;">
