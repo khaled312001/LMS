@@ -89,22 +89,21 @@
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
                 <div class="glass-pill mb-4 animate__animated animate__fadeInDown">
-                    <span>🚀</span> New Era of Learning
+                    <span>🚀</span> {{ get_phrase('New Era of Learning') }}
                 </div>
                 <h1 class="display-1 fw-900 mb-4 lh-1 animate__animated animate__fadeInLeft" style="letter-spacing: -2px;">
-                    Master Your <span class="text-vibrant-gradient">Future</span> with Creative Courseware
+                    {{ get_phrase('Master Your') }} <span class="text-vibrant-gradient">{{ get_phrase('Future') }}</span> {{ get_phrase('with Creative Courseware') }}
                 </h1>
                 <p class="fs-4 text-muted mb-5 pe-lg-5 animate__animated animate__fadeInLeft animate__delay-1s">
-                    Empowering students with <span class="text-dark fw-bold">flexible, high-quality</span> online learning. Discover your potential with our immersive platforms.
+                    {{ get_phrase('Empowering students with') }} <span class="text-dark fw-bold">{{ get_phrase('flexible, high-quality') }}</span> {{ get_phrase('online learning. Discover your potential with our immersive platforms.') }}
                 </p>
                 <div class="d-flex flex-wrap gap-4 align-items-center animate__animated animate__fadeInUp animate__delay-1s">
-                    <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">Explore Courses</a>
-                    <a href="#blog" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">Latest News</a>
+                    <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ get_phrase('Explore Courses') }}</a>
+                    <a href="#blog" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ get_phrase('Latest News') }}</a>
                 </div>
                 
-                <!-- Logo Cloud / Social Proof -->
                 <div class="mt-5 pt-5 opacity-50 d-flex gap-5 align-items-center flex-wrap animate__animated animate__fadeIn animate__delay-2s">
-                    <span class="small fw-bold text-uppercase letter-spacing-2">Trusted By</span>
+                    <span class="small fw-bold text-uppercase letter-spacing-2">{{ get_phrase('Trusted By') }}</span>
                     <i class="fa-brands fa-google fs-3"></i>
                     <i class="fa-brands fa-microsoft fs-3"></i>
                     <i class="fa-brands fa-amazon fs-3"></i>
@@ -123,15 +122,15 @@
                     <div class="position-absolute animate-float shadow-lg p-4 bg-white rounded-4 border-0" style="top: -40px; right: -20px; width: 220px; z-index: 5;">
                         <div class="d-flex align-items-center gap-3 mb-2">
                             <div class="bg-success rounded-circle" style="width: 12px; height: 12px;"></div>
-                            <span class="small fw-bold">Live Learners</span>
+                            <span class="small fw-bold">{{ get_phrase('Live Learners') }}</span>
                         </div>
                         <h4 class="fw-900 mb-0">12,482+</h4>
                     </div>
                     
                     <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" style="bottom: 40px; left: -40px; width: 200px; z-index: 5; animation-delay: 1.5s;">
                         <div class="fs-1 mb-2">🏆</div>
-                        <h5 class="fw-bold mb-1">Top Rated</h5>
-                        <p class="small mb-0 opacity-75">#1 LMS Choice 2026</p>
+                        <h5 class="fw-bold mb-1">{{ get_phrase('Top Rated') }}</h5>
+                        <p class="small mb-0 opacity-75">{{ get_phrase('#1 LMS Choice 2026') }}</p>
                     </div>
                 </div>
             </div>
@@ -160,7 +159,7 @@
                     'Design' => 'fa-solid fa-palette'
                 ];
             @endphp
-            @foreach (App\Models\Category::take(8)->get() as $category)
+            @foreach (App\Models\Category::where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(8) as $category)
                 <div class="col-6 col-md-4 col-lg-3">
                     <div class="category-item text-center animate__animated animate__fadeInUp">
                         <a href="{{ route('courses', $category->slug) }}" class="text-decoration-none d-block p-4 rounded-5 transition-all h-100 bento-item border-0" style="background: rgba(255,255,255,0.03) !important; backdrop-filter: blur(10px);">
@@ -203,7 +202,7 @@
                         </div>
                         <div class="px-2">
                             <div class="d-flex justify-content-between mb-3">
-                                <span class="vibrant-tag">Professional</span>
+                                <span class="vibrant-tag">{{ get_phrase('Professional') }}</span>
                                 <div class="text-warning small fw-bold">
                                     <i class="fa-solid fa-star me-1"></i>4.9
                                 </div>
@@ -245,7 +244,7 @@
                 <div class="col-lg-4">
                     <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important;">
                         <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 200px; object-fit: cover; border-radius: 20px;">
-                        <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? App\Models\Category::find($blog->category_id)->title : 'General' }}</span>
+                        <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? App\Models\Category::find($blog->category_id)->title : get_phrase('General') }}</span>
                         <h4 class="fw-bold mb-3">
                             <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($blog->title, 50) }}</a>
                         </h4>
@@ -269,7 +268,7 @@
                 <div class="col-lg-7 p-5 p-lg-10 text-white position-relative" style="z-index: 5;">
                     <span class="vibrant-tag mb-4 d-inline-block px-4 py-2 border-0" style="background: rgba(255,255,255,0.1); color: var(--vibrant-accent); font-weight: 800; border-radius: 50px;">🚀 {{ get_phrase('Career Fast-Track') }}</span>
                     <h2 class="display-2 fw-800 mb-4 lh-1">
-                        Turn Your Passion Into A <span class="text-vibrant-gradient">Global Career</span>
+                        {{ get_phrase('Turn Your Passion Into A') }} <span class="text-vibrant-gradient">{{ get_phrase('Global Career') }}</span>
                     </h2>
                     <p class="fs-4 opacity-75 mb-5 pe-lg-5 fw-medium">{{ get_phrase('The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.') }}</p>
                     
@@ -280,7 +279,7 @@
                             <div class="bg-white rounded-circle p-1 shadow-sm" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=1" class="rounded-circle w-100 h-100"></div>
                             <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=2" class="rounded-circle w-100 h-100"></div>
                             <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=3" class="rounded-circle w-100 h-100"></div>
-                            <span class="ms-3 fs-6 fw-bold text-white-50">+45k Students</span>
+                            <span class="ms-3 fs-6 fw-bold text-white-50">{{ get_phrase('+45k Students') }}</span>
                         </div>
                     </div>
                 </div>
@@ -292,7 +291,7 @@
                     <div class="position-absolute p-4 backdrop-blur shadow-2xl animate-float" style="bottom: 40px; right: 40px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; width: 250px;">
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <div class="bg-success rounded-circle" style="width: 10px; height: 10px;"></div>
-                            <span class="fw-bold text-white small">Live Success Rate</span>
+                            <span class="fw-bold text-white small">{{ get_phrase('Live Success Rate') }}</span>
                         </div>
                         <h3 class="text-white fw-bold mb-0">98.2%</h3>
                         <div class="progress mt-3 bg-white-10" style="height: 6px;">

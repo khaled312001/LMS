@@ -6,8 +6,8 @@
 <header class="vibrant-header d-flex align-items-center justify-content-between">
     <div class="logo-area">
         <a href="{{ route('home') }}">
-            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="Logo" style="max-height: 40px;">
-            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="Logo" style="max-height: 40px;">
+            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="{{ get_phrase('Logo') }}" style="max-height: 40px;">
+            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="{{ get_phrase('Logo') }}" style="max-height: 40px;">
         </a>
     </div>
 
