@@ -83,18 +83,36 @@
         background: rgba(255,255,255,0.1) !important;
         border-radius: 10px;
     }
-    .body-bg {
+    .bg-vibrant-light {
         background: var(--vibrant-light) !important;
     }
 
-    /* Pricing Card Specifics */
-    .sidebar-overlap {
-        margin-top: -320px;
+    /* New Clean Layout Classes */
+    .vibrant-course-hero {
+        background: var(--vibrant-dark);
+        padding: 200px 0 160px;
+        position: relative;
+        overflow: hidden;
     }
-    @media (max-width: 991px) {
-        .sidebar-overlap {
-            margin-top: 20px;
-        }
+    
+    .vibrant-course-body {
+        margin-top: -120px;
+        position: relative;
+        z-index: 10;
+        padding-bottom: 80px;
+    }
+
+    .vibrant-content-card {
+        background: var(--vibrant-white);
+        border-radius: 30px;
+        padding: 40px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .vibrant-sidebar-sticky {
+        position: sticky;
+        top: 120px;
     }
 
     .shadow-vibrant {
@@ -207,8 +225,8 @@
 
         $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
     @endphp
-    <!------------------- Breadcum Area Start  ------>
-    <section class="breadcum-area position-relative overflow-hidden py-5 pt-200" style="background: var(--vibrant-dark); min-height: 500px;">
+    <!------------------- New Vibrant Hero Area ------------------->
+    <section class="vibrant-course-hero">
         <!-- Mesh Gradient Background -->
         <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.15) 0%, transparent 50%); z-index: 0;"></div>
         
@@ -259,57 +277,64 @@
         </div>
     </section>
 
-    <section class="body-bg pb-5">
-        <div class="container">
-            <div class="row align-items-start position-relative">
+    <!------------------- New Vibrant Body Area ------------------->
+    <section class="bg-vibrant-light">
+        <div class="container vibrant-course-body">
+            <div class="row align-items-start g-4">
+                
+                <!-- Main Content Column -->
                 <div class="col-lg-8 order-2 order-lg-1">
-                    <div class="details-page-content mt-5">
-                        <div class="ps-box static-menu w-100">
-                            <ul class="nav nav-pills custom-vibrant-tabs gap-2 mb-4" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active rounded-pill px-4 fw-bold" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab">{{ $is_arabic ? 'نظرة عامة' : get_phrase('Overview') }}</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-course-content-tab" data-bs-toggle="pill" data-bs-target="#pills-course-content" type="button" role="tab">{{ $is_arabic ? 'المنهج' : get_phrase('Curriculum') }}</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab">{{ $is_arabic ? 'التفاصيل' : get_phrase('Details') }}</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-instructor-tab" data-bs-toggle="pill" data-bs-target="#pills-instructor" type="button" role="tab">{{ $is_arabic ? 'المدرب' : get_phrase('Instructor') }}</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab">{{ $is_arabic ? 'التقييمات' : get_phrase('Reviews') }}</button>
-                                </li>
-                            </ul>
+                    <div class="vibrant-content-card">
+                        
+                        <!-- Tabs -->
+                        <ul class="nav nav-pills custom-vibrant-tabs gap-2 mb-5" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active rounded-pill px-4 fw-bold" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab">{{ $is_arabic ? 'نظرة عامة' : get_phrase('Overview') }}</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill px-4 fw-bold" id="pills-course-content-tab" data-bs-toggle="pill" data-bs-target="#pills-course-content" type="button" role="tab">{{ $is_arabic ? 'المنهج' : get_phrase('Curriculum') }}</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill px-4 fw-bold" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab">{{ $is_arabic ? 'التفاصيل' : get_phrase('Details') }}</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill px-4 fw-bold" id="pills-instructor-tab" data-bs-toggle="pill" data-bs-target="#pills-instructor" type="button" role="tab">{{ $is_arabic ? 'المدرب' : get_phrase('Instructor') }}</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill px-4 fw-bold" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab">{{ $is_arabic ? 'التقييمات' : get_phrase('Reviews') }}</button>
+                            </li>
+                        </ul>
 
-                            <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
-                                    @include('frontend.default.course.overview_area')
-                                </div>
-                                <div class="tab-pane fade" id="pills-course-content" role="tabpanel" aria-labelledby="pills-course-content-tab" tabindex="0">
-                                    @include('frontend.default.course.content_area')
-                                </div>
-                                <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
-                                    @include('frontend.default.course.requirement_outcome_area')
-                                </div>
-                                <div class="tab-pane fade" id="pills-instructor" role="tabpanel" aria-labelledby="pills-instructor-tab" tabindex="0">
-                                    @include('frontend.default.course.instructor_area')
-                                </div>
-                                <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab" tabindex="0">
-                                    @include('frontend.default.course.review_area')
-                                </div>
+                        <!-- Tab Content -->
+                        <div class="tab-content border-0 p-0 shadow-none bg-transparent" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
+                                @include('frontend.default.course.overview_area')
+                            </div>
+                            <div class="tab-pane fade" id="pills-course-content" role="tabpanel" aria-labelledby="pills-course-content-tab" tabindex="0">
+                                @include('frontend.default.course.content_area')
+                            </div>
+                            <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
+                                @include('frontend.default.course.requirement_outcome_area')
+                            </div>
+                            <div class="tab-pane fade" id="pills-instructor" role="tabpanel" aria-labelledby="pills-instructor-tab" tabindex="0">
+                                @include('frontend.default.course.instructor_area')
+                            </div>
+                            <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab" tabindex="0">
+                                @include('frontend.default.course.review_area')
                             </div>
                         </div>
+
                     </div>
                 </div>
-                <div class="col-lg-4 order-1 order-lg-2 mb-5">
-                     <div class="pricing-card-wrapper position-sticky sidebar-overlap" style="z-index: 100; top: 120px;">
+
+                <!-- Sticky Sidebar Column -->
+                <div class="col-lg-4 order-1 order-lg-2">
+                     <div class="vibrant-sidebar-sticky">
                         @include('frontend.default.course.pricing_card')
                      </div>
                 </div>
+
             </div>
-            <!------------------- Player Feature Area End  --------->
         </div>
     </section>
 
