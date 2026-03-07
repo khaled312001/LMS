@@ -88,9 +88,18 @@
     }
 
     /* Pricing Card Specifics */
+    .sidebar-overlap {
+        margin-top: -300px;
+    }
+    @media (max-width: 991px) {
+        .sidebar-overlap {
+            margin-top: 20px;
+        }
+    }
     .shadow-vibrant {
         box-shadow: 0 15px 40px rgba(79, 70, 229, 0.25);
     }
+
     .share-icon-vibrant {
         width: 36px;
         height: 36px;
@@ -245,11 +254,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                     <div class="pricing-card-wrapper position-relative" style="z-index: 10;">
-                        @include('frontend.default.course.pricing_card')
-                     </div>
-                </div>
             </div>
         </div>
     </section>
@@ -297,6 +301,11 @@
                                 </div>
                             </div>
                         </div>
+                     </div>
+                </div>
+                <div class="col-lg-4 order-1 order-lg-2 mb-5">
+                     <div class="pricing-card-wrapper position-sticky sidebar-overlap" style="z-index: 100; top: 120px;">
+                        @include('frontend.default.course.pricing_card')
                      </div>
                 </div>
             </div>
