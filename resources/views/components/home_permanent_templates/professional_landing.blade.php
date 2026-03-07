@@ -101,13 +101,13 @@
                     <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ get_phrase('Explore Courses') }}</a>
                     <a href="#blog" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ get_phrase('Latest News') }}</a>
                 </div>
-                
+                <!-- Logo Cloud / Social Proof -->
                 <div class="mt-5 pt-5 opacity-50 d-flex gap-5 align-items-center flex-wrap animate__animated animate__fadeIn animate__delay-2s">
                     <span class="small fw-bold text-uppercase letter-spacing-2">{{ get_phrase('Trusted By') }}</span>
-                    <i class="fa-brands fa-google fs-3"></i>
-                    <i class="fa-brands fa-microsoft fs-3"></i>
-                    <i class="fa-brands fa-amazon fs-3"></i>
-                    <i class="fa-brands fa-apple fs-3"></i>
+                    <span class="fw-900 fs-5" style="letter-spacing: -1px;">SwissLearningHub</span>
+                    <span class="fw-700 fs-5" style="font-family: 'Inter', sans-serif;">Taskbase</span>
+                    <span class="fw-800 fs-5" style="text-transform: uppercase;">Academia</span>
+                    <span class="fw-600 fs-5">Global Swiss Learning</span>
                 </div>
             </div>
             
