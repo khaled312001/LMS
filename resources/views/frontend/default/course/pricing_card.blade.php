@@ -138,7 +138,7 @@
             $share_url = route('course.details', $course_details->slug);
         @endphp
         <div class="w-100 px-4 pb-2 text-center mt-3">
-            <span>{{ get_phrase('Share') }} :</span>
+            <span class="text-white opacity-75">{{ get_phrase('Share') }} :</span>
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ $share_url }}&ref={{ $ref }}" target="_blank" class="p-2 mx-2 color-facebook" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Facebook') }}" data-bs-placement="top">
                 <i class="fab fa-facebook text-20"></i>
             </a>

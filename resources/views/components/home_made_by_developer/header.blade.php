@@ -56,7 +56,7 @@
                 </ul>
             </div>
         @else
-            <a href="{{ route('login') }}" class="text-dark fw-bold text-decoration-none d-none d-sm-block">{{ get_phrase('Login') }}</a>
+            <a href="{{ route('login') }}" class="nav-link-vibrant d-none d-sm-block">{{ get_phrase('Login') }}</a>
             <a href="{{ route('register.form') }}" class="btn-vibrant">{{ $is_arabic ? 'انضم مجاناً' : get_phrase('Join Free') }}</a>
         @endauth
         

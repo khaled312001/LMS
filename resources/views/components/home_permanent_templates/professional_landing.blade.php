@@ -143,12 +143,15 @@
                     <a href="#blog" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ $is_arabic ? ($ar['Latest News'] ?? get_phrase('Latest News')) : get_phrase('Latest News') }}</a>
                 </div>
                 <!-- Logo Cloud / Social Proof -->
-                <div class="mt-5 pt-5 opacity-50 d-flex gap-5 align-items-center flex-wrap animate__animated animate__fadeIn animate__delay-2s">
-                    <span class="small fw-bold text-uppercase letter-spacing-2">{{ $is_arabic ? ($ar['Trusted By'] ?? get_phrase('Trusted By')) : get_phrase('Trusted By') }}</span>
-                    <span class="fw-900 fs-5" style="letter-spacing: -1px;">SwissLearningHub</span>
-                    <span class="fw-700 fs-5" style="font-family: 'Inter', sans-serif;">Taskbase</span>
-                    <span class="fw-800 fs-5" style="text-transform: uppercase;">Academia</span>
-                    <span class="fw-600 fs-5">Global Swiss Learning</span>
+                <div class="mt-5 pt-5 animate__animated animate__fadeIn animate__delay-2s">
+                    <div class="glass-pill py-3 px-5 d-inline-flex flex-wrap align-items-center gap-5 shadow-sm border-0" style="background: rgba(255,255,255,0.4) !important;">
+                        <span class="small fw-800 text-uppercase letter-spacing-2 opacity-50">{{ $is_arabic ? ($ar['Trusted By'] ?? get_phrase('Trusted By')) : get_phrase('Trusted By') }}</span>
+                        <div class="vr opacity-10 d-none d-md-block" style="height: 30px;"></div>
+                        <span class="fw-900 fs-5 text-dark opacity-60 hover-opacity-100 transition-all cursor-default" style="letter-spacing: -1px;">SwissLearningHub</span>
+                        <span class="fw-700 fs-5 text-dark opacity-60 hover-opacity-100 transition-all cursor-default" style="font-family: 'Inter', sans-serif;">Taskbase</span>
+                        <span class="fw-800 fs-5 text-dark opacity-60 hover-opacity-100 transition-all cursor-default" style="text-transform: uppercase;">Academia</span>
+                        <span class="fw-600 fs-5 text-dark opacity-60 hover-opacity-100 transition-all cursor-default">Global Swiss Learning</span>
+                    </div>
                 </div>
             </div>
             

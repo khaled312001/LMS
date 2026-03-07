@@ -36,10 +36,21 @@
     .tab-content .g-title, 
     .tab-content h4, 
     .tab-content h3, 
+    .tab-content h5, 
     .tab-content p, 
     .tab-content li, 
+    .tab-content i,
+    .tab-content a:not(.btn):not(.eBtn),
     .tab-content span:not(.badge) {
         color: white !important;
+    }
+    .s_stext {
+        color: white !important;
+        opacity: 0.8;
+    }
+    .s_stext:hover {
+        color: var(--vibrant-accent) !important;
+        opacity: 1;
     }
     .accordion-item {
         background: rgba(255,255,255,0.05) !important;
@@ -59,6 +70,11 @@
     }
     .accordion-button::after {
         filter: brightness(0) invert(1);
+    }
+    .tab-content .fa-star, 
+    .tab-content .fa-star-half-alt,
+    .text-warning .fa-star {
+        color: #f59e0b !important;
     }
     .lesson-list li a path {
         fill: white !important;
@@ -148,7 +164,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="body-bg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 order-2 order-lg-1">
