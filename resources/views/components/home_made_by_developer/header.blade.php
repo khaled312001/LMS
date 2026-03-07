@@ -24,7 +24,7 @@
         <!-- Language Switcher -->
         <div class="dropdown">
             <button class="btn btn-light rounded-pill px-3 py-2 border-0 shadow-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown">
-                <i class="fa-solid fa-globe me-1"></i> {{ ucfirst(session('language') ?? get_settings('language')) }}
+                <i class="fa-solid fa-globe me-1"></i> {{ get_phrase(ucfirst(session('language') ?? get_settings('language'))) }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2 mt-3 animate-fade-up" style="border-radius: 20px;">
                 @foreach (DB::table('languages')->get() as $language)

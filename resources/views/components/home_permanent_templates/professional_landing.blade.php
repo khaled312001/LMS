@@ -166,7 +166,7 @@
                             <div class="category-circle mb-4 mx-auto shadow-lg" style="background: linear-gradient(135deg, #fff, #f8f9fa) !important;">
                                 <i class="{{ $icons[$category->title] ?? ($category->icon ?? 'fa-solid fa-graduation-cap') }} text-vibrant-gradient fs-1"></i>
                             </div>
-                            <h5 class="text-white fw-900 mb-2">{{ $category->title }}</h5>
+                            <h5 class="text-white fw-900 mb-2">{{ get_phrase($category->title) }}</h5>
                             <span class="badge rounded-pill bg-vibrant-primary px-3 py-2">{{ count_category_courses($category->id) }} {{ get_phrase('Courses') }}</span>
                         </a>
                     </div>
@@ -197,7 +197,7 @@
                         <div class="position-relative mb-4">
                             <img src="{{ get_image($row->thumbnail) }}" class="vibrant-course-image" alt="{{ $row->title }}">
                             @if($row->discount_flag == 1)
-                                <span class="position-absolute top-3 end-3 badge bg-danger rounded-pill px-3 py-2 fw-bold" style="top: 15px; right: 15px;">{{ round((($row->price - $row->discounted_price) / $row->price) * 100) }}% OFF</span>
+                                <span class="position-absolute top-3 end-3 badge bg-danger rounded-pill px-3 py-2 fw-bold" style="top: 15px; right: 15px;">{{ round((($row->price - $row->discounted_price) / $row->price) * 100) }}% {{ get_phrase('OFF') }}</span>
                             @endif
                         </div>
                         <div class="px-2">
@@ -244,7 +244,7 @@
                 <div class="col-lg-4">
                     <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important;">
                         <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 200px; object-fit: cover; border-radius: 20px;">
-                        <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? App\Models\Category::find($blog->category_id)->title : get_phrase('General') }}</span>
+                        <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? get_phrase(App\Models\Category::find($blog->category_id)->title) : get_phrase('General') }}</span>
                         <h4 class="fw-bold mb-3">
                             <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($blog->title, 50) }}</a>
                         </h4>
