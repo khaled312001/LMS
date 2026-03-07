@@ -27,10 +27,45 @@
         border: none !important;
     }
     .tab-content {
-        background: rgba(255,255,255,0.03);
-        border-radius: 20px;
-        padding: 30px;
-        border: 1px solid rgba(255,255,255,0.05);
+        background: rgba(255,255,255,0.05);
+        border-radius: 30px;
+        padding: 40px;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+    }
+    .tab-content .g-title, 
+    .tab-content h4, 
+    .tab-content h3, 
+    .tab-content p, 
+    .tab-content li, 
+    .tab-content span:not(.badge) {
+        color: white !important;
+    }
+    .accordion-item {
+        background: rgba(255,255,255,0.05) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 15px !important;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+    .accordion-button {
+        background: transparent !important;
+        color: white !important;
+        font-weight: 700 !important;
+        box-shadow: none !important;
+    }
+    .accordion-button:not(.collapsed) {
+        color: var(--vibrant-accent) !important;
+    }
+    .accordion-button::after {
+        filter: brightness(0) invert(1);
+    }
+    .lesson-list li a path {
+        fill: white !important;
+    }
+    .lesson-list li a:hover {
+        background: rgba(255,255,255,0.1) !important;
+        border-radius: 10px;
     }
     .body-bg {
         background: var(--vibrant-dark) !important;

@@ -46,6 +46,13 @@
 
     <!-- Jquery Js -->
     <script src="{{ asset('assets/frontend/default/js/jquery-3.7.1.min.js') }}"></script>
+    
+    <!-- More Assets from Default Layout -->
+    <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/default/vendors/slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/default/vendors/slick/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/plyr.css') }}">
     @stack('css')
 </head>
 
@@ -61,8 +68,20 @@
     <!-- Bootstrap Js -->
     <script src="{{ asset('assets/frontend/default/js/bootstrap.bundle.min.js') }}"></script>
     
+    <!-- Nice Select Js -->
+    <script src="{{ asset('assets/frontend/default/js/jquery.nice-select.min.js') }}"></script>
+    
     <!-- Swiper Js -->
     <script src="{{ asset('assets/frontend/default/vendors/swiper/swiper-bundle.min.js') }}"></script>
+    
+    <!-- Slick Js -->
+    <script src="{{ asset('assets/frontend/default/vendors/slick/slick.min.js') }}"></script>
+    
+    <!-- Player Js -->
+    <script src="{{ asset('assets/frontend/default/js/plyr.js') }}"></script>
+    
+    <!-- Main Js -->
+    <script src="{{ asset('assets/frontend/default/js/script.js') }}"></script>
 
     @include('frontend.default.modal')
     @include('frontend.default.toaster')
