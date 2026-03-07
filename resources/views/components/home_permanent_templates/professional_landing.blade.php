@@ -197,7 +197,13 @@
                     'HTML/CSS' => 'fa-solid fa-code',
                     'Web Development' => 'fa-solid fa-laptop-code',
                     'Mobile Development' => 'fa-solid fa-mobile-screen-button',
-                    'Design' => 'fa-solid fa-palette'
+                    'Design' => 'fa-solid fa-palette',
+                    'Marketing' => 'fa-solid fa-bullhorn',
+                    'Data Science' => 'fa-solid fa-chart-bar',
+                    'Photography' => 'fa-solid fa-camera',
+                    'Business' => 'fa-solid fa-briefcase',
+                    'Health' => 'fa-solid fa-heart-pulse',
+                    'Music' => 'fa-solid fa-music'
                 ];
             @endphp
             @foreach (App\Models\Category::where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(8) as $category)
@@ -205,7 +211,7 @@
                     <div class="category-item text-center animate__animated animate__fadeInUp">
                         <a href="{{ route('courses', $category->slug) }}" class="text-decoration-none d-block p-4 rounded-5 transition-all h-100 bento-item border-0" style="background: rgba(255,255,255,0.03) !important; backdrop-filter: blur(10px);">
                             <div class="category-circle mb-4 mx-auto shadow-lg" style="background: linear-gradient(135deg, #fff, #f8f9fa) !important;">
-                                <i class="{{ $icons[$category->title] ?? ($category->icon ?? 'fa-solid fa-graduation-cap') }} text-vibrant-gradient fs-1"></i>
+                                <i class="{{ $icons[$category->title] ?? ($category->icon ?: 'fa-solid fa-graduation-cap') }} text-vibrant-gradient fs-1"></i>
                             </div>
                             <h5 class="text-white fw-900 mb-2">{{ get_phrase($category->title) }}</h5>
                             <span class="badge rounded-pill bg-vibrant-primary px-3 py-2">{{ count_category_courses($category->id) }} {{ get_phrase('Courses') }}</span>
