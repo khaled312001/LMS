@@ -85,17 +85,7 @@
     }
     .body-bg {
         background: var(--vibrant-light) !important;
-    }
-
     /* Pricing Card Specifics */
-    .sidebar-overlap {
-        margin-top: -300px;
-    }
-    @media (max-width: 991px) {
-        .sidebar-overlap {
-            margin-top: 20px;
-        }
-    }
     .shadow-vibrant {
         box-shadow: 0 15px 40px rgba(79, 70, 229, 0.25);
     }
@@ -212,59 +202,54 @@
         <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.15) 0%, transparent 50%); z-index: 0;"></div>
         
         <div class="container position-relative" style="z-index: 1;">
-            <div class="row">
-                <div class="col-lg-8">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white opacity-50 text-decoration-none hover-opacity-100 transition-all">{{ $is_arabic ? 'الرئيسية' : get_phrase('Home') }}</a></li>
-                            <li class="breadcrumb-item active text-white fw-bold" aria-current="page">{{ $course_details->title }}</li>
-                        </ol>
-                    </nav>
-
-                    <span class="vibrant-tag mb-4 d-inline-block">{{ $is_arabic ? 'دورة تدريبية' : get_phrase('Course Details') }}</span>
-                    <h1 class="display-4 fw-900 text-white mb-4 lh-base">{{ $course_details->title }}</h1>
-                    <p class="fs-5 text-white opacity-75 mb-5 pe-lg-5">
-                        {{ ellipsis($course_details->short_description, 200) }}
-                    </p>
-
-                    <div class="d-flex flex-wrap gap-4 align-items-center text-white pb-4">
-                        <div class="d-flex align-items-center gap-2">
-                             <img class="rounded-circle border border-2 border-white-10" width="40" height="40" src="{{ get_image(course_by_instructor($course_details->id)->photo) }}" alt="instructor-image">
-                             <span class="fw-bold opacity-75">{{ course_by_instructor($course_details->id)->name }}</span>
-                        </div>
-                        <div class="vr opacity-25 d-none d-md-block"></div>
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="text-warning small d-flex gap-1">
-                                @if ($total > 0)
-                                    @for ($i = 0; $i < round($average_rating); $i++)
-                                        <i class="fa fa-star"></i>
-                                    @endfor
-                                    <span class="ms-1 fw-bold">{{ number_format($average_rating, 1) }}</span>
-                                @else
-                                    <i class="fa fa-star text-secondary opacity-50"></i>
-                                    <span class="ms-1 fw-bold">0.0</span>
-                                @endif
-                            </div>
-                            <span class="small opacity-50">({{ $total }} {{ $is_arabic ? 'تقييم' : get_phrase('Reviews') }})</span>
-                        </div>
-                        <div class="vr opacity-25 d-none d-md-block"></div>
-                        <div class="d-flex align-items-center gap-2 small opacity-75">
-                            <i class="fa-solid fa-globe"></i>
-                            {{ ucfirst($is_arabic ? 'الإنجليزية' : $course_details->language) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="body-bg">
+    <section class="body-bg pb-5">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-start position-relative" style="margin-top: -150px; z-index: 10;">
                 <div class="col-lg-8 order-2 order-lg-1">
 
-                     <div class="details-page-content">
-                        <div class="ps-box static-menu mt-5 w-100">
+                     <div class="details-page-content bg-vibrant-white rounded-5 p-4 p-md-5 border mb-5">
+                        <!-- Breadcrumb moved inside card for clean container look -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-3">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-dark opacity-50 text-decoration-none transition-all">{{ $is_arabic ? 'الرئيسية' : get_phrase('Home') }}</a></li>
+                                <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">{{ $course_details->title }}</li>
+                            </ol>
+                        </nav>
+
+                        <span class="vibrant-tag mb-4 d-inline-block">{{ $is_arabic ? 'دورة تدريبية' : get_phrase('Course Details') }}</span>
+                        <h1 class="display-5 fw-900 text-dark mb-4 lh-base">{{ $course_details->title }}</h1>
+                        <p class="fs-5 text-muted mb-5 pe-lg-5">
+                            {{ ellipsis($course_details->short_description, 200) }}
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-4 align-items-center pb-4 border-bottom border-opacity-10 mb-4">
+                            <div class="d-flex align-items-center gap-2">
+                                 <img class="rounded-circle border border-2 border-primary" width="40" height="40" src="{{ get_image(course_by_instructor($course_details->id)->photo) }}" alt="instructor-image">
+                                 <span class="fw-bold text-dark">{{ course_by_instructor($course_details->id)->name }}</span>
+                            </div>
+                            <div class="vr opacity-25 d-none d-md-block"></div>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="text-warning small d-flex gap-1">
+                                    @if ($total > 0)
+                                        @for ($i = 0; $i < round($average_rating); $i++)
+                                            <i class="fa fa-star"></i>
+                                        @endfor
+                                        <span class="ms-1 fw-bold text-dark">{{ number_format($average_rating, 1) }}</span>
+                                    @else
+                                        <i class="fa fa-star text-secondary opacity-50"></i>
+                                        <span class="ms-1 fw-bold text-dark">0.0</span>
+                                    @endif
+                                </div>
+                                <span class="small opacity-50">({{ $total }} {{ $is_arabic ? 'تقييم' : get_phrase('Reviews') }})</span>
+                            </div>
+                            <div class="vr opacity-25 d-none d-md-block"></div>
+                            <div class="d-flex align-items-center gap-2 small text-muted">
+                                <i class="fa-solid fa-globe"></i>
+                                {{ ucfirst($is_arabic ? 'الإنجليزية' : $course_details->language) }}
+                            </div>
+                        </div>
+
+                        <div class="ps-box static-menu w-100">
                             <ul class="nav nav-pills custom-vibrant-tabs gap-2 mb-4" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active rounded-pill px-4 fw-bold" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab">{{ $is_arabic ? 'نظرة عامة' : get_phrase('Overview') }}</button>
@@ -304,7 +289,7 @@
                      </div>
                 </div>
                 <div class="col-lg-4 order-1 order-lg-2 mb-5">
-                     <div class="pricing-card-wrapper position-sticky sidebar-overlap" style="z-index: 100; top: 120px;">
+                     <div class="pricing-card-wrapper position-sticky" style="z-index: 100; top: 120px;">
                         @include('frontend.default.course.pricing_card')
                      </div>
                 </div>
