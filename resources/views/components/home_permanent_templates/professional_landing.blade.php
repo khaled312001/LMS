@@ -83,30 +83,57 @@
 @endpush
 
 @section('content')
-<!-- Bento Hero -->
-<section id="home" class="vibrant-hero">
-    <div class="container">
-        <div class="bento-hero-grid">
-            <div class="bento-item hero-main d-flex flex-column justify-content-center p-5 shadow-sm border-0" style="border-radius: 40px !important; background: rgba(255, 255, 255, 0.95) !important; backdrop-filter: blur(10px);">
-                <span class="vibrant-tag mb-4 w-fit-content px-4 py-2" style="background: rgba(79, 70, 229, 0.1); border-radius: 50px; color: var(--vibrant-primary); font-weight: 800; border: 1px solid rgba(79, 70, 229, 0.2);">🌟 {{ get_phrase('New Era of LMS') }}</span>
-                <h1 class="display-3 fw-800 mb-4 lh-1">
-                    {!! str_replace(['Learning', 'Education'], ['<span class="text-vibrant-gradient">Learning</span>', '<span class="text-vibrant-gradient">Education</span>'], get_frontend_settings('banner_title')) !!}
+<!-- Ultra Hero 4.0 -->
+<section id="home" class="mesh-gradient-bg py-100 overflow-hidden" style="padding-top: 220px !important;">
+    <div class="container position-relative" style="z-index: 10;">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="glass-pill mb-4 animate__animated animate__fadeInDown">
+                    <span>🚀</span> New Era of Learning
+                </div>
+                <h1 class="display-1 fw-900 mb-4 lh-1 animate__animated animate__fadeInLeft" style="letter-spacing: -2px;">
+                    Master Your <span class="text-vibrant-gradient">Future</span> with Creative Courseware
                 </h1>
-                <p class="fs-5 text-muted mb-5 pe-lg-5">{{ get_phrase('Empowering students with flexible, high-quality online learning. Discover your potential today.') }}</p>
-                <div class="d-flex gap-3">
-                    <a href="#courses" class="btn-vibrant">{{ get_phrase('Start Learning') }}</a>
-                    <a href="#blog" class="btn btn-white rounded-pill px-4 fw-bold shadow-sm border">{{ get_phrase('Latest News') }}</a>
+                <p class="fs-4 text-muted mb-5 pe-lg-5 animate__animated animate__fadeInLeft animate__delay-1s">
+                    Empowering students with <span class="text-dark fw-bold">flexible, high-quality</span> online learning. Discover your potential with our immersive platforms.
+                </p>
+                <div class="d-flex flex-wrap gap-4 align-items-center animate__animated animate__fadeInUp animate__delay-1s">
+                    <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">Explore Courses</a>
+                    <a href="#blog" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">Latest News</a>
+                </div>
+                
+                <!-- Logo Cloud / Social Proof -->
+                <div class="mt-5 pt-5 opacity-50 d-flex gap-5 align-items-center flex-wrap animate__animated animate__fadeIn animate__delay-2s">
+                    <span class="small fw-bold text-uppercase letter-spacing-2">Trusted By</span>
+                    <i class="fa-brands fa-google fs-3"></i>
+                    <i class="fa-brands fa-microsoft fs-3"></i>
+                    <i class="fa-brands fa-amazon fs-3"></i>
+                    <i class="fa-brands fa-apple fs-3"></i>
                 </div>
             </div>
             
-            <div class="bento-item hero-stat-1 d-flex flex-column justify-content-end p-5 border-0 shadow-lg" style="border-radius: 40px !important;">
-                <h2 class="display-4 fw-800 mb-2">45k+</h2>
-                <p class="mb-0 fw-bold fs-5 opacity-75">{{ get_phrase('Students Enrolled') }}</p>
-            </div>
-            
-            <div class="bento-item hero-stat-2 d-flex flex-column justify-content-end p-5 border-0 shadow-lg" style="border-radius: 40px !important;">
-                <h2 class="display-4 fw-800 mb-2">100%</h2>
-                <p class="mb-0 fw-bold fs-5 opacity-75">{{ get_phrase('Success Stories') }}</p>
+            <div class="col-lg-5 position-relative">
+                <div class="hero-visual-container position-relative">
+                    <!-- Main Image with 3D Float -->
+                    <div class="floating-3d-card relative z-2">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover; border: 10px solid #fff;">
+                    </div>
+                    
+                    <!-- Floating Achievement Cards -->
+                    <div class="position-absolute animate-float shadow-lg p-4 bg-white rounded-4 border-0" style="top: -40px; right: -20px; width: 220px; z-index: 5;">
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <div class="bg-success rounded-circle" style="width: 12px; height: 12px;"></div>
+                            <span class="small fw-bold">Live Learners</span>
+                        </div>
+                        <h4 class="fw-900 mb-0">12,482+</h4>
+                    </div>
+                    
+                    <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" style="bottom: 40px; left: -40px; width: 200px; z-index: 5; animation-delay: 1.5s;">
+                        <div class="fs-1 mb-2">🏆</div>
+                        <h5 class="fw-bold mb-1">Top Rated</h5>
+                        <p class="small mb-0 opacity-75">#1 LMS Choice 2026</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -7793,9 +7793,78 @@ span[class*="fi-rr-"]:before {
     --vibrant-white: #ffffff;
     --vibrant-glow: 0 0 20px rgba(79, 70, 229, 0.4);
     --bento-radius: 32px;
+    --mesh-1: rgba(79, 70, 229, 0.15);
+    --mesh-2: rgba(126, 34, 206, 0.15);
+    --mesh-3: rgba(6, 182, 212, 0.15);
 }
 
-/* Global Fixes */
+/* Mesh Gradient & Animations */
+.mesh-gradient-bg {
+    position: relative !important;
+    overflow: hidden !important;
+    background-color: var(--vibrant-light) !important;
+}
+
+.mesh-gradient-bg::before,
+.mesh-gradient-bg::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 600px !important;
+    height: 600px !important;
+    border-radius: 50% !important;
+    filter: blur(80px) !important;
+    z-index: 0 !important;
+    animation: meshMove 20s infinite alternate ease-in-out !important;
+}
+
+.mesh-gradient-bg::before {
+    background: var(--mesh-1) !important;
+    top: -200px !important;
+    left: -100px !important;
+}
+
+.mesh-gradient-bg::after {
+    background: var(--mesh-2) !important;
+    bottom: -200px !important;
+    right: -100px !important;
+    animation-delay: -5s !important;
+}
+
+@keyframes meshMove {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(100px, 50px) scale(1.1);
+    }
+}
+
+.floating-3d-card {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    transform-style: preserve-3d !important;
+    perspective: 1000px !important;
+}
+
+.floating-3d-card:hover {
+    transform: translateY(-15px) rotateX(10deg) rotateY(10deg) !important;
+    box-shadow: 0 30px 60px rgba(79, 70, 229, 0.2) !important;
+}
+
+.glass-pill {
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 100px !important;
+    padding: 8px 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-weight: 700 !important;
+    color: var(--vibrant-primary) !important;
+}
+
+/* --- Global Fixes --- */
 body {
     background-color: var(--vibrant-light) !important;
     color: var(--vibrant-dark) !important;
