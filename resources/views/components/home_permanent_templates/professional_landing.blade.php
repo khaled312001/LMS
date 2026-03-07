@@ -84,27 +84,27 @@
 
 @section('content')
 <!-- Bento Hero -->
-<section class="vibrant-hero">
+<section id="home" class="vibrant-hero">
     <div class="container">
         <div class="bento-hero-grid">
-            <div class="bento-item hero-main d-flex flex-column justify-content-center p-5 shadow-sm">
-                <span class="vibrant-tag mb-4 w-fit-content px-4 py-2" style="background: rgba(79, 70, 229, 0.1); border-radius: 50px; color: var(--vibrant-primary); font-weight: 800;">🌟 {{ get_phrase('New Era of LMS') }}</span>
+            <div class="bento-item hero-main d-flex flex-column justify-content-center p-5 shadow-sm border-0" style="border-radius: 40px !important; background: rgba(255, 255, 255, 0.95) !important; backdrop-filter: blur(10px);">
+                <span class="vibrant-tag mb-4 w-fit-content px-4 py-2" style="background: rgba(79, 70, 229, 0.1); border-radius: 50px; color: var(--vibrant-primary); font-weight: 800; border: 1px solid rgba(79, 70, 229, 0.2);">🌟 {{ get_phrase('New Era of LMS') }}</span>
                 <h1 class="display-3 fw-800 mb-4 lh-1">
                     {!! str_replace(['Learning', 'Education'], ['<span class="text-vibrant-gradient">Learning</span>', '<span class="text-vibrant-gradient">Education</span>'], get_frontend_settings('banner_title')) !!}
                 </h1>
-                <p class="fs-5 text-muted mb-5 pe-lg-5">{{ get_frontend_settings('banner_sub_title') }}</p>
+                <p class="fs-5 text-muted mb-5 pe-lg-5">{{ get_phrase('Empowering students with flexible, high-quality online learning. Discover your potential today.') }}</p>
                 <div class="d-flex gap-3">
-                    <a href="{{ route('courses') }}" class="btn-vibrant">{{ get_phrase('Start Learning') }}</a>
-                    <a href="{{ route('about.us') }}" class="btn btn-light rounded-pill px-4 fw-bold">{{ get_phrase('Our Story') }}</a>
+                    <a href="#courses" class="btn-vibrant">{{ get_phrase('Start Learning') }}</a>
+                    <a href="#blog" class="btn btn-white rounded-pill px-4 fw-bold shadow-sm border">{{ get_phrase('Latest News') }}</a>
                 </div>
             </div>
             
-            <div class="bento-item hero-stat-1 d-flex flex-column justify-content-end p-5">
+            <div class="bento-item hero-stat-1 d-flex flex-column justify-content-end p-5 border-0 shadow-lg" style="border-radius: 40px !important;">
                 <h2 class="display-4 fw-800 mb-2">45k+</h2>
                 <p class="mb-0 fw-bold fs-5 opacity-75">{{ get_phrase('Students Enrolled') }}</p>
             </div>
             
-            <div class="bento-item hero-stat-2 d-flex flex-column justify-content-end p-5">
+            <div class="bento-item hero-stat-2 d-flex flex-column justify-content-end p-5 border-0 shadow-lg" style="border-radius: 40px !important;">
                 <h2 class="display-4 fw-800 mb-2">100%</h2>
                 <p class="mb-0 fw-bold fs-5 opacity-75">{{ get_phrase('Success Stories') }}</p>
             </div>
@@ -113,7 +113,7 @@
 </section>
 
 <!-- Creative Categories -->
-<section class="py-100 bg-vibrant-dark py-5">
+<section id="categories" class="py-100 bg-vibrant-dark py-5">
     <div class="container py-5">
         <div class="text-center mb-5">
             <h2 class="display-5 fw-800 text-white mb-3">{{ get_phrase('What Do You Want To Learn?') }}</h2>
@@ -137,7 +137,7 @@
 </section>
 
 <!-- Vibrant Featured Courses -->
-<section class="py-100 py-5">
+<section id="courses" class="py-100 py-5">
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-end mb-5">
             <div>
@@ -191,6 +191,31 @@
     </div>
 </section>
 
+<!-- Blog Section -->
+<section id="blog" class="py-100 bg-light py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-800">{{ get_phrase('Latest from our Blog') }}</h2>
+            <p class="text-muted">{{ get_phrase('Stay updated with the latest trends in education and technology') }}</p>
+        </div>
+        
+        <div class="row g-4">
+            @foreach (App\Models\Blog::where('status', 1)->take(3)->get() as $blog)
+                <div class="col-lg-4">
+                    <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important;">
+                        <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 200px; object-fit: cover; border-radius: 20px;">
+                        <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? App\Models\Category::find($blog->category_id)->title : 'General' }}</span>
+                        <h4 class="fw-bold mb-3">
+                            <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($blog->title, 50) }}</a>
+                        </h4>
+                        <p class="text-muted small mb-0">{{ Str::limit(strip_tags($blog->description), 100) }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 <!-- Final Call to Action -->
 <section class="py-100 py-5">
     <div class="container py-5">
@@ -215,7 +240,15 @@
 
 @push('js')
 <script>
-    "use strict";
-    // Any specific JS for the new vibrant design can go here
+    $(window).on('scroll', function() {
+        let scrollPos = $(window).scrollTop() + 150;
+        $('section').each(function() {
+            let currLink = $('.nav-link-vibrant[href="#' + $(this).attr('id') + '"]');
+            if (currLink.length && $(this).offset().top <= scrollPos && $(this).offset().top + $(this).height() > scrollPos) {
+                $('.nav-link-vibrant').removeClass('active');
+                currLink.addClass('active');
+            }
+        });
+    });
 </script>
 @endpush

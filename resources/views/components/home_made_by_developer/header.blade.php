@@ -12,9 +12,10 @@
 
     <nav class="d-none d-lg-block">
         <ul class="d-flex align-items-center gap-2 m-0 p-0 list-unstyled">
-            <li><a href="{{ route('home') }}" class="nav-link-vibrant {{ $current_route == 'home' ? 'active' : '' }}">{{ get_phrase('Home') }}</a></li>
-            <li><a href="{{ route('courses') }}" class="nav-link-vibrant {{ $current_route == 'courses' ? 'active' : '' }}">{{ get_phrase('Courses') }}</a></li>
-            <li><a href="{{ route('blogs') }}" class="nav-link-vibrant {{ $current_route == 'blogs' ? 'active' : '' }}">{{ get_phrase('Blog') }}</a></li>
+            <li><a href="#home" class="nav-link-vibrant active">{{ get_phrase('Home') }}</a></li>
+            <li><a href="#courses" class="nav-link-vibrant">{{ get_phrase('Courses') }}</a></li>
+            <li><a href="#categories" class="nav-link-vibrant">{{ get_phrase('Categories') }}</a></li>
+            <li><a href="#blog" class="nav-link-vibrant">{{ get_phrase('Blog') }}</a></li>
         </ul>
     </nav>
 
@@ -54,9 +55,10 @@
     </div>
     <div class="offcanvas-body p-4 bg-vibrant-dark text-white">
         <ul class="list-unstyled d-flex flex-column gap-3">
-            <li><a href="{{ route('home') }}" class="fs-4 text-white text-decoration-none fw-bold">{{ get_phrase('Home') }}</a></li>
-            <li><a href="{{ route('courses') }}" class="fs-4 text-white text-decoration-none fw-bold">{{ get_phrase('Courses') }}</a></li>
-            <li><a href="{{ route('blogs') }}" class="fs-4 text-white text-decoration-none fw-bold">{{ get_phrase('Blog') }}</a></li>
+            <li><a href="#home" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Home') }}</a></li>
+            <li><a href="#courses" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Courses') }}</a></li>
+            <li><a href="#categories" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Categories') }}</a></li>
+            <li><a href="#blog" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Blog') }}</a></li>
         </ul>
         <hr class="my-5 opacity-25">
         @guest

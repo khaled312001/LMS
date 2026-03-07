@@ -7892,15 +7892,16 @@ body {
     top: 24px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: calc(100% - 48px) !important;
-    max-width: 1200px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    width: calc(100% - 64px) !important;
+    max-width: 1100px !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(25px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
     border-radius: 100px !important;
-    padding: 12px 32px !important;
+    padding: 10px 32px !important;
     z-index: 10000 !important;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.4) !important;
 }
 
 .vibrant-header.scrolled {
@@ -7910,7 +7911,8 @@ body {
     border-radius: 0 !important;
     background: rgba(15, 23, 42, 0.95) !important;
     border-color: rgba(255, 255, 255, 0.1) !important;
-    padding: 10px 48px !important;
+    padding: 8px 48px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
 }
 
 .scrolled .nav-link-vibrant {
