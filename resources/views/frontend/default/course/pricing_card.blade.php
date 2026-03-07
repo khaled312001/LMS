@@ -1,36 +1,38 @@
 @php
     $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
 @endphp
-<div class="bento-item p-4 shadow-lg border-0 bg-white-5 position-relative overflow-hidden" style="border-radius: 30px !important; backdrop-filter: blur(20px);">
-    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%); z-index: 0;"></div>
+<div class="bento-item p-4 shadow-lg border-0 position-relative overflow-hidden" style="border-radius: 40px !important; backdrop-filter: blur(30px); background: rgba(15, 23, 42, 0.6) !important; border: 1px solid rgba(255,255,255,0.08) !important;">
+    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.15), transparent); z-index: 0;"></div>
     
     <div class="position-relative" style="z-index: 1;">
         <div class="hero-details mb-4">
-            <div class="position-relative overflow-hidden" style="border-radius: 20px;">
-                <img class="w-100" src="{{ get_image($course_details->banner) }}" alt="{{ $course_details->title }}" style="transition: transform 0.5s ease;">
-                <div class="position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.3);">
-                    <div class="play-circle cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 60px; height: 60px; background: white; border-radius: 50%; d-flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,255,255,0.5);">
-                        <i class="fa-solid fa-play text-dark fs-4 ms-1"></i>
+            <div class="position-relative overflow-hidden shadow-vibrant" style="border-radius: 30px;">
+                <img class="w-100" src="{{ get_image($course_details->banner) }}" alt="{{ $course_details->title }}" style="transition: transform 0.5s ease; height: 220px; object-fit: cover;">
+                <div class="position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center" style="background: rgba(15, 23, 42, 0.4);">
+                    <div class="play-circle cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(0,0,0,0.3); transition: all 0.3s ease;">
+                        <i class="fa-solid fa-play text-white fs-3 ms-1"></i>
                     </div>
                 </div>
             </div>
         </div>
 
         @if ($course_details->is_best)
-            <div class="vibrant-tag mb-3 w-100 text-center" style="background: var(--vibrant-accent); color: var(--vibrant-dark); font-weight: 800;">
+            <div class="badge w-100 py-3 mb-4 rounded-pill" style="background: linear-gradient(90deg, #f59e0b, #fbbf24); color: #000; font-weight: 900; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);">
                 <i class="fa-solid fa-crown me-2"></i> {{ $is_arabic ? 'أفضل كورس' : get_phrase('Top course') }}
             </div>
         @endif
 
-        <div class="d-flex align-items-end gap-2 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
             @if (isset($course_details->is_paid) && $course_details->is_paid == 0)
-                <h2 class="fw-900 text-white mb-0">{{ $is_arabic ? 'مجاني' : get_phrase('Free') }}</h2>
+                <h1 class="fw-900 text-white mb-0 display-5">{{ $is_arabic ? 'مجاني' : get_phrase('Free') }}</h1>
             @elseif (isset($course_details->discount_flag) && $course_details->discount_flag == 1)
-                <h2 class="fw-900 text-white mb-0">{{ currency($course_details->discounted_price, 2) }}</h2>
-                <del class="text-white opacity-50">{{ currency($course_details->price, 2) }}</del>
-                <span class="badge bg-danger rounded-pill px-2 py-1 small">{{ round((($course_details->price - $course_details->discounted_price) / $course_details->price) * 100) }}% {{ $is_arabic ? 'خصم' : 'OFF' }}</span>
+                <h1 class="fw-900 text-white mb-0 display-5 letter-spacing-tight">{{ currency($course_details->discounted_price, 2) }}</h1>
+                <div class="d-flex flex-column">
+                    <del class="text-white opacity-40 small">{{ currency($course_details->price, 2) }}</del>
+                    <span class="badge bg-danger rounded-pill px-2 py-1 small fw-bold" style="font-size: 0.7rem;">{{ round((($course_details->price - $course_details->discounted_price) / $course_details->price) * 100) }}% {{ $is_arabic ? 'خصم' : 'OFF' }}</span>
+                </div>
             @else
-                <h2 class="fw-900 text-white mb-0">{{ currency($course_details->price, 2) }}</h2>
+                <h1 class="fw-900 text-white mb-0 display-5 letter-spacing-tight">{{ currency($course_details->price, 2) }}</h1>
             @endif
         </div>
 
@@ -112,20 +114,20 @@
 
         <ul class="list-unstyled mb-0">
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
-                <span class="text-white opacity-50 small"><i class="fa-solid fa-users me-2"></i> {{ $is_arabic ? 'الطلاب' : get_phrase('Students') }}</span>
-                <span class="text-white fw-bold">{{ total_enroll($course_details->id) }}</span>
+                <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-users text-vibrant-primary"></i> {{ $is_arabic ? 'الطلاب' : get_phrase('Students') }}</span>
+                <span class="text-white fw-800">{{ total_enroll($course_details->id) }}</span>
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
-                <span class="text-white opacity-50 small"><i class="fa-solid fa-clock me-2"></i> {{ $is_arabic ? 'المدة' : get_phrase('Duration') }}</span>
-                <span class="text-white fw-bold">{{ total_durations($course_details->id) }}</span>
+                <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-clock text-vibrant-primary"></i> {{ $is_arabic ? 'المدة' : get_phrase('Duration') }}</span>
+                <span class="text-white fw-800">{{ total_durations($course_details->id) }}</span>
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
-                <span class="text-white opacity-50 small"><i class="fa-solid fa-layer-group me-2"></i> {{ $is_arabic ? 'المستوى' : get_phrase('Level') }}</span>
-                <span class="text-white fw-bold">{{ $is_arabic ? 'متقدم' : $course_details->level }}</span>
+                <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-chart-pyramid text-vibrant-primary"></i> {{ $is_arabic ? 'المستوى' : get_phrase('Level') }}</span>
+                <span class="text-white fw-800">{{ $is_arabic ? 'متقدم' : $course_details->level }}</span>
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
-                <span class="text-white opacity-50 small"><i class="fa-solid fa-certificate me-2"></i> {{ $is_arabic ? 'شهادة' : get_phrase('Certificate') }}</span>
-                <span class="text-white fw-bold">{{ $is_arabic ? 'نعم' : 'Yes' }}</span>
+                <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-diploma text-vibrant-primary"></i> {{ $is_arabic ? 'شهادة' : get_phrase('Certificate') }}</span>
+                <span class="text-white fw-800">{{ $is_arabic ? 'نعم' : 'Yes' }}</span>
             </li>
         </ul>
 
@@ -137,20 +139,22 @@
             endif;
             $share_url = route('course.details', $course_details->slug);
         @endphp
-        <div class="w-100 px-4 pb-2 text-center mt-3">
-            <span class="text-white opacity-75">{{ get_phrase('Share') }} :</span>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $share_url }}&ref={{ $ref }}" target="_blank" class="p-2 mx-2 color-facebook" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Facebook') }}" data-bs-placement="top">
-                <i class="fab fa-facebook text-20"></i>
-            </a>
-            <a href="https://twitter.com/intent/tweet?url={{ $share_url }}&text={{ $course_details['title'] }}&ref={{ $ref }}" target="_blank" class="p-2 mx-2 color-twitter" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Twitter') }}" data-bs-placement="top">
-                <i class="fab fa-twitter text-20"></i>
-            </a>
-            <a href="https://api.whatsapp.com/send?text={{ $share_url }}&ref={{ $ref }}" target="_blank" class="p-2 mx-2 color-whatsapp" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Whatsapp') }}" data-bs-placement="top">
-                <i class="fab fa-whatsapp text-20"></i>
-            </a>
-            <a href="https://www.linkedin.com/shareArticle?url={{ $share_url }}&title={{ $course_details['title'] }}&summary={{ $course_details['short_description'] }}&ref={{ $ref }}" target="_blank" class="p-2 mx-2 color-linkedin" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Linkedin') }}" data-bs-placement="top">
-                <i class="fab fa-linkedin text-20"></i>
-            </a>
+        <div class="w-100 px-2 pb-2 text-center mt-4 pt-3 border-top border-white-10">
+            <p class="text-white opacity-40 small mb-3 text-uppercase letter-spacing-1 fw-bold">{{ get_phrase('Share this course') }}</p>
+            <div class="d-flex justify-content-center gap-2">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $share_url }}&ref={{ $ref }}" target="_blank" class="share-icon-vibrant fb" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Facebook') }}">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ $share_url }}&text={{ $course_details['title'] }}&ref={{ $ref }}" target="_blank" class="share-icon-vibrant tw" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Twitter') }}">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send?text={{ $share_url }}&ref={{ $ref }}" target="_blank" class="share-icon-vibrant wa" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Whatsapp') }}">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?url={{ $share_url }}&title={{ $course_details['title'] }}&summary={{ $course_details['short_description'] }}&ref={{ $ref }}" target="_blank" class="share-icon-vibrant in" data-bs-toggle="tooltip" title="{{ get_phrase('Share on Linkedin') }}">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
         </div>
     </div>
 </div>

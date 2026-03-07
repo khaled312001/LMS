@@ -86,6 +86,91 @@
     .body-bg {
         background: var(--vibrant-dark) !important;
     }
+
+    /* Pricing Card Specifics */
+    .shadow-vibrant {
+        box-shadow: 0 15px 40px rgba(79, 70, 229, 0.25);
+    }
+    .share-icon-vibrant {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white !important;
+        transition: all 0.3s ease;
+        text-decoration: none !important;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+    .share-icon-vibrant:hover {
+        transform: translateY(-3px);
+        background: var(--vibrant-primary);
+        border-color: var(--vibrant-primary);
+        box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+    }
+    .share-icon-vibrant.fb:hover { background: #1877f2; border-color: #1877f2; }
+    .share-icon-vibrant.tw:hover { background: #1da1f2; border-color: #1da1f2; }
+    .share-icon-vibrant.wa:hover { background: #25d366; border-color: #25d366; }
+    .share-icon-vibrant.in:hover { background: #0a66c2; border-color: #0a66c2; }
+
+    /* Vibrant Accordion */
+    .custom-vibrant-accordion .accordion-button {
+        background: rgba(255,255,255,0.03) !important;
+        border: 1px solid rgba(255,255,255,0.05) !important;
+        color: white !important;
+        box-shadow: none !important;
+        transition: all 0.3s ease;
+    }
+    .custom-vibrant-accordion .accordion-button:not(.collapsed) {
+        background: rgba(79, 70, 229, 0.1) !important;
+        border-color: rgba(79, 70, 229, 0.3) !important;
+        color: var(--vibrant-accent) !important;
+    }
+    .custom-vibrant-accordion .accordion-button::after {
+        filter: brightness(0) invert(1);
+    }
+
+    /* Review Styles */
+    .vibrant-textarea {
+        background: rgba(255,255,255,0.03) !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        border-radius: 20px !important;
+        color: white !important;
+        padding: 20px !important;
+        transition: all 0.3s ease;
+    }
+    .vibrant-textarea:focus {
+        background: rgba(255,255,255,0.05) !important;
+        border-color: var(--vibrant-primary) !important;
+        box-shadow: 0 0 15px rgba(79, 70, 229, 0.2) !important;
+    }
+    .review-action {
+        color: white !important;
+        opacity: 0.4;
+        text-decoration: none !important;
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+    .review-action:hover, .review-action.active {
+        opacity: 1;
+        color: var(--vibrant-primary) !important;
+    }
+    .review-action i {
+        font-size: 1.1rem;
+    }
+
+    /* Transitions & Hover Effects */
+    .hover-translate-x-5:hover {
+        transform: translateX(5px);
+    }
+    .hover-gap-3:hover {
+        gap: 1rem !important;
+    }
+    .pointer {
+        cursor: pointer;
+    }
 </style>
 @endpush
 @section('content')
