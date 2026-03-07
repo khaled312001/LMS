@@ -219,23 +219,63 @@
 <!-- Final Call to Action -->
 <section class="py-100 py-5">
     <div class="container py-5">
-        <div class="bento-item p-0 position-relative bg-vibrant-dark overflow-hidden" style="min-height: 450px;">
+        <div class="bento-item p-0 position-relative overflow-hidden shadow-2xl border-0" style="min-height: 500px; border-radius: 50px !important; background: linear-gradient(135deg, var(--vibrant-darker), #1e1b4b) !important;">
+            <!-- Animated Background Gradients -->
+            <div class="position-absolute" style="top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(79, 70, 229, 0.4), transparent); filter: blur(60px); opacity: 0.6;"></div>
+            <div class="position-absolute" style="bottom: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(6, 182, 212, 0.3), transparent); filter: blur(60px); opacity: 0.4;"></div>
+            
             <div class="row align-items-center g-0 h-100">
-                <div class="col-lg-7 p-5 p-lg-10 text-white position-relative" style="z-index: 2;">
-                    <h2 class="display-3 fw-800 mb-4">{{ get_phrase('Turn Your Passion Into A Career') }}</h2>
-                    <p class="fs-5 opacity-75 mb-5 pe-lg-5">{{ get_phrase('The world is waiting for your skills. Start your journey today with our industry-led training programs.') }}</p>
-                    <a href="{{ route('register.form') }}" class="btn-vibrant px-10 py-4 fs-5">{{ get_phrase('Get Started For Free') }}</a>
+                <div class="col-lg-7 p-5 p-lg-10 text-white position-relative" style="z-index: 5;">
+                    <span class="vibrant-tag mb-4 d-inline-block px-4 py-2 border-0" style="background: rgba(255,255,255,0.1); color: var(--vibrant-accent); font-weight: 800; border-radius: 50px;">🚀 {{ get_phrase('Career Fast-Track') }}</span>
+                    <h2 class="display-2 fw-800 mb-4 lh-1">
+                        Turn Your Passion Into A <span class="text-vibrant-gradient">Global Career</span>
+                    </h2>
+                    <p class="fs-4 opacity-75 mb-5 pe-lg-5 fw-medium">{{ get_phrase('The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.') }}</p>
+                    
+                    <div class="d-flex flex-wrap gap-4 align-items-center">
+                        <a href="{{ route('register.form') }}" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ get_phrase('Get Started For Free') }}</a>
+                        <div class="d-flex -space-x-4">
+                            <!-- Placeholder for student avatars -->
+                            <div class="bg-white rounded-circle p-1 shadow-sm" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=1" class="rounded-circle w-100 h-100"></div>
+                            <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=2" class="rounded-circle w-100 h-100"></div>
+                            <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=3" class="rounded-circle w-100 h-100"></div>
+                            <span class="ms-3 fs-6 fw-bold text-white-50">+45k Students</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-5 h-100 d-none d-lg-block position-relative">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200" class="position-absolute w-100 h-100 object-fit-cover opacity-50" alt="CTA">
-                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(90deg, var(--vibrant-dark), transparent);"></div>
+                <div class="col-lg-5 h-100 d-none d-lg-block position-relative overflow-hidden" style="min-height: 500px;">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200" class="position-absolute w-100 h-100 object-fit-cover" alt="CTA" style="opacity: 0.6; filter: contrast(1.2) brightness(0.8);">
+                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(90deg, var(--vibrant-darker), transparent 70%);"></div>
+                    
+                    <!-- Floating Card Component -->
+                    <div class="position-absolute p-4 backdrop-blur shadow-2xl animate-float" style="bottom: 40px; right: 40px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; width: 250px;">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="bg-success rounded-circle" style="width: 10px; height: 10px;"></div>
+                            <span class="fw-bold text-white small">Live Success Rate</span>
+                        </div>
+                        <h3 class="text-white fw-bold mb-0">98.2%</h3>
+                        <div class="progress mt-3 bg-white-10" style="height: 6px;">
+                            <div class="progress-bar bg-success" style="width: 98%;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Decorative circle -->
-            <div class="position-absolute rounded-circle" style="width: 400px; height: 400px; background: var(--vibrant-primary); opacity: 0.1; bottom: -200px; right: -100px;"></div>
         </div>
     </div>
 </section>
+
+<style>
+    .animate-float {
+        animation: floatCTA 6s ease-in-out infinite;
+    }
+    @keyframes floatCTA {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    .ms-n2 { margin-left: -15px !important; transition: all 0.3s ease; }
+    .ms-n2:hover { margin-left: -5px !important; }
+    .bg-white-10 { background: rgba(255,255,255,0.1); }
+</style>
 @endsection
 
 @push('js')
