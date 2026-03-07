@@ -1,7 +1,42 @@
-@extends('layouts.default')
+@extends('layouts.landing')
 @push('title', get_phrase('Course Details'))
 @push('meta')@endpush
-@push('css')@endpush
+@push('css')
+<style>
+    .custom-vibrant-tabs .nav-link {
+        color: rgba(255,255,255,0.6);
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+    .custom-vibrant-tabs .nav-link.active {
+        background: var(--vibrant-primary) !important;
+        color: white !important;
+        border-color: var(--vibrant-primary);
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+    }
+    .custom-vibrant-tabs .nav-link:hover:not(.active) {
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+    .breadcum-area .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255,255,255,0.3) !important;
+    }
+    .ps-box.static-menu {
+        background: transparent !important;
+        border: none !important;
+    }
+    .tab-content {
+        background: rgba(255,255,255,0.03);
+        border-radius: 20px;
+        padding: 30px;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+    .body-bg {
+        background: var(--vibrant-dark) !important;
+    }
+</style>
+@endpush
 @section('content')
     @php
         $course_creator = get_course_creator_id($course_details->id);
@@ -23,70 +58,55 @@
         if ($total != 0) {
             $average_rating = $rating / $total;
         }
+
+        $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
     @endphp
     <!------------------- Breadcum Area Start  ------>
-    <section class="breadcum-area page-content-pb-100 bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 px-4">
-                    <div class="eNtry-breadcum mt-4">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb d-flex flex-nowrap">
-                                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ get_phrase('Home') }}</a></li>
-                                <li class="breadcrumb-item ellipsis-line-1 active" aria-current="page">{{ $course_details->title }}
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
+    <section class="breadcum-area position-relative overflow-hidden py-5 pt-150" style="background: var(--vibrant-dark); min-height: 400px;">
+        <!-- Mesh Gradient Background -->
+        <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.15) 0%, transparent 50%); z-index: 0;"></div>
+        
+        <div class="container position-relative" style="z-index: 1;">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white opacity-50 text-decoration-none hover-opacity-100 transition-all">{{ $is_arabic ? 'الرئيسية' : get_phrase('Home') }}</a></li>
+                            <li class="breadcrumb-item active text-white fw-bold" aria-current="page">{{ $course_details->title }}</li>
+                        </ol>
+                    </nav>
 
-                    <div class="course-details pe-auto pe-lg-5">
+                    <span class="vibrant-tag mb-4 d-inline-block">{{ $is_arabic ? 'دورة تدريبية' : get_phrase('Course Details') }}</span>
+                    <h1 class="display-4 fw-900 text-white mb-4 lh-base">{{ $course_details->title }}</h1>
+                    <p class="fs-5 text-white opacity-75 mb-5 pe-lg-5">
+                        {{ ellipsis($course_details->short_description, 200) }}
+                    </p>
 
-                        <h2 class="g-title ellipsis-line-4">{{ $course_details->title }}</h2>
-                        <p class="g-text text-dark ellipsis-line-2">
-                            {{ ellipsis($course_details->short_description, 160) }}
-                        </p>
-
-                        <div class="row row-gap-4">
-                            <div class="col-6 col-sm-6 col-md-4">
-                                <a class="d-flex align-items-center text-dark" href="{{ route('instructor.details', ['name' => slugify($course_details->creator->name), 'id' => $course_details->creator->id]) }}">
-                                    <img class="pro-32 me-2" src="{{ get_image(course_by_instructor($course_details->id)->photo) }}" alt="instructor-image">
-                                    {{ course_by_instructor($course_details->id)->name }}
-                                </a>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 text-dark">
-                                <p class="d-flex align-items-center">
-                                    @if ($total > 0)
-                                        <span class="d-inline-block mx-2">{{ number_format(round($average_rating), 1) }}</span>
-                                        @for ($i = 0; $i < $average_rating; $i++)
-                                            <i class="fa fa-star"></i>
-                                        @endfor
-                                    @else
-                                        <i class="fi-rr-circle-star text-16px text-dark mt-2 ms-1"></i>
-                                        <span class="d-inline-block mx-2">0</span>
-                                        <i class="fa fa-star text-secondary"></i>
-                                    @endif
-                                </p>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 d-flex align-items-center text-dark">
-                                <img class="pro-20 me-2" src="{{ asset('assets/frontend/default/image/language.png') }}" alt="...">
-                                {{ ucfirst($course_details->language) }}
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 d-flex align-items-center text-dark">
-                                <img class="pro-20 me-2" src="{{ asset('assets/frontend/default/image/g3.png') }}" alt="...">
-                                {{ get_phrase('Certificate Course') }}
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 d-flex align-items-center text-dark">
-                                <img class="pro-20 me-2" src="{{ asset('assets/frontend/default/image/g2.png') }}" alt="...">
-                                {{ total_enroll($course_details->id) }} {{ get_phrase('Students') }}
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 d-flex align-items-center text-dark">
-                                <img class="pro-20 me-2" src="{{ asset('assets/frontend/default/image/g1.png') }}" alt="...">
-                                {{ total_durations($course_details->id) }}
-                            </div>
+                    <div class="d-flex flex-wrap gap-4 align-items-center text-white pb-4">
+                        <div class="d-flex align-items-center gap-2">
+                             <img class="rounded-circle border border-2 border-white-10" width="40" height="40" src="{{ get_image(course_by_instructor($course_details->id)->photo) }}" alt="instructor-image">
+                             <span class="fw-bold opacity-75">{{ course_by_instructor($course_details->id)->name }}</span>
                         </div>
-
-                        
-
+                        <div class="vr opacity-25 d-none d-md-block"></div>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="text-warning small d-flex gap-1">
+                                @if ($total > 0)
+                                    @for ($i = 0; $i < round($average_rating); $i++)
+                                        <i class="fa fa-star"></i>
+                                    @endfor
+                                    <span class="ms-1 fw-bold">{{ number_format($average_rating, 1) }}</span>
+                                @else
+                                    <i class="fa fa-star text-secondary opacity-50"></i>
+                                    <span class="ms-1 fw-bold">0.0</span>
+                                @endif
+                            </div>
+                            <span class="small opacity-50">({{ $total }} {{ $is_arabic ? 'تقييم' : get_phrase('Reviews') }})</span>
+                        </div>
+                        <div class="vr opacity-25 d-none d-md-block"></div>
+                        <div class="d-flex align-items-center gap-2 small opacity-75">
+                            <i class="fa-solid fa-globe"></i>
+                            {{ ucfirst($is_arabic ? 'الإنجليزية' : $course_details->language) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,21 +120,21 @@
 
                      <div class="details-page-content">
                         <div class="ps-box static-menu mt-5 w-100">
-                            <ul class="nav nav-bordered" id="pills-tab" role="tablist">
-                                <li class="nav-item active" role="presentation">
-                                    <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true">{{ get_phrase('Overview') }}</button>
+                            <ul class="nav nav-pills custom-vibrant-tabs gap-2 mb-4" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active rounded-pill px-4 fw-bold" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab">{{ $is_arabic ? 'نظرة عامة' : get_phrase('Overview') }}</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-course-content-tab" data-bs-toggle="pill" data-bs-target="#pills-course-content" type="button" role="tab" aria-controls="pills-course-content" aria-selected="false">{{ get_phrase('Curriculum') }}</button>
+                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-course-content-tab" data-bs-toggle="pill" data-bs-target="#pills-course-content" type="button" role="tab">{{ $is_arabic ? 'المنهج' : get_phrase('Curriculum') }}</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab" aria-controls="pills-details" aria-selected="false">{{ get_phrase('Details') }}</button>
+                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab">{{ $is_arabic ? 'التفاصيل' : get_phrase('Details') }}</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-instructor-tab" data-bs-toggle="pill" data-bs-target="#pills-instructor" type="button" role="tab" aria-controls="pills-instructor" aria-selected="false">{{ get_phrase('Instructor') }}</button>
+                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-instructor-tab" data-bs-toggle="pill" data-bs-target="#pills-instructor" type="button" role="tab">{{ $is_arabic ? 'المدرب' : get_phrase('Instructor') }}</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab" aria-controls="pills-reviews" aria-selected="false">{{ get_phrase('Reviews') }}</button>
+                                    <button class="nav-link rounded-pill px-4 fw-bold" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab">{{ $is_arabic ? 'التقييمات' : get_phrase('Reviews') }}</button>
                                 </li>
                             </ul>
 

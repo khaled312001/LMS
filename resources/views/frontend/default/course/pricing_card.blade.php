@@ -1,26 +1,36 @@
-<div class="gradient-border radius-22 page-static-sidebar">
-    <div class="ps-box ps-sidebar">
-        <div class="hero-details position-relative pt-3 pb-4 mt-0">
-            <img class="radius-10" src="{{ get_image($course_details->banner) }}" alt="...">
-            <div class="overly-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <a href="javascript:;" class="hero-popup"><i class="fa-solid fa-play"></i></a>
+@php
+    $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
+@endphp
+<div class="bento-item p-4 shadow-lg border-0 bg-white-5 position-relative overflow-hidden" style="border-radius: 30px !important; backdrop-filter: blur(20px);">
+    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%); z-index: 0;"></div>
+    
+    <div class="position-relative" style="z-index: 1;">
+        <div class="hero-details mb-4">
+            <div class="position-relative overflow-hidden" style="border-radius: 20px;">
+                <img class="w-100" src="{{ get_image($course_details->banner) }}" alt="{{ $course_details->title }}" style="transition: transform 0.5s ease;">
+                <div class="position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.3);">
+                    <div class="play-circle cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 60px; height: 60px; background: white; border-radius: 50%; d-flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,255,255,0.5);">
+                        <i class="fa-solid fa-play text-dark fs-4 ms-1"></i>
+                    </div>
+                </div>
             </div>
         </div>
 
         @if ($course_details->is_best)
-            <span class="d-inline-flex justify-content-center trophy-text w-100 px-2 py-1">
-                <img src="{{ asset('assets/frontend/default/image/best-seller.svg') }}" alt="best-seller-icon">{{ get_phrase('Top course') }}</span>
+            <div class="vibrant-tag mb-3 w-100 text-center" style="background: var(--vibrant-accent); color: var(--vibrant-dark); font-weight: 800;">
+                <i class="fa-solid fa-crown me-2"></i> {{ $is_arabic ? 'أفضل كورس' : get_phrase('Top course') }}
+            </div>
         @endif
 
-        <div class="ps-price d-flex">
+        <div class="d-flex align-items-end gap-2 mb-4">
             @if (isset($course_details->is_paid) && $course_details->is_paid == 0)
-                <h4 class="g-title">{{ get_phrase('Free') }}</h4>
+                <h2 class="fw-900 text-white mb-0">{{ $is_arabic ? 'مجاني' : get_phrase('Free') }}</h2>
             @elseif (isset($course_details->discount_flag) && $course_details->discount_flag == 1)
-                <h4 class="g-title">
-                    {{ currency($course_details->discounted_price, 2) }}</h4>
-                <del>{{ currency($course_details->price, 2) }}</del>
+                <h2 class="fw-900 text-white mb-0">{{ currency($course_details->discounted_price, 2) }}</h2>
+                <del class="text-white opacity-50">{{ currency($course_details->price, 2) }}</del>
+                <span class="badge bg-danger rounded-pill px-2 py-1 small">{{ round((($course_details->price - $course_details->discounted_price) / $course_details->price) * 100) }}% {{ $is_arabic ? 'خصم' : 'OFF' }}</span>
             @else
-                <h4 class="g-title">{{ currency($course_details->price, 2) }}</h4>
+                <h2 class="fw-900 text-white mb-0">{{ currency($course_details->price, 2) }}</h2>
             @endif
         </div>
 
@@ -54,90 +64,68 @@
             }
         @endphp
 
-        @if (isset(auth()->user()->id))
-            @if (in_array($course_details->id, $pending_course))
-                <a href="javascript::void(0);" class="eBtn gradient w-100 mb-3">
-                    <img src="{{ asset('assets/frontend/default/image/enroll.png') }}" alt="...">
-                    {{ get_phrase('In progress') }}</a>
-            @else
-                @if ($is_enrolled)
-                    <a href="{{ route('my.courses') }}" class="eBtn gradient w-100 mb-3">
-                        <img src="{{ asset('assets/frontend/default/image/enroll.png') }}" alt="...">
-                        {{ get_phrase('Start Now') }}</a>
+        <div class="d-grid gap-3 mb-4">
+            @if (isset(auth()->user()->id))
+                @if (in_array($course_details->id, $pending_course))
+                    <button disabled class="btn btn-secondary py-3 rounded-pill fw-bold opacity-75">
+                        {{ $is_arabic ? 'قيد المراجعة' : get_phrase('In progress') }}
+                    </button>
                 @else
-                    <a href="{{ route('purchase.course', $course_details->id) }}" class="eBtn gradient w-100">
-                        <img src="{{ asset('assets/frontend/default/image/enroll.png') }}" alt="...">
-                        {{ get_phrase($course_details->is_paid ? get_phrase('Buy Now') : get_phrase('Enroll Now')) }}
-                    </a>
+                    @if ($is_enrolled)
+                        <a href="{{ route('my.courses') }}" class="btn-vibrant py-3 rounded-pill fw-bold text-center">
+                            {{ $is_arabic ? 'ابدأ التعلم' : get_phrase('Start Now') }}
+                        </a>
+                    @else
+                        <a href="{{ route('purchase.course', $course_details->id) }}" class="btn-vibrant py-3 rounded-pill fw-bold text-center">
+                            {{ $is_arabic ? 'اشتر الآن' : get_phrase($course_details->is_paid ? 'Buy Now' : 'Enroll Now') }}
+                        </a>
 
-                    @if (isset($course_details->is_paid) && $course_details->is_paid == 1)
-                        @if ($in_cart)
-                            <a href="{{ route('cart.delete', ['id' => $course_details->id]) }}" class="eBtn mt-3 gradient w-100">
-                                {{ get_phrase('Remove from cart') }}</a>
+                        @if (isset($course_details->is_paid) && $course_details->is_paid == 1)
+                            @if ($in_cart)
+                                <a href="{{ route('cart.delete', ['id' => $course_details->id]) }}" class="btn btn-outline-danger py-3 rounded-pill fw-bold">
+                                    {{ $is_arabic ? 'حذف من العربة' : get_phrase('Remove from cart') }}
+                                </a>
+                            @else
+                                <a href="{{ route('cart.store', $course_details->id) }}" class="btn btn-outline-vibrant py-3 rounded-pill fw-bold">
+                                    {{ $is_arabic ? 'أضف إلى العربة' : get_phrase('Add to cart') }}
+                                </a>
+                            @endif
+                        @endif
+
+                        @if ($in_wishlist)
+                            <button class="btn btn-link text-white opacity-50 text-decoration-none fw-bold toggleWishItem" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
+                                <i class="fa-solid fa-heart me-2 text-danger"></i> {{ $is_arabic ? 'حذف من المفضلة' : get_phrase('Remove from wishlist') }}
+                            </button>
                         @else
-                            <a href="{{ route('cart.store', $course_details->id) }}" class="eBtn learn-btn w-100 mb-3 mt-3">
-                                {{ get_phrase('Add to cart') }}</a>
+                            <button class="btn btn-link text-white opacity-50 text-decoration-none fw-bold toggleWishItem" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
+                                <i class="fa-regular fa-heart me-2"></i> {{ $is_arabic ? 'أضف للمفضلة' : get_phrase('Add to wishlist') }}
+                            </button>
                         @endif
                     @endif
-
-                    @if ($in_wishlist)
-                        <span class="eBtn border gradient w-100 cursor-pointer mt-3 toggleWishItem" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
-                            {{ get_phrase('Remove from wishlist') }}
-                        </span>
-                    @else
-                        <span class="eBtn border learn-btn w-100 cursor-pointer mt-3 toggleWishItem mb-0" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
-                            {{ get_phrase('Add to wishlist') }}</span>
-                    @endif
                 @endif
+            @else
+                <a href="{{ route('purchase.course', $course_details->id) }}" class="btn-vibrant py-3 rounded-pill fw-bold text-center">
+                    {{ $is_arabic ? 'اشتر الآن' : get_phrase($course_details->is_paid ? 'Buy Now' : 'Enroll Now') }}
+                </a>
             @endif
-        @else
-            <a href="{{ route('purchase.course', $course_details->id) }}" class="eBtn gradient mt-3 w-100">
-                <img src="{{ asset('assets/frontend/default/image/enroll.png') }}" alt="...">
-                {{ get_phrase($course_details->is_paid ? get_phrase('Buy Now') : get_phrase('Enroll Now')) }}</a>
-        @endif
+        </div>
 
-
-        <ul class="ps-side-feature mt-2">
-            <li class="d-flex justify-content-between align-items-center py-3 mb-0">
-                <span>
-                    <img src="{{ asset('assets/frontend/default/image/m1.png') }}" alt="...">
-                    <p>{{ get_phrase('Students') }}</p>
-                </span>
-                {{ total_enroll($course_details->id) }}
+        <ul class="list-unstyled mb-0">
+            <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
+                <span class="text-white opacity-50 small"><i class="fa-solid fa-users me-2"></i> {{ $is_arabic ? 'الطلاب' : get_phrase('Students') }}</span>
+                <span class="text-white fw-bold">{{ total_enroll($course_details->id) }}</span>
             </li>
-            <li class="d-flex justify-content-between align-items-center py-3 mb-0">
-                <span>
-                    <img src="{{ asset('assets/frontend/default/image/language2.png') }}" alt="...">
-                    <p>{{ get_phrase('Language') }}</p>
-                </span>
-                {{ ucfirst($course_details->language) }}
+            <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
+                <span class="text-white opacity-50 small"><i class="fa-solid fa-clock me-2"></i> {{ $is_arabic ? 'المدة' : get_phrase('Duration') }}</span>
+                <span class="text-white fw-bold">{{ total_durations($course_details->id) }}</span>
             </li>
-            <li class="d-flex justify-content-between align-items-center py-3 mb-0">
-                <span>
-                    <img src="{{ asset('assets/frontend/default/image/time.png') }}" alt="...">
-                    <p>{{ get_phrase('Duration') }}</p>
-                </span>
-                {{ total_durations($course_details->id) }}
+            <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
+                <span class="text-white opacity-50 small"><i class="fa-solid fa-layer-group me-2"></i> {{ $is_arabic ? 'المستوى' : get_phrase('Level') }}</span>
+                <span class="text-white fw-bold">{{ $is_arabic ? 'متقدم' : $course_details->level }}</span>
             </li>
-            <li class="d-flex justify-content-between align-items-center py-3 mb-0">
-                <span>
-                    <i class="fi fi-rr-dashboard"></i>
-                    <p>{{ get_phrase('Level') }}</p>
-                </span>
-                {{ $course_details->level }}
-            </li>
-            <li class="d-flex justify-content-between align-items-center py-3 mb-0">
-                <span>
-                    <img src="{{ asset('assets/frontend/default/image/expired.svg') }}" alt="...">
-                    <p>{{ get_phrase('Expiry period') }}</p>
-                </span>
-                {{ $course_details->expiry_period <= 0 ? get_phrase('Lifetime') : $course_details->expiry_period.' '.get_phrase('Months') }}
-            </li><li class="d-flex justify-content-between align-items-center py-3 mb-0">
-                <span>
-                    <img src="{{ asset('assets/frontend/default/image/certificate.svg') }}" alt="...">
-                    <p>{{ get_phrase('Certificate') }}</p>
-                </span>
-                {{ get_phrase('yes') }}
+            <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
+                <span class="text-white opacity-50 small"><i class="fa-solid fa-certificate me-2"></i> {{ $is_arabic ? 'شهادة' : get_phrase('Certificate') }}</span>
+                <span class="text-white fw-bold">{{ $is_arabic ? 'نعم' : 'Yes' }}</span>
             </li>
         </ul>
 
