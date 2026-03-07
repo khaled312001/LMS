@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.landing')
 
 @push('title', get_phrase('Home'))
 
