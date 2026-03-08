@@ -39,14 +39,19 @@
     }
 @endphp
 
-@if (!empty($seo_field['meta_title']) && stripos($seo_field['meta_title'], 'Example Domain') === false)
-    <title>{{ $seo_field['meta_title'] }}</title>
-@else
-    <title>@stack('title') | {{ config('app.name') }}</title>
-@endif
-<meta name="keywords" content="{{ $seo_field['mets_keywords'] ?? '' }}">
-<meta name="description" content="{{ $seo_field['meta_description'] ?? '' }}">
-<meta name="robots" content="{{ $seo_field['meta_robot'] ?? '' }}">
+@php
+    $site_name = get_settings('system_title') ?: 'Swiss Bridge Academy';
+    $site_description = get_settings('website_description') ?: 'مرحبًا بكم في منصتنا التعليمية الرائدة التي تتيح لكم تعلم البرمجة, التصميم, التسويق بمزيج من العربية والإنجليزية تديرها إدارة سويسرية.';
+    $site_keywords = get_settings('website_keywords') ?: 'تعليم, كورس, دورة, تطوير ويب, تصميم, تسويق إلكتروني, سويسرا, Swiss Bridge Academy';
+    $meta_title = !empty($seo_field['meta_title']) && stripos($seo_field['meta_title'], 'Example Domain') === false ? $seo_field['meta_title'] : $site_name;
+    $meta_description = !empty($seo_field['meta_description']) ? $seo_field['meta_description'] : $site_description;
+    $meta_keywords = !empty($seo_field['mets_keywords']) ? $seo_field['mets_keywords'] : $site_keywords;
+@endphp
+
+<title>@stack('title') | {{ $meta_title }}</title>
+<meta name="keywords" content="{{ $meta_keywords }}">
+<meta name="description" content="{{ $meta_description }}">
+<meta name="robots" content="{{ $seo_field['meta_robot'] ?? 'index, follow' }}">
 @if (!empty($canonical_url) && stripos($canonical_url, 'example.com') === false && stripos($canonical_url, 'example.org') === false)
 <link rel="canonical" href="{{ $canonical_url }}" />
 @endif
@@ -79,24 +84,28 @@
     
     // Use fallbacks if empty
     if (empty($og_title)) {
-        if (!empty($seo_field['meta_title']) && stripos($seo_field['meta_title'], 'Example Domain') === false) {
-            $og_title = $seo_field['meta_title'];
-        } else {
-            $og_title = config('app.name');
-        }
+        $og_title = @stack('title') ? @stack('title').' | '.$meta_title : $meta_title;
     }
     if (empty($og_description)) {
-        $og_description = $seo_field['meta_description'] ?? '';
+        $og_description = $meta_description;
     }
+    
+    $og_image = !empty($seo_field['og_image']) ? get_image($seo_field['og_image']) : asset(get_frontend_settings('dark_logo'));
 @endphp
 
-@if (!empty($og_title))
-<meta property="og:title" content="{{ $og_title }}" />
-@endif
-@if (!empty($og_description))
-<meta property="og:description" content="{{ $og_description }}" />
-@endif
-@if (!empty($seo_field['og_image']))
-<meta property="og:image" content="{{ get_image($seo_field['og_image']) }}" />
-@endif
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
 <meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:title" content="{{ $og_title }}" />
+<meta property="og:description" content="{{ $og_description }}" />
+<meta property="og:site_name" content="{{ $site_name }}" />
+<meta property="og:image" content="{{ $og_image }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="{{ url()->current() }}" />
+<meta name="twitter:title" content="{{ $og_title }}" />
+<meta name="twitter:description" content="{{ $og_description }}" />
+<meta name="twitter:image" content="{{ $og_image }}" />

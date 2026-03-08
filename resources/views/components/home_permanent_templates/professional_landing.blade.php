@@ -231,46 +231,61 @@
             <a href="{{ route('courses') }}" class="btn btn-outline-vibrant border-2 rounded-pill px-4 fw-bold mb-2">{{ $is_arabic ? ($ar['Browse All'] ?? get_phrase('Browse All')) : get_phrase('Browse All') }}</a>
         </div>
         
-        <div class="row g-4">
-            @php
-                $top_courses = DB::table('courses')->where('status', 'active')->orderBy('id', 'desc')->take(3)->get();
-            @endphp
-            @foreach ($top_courses as $row)
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 150 }}">
-                    <div class="vibrant-course-card p-3">
-                        <div class="position-relative mb-4">
-                            <img src="{{ get_image($row->thumbnail) }}" class="vibrant-course-image" alt="{{ $row->title }}">
-                            @if($row->discount_flag == 1)
-                                <span class="position-absolute top-3 end-3 badge bg-danger rounded-pill px-3 py-2 fw-bold" style="top: 15px; right: 15px;">{{ round((($row->price - $row->discounted_price) / $row->price) * 100) }}% {{ $is_arabic ? ($ar['OFF'] ?? get_phrase('OFF')) : get_phrase('OFF') }}</span>
-                            @endif
-                        </div>
-                        <div class="px-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="vibrant-tag">{{ $is_arabic ? ($ar['Professional'] ?? get_phrase('Professional')) : get_phrase('Professional') }}</span>
-                                <div class="text-warning small fw-bold">
-                                    <i class="fa-solid fa-star me-1"></i>4.9
-                                </div>
+        @php
+            $featured_categories = DB::table('categories')->where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(5);
+            $all_courses = DB::table('courses')->where('status', 'active')->orderBy('id', 'desc')->take(12)->get();
+        @endphp
+
+        <!-- Filters -->
+        <div class="d-flex justify-content-center flex-wrap gap-2 mb-5" data-aos="fade-up">
+            <button class="btn btn-vibrant rounded-pill px-4 py-2 filter-btn active" data-filter="all">{{ $is_arabic ? 'الكل' : get_phrase('All') }}</button>
+            @foreach ($featured_categories as $cat)
+                <button class="btn btn-outline-vibrant border-2 rounded-pill px-4 fw-bold mb-2 filter-btn" data-filter="cat-{{ $cat->id }}">{{ get_phrase($cat->title) }}</button>
+            @endforeach
+        </div>
+
+        <!-- Course Swiper -->
+        <div class="swiper course-swiper pb-5 px-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="swiper-wrapper">
+                @foreach ($all_courses as $row)
+                    <div class="swiper-slide course-slide cat-{{ $row->category_id }}" style="height: auto;">
+                        <div class="vibrant-course-card p-3 h-100 d-flex flex-column" style="margin: 10px;">
+                            <div class="position-relative mb-4">
+                                <img src="{{ get_image($row->thumbnail) }}" class="vibrant-course-image" alt="{{ $row->title }}">
+                                @if($row->discount_flag == 1)
+                                    <span class="position-absolute badge bg-danger rounded-pill px-3 py-2 fw-bold shadow-sm" style="top: 15px; left: 15px; z-index: 2;">{{ round((($row->price - $row->discounted_price) / $row->price) * 100) }}% {{ $is_arabic ? ($ar['OFF'] ?? get_phrase('OFF')) : get_phrase('OFF') }}</span>
+                                @endif
                             </div>
-                            <h4 class="fw-bold mb-4">
-                                <a href="{{ route('course.details', $row->slug) }}" class="text-dark text-decoration-none">{{ Str::limit($row->title, 40) }}</a>
-                            </h4>
-                            <div class="d-flex justify-content-between align-items-center border-top pt-4 mt-3">
-                                <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ course_instructor_image($row->id) }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
-                                    <span class="small fw-bold">{{ course_by_instructor($row->id)->name }}</span>
+                            <div class="px-2 flex-grow-1 d-flex flex-column">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span class="vibrant-tag">{{ get_phrase(App\Models\Category::find($row->category_id)->title ?? 'Professional') }}</span>
+                                    <div class="text-warning small fw-bold">
+                                        <i class="fa-solid fa-star me-1"></i>4.9
+                                    </div>
                                 </div>
-                                <div class="price">
-                                    @if ($row->is_paid == 0)
-                                        <span class="fs-4 fw-bold text-success">{{ get_phrase('Free') }}</span>
-                                    @else
-                                        <span class="fs-4 fw-bold text-vibrant-gradient">{{ currency($row->discount_flag == 1 ? $row->discounted_price : $row->price) }}</span>
-                                    @endif
+                                <h4 class="fw-bold mb-4 flex-grow-1">
+                                    <a href="{{ route('course.details', $row->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($row->title, 50) }}</a>
+                                </h4>
+                                <div class="d-flex justify-content-between align-items-center border-top pt-4 mt-auto">
+                                    <div class="d-flex align-items-center gap-2 position-relative" style="z-index: 2;">
+                                        <img src="{{ course_instructor_image($row->id) }}" class="rounded-circle shadow-sm border border-white" style="width: 38px; height: 38px; object-fit: cover;">
+                                        <span class="small fw-bold text-dark">{{ course_by_instructor($row->id)->name }}</span>
+                                    </div>
+                                    <div class="price position-relative" style="z-index: 2;">
+                                        @if ($row->is_paid == 0)
+                                            <span class="fs-4 fw-bold text-success">{{ get_phrase('Free') }}</span>
+                                        @else
+                                            <span class="fs-4 fw-bold text-vibrant-gradient">{{ currency($row->discount_flag == 1 ? $row->discounted_price : $row->price) }}</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+            <!-- Pagination inside container (to center dots) -->
+            <div class="swiper-pagination mt-4 position-relative" style="bottom: 0;"></div>
         </div>
     </div>
 </section>
@@ -499,6 +514,64 @@
 @endsection
 
 @push('js')
+<script>
+    $(document).ready(function() {
+        // Initialize Swiper for Courses
+        var courseSwiper = new Swiper(".course-swiper", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                768: { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+            }
+        });
+
+        // Course Filtering Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const slides = document.querySelectorAll('.course-slide');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Manage Active Classes
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'btn-vibrant');
+                    b.classList.add('btn-outline-vibrant');
+                });
+                btn.classList.add('active', 'btn-vibrant');
+                btn.classList.remove('btn-outline-vibrant');
+                
+                // Get Filter Target
+                const filterValue = btn.getAttribute('data-filter');
+                
+                // Keep track of any match
+                let matchCount = 0;
+                
+                // Show/Hide slides
+                slides.forEach(slide => {
+                    if (filterValue === 'all' || slide.classList.contains(filterValue)) {
+                        slide.style.display = 'block';
+                        matchCount++;
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+                
+                // Update swiper internally so it re-calculates pagination and loop
+                courseSwiper.update();
+                courseSwiper.slideTo(0);
+            });
+        });
+    });
+</script>
 <script>
     $(window).on('scroll', function() {
         let scrollPos = $(window).scrollTop() + 150;
