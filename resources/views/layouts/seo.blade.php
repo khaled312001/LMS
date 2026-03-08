@@ -84,7 +84,8 @@
     
     // Use fallbacks if empty
     if (empty($og_title)) {
-        $og_title = @stack('title') ? @stack('title').' | '.$meta_title : $meta_title;
+        $page_title = trim($__env->yieldPushContent('title'));
+        $og_title = $page_title ? $page_title.' | '.$meta_title : $meta_title;
     }
     if (empty($og_description)) {
         $og_description = $meta_description;
