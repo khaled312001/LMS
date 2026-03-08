@@ -10,9 +10,9 @@
                     <p class="opacity-50 mb-4">{{ $is_arabic ? 'تمكين الجيل القادم من المبدعين والقادة من خلال تعليم عالمي المستوى وتجارب تعليمية حديثة.' : get_phrase('Empowering the next generation of creators and leaders through world-class education and modern learning experiences.') }}</p>
                 </div>
                 <div class="d-flex gap-4">
-                    <a href="{{ get_frontend_settings('facebook') }}" class="text-white opacity-50 hover-opacity-100 fs-5"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="{{ get_frontend_settings('twitter') }}" class="text-white opacity-50 hover-opacity-100 fs-5"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="{{ get_frontend_settings('linkedin') }}" class="text-white opacity-50 hover-opacity-100 fs-5"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="{{ get_frontend_settings('facebook') }}" class="text-white opacity-50 hover-opacity-100 fs-5" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="{{ get_frontend_settings('twitter') }}" class="text-white opacity-50 hover-opacity-100 fs-5" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="{{ get_frontend_settings('linkedin') }}" class="text-white opacity-50 hover-opacity-100 fs-5" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             
@@ -41,7 +41,7 @@
                 <p class="small opacity-50 mb-4">{{ get_phrase('Join our community to get the latest updates on new courses and creative insights.') }}</p>
                 <form action="{{ route('newsletter.store') }}" method="post" class="position-relative">
                     @csrf
-                    <input type="email" name="email" class="form-control bg-transparent border-secondary text-white rounded-pill px-4 py-3 shadow-none no-focus-glow" placeholder="{{ $is_arabic ? 'عنوان البريد الإلكتروني' : get_phrase('Email Address') }}" required style="border-width: 2px;">
+                    <input type="email" name="email" class="form-control bg-transparent border-secondary text-white rounded-pill px-4 py-3 shadow-none no-focus-glow" placeholder="{{ $is_arabic ? 'عنوان البريد الإلكتروني' : get_phrase('Email Address') }}" aria-label="{{ $is_arabic ? 'عنوان البريد الإلكتروني' : get_phrase('Email Address') }}" required style="border-width: 2px;">
                     <div class="version-marker" style="position: absolute; bottom: 10px; right: 10px; opacity: 0.2; font-size: 0.7rem;">{{ get_phrase('v2.7-Stable') }}</div>
                     <button class="btn btn-vibrant position-absolute end-0 top-0 h-100 px-4 rounded-pill" type="submit">{{ $is_arabic ? 'انضم' : get_phrase('Join') }}</button>
                 </form>
@@ -61,7 +61,7 @@
 </footer>
 
 <!-- WhatsApp V2: Pulse & Wave -->
-<a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', get_settings('phone')) }}" class="whatsapp-v2 shadow-lg" target="_blank">
+<a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', get_settings('phone')) }}" class="whatsapp-v2 shadow-lg" target="_blank" aria-label="Chat with us on WhatsApp">
     <div class="whatsapp-wave"></div>
     <div class="whatsapp-wave delay-1"></div>
     <i class="fa-brands fa-whatsapp"></i>

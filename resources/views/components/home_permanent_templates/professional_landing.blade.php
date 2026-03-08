@@ -153,7 +153,7 @@
                 <div class="hero-visual-container position-relative">
                     <!-- Main Image with 3D Float -->
                     <div class="floating-3d-card relative z-2" data-aos="zoom-in" data-aos-duration="1200">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover; border: 10px solid #fff;">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover; border: 10px solid #fff;" alt="Student learning on laptop with creative courseware">
                     </div>
                     
                     <!-- Floating Achievement Cards -->
@@ -338,7 +338,7 @@
         <div class="row align-items-center g-5">
             <div class="col-lg-6 order-2 order-lg-1" data-aos="fade-right">
                 <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover;">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover;" alt="Team discussing project in a collaborative environment">
                     <div class="position-absolute bottom-0 start-0 bg-white p-4 m-4 rounded-4 shadow-lg animate-float" style="width: 250px;">
                         <h4 class="fw-900 text-vibrant-primary mb-1">الرؤية والرسالة</h4>
                         <p class="mb-0 text-muted small fw-medium">توفير تعليم عملي واحترافي باللغة العربية بمعايير دولية</p>
@@ -378,7 +378,7 @@
             @foreach (App\Models\Blog::where('status', 1)->take(3)->get() as $blog)
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 150 }}">
                     <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important;">
-                        <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 200px; object-fit: cover; border-radius: 20px;">
+                        <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 200px; object-fit: cover; border-radius: 20px;" alt="{{ $blog->title }}">
                         <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? get_phrase(App\Models\Category::find($blog->category_id)->title) : ($is_arabic ? ($ar['General'] ?? get_phrase('General')) : get_phrase('General')) }}</span>
                         <h4 class="fw-bold mb-3">
                             <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($blog->title, 50) }}</a>
@@ -411,9 +411,9 @@
                             <a href="{{ route('register.form') }}" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ $is_arabic ? ($ar['Get Started For Free'] ?? get_phrase('Get Started For Free')) : get_phrase('Get Started For Free') }}</a>
                             <div class="d-flex -space-x-4">
                                 <!-- Placeholder for student avatars -->
-                                <div class="bg-white rounded-circle p-1 shadow-sm" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=1" class="rounded-circle w-100 h-100"></div>
-                                <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=2" class="rounded-circle w-100 h-100"></div>
-                                <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=3" class="rounded-circle w-100 h-100"></div>
+                                <div class="bg-white rounded-circle p-1 shadow-sm" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=1" class="rounded-circle w-100 h-100" alt="Student avatar 1"></div>
+                                <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=2" class="rounded-circle w-100 h-100" alt="Student avatar 2"></div>
+                                <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=3" class="rounded-circle w-100 h-100" alt="Student avatar 3"></div>
                                 <span class="ms-3 fs-6 fw-bold text-white-50">{{ $is_arabic ? ($ar['+45k Students'] ?? get_phrase('+45k Students')) : get_phrase('+45k Students') }}</span>
                             </div>
                         </div>

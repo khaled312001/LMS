@@ -41,7 +41,7 @@
 
         @auth
             <div class="dropdown">
-                <button class="btn p-0 border-0 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">
+                <button class="btn p-0 border-0 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ get_phrase('User Menu') }}">
                     <img src="{{ get_image(auth()->user()->photo) }}" alt="User" class="rounded-circle" style="width: 40px; height: 40px; border: 2px solid var(--vibrant-primary);">
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2 mt-3 animate-fade-up" style="border-radius: 20px; min-width: 220px;">
@@ -60,7 +60,7 @@
             <a href="{{ route('register.form') }}" class="btn-vibrant">{{ $is_arabic ? 'انضم الآن' : get_phrase('Join Free') }}</a>
         @endauth
         
-        <button class="btn btn-light rounded-circle p-2 d-lg-none shadow-sm shadow-hover transition-all" type="button" data-bs-toggle="offcanvas" data-bs-target="#vibrantMobileNav" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+        <button class="btn btn-light rounded-circle p-2 d-lg-none shadow-sm shadow-hover transition-all" type="button" data-bs-toggle="offcanvas" data-bs-target="#vibrantMobileNav" aria-controls="vibrantMobileNav" aria-label="{{ $is_arabic ? 'القائمة' : get_phrase('Toggle Menu') }}" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
             <i class="fa-solid fa-bars-staggered fs-5 text-dark"></i>
         </button>
     </div>
@@ -163,10 +163,10 @@
             <div class="text-center mt-5 pt-3">
                 <p class="text-muted small mb-0 fw-medium">© {{ date('Y') }} {{ get_frontend_settings('website_title') }}</p>
                 <div class="d-flex justify-content-center gap-3 mt-2">
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
