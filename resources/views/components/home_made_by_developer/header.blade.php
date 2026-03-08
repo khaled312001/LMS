@@ -7,8 +7,8 @@
 <header class="vibrant-header d-flex align-items-center justify-content-between">
     <div class="logo-area">
         <a href="{{ route('home') }}">
-            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 40px;">
-            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 40px;">
+            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 65px;">
+            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 65px;">
         </a>
     </div>
 
@@ -57,49 +57,151 @@
             </div>
         @else
             <a href="{{ route('login') }}" class="nav-link-vibrant d-none d-sm-block">{{ get_phrase('Login') }}</a>
-            <a href="{{ route('register.form') }}" class="btn-vibrant">{{ $is_arabic ? 'انضم مجاناً' : get_phrase('Join Free') }}</a>
+            <a href="{{ route('register.form') }}" class="btn-vibrant">{{ $is_arabic ? 'انضم الآن' : get_phrase('Join Free') }}</a>
         @endauth
         
-        <button class="btn btn-light rounded-circle p-2 d-lg-none shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#vibrantMobileNav">
-            <i class="fa-solid fa-bars-staggered"></i>
+        <button class="btn btn-light rounded-circle p-2 d-lg-none shadow-sm shadow-hover transition-all" type="button" data-bs-toggle="offcanvas" data-bs-target="#vibrantMobileNav" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+            <i class="fa-solid fa-bars-staggered fs-5 text-dark"></i>
         </button>
     </div>
 </header>
 
 <!-- Vibrant Mobile Nav -->
-<div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="vibrantMobileNav" style="border-radius: 30px 0 0 30px;">
-    <div class="offcanvas-header p-4">
-        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 40px;">
-        <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
+<div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="vibrantMobileNav" style="border-radius: 30px 0 0 30px; width: 340px;">
+    <!-- Offcanvas Header -->
+    <div class="offcanvas-header p-4 border-bottom border-light d-flex align-items-center justify-content-between" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 55px;">
+        <button type="button" class="btn-close shadow-none p-3 bg-light rounded-circle" data-bs-dismiss="offcanvas" aria-label="Close" style="opacity: 1; transition: all 0.3s ease;"></button>
     </div>
-    <div class="offcanvas-body p-4 bg-vibrant-dark text-white">
-        <ul class="list-unstyled d-flex flex-column gap-3">
-            <li><a href="{{ route('home') }}#home" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Home') }}</a></li>
-            <li><a href="{{ route('home') }}#courses" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Courses') }}</a></li>
-            <li><a href="{{ route('home') }}#categories" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Categories') }}</a></li>
-            <li><a href="{{ route('home') }}#blog" class="fs-4 text-white text-decoration-none fw-bold" data-bs-dismiss="offcanvas">{{ get_phrase('Blog') }}</a></li>
-        </ul>
-        <hr class="my-4 opacity-25">
-        <div class="mb-4">
-            <p class="text-white opacity-50 small fw-bold mb-3">{{ get_phrase('Language') }}</p>
-            <div class="d-flex flex-wrap gap-2">
-                @foreach (DB::table('languages')->get() as $language)
-                    <a href="{{ route('select.lng', ['language' => $language->name]) }}" 
-                       class="btn btn-sm rounded-pill px-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'bg-vibrant-primary text-white' : 'btn-outline-light' }}">
-                        {{ ucfirst($language->name) }}
+
+    <!-- Offcanvas Body -->
+    <div class="offcanvas-body p-4 bg-white d-flex flex-column justify-content-between">
+        
+        <!-- Navigation Links -->
+        <div class="mobile-nav-links mt-3">
+            <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                <li>
+                    <a href="{{ route('home') }}#home" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                        <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(79, 70, 229, 0.1);">
+                            <i class="fi-rr-home text-primary fs-5"></i>
+                        </div>
+                        <span class="fs-5">{{ get_phrase('Home') }}</span>
                     </a>
-                @endforeach
+                </li>
+                <li>
+                    <a href="{{ route('home') }}#courses" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                        <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(6, 182, 212, 0.1);">
+                            <i class="fi-rr-book-alt text-info fs-5"></i>
+                        </div>
+                        <span class="fs-5">{{ get_phrase('Courses') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('home') }}#categories" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                        <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1);">
+                            <i class="fi-rr-apps text-warning fs-5"></i>
+                        </div>
+                        <span class="fs-5">{{ get_phrase('Categories') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('home') }}#blog" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                        <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1);">
+                            <i class="fi-rr-edit text-success fs-5"></i>
+                        </div>
+                        <span class="fs-5">{{ get_phrase('Blog') }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Bottom Section -->
+        <div class="mobile-nav-bottom mt-5 border-top border-light pt-4">
+            <!-- Language Selection -->
+            <div class="mb-4">
+                <p class="text-secondary small fw-bold mb-3 d-flex align-items-center gap-2">
+                    <i class="fi-rr-globe"></i> {{ get_phrase('Choose Language') }}
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    @foreach (DB::table('languages')->get() as $language)
+                        <a href="{{ route('select.lng', ['language' => $language->name]) }}" 
+                           class="btn btn-sm rounded-pill px-4 py-2 fw-bold transition-all shadow-sm {{ (session('language') ?? get_settings('language')) == $language->name ? 'btn-primary border-0 text-white' : 'btn-light border text-dark hover-bg-light' }}">
+                            {{ ucfirst($language->name) }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Auth Buttons -->
+            <div class="d-flex flex-column gap-3 mt-4">
+                @guest
+                    <a href="{{ route('login') }}" class="btn btn-outline-dark w-100 py-3 rounded-pill fw-bold transition-all fs-6">
+                        <i class="fi-rr-sign-in-alt me-2"></i> {{ $is_arabic ? 'تسجيل الدخول' : get_phrase('Login') }}
+                    </a>
+                    <a href="{{ route('register.form') }}" class="btn btn-primary w-100 py-3 rounded-pill fw-bold transition-all shadow-sm fs-6" style="background: var(--vibrant-primary); border: none;">
+                        <i class="fi-rr-user-add me-2"></i> {{ $is_arabic ? 'انضم الآن مجاناً' : get_phrase('Get Started Free') }}
+                    </a>
+                @else
+                    <div class="user-info-box p-3 rounded-4 mb-3 d-flex align-items-center gap-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                         <img src="{{ get_image(auth()->user()->photo) }}" alt="User" class="rounded-circle shadow-sm" style="width: 45px; height: 45px; border: 2px solid #fff;">
+                         <div>
+                             <h6 class="mb-0 fw-bold text-dark">{{ auth()->user()->name }}</h6>
+                             <small class="text-secondary">{{ get_phrase('Welcome back!') }}</small>
+                         </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('my.courses') }}" class="btn btn-light w-50 py-2 rounded-pill fw-bold border text-dark text-nowrap small"><i class="fi-rr-book-open-cover me-1"></i> {{ get_phrase('Courses') }}</a>
+                        <a href="{{ route('my.profile') }}" class="btn btn-light w-50 py-2 rounded-pill fw-bold border text-dark text-nowrap small"><i class="fi-rr-settings me-1"></i> {{ get_phrase('Profile') }}</a>
+                    </div>
+                    <a href="{{ route('logout') }}" class="btn btn-light w-100 py-3 mt-2 rounded-pill fw-bold text-danger transition-all border">
+                        <i class="fi-rr-exit me-2"></i> {{ get_phrase('Logout') }}
+                    </a>
+                @endguest
+            </div>
+            
+            <!-- Mobile Footer Info -->
+            <div class="text-center mt-5 pt-3">
+                <p class="text-muted small mb-0 fw-medium">© {{ date('Y') }} {{ get_frontend_settings('website_title') }}</p>
+                <div class="d-flex justify-content-center gap-3 mt-2">
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
             </div>
         </div>
-        <hr class="my-5 opacity-25">
-        @guest
-            <a href="{{ route('login') }}" class="btn btn-outline-light w-100 py-3 rounded-4 mb-3 fw-bold">{{ $is_arabic ? 'تسجيل الدخول' : get_phrase('Login') }}</a>
-            <a href="{{ route('register.form') }}" class="btn btn-primary w-100 py-3 rounded-4 fw-bold" style="background: var(--vibrant-primary); border: none;">{{ $is_arabic ? 'ابدأ الآن' : get_phrase('Get Started') }}</a>
-        @else
-            <a href="{{ route('logout') }}" class="btn btn-danger w-100 py-3 rounded-4 fw-bold">{{ get_phrase('Logout') }}</a>
-        @endguest
     </div>
 </div>
+
+<style>
+    /* Mobile Nav Enhancements */
+    #vibrantMobileNav .btn-close:hover {
+        background-color: #e2e8f0 !important;
+        transform: rotate(90deg);
+    }
+    #vibrantMobileNav .hover-bg-light:hover {
+        background-color: #f8fafc !important;
+        border-color: #cbd5e1 !important;
+    }
+    #vibrantMobileNav .hover-text-primary:hover {
+        color: var(--vibrant-primary) !important;
+        transform: translateY(-2px);
+    }
+    #vibrantMobileNav .mobile-nav-links a:hover {
+        background: #f8fafc !important;
+        border-color: #e2e8f0 !important;
+        color: var(--vibrant-primary) !important;
+    }
+    #vibrantMobileNav .mobile-nav-links a:hover .icon-box {
+        background: var(--vibrant-primary) !important;
+    }
+    #vibrantMobileNav .mobile-nav-links a:hover .icon-box i {
+        color: white !important;
+    }
+    .shadow-hover:hover {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+</style>
 
 @push('js')
 <script>

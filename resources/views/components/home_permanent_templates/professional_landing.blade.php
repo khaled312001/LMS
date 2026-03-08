@@ -10,36 +10,30 @@
         'with Creative Courseware' => 'مع حلول تعليمية إبداعية',
         'Empowering students with' => 'تمكين الطلاب من خلال',
         'flexible, high-quality' => 'تعلم مرن عالي الجودة',
-        'online learning. Discover your potential with our immersive platforms.' => 'اكتشف إمكانياتك مع منصاتنا التعليمية.',
+        'online learning. Discover your potential with our immersive platforms.' => 'نؤمن بأن التعليم يجب أن يكون ممتعًا وتفاعليًا ومتاحًا للجميع. يتولى التدريب نخبة من الخبراء في مجالات البرمجة والتصميم والتسويق.',
         'Explore Courses' => 'استكشف الدورات',
-        'Latest News' => 'آخر الأخبار',
+        'Latest News' => 'اتصل بنا',
         'Trusted By' => 'موثوق من قبل',
-        'Live Learners' => 'طلاب نشطون',
-        'Top Rated' => 'الأعلى تقييماً',
-        '#1 LMS Choice 2026' => 'الخيار الأول في 2026',
+        'Live Learners' => 'تطبيقات عملية',
+        'Top Rated' => 'خبرة سويسرية',
+        '#1 LMS Choice 2026' => 'دقة وجودة في التعليم الإلكتروني',
         'What Do You Want To Learn?' => 'ماذا تريد أن تتعلم؟',
-        'Explore over 1200+ courses across various domains' => 'استكشف أكثر من 1200 دورة في مختلف المجالات',
+        'Explore over 1200+ courses across various domains' => 'استكشف دوراتنا في البرمجة والتصميم والتسويق',
         'Best Instructors, Best Courses' => 'أفضل المدربين، أفضل الدورات',
-        'Handpicked quality content for your career growth' => 'محتوى تعليمي مختار بعناية لنموك المهني',
+        'Handpicked quality content for your career growth' => 'نوفر محتوى تعليمي محدث وفقًا لمتطلبات سوق العمل المحلي والدولي.',
         'Browse All' => 'تصفح الكل',
         'Professional' => 'احترافي',
         'General' => 'عام',
-        'Latest from our Blog' => 'آخر المدونات',
-        'Stay updated with the latest trends in education and technology' => 'ابق على اطلاع بأحدث التوجهات في التعليم والتكنولوجيا',
-        'Career Fast-Track' => 'المسار المهني السريع',
-        'Turn Your Passion Into A' => 'حول شغفك إلى',
-        'Global Career' => 'مهنة عالمية',
-        'The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.' => 'العالم بانتظار مهاراتك. انضم إلى 45 ألف طالب وابدأ رحلتك اليوم.',
-        'Get Started For Free' => 'ابدأ الآن مجاناً',
-        '+45k Students' => '+45 ألف طالب',
+        'Latest from our Blog' => 'لماذا تختار منصتنا؟',
+        'Stay updated with the latest trends in education and technology' => 'نلتزم بأعلى معايير الجودة والاحترافية، المستمدّة من الخبرات السويسرية في مجال التعليم الإلكتروني.',
+        'Career Fast-Track' => 'خدمة ما بعد التخرج',
+        'Turn Your Passion Into A' => 'انطلق نحو',
+        'Global Career' => 'سوق العمل',
+        'The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.' => 'نساعدكم في الاستعداد للدخول إلى سوق العمل من خلال تجهيز سيرة ذاتية احترافية، والتحضير لمقابلات العمل وبناء ملفك الشخصي.',
+        'Get Started For Free' => 'ابدأ الآن رحلتك',
+        '+45k Students' => 'مجتمع داعم',
         'Live Success Rate' => 'معدل النجاح',
         'OFF' => 'خصم',
-        'Web Development' => 'تطوير الويب',
-        'Data Science' => 'علم البيانات',
-        'Design' => 'التصميم',
-        'Marketing' => 'التسويق',
-        'Business' => 'الأعمال',
-        'Photography' => 'التصوير الفوتوغرافي',
     ];
 @endphp
 
@@ -140,7 +134,7 @@
                 </p>
                 <div class="d-flex flex-wrap gap-4 align-items-center" data-aos="fade-up" data-aos-delay="300">
                     <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ $is_arabic ? ($ar['Explore Courses'] ?? get_phrase('Explore Courses')) : get_phrase('Explore Courses') }}</a>
-                    <a href="#blog" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ $is_arabic ? ($ar['Latest News'] ?? get_phrase('Latest News')) : get_phrase('Latest News') }}</a>
+                    <a href="{{ route('contact.us') }}" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ $is_arabic ? 'تواصل معنا' : get_phrase('Contact Us') }}</a>
                 </div>
                 <!-- Logo Cloud / Social Proof -->
                 <div class="mt-5 pt-5" data-aos="fade-up" data-aos-delay="400">
@@ -281,13 +275,89 @@
     </div>
 </section>
 
-<!-- Blog Section -->
-<section id="blog" class="py-100 bg-light py-5">
+<!-- Why Choose Us -->
+<section id="why_us" class="py-100 bg-light py-5">
     <div class="container py-5">
         <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 fw-800">{{ $is_arabic ? ($ar['Latest from our Blog'] ?? get_phrase('Latest from our Blog')) : get_phrase('Latest from our Blog') }}</h2>
-            <p class="text-muted">{{ $is_arabic ? ($ar['Stay updated with the latest trends in education and technology'] ?? get_phrase('Stay updated with the latest trends in education and technology')) : get_phrase('Stay updated with the latest trends in education and technology') }}</p>
+            <h2 class="display-5 fw-800">{{ $is_arabic ? 'لماذا تختار منصتنا؟' : get_phrase('Why Choose Us') }}</h2>
+            <p class="text-muted">{{ $is_arabic ? 'نلتزم بأعلى معايير الجودة والاحترافية، المستمدّة من الخبرات السويسرية في مجال التعليم الإلكتروني.' : get_phrase('Quality education managed from Switzerland') }}</p>
         </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="bento-item h-100 p-4 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
+                    <div class="category-circle mb-4 mx-auto" style="width: 80px; height: 80px; background: rgba(79, 70, 229, 0.1) !important;">
+                        <i class="fi-rr-user-md text-vibrant-primary fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'إدارة سويسرية ومدربون محترفون' : 'Swiss Management & Expert Instructors' }}</h4>
+                    <p class="text-muted text-center flex-grow-1 mb-0">{{ $is_arabic ? 'فريق من المدربين ذوي خبرة عملية طويلة يقدمون الإرشاد والتوجيه خطوة بخطوة خلال جميع مراحل التعلم بإدارة سويسرية موثوقة.' : 'Expert instructors providing step-by-step guidance.' }}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="bento-item h-100 p-4 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
+                    <div class="category-circle mb-4 mx-auto" style="width: 80px; height: 80px; background: rgba(6, 182, 212, 0.1) !important;">
+                        <i class="fi-rr-computer text-info fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'تعلم مرن ومجتمع داعم' : 'Flexible Learning & Support' }}</h4>
+                    <p class="text-muted text-center flex-grow-1 mb-0">{{ $is_arabic ? 'اختر ما يناسبك من التعليم عن بعد أو الحضور المباشر، وكن جزءاً من منتديات تفاعلية تجمع المتعلمين لتبادل الخبرات.' : 'Choose online or in-person learning and join a supportive community.' }}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="bento-item h-100 p-4 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
+                    <div class="category-circle mb-4 mx-auto" style="width: 80px; height: 80px; background: rgba(245, 158, 11, 0.1) !important;">
+                        <i class="fi-rr-badge-check text-warning fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'شهادات إتمام معتمدة' : 'Certified Completion' }}</h4>
+                    <p class="text-muted text-center flex-grow-1 mb-0">{{ $is_arabic ? 'شهادات رقمية معترف بها تقدّم للمتدربين عند إكمال الدورات بنجاح، لتعزيز السيرة الذاتية والظهور المهني على الإنترنت.' : 'Recognized digital certificates to boost your resume and professional presence.' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About & Vision Section -->
+<section id="about" class="py-100 py-5">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 order-2 order-lg-1" data-aos="fade-right">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover;">
+                    <div class="position-absolute bottom-0 start-0 bg-white p-4 m-4 rounded-4 shadow-lg animate-float" style="width: 250px;">
+                        <h4 class="fw-900 text-vibrant-primary mb-1">الرؤية والرسالة</h4>
+                        <p class="mb-0 text-muted small fw-medium">توفير تعليم عملي واحترافي باللغة العربية بمعايير دولية</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left">
+                <span class="vibrant-tag mb-4 d-inline-block">{{ $is_arabic ? 'من نحن' : 'About Us' }}</span>
+                <h2 class="display-5 fw-800 mb-4">{{ $is_arabic ? 'منصة تعليمية إلكترونية عربية تُدار من سويسرا' : 'Arab E-Learning Platform Managed from Switzerland' }}</h2>
+                <p class="fs-5 text-muted mb-4 lh-lg">
+                    {{ $is_arabic ? 'نحن منصة متخصصة في تقديم دورات تدريبية احترافية في البرمجة والتصميم والتسويق الرقمي، باستخدام مزيج من اللغة العربية والإنجليزية لضمان الفهم العميق والتطبيق العملي.' : 'We are a specialized platform offering professional training in programming, design, and digital marketing.' }}
+                </p>
+                <div class="d-flex align-items-start gap-4 mb-4 mt-5">
+                    <div class="bg-vibrant-light p-3 rounded-circle text-vibrant-primary">
+                        <i class="fi-rr-bullseye-pointer fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-2">{{ $is_arabic ? 'رسالتنا' : 'Our Mission' }}</h4>
+                        <p class="text-muted">{{ $is_arabic ? 'توفير تعليم عملي واحترافي في مجالات البرمجة والتصميم والتسويق، ومساعدة الخريجين على تحقيق انتقال سلس إلى الحياة المهنية.' : 'Provide practical, professional education and assist graduates in their career transition.' }}</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start gap-4">
+                    <div class="bg-vibrant-light p-3 rounded-circle text-vibrant-accent">
+                        <i class="fi-rr-eye fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-2">{{ $is_arabic ? 'رؤيتنا' : 'Our Vision' }}</h4>
+                        <p class="text-muted mb-0">{{ $is_arabic ? 'أن نكون الخيار الأول للمتعلّمين العرب الذين يبحثون عن جودة التعليم الأوروبي بلغتهم الأم، مع توفير مسارات واضحة نحو الوظائف.' : 'To be the first choice for Arab learners seeking European quality education in their native language.' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
         
         <div class="row g-4">
             @foreach (App\Models\Blog::where('status', 1)->take(3)->get() as $blog)
@@ -348,6 +418,66 @@
                             <div class="progress-bar bg-success" style="width: 98%;"></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="py-100 bg-light py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 fw-800">{{ $is_arabic ? 'الأسئلة الشائعة (FAQ)' : 'Frequently Asked Questions' }}</h2>
+            <p class="text-muted">{{ $is_arabic ? 'كل ما تحتاج معرفته عن منصتنا وطرق التعلم' : 'Everything you need to know about our platform' }}</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                <div class="accordion custom-accordion" id="faqAccordion">
+                    @php
+                        $faqs = [
+                            [
+                                'q' => 'ما هي طرق التعلم المتاحة على المنصة؟',
+                                'a' => 'يمكنك اختيار بين التعلم عن بعد عبر الإنترنت أو الحضور الشخصي في المركز التدريبي حسب ما يناسب وقتك ومكانك.'
+                            ],
+                            [
+                                'q' => 'هل تُدرّس الدورات باللغة العربية فقط؟',
+                                'a' => 'نعتمد أسلوب تدريس بمزيج من اللغة العربية والإنجليزية لتسهيل الفهم واستخدام المصطلحات التقنية الأكثر شيوعًا في سوق العمل.'
+                            ],
+                            [
+                                'q' => 'هل أحصل على شهادة بعد انتهاء الدورة؟',
+                                'a' => 'نعم، بعد إتمام متطلبات الدورة، تحصل على شهادة إتمام إلكترونية معتمدة يمكنك إضافتها إلى سيرتك الذاتية أو حسابك على LinkedIn.'
+                            ],
+                            [
+                                'q' => 'هل هناك دعم بعد انتهاء الدورة؟',
+                                'a' => 'بالتأكيد! نقدّم خدمة تجهيز المتخرج لسوق العمل، وتشمل: إعداد سيرة ذاتية احترافية، تدريب على مقابلات العمل، وتطوير الحسابات المهنية على LinkedIn وBehance وGitHub.'
+                            ],
+                            [
+                                'q' => 'هل أحتاج إلى خبرة سابقة للتسجيل؟',
+                                'a' => 'ليس بالضرورة. لدينا دورات مخصصة للمبتدئين وأخرى للمستويات المتقدمة، ويمكنك اختيار الدورة المناسبة لمستواك.'
+                            ],
+                            [
+                                'q' => 'كيف أتواصل مع فريق الدعم؟',
+                                'a' => 'يمكنك التواصل معنا عبر نموذج “اتصل بنا” على الموقع، أو مراسلتنا عبر البريد الإلكتروني: info@swissbridgeacademy.com'
+                            ]
+                        ];
+                    @endphp
+
+                    @foreach($faqs as $index => $faq)
+                        <div class="accordion-item mb-3 border-0 rounded-4 shadow-sm bg-white overflow-hidden">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-bold p-4 bg-white text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq-{{ $index }}">
+                                    {{ $faq['q'] }}
+                                </button>
+                            </h2>
+                            <div id="faq-{{ $index }}" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body p-4 pt-0 text-muted lh-lg">
+                                    {{ $faq['a'] }}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
