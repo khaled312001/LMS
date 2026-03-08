@@ -280,10 +280,10 @@
     <!------------------- New Vibrant Body Area ------------------->
     <section class="bg-vibrant-light">
         <div class="container vibrant-course-body">
-            <div class="row align-items-start g-4">
+            <div class="row align-items-start flex-nowrap flex-lg-wrap flex-column flex-lg-row g-4 position-relative">
                 
                 <!-- Main Content Column -->
-                <div class="col-lg-8 order-2 order-lg-1">
+                <div class="col-lg-8 col-12 order-2 order-lg-1">
                     <div class="vibrant-content-card">
                         
                         <!-- Tabs -->
