@@ -83,40 +83,41 @@
         background: rgba(255,255,255,0.1) !important;
         border-radius: 10px;
     }
-    .bg-vibrant-light {
-        background: var(--vibrant-light) !important;
+    /* Completely New Swiss Bridge Academy Course Details Layout */
+    .sba-bg-light {
+        background: #f8fafc !important;
     }
 
-    /* New Clean Layout Classes */
-    .vibrant-course-hero {
-        background: var(--vibrant-dark);
-        padding: 200px 0 160px;
+    .sba-course-header {
+        background: #0f172a;
+        padding: 180px 0 140px;
         position: relative;
         overflow: hidden;
     }
     
-    .vibrant-course-body {
-        margin-top: -120px;
+    .sba-course-content-wrapper {
+        margin-top: -100px;
         position: relative;
-        z-index: 10;
+        z-index: 20;
         padding-bottom: 80px;
     }
 
-    .vibrant-content-card {
-        background: var(--vibrant-white);
-        border-radius: 30px;
+    .sba-main-card {
+        background: #ffffff;
+        border-radius: 24px;
         padding: 40px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+        border: 1px solid rgba(0,0,0,0.04);
     }
 
-    .vibrant-sidebar-sticky {
+    .sba-pricing-sticky {
         position: sticky;
-        top: 120px;
+        top: 100px;
+        z-index: 50;
     }
 
-    .shadow-vibrant {
-        box-shadow: 0 15px 40px rgba(79, 70, 229, 0.25);
+    .sba-shadow-premium {
+        box-shadow: 0 20px 50px rgba(79, 70, 229, 0.2);
     }
 
     .share-icon-vibrant {
@@ -225,9 +226,8 @@
 
         $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
     @endphp
-    <!------------------- New Vibrant Hero Area ------------------->
-    <section class="vibrant-course-hero">
-        <!-- Mesh Gradient Background -->
+    <!------------------- SBA Course Header ------------------->
+    <section class="sba-course-header">
         <div class="position-absolute w-100 h-100 top-0 start-0" style="background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.15) 0%, transparent 50%); z-index: 0;"></div>
         
         <div class="container position-relative" style="z-index: 1;">
@@ -277,14 +277,14 @@
         </div>
     </section>
 
-    <!------------------- New Vibrant Body Area ------------------->
-    <section class="bg-vibrant-light">
-        <div class="container vibrant-course-body">
-            <div class="row align-items-start flex-nowrap flex-lg-wrap flex-column flex-lg-row g-4 position-relative">
+    <!------------------- SBA Course Content Area ------------------->
+    <section class="sba-bg-light">
+        <div class="container sba-course-content-wrapper">
+            <div class="row flex-column-reverse flex-lg-row g-4 align-items-start">
                 
                 <!-- Main Content Column -->
-                <div class="col-lg-8 col-12 order-2 order-lg-1">
-                    <div class="vibrant-content-card">
+                <div class="col-lg-8">
+                    <div class="sba-main-card">
                         
                         <!-- Tabs -->
                         <ul class="nav nav-pills custom-vibrant-tabs gap-2 mb-5" id="pills-tab" role="tablist">
@@ -328,8 +328,8 @@
                 </div>
 
                 <!-- Sticky Sidebar Column -->
-                <div class="col-lg-4 order-1 order-lg-2">
-                     <div class="vibrant-sidebar-sticky">
+                <div class="col-lg-4">
+                     <div class="sba-pricing-sticky">
                         @include('frontend.default.course.pricing_card')
                      </div>
                 </div>
@@ -338,7 +338,7 @@
         </div>
     </section>
 
-    <!------------------- Breadcum Area End  --------->
+    <!------------------- Course Area End  --------->
 
 
     <!-- Vertically centered modal -->
