@@ -129,21 +129,21 @@
     <div class="container position-relative" style="z-index: 10;">
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
-                <div class="glass-pill mb-4 animate__animated animate__fadeInDown">
+                <div class="glass-pill mb-4" data-aos="fade-down" data-aos-duration="1000">
                     <span>🚀</span> {{ $is_arabic ? ($ar['New Era of Learning'] ?? get_phrase('New Era of Learning')) : get_phrase('New Era of Learning') }}
                 </div>
-                <h1 class="display-1 fw-900 mb-4 lh-1 animate__animated animate__fadeInLeft" style="letter-spacing: -2px;">
+                <h1 class="display-1 fw-900 mb-4 lh-1" data-aos="fade-up" data-aos-delay="100" style="letter-spacing: -2px;">
                     {{ $is_arabic ? ($ar['Master Your'] ?? get_phrase('Master Your')) : get_phrase('Master Your') }} <span class="text-vibrant-gradient">{{ $is_arabic ? ($ar['Future'] ?? get_phrase('Future')) : get_phrase('Future') }}</span> {{ $is_arabic ? ($ar['with Creative Courseware'] ?? get_phrase('with Creative Courseware')) : get_phrase('with Creative Courseware') }}
                 </h1>
-                <p class="fs-4 text-muted mb-5 pe-lg-5 animate__animated animate__fadeInLeft animate__delay-1s">
+                <p class="fs-4 text-muted mb-5 pe-lg-5" data-aos="fade-up" data-aos-delay="200">
                     {{ $is_arabic ? ($ar['Empowering students with'] ?? get_phrase('Empowering students with')) : get_phrase('Empowering students with') }} <span class="text-dark fw-bold">{{ $is_arabic ? ($ar['flexible, high-quality'] ?? get_phrase('flexible, high-quality')) : get_phrase('flexible, high-quality') }}</span> {{ $is_arabic ? ($ar['online learning. Discover your potential with our immersive platforms.'] ?? get_phrase('online learning. Discover your potential with our immersive platforms.')) : get_phrase('online learning. Discover your potential with our immersive platforms.') }}
                 </p>
-                <div class="d-flex flex-wrap gap-4 align-items-center animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="d-flex flex-wrap gap-4 align-items-center" data-aos="fade-up" data-aos-delay="300">
                     <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ $is_arabic ? ($ar['Explore Courses'] ?? get_phrase('Explore Courses')) : get_phrase('Explore Courses') }}</a>
                     <a href="#blog" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ $is_arabic ? ($ar['Latest News'] ?? get_phrase('Latest News')) : get_phrase('Latest News') }}</a>
                 </div>
                 <!-- Logo Cloud / Social Proof -->
-                <div class="mt-5 pt-5 animate__animated animate__fadeIn animate__delay-2s">
+                <div class="mt-5 pt-5" data-aos="fade-up" data-aos-delay="400">
                     <div class="glass-pill py-3 px-5 d-inline-flex flex-wrap align-items-center gap-5 shadow-sm border-0" style="background: rgba(255,255,255,0.4) !important;">
                         <span class="small fw-800 text-uppercase letter-spacing-2 opacity-50">{{ $is_arabic ? ($ar['Trusted By'] ?? get_phrase('Trusted By')) : get_phrase('Trusted By') }}</span>
                         <div class="vr opacity-10 d-none d-md-block" style="height: 30px;"></div>
@@ -158,12 +158,12 @@
             <div class="col-lg-5 position-relative">
                 <div class="hero-visual-container position-relative">
                     <!-- Main Image with 3D Float -->
-                    <div class="floating-3d-card relative z-2">
+                    <div class="floating-3d-card relative z-2" data-aos="zoom-in" data-aos-duration="1200">
                         <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover; border: 10px solid #fff;">
                     </div>
                     
                     <!-- Floating Achievement Cards -->
-                    <div class="position-absolute animate-float shadow-lg p-4 bg-white rounded-4 border-0" style="top: -40px; right: -20px; width: 220px; z-index: 5;">
+                    <div class="position-absolute animate-float shadow-lg p-4 bg-white rounded-4 border-0" data-aos="fade-left" data-aos-delay="600" style="top: -40px; right: -20px; width: 220px; z-index: 5;">
                         <div class="d-flex align-items-center gap-3 mb-2">
                             <div class="bg-success rounded-circle" style="width: 12px; height: 12px;"></div>
                             <span class="small fw-bold">{{ $is_arabic ? ($ar['Live Learners'] ?? get_phrase('Live Learners')) : get_phrase('Live Learners') }}</span>
@@ -171,7 +171,7 @@
                         <h4 class="fw-900 mb-0">12,482+</h4>
                     </div>
                     
-                    <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" style="bottom: 40px; left: -40px; width: 200px; z-index: 5; animation-delay: 1.5s;">
+                    <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" data-aos="fade-right" data-aos-delay="800" style="bottom: 40px; left: -40px; width: 200px; z-index: 5; animation-delay: 1.5s;">
                         <div class="fs-1 mb-2">🏆</div>
                         <h5 class="fw-bold mb-1">{{ $is_arabic ? ($ar['Top Rated'] ?? get_phrase('Top Rated')) : get_phrase('Top Rated') }}</h5>
                         <p class="small mb-0 opacity-75">{{ $is_arabic ? ($ar['#1 LMS Choice 2026'] ?? get_phrase('#1 LMS Choice 2026')) : get_phrase('#1 LMS Choice 2026') }}</p>
@@ -185,7 +185,7 @@
 <!-- Creative Categories -->
 <section id="categories" class="py-100 bg-vibrant-dark py-5">
     <div class="container py-5">
-        <div class="text-center mb-5">
+        <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="display-5 fw-800 text-white mb-3">{{ $is_arabic ? ($ar['What Do You Want To Learn?'] ?? get_phrase('What Do You Want To Learn?')) : get_phrase('What Do You Want To Learn?') }}</h2>
             <p class="text-white opacity-50">{{ $is_arabic ? ($ar['Explore over 1200+ courses across various domains'] ?? get_phrase('Explore over 1200+ courses across various domains')) : get_phrase('Explore over 1200+ courses across various domains') }}</p>
         </div>
@@ -210,8 +210,8 @@
                 ];
             @endphp
             @foreach (App\Models\Category::where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(8) as $category)
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="category-item text-center animate__animated animate__fadeInUp">
+                <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                    <div class="category-item text-center">
                         <a href="{{ route('courses', $category->slug) }}" class="text-decoration-none d-block p-4 rounded-5 transition-all h-100 bento-item border-0" style="background: rgba(255,255,255,0.03) !important; backdrop-filter: blur(10px);">
                             <div class="category-circle mb-4 mx-auto shadow-lg" style="background: linear-gradient(135deg, #fff, #f8f9fa) !important;">
                                 <i class="{{ $icons[$category->title] ?? ($category->icon ?: 'fa-solid fa-graduation-cap') }} text-vibrant-gradient fs-1"></i>
@@ -229,7 +229,7 @@
 <!-- Vibrant Featured Courses -->
 <section id="courses" class="py-100 py-5">
     <div class="container py-5">
-        <div class="d-flex justify-content-between align-items-end mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
             <div>
                 <h2 class="display-5 fw-800">{{ $is_arabic ? ($ar['Best Instructors, Best Courses'] ?? get_phrase('Best Instructors, Best Courses')) : get_phrase('Best Instructors, Best Courses') }}</h2>
                 <p class="text-muted">{{ $is_arabic ? ($ar['Handpicked quality content for your career growth'] ?? get_phrase('Handpicked quality content for your career growth')) : get_phrase('Handpicked quality content for your career growth') }}</p>
@@ -242,7 +242,7 @@
                 $top_courses = DB::table('courses')->where('status', 'active')->orderBy('id', 'desc')->take(3)->get();
             @endphp
             @foreach ($top_courses as $row)
-                <div class="col-lg-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 150 }}">
                     <div class="vibrant-course-card p-3">
                         <div class="position-relative mb-4">
                             <img src="{{ get_image($row->thumbnail) }}" class="vibrant-course-image" alt="{{ $row->title }}">
@@ -284,14 +284,14 @@
 <!-- Blog Section -->
 <section id="blog" class="py-100 bg-light py-5">
     <div class="container py-5">
-        <div class="text-center mb-5">
+        <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="display-5 fw-800">{{ $is_arabic ? ($ar['Latest from our Blog'] ?? get_phrase('Latest from our Blog')) : get_phrase('Latest from our Blog') }}</h2>
             <p class="text-muted">{{ $is_arabic ? ($ar['Stay updated with the latest trends in education and technology'] ?? get_phrase('Stay updated with the latest trends in education and technology')) : get_phrase('Stay updated with the latest trends in education and technology') }}</p>
         </div>
         
         <div class="row g-4">
             @foreach (App\Models\Blog::where('status', 1)->take(3)->get() as $blog)
-                <div class="col-lg-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 150 }}">
                     <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important;">
                         <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 200px; object-fit: cover; border-radius: 20px;">
                         <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? get_phrase(App\Models\Category::find($blog->category_id)->title) : ($is_arabic ? ($ar['General'] ?? get_phrase('General')) : get_phrase('General')) }}</span>
@@ -309,13 +309,13 @@
 <!-- Final Call to Action -->
 <section class="py-100 py-5">
     <div class="container py-5">
-        <div class="bento-item p-0 position-relative overflow-hidden shadow-2xl border-0" style="min-height: 500px; border-radius: 50px !important; background: linear-gradient(135deg, var(--vibrant-darker), #1e1b4b) !important;">
+        <div class="bento-item p-0 position-relative overflow-hidden shadow-2xl border-0" data-aos="zoom-in-up" data-aos-duration="1000" style="min-height: 500px; border-radius: 50px !important; background: linear-gradient(135deg, var(--vibrant-darker), #1e1b4b) !important;">
             <!-- Animated Background Gradients -->
             <div class="position-absolute" style="top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(79, 70, 229, 0.4), transparent); filter: blur(60px); opacity: 0.6;"></div>
             <div class="position-absolute" style="bottom: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(6, 182, 212, 0.3), transparent); filter: blur(60px); opacity: 0.4;"></div>
             
             <div class="row align-items-center g-0 h-100">
-                <div class="col-lg-7 p-5 p-lg-10 text-white position-relative" style="z-index: 5;">
+                <div class="col-lg-7 p-5 p-lg-10 text-white position-relative" data-aos="fade-right" data-aos-delay="200" style="z-index: 5;">
                     <span class="vibrant-tag mb-4 d-inline-block px-4 py-2 border-0" style="background: rgba(255,255,255,0.1); color: var(--vibrant-accent); font-weight: 800; border-radius: 50px;">🚀 {{ $is_arabic ? ($ar['Career Fast-Track'] ?? get_phrase('Career Fast-Track')) : get_phrase('Career Fast-Track') }}</span>
                     <h2 class="display-2 fw-800 mb-4 lh-1">
                         {{ $is_arabic ? ($ar['Turn Your Passion Into A'] ?? get_phrase('Turn Your Passion Into A')) : get_phrase('Turn Your Passion Into A') }} <span class="text-vibrant-gradient">{{ $is_arabic ? ($ar['Global Career'] ?? get_phrase('Global Career')) : get_phrase('Global Career') }}</span>
@@ -333,7 +333,7 @@
                             </div>
                         </div>
                 </div>
-                <div class="col-lg-5 h-100 d-none d-lg-block position-relative overflow-hidden" style="min-height: 500px;">
+                <div class="col-lg-5 h-100 d-none d-lg-block position-relative overflow-hidden" data-aos="fade-left" data-aos-delay="400" style="min-height: 500px;">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200" class="position-absolute w-100 h-100 object-fit-cover" alt="CTA" style="opacity: 0.6; filter: contrast(1.2) brightness(0.8);">
                     <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(90deg, var(--vibrant-darker), transparent 70%);"></div>
                     

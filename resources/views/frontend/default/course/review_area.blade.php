@@ -14,14 +14,14 @@
 @endphp
 
 <div class="ps-box p-0 shadow-none animate__animated animate__fadeIn">
-    <h4 class="fw-800 text-white mb-4"><i class="fi-rr-comment-quote text-vibrant-primary me-2"></i> {{ get_phrase('Student Reviews') }}</h4>
+    <h4 class="fw-800 text-dark mb-4"><i class="fi-rr-comment-quote text-primary me-2"></i> {{ get_phrase('Student Reviews') }}</h4>
     
-    <div class="review-container p-4 rounded-4" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);">
+    <div class="review-container p-4 rounded-4" style="background: #f8fafc; border: 1px solid #e2e8f0;">
         <!-- Write Review Section -->
-        <div class="write-review mb-5 pb-5 border-bottom border-white-10">
+        <div class="write-review mb-5 pb-5 border-bottom border-light">
             <form action="{{ route('review.store') }}" method="POST">@csrf
                 <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-                    <p class="text-white opacity-80 mb-0 fw-bold">{{ get_phrase('Your rating for this course') }}</p>
+                    <p class="text-dark fw-bold mb-0">{{ get_phrase('Your rating for this course') }}</p>
                     <div class="d-flex flex-wrap align-items-center gap-3">
                         <ul class="d-flex gap-1 rating-stars list-unstyled m-0">
                             @for ($i = 1; $i <= 5; $i++)
@@ -30,7 +30,7 @@
                                 </li>
                             @endfor
                         </ul>
-                        <button type="button" class="btn btn-link text-white opacity-40 hover-opacity-100 text-decoration-none small p-0" id="remove-stars">
+                        <button type="button" class="btn btn-link text-secondary text-decoration-none small p-0" id="remove-stars">
                             <i class="fi-rr-trash"></i> {{ get_phrase('Reset') }}
                         </button>
                     </div>
@@ -38,9 +38,9 @@
 
                 <input type="hidden" name="rating" value="0">
                 <input type="hidden" name="course_id" value="{{ $course_details->id }}">
-                <textarea type="text" name="review" class="form-control mb-4 vibrant-textarea" rows="4"
+                <textarea type="text" name="review" class="form-control mb-4 bg-white text-dark shadow-sm border-light" rows="4"
                     placeholder="{{ get_phrase('Tell us about your experience with this course...') }}" required></textarea>
-                <button type="submit" class="btn-vibrant w-100 py-3 rounded-pill fw-bold border-0">{{ get_phrase('Submit Review') }}</button>
+                <button type="submit" class="btn-sba-primary w-100 py-3 rounded-pill fw-bold border-0">{{ get_phrase('Submit Review') }}</button>
             </form>
         </div>
 
@@ -48,12 +48,12 @@
         <div class="reviews-list d-flex flex-column gap-4">
             @if (isset($reviews) && $reviews && $reviews->count() > 0)
                 @foreach ($reviews as $review)
-                    <div class="E-review p-4 rounded-4 transition-all" id="review-{{ $review->id }}" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03);">
+                    <div class="E-review p-4 rounded-4 transition-all" id="review-{{ $review->id }}" style="background: #ffffff; border: 1px solid #e2e8f0;">
                         <div class="d-flex flex-wrap justify-content-between align-items-start gap-4 mb-3">
                             <div class="d-flex align-items-center gap-3">
-                                <img src="{{ get_image($review->reviewer_photo) }}" class="rounded-circle" width="50" height="50" alt="reviewer-img" style="border: 2px solid var(--vibrant-primary);">
+                                <img src="{{ get_image($review->reviewer_photo) }}" class="rounded-circle" width="50" height="50" alt="reviewer-img" style="border: 2px solid #4f46e5;">
                                 <div>
-                                    <h6 class="text-white fw-bold mb-1">{{ $review->reviewer_name }}</h6>
+                                    <h6 class="text-dark fw-bold mb-1">{{ $review->reviewer_name }}</h6>
                                     <div class="d-flex text-warning gap-1 small">
                                         @for ($i = 0; $i < 5; $i++)
                                             <i class="{{ $i < $review->rating ? 'fa-solid fa-star' : 'fa-regular fa-star' }}"></i>
@@ -62,12 +62,12 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-column align-items-end">
-                                <p class="text-white opacity-30 small mb-2">{{ date('d M, Y', strtotime($review->created_at)) }}</p>
+                                <p class="text-secondary small mb-2">{{ date('d M, Y', strtotime($review->created_at)) }}</p>
                                 @auth
                                     @if(auth()->user()->id == $review->reviewer_id)
                                         <div class="d-flex gap-3">
                                             <a onclick="ajaxModal('{{ route('modal', ['frontend.default.course.review_edit', 'id' => $review]) }}', '{{ get_phrase('Edit review') }}')"
-                                                class="text-vibrant-accent text-decoration-none small fw-bold" href="javascript: void(0);"><i class="fi-rr-edit me-1"></i>{{ get_phrase('Edit') }}</a>
+                                                class="text-primary text-decoration-none small fw-bold" href="javascript: void(0);"><i class="fi-rr-edit me-1"></i>{{ get_phrase('Edit') }}</a>
                                             <a onclick="confirmModal('{{ route('review.delete', $review->id) }}')"
                                                 class="text-danger text-decoration-none small fw-bold"
                                                 href="javascript: void(0);"><i class="fi-rr-trash me-1"></i>{{ get_phrase('Delete') }}</a>
@@ -76,9 +76,9 @@
                                 @endauth
                             </div>
                         </div>
-                        <p class="text-white opacity-80 mb-4 lh-lg">{{ $review->review }}</p>
+                        <p class="text-secondary lh-lg mb-4">{{ $review->review }}</p>
                         
-                        <div class="d-flex align-items-center gap-4 border-top border-white-5 pt-3">
+                        <div class="d-flex align-items-center gap-4 border-top border-light pt-3">
                             @php
                                 $status = null;
                                 if(auth()->check()){

@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/default/vendors/swiper/swiper-bundle.min.css') }}">
     
     <!-- Custom Style -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/custom_style.css') }}?v=2.5">
 
     <!-- Jquery Js -->
@@ -86,6 +87,16 @@
     @include('frontend.default.modal')
     @include('frontend.default.toaster')
     @include('frontend.default.scripts')
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
     @stack('js')
 </body>
 </html>
