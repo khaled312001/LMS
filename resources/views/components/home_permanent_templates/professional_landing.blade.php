@@ -266,23 +266,18 @@
                 <!-- Logo Cloud / Social Proof -->
                 <div class="mt-5 pt-2" data-aos="fade-up" data-aos-delay="400">
                     <p class="small fw-700 text-uppercase mb-3" style="letter-spacing: 3px; color: #94a3b8;">{{ $is_arabic ? ($ar['Trusted By'] ?? get_phrase('Trusted By')) : get_phrase('Trusted By') }}</p>
-                    <div class="trusted-brands-row d-flex flex-wrap align-items-center gap-3">
-                        <div class="trusted-brand-chip">
-                            <span class="brand-dot" style="background: #4f46e5;"></span>
-                            <span>SwissLearningHub</span>
-                        </div>
-                        <div class="trusted-brand-chip">
-                            <span class="brand-dot" style="background: #06b6d4;"></span>
-                            <span>Taskbase</span>
-                        </div>
-                        <div class="trusted-brand-chip">
-                            <span class="brand-dot" style="background: #f59e0b;"></span>
-                            <span>ACADEMIA</span>
-                        </div>
-                        <div class="trusted-brand-chip">
-                            <span class="brand-dot" style="background: #10b981;"></span>
-                            <span>Global Swiss Learning</span>
-                        </div>
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
+                        @foreach([
+                            ['SwissLearningHub', '#4f46e5'],
+                            ['Taskbase',         '#06b6d4'],
+                            ['ACADEMIA',         '#f59e0b'],
+                            ['Global Swiss Learning', '#10b981'],
+                        ] as [$brand, $dot])
+                        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.07);border-radius:100px;padding:8px 18px 8px 14px;font-size:0.82rem;font-weight:700;color:#1e293b;box-shadow:0 2px 10px rgba(0,0,0,0.06);transition:all .25s;">
+                            <span style="width:8px;height:8px;border-radius:50%;background:{{ $dot }};display:inline-block;flex-shrink:0;"></span>
+                            {{ $brand }}
+                        </span>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -314,30 +309,32 @@
     </div>
 
     <!-- Stats Bar -->
-    <div class="container position-relative" style="z-index: 10; margin-top: 70px;">
-        <div class="stats-bar-wrapper" data-aos="fade-up" data-aos-delay="300">
-            @php
-                $stats = [
-                    ['icon' => 'fi-rr-users',        'value' => '+12K', 'label' => $is_arabic ? 'طالب نشط'      : 'Active Students',  'color' => '#4f46e5', 'grad' => 'linear-gradient(135deg,#4f46e5,#7e22ce)'],
-                    ['icon' => 'fi-rr-book-open-cover','value' => '+120', 'label' => $is_arabic ? 'دورة تدريبية'  : 'Courses',          'color' => '#06b6d4', 'grad' => 'linear-gradient(135deg,#06b6d4,#0ea5e9)'],
-                    ['icon' => 'fi-rr-badge-check',   'value' => '98%',  'label' => $is_arabic ? 'معدل النجاح'   : 'Success Rate',     'color' => '#10b981', 'grad' => 'linear-gradient(135deg,#10b981,#059669)'],
-                    ['icon' => 'fi-rr-star',          'value' => '4.9★', 'label' => $is_arabic ? 'تقييم المنصة'  : 'Platform Rating',  'color' => '#f59e0b', 'grad' => 'linear-gradient(135deg,#f59e0b,#f97316)'],
-                ];
-            @endphp
-            <div class="row g-4 justify-content-center">
-            @foreach($stats as $i => $stat)
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="{{ 100 + $i * 80 }}">
-                <div class="stat-premium-card">
-                    <div class="stat-icon-wrap" style="background: {{ $stat['grad'] }};">
-                        <i class="{{ $stat['icon'] }}"></i>
-                    </div>
-                    <div class="stat-value" style="background: {{ $stat['grad'] }}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{{ $stat['value'] }}</div>
-                    <div class="stat-label">{{ $stat['label'] }}</div>
-                    <div class="stat-glow" style="background: {{ $stat['color'] }};"></div>
+    <div class="container position-relative" style="z-index:10; margin-top:70px;">
+        @php
+            $stats = [
+                ['icon'=>'fi-rr-users',         'value'=>'+12K', 'label'=> $is_arabic?'طالب نشط':'Active Students',  'color'=>'#4f46e5','grad'=>'linear-gradient(135deg,#4f46e5,#7e22ce)','shadow'=>'rgba(79,70,229,0.25)'],
+                ['icon'=>'fi-rr-book-open-cover','value'=>'+120', 'label'=> $is_arabic?'دورة تدريبية':'Courses',      'color'=>'#06b6d4','grad'=>'linear-gradient(135deg,#06b6d4,#0ea5e9)','shadow'=>'rgba(6,182,212,0.25)'],
+                ['icon'=>'fi-rr-badge-check',   'value'=>'98%',  'label'=> $is_arabic?'معدل النجاح':'Success Rate',  'color'=>'#10b981','grad'=>'linear-gradient(135deg,#10b981,#059669)','shadow'=>'rgba(16,185,129,0.25)'],
+                ['icon'=>'fi-rr-star',          'value'=>'4.9★', 'label'=> $is_arabic?'تقييم المنصة':'Rating',       'color'=>'#f59e0b','grad'=>'linear-gradient(135deg,#f59e0b,#f97316)','shadow'=>'rgba(245,158,11,0.25)'],
+            ];
+        @endphp
+        <div class="row g-4 justify-content-center">
+        @foreach($stats as $i => $s)
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="{{ 80 + $i * 70 }}">
+            <div style="background:#fff;border-radius:20px;padding:28px 16px 24px;text-align:center;border:1px solid rgba(0,0,0,0.06);box-shadow:0 4px 24px rgba(0,0,0,0.07);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 48px {{ $s['shadow'] }}'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+                {{-- icon --}}
+                <div style="width:54px;height:54px;border-radius:14px;background:{{ $s['grad'] }};display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;box-shadow:0 8px 20px {{ $s['shadow'] }};">
+                    <i class="{{ $s['icon'] }}" style="color:#fff;font-size:1.35rem;"></i>
                 </div>
+                {{-- value --}}
+                <div style="font-size:2rem;font-weight:900;color:{{ $s['color'] }};line-height:1;margin-bottom:8px;letter-spacing:-1px;">{{ $s['value'] }}</div>
+                {{-- label --}}
+                <div style="font-size:0.78rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;">{{ $s['label'] }}</div>
+                {{-- bottom glow strip --}}
+                <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:{{ $s['grad'] }};border-radius:0 0 20px 20px;"></div>
             </div>
-            @endforeach
-            </div>
+        </div>
+        @endforeach
         </div>
     </div>
 </section>
