@@ -8021,35 +8021,276 @@ body {
 
 /* Neon Footer */
 .neon-footer {
-    background: var(--vibrant-darker) !important;
+    background: linear-gradient(160deg, #070b18 0%, #0d1124 40%, #0a0f1e 70%, #060a16 100%) !important;
     padding: 100px 0 60px !important;
     color: #94a3b8 !important;
     margin-top: 50px !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Decorative glow orbs */
+.neon-footer::before {
+    content: '' !important;
+    position: absolute !important;
+    width: 500px !important;
+    height: 500px !important;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, transparent 70%) !important;
+    top: -150px !important;
+    left: -100px !important;
+    pointer-events: none !important;
+    border-radius: 50% !important;
+}
+
+.neon-footer::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 400px !important;
+    height: 400px !important;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.10) 0%, transparent 70%) !important;
+    bottom: -100px !important;
+    right: -80px !important;
+    pointer-events: none !important;
+    border-radius: 50% !important;
+}
+
+/* Top accent line */
+.neon-footer > * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.neon-footer-top-border {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, transparent, var(--vibrant-primary), var(--vibrant-accent), var(--vibrant-secondary), transparent) !important;
+    z-index: 2 !important;
 }
 
 .neon-footer .footer-title {
     color: #fff !important;
     text-transform: uppercase !important;
-    letter-spacing: 2px !important;
-    font-size: 0.9rem !important;
-    margin-bottom: 2rem !important;
+    letter-spacing: 3px !important;
+    font-size: 0.78rem !important;
+    margin-bottom: 1.8rem !important;
     font-weight: 800 !important;
+    position: relative !important;
+    padding-bottom: 12px !important;
+}
+
+.neon-footer .footer-title::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 30px !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, var(--vibrant-primary), var(--vibrant-accent)) !important;
+    border-radius: 2px !important;
+}
+
+.neon-footer .footer-brand p {
+    color: #64748b !important;
+    font-size: 0.92rem !important;
+    line-height: 1.75 !important;
+}
+
+/* Social Icons */
+.footer-social-icon {
+    width: 40px !important;
+    height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    color: #94a3b8 !important;
+    font-size: 1rem !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.footer-social-icon:hover {
+    background: linear-gradient(135deg, var(--vibrant-primary), var(--vibrant-accent)) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4) !important;
 }
 
 .neon-link {
-    color: #94a3b8 !important;
+    color: #64748b !important;
     transition: all 0.3s ease !important;
     text-decoration: none !important;
-    display: block !important;
-    margin-bottom: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 14px !important;
+    font-size: 0.92rem !important;
+}
+
+.neon-link::before {
+    content: '' !important;
+    width: 0px !important;
+    height: 1px !important;
+    background: var(--vibrant-accent) !important;
+    transition: width 0.3s ease !important;
+    flex-shrink: 0 !important;
 }
 
 .neon-link:hover {
-    color: var(--vibrant-accent) !important;
-    text-shadow: 0 0 10px var(--vibrant-accent) !important;
-    padding-left: 8px !important;
+    color: #e2e8f0 !important;
+    text-shadow: none !important;
+    padding-left: 4px !important;
 }
 
+.neon-link:hover::before {
+    width: 16px !important;
+}
+
+/* Newsletter form */
+.neon-footer .form-control {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    color: #fff !important;
+    transition: all 0.3s ease !important;
+}
+
+.neon-footer .form-control:focus {
+    background: rgba(255,255,255,0.07) !important;
+    border-color: var(--vibrant-primary) !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+}
+
+.neon-footer .form-control::placeholder {
+    color: #475569 !important;
+}
+
+/* Footer divider */
+.neon-footer-divider {
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent) !important;
+    border: none !important;
+    margin: 0 !important;
+}
+
+/* Footer bottom */
+.neon-footer-bottom {
+    padding: 28px 0 !important;
+    color: #334155 !important;
+    font-size: 0.85rem !important;
+}
+
+/* ===== Trusted Brands ===== */
+.trusted-brands-row {
+    gap: 10px !important;
+}
+
+.trusted-brand-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(255,255,255,0.75) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(0,0,0,0.07) !important;
+    border-radius: 100px !important;
+    padding: 8px 18px 8px 14px !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    transition: all 0.25s ease !important;
+    cursor: default !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+}
+
+.trusted-brand-chip:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.10) !important;
+    border-color: rgba(79,70,229,0.2) !important;
+}
+
+.brand-dot {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+}
+
+/* ===== Premium Stats Cards ===== */
+.stats-bar-wrapper {
+    padding: 0 !important;
+}
+
+.stat-premium-card {
+    position: relative !important;
+    text-align: center !important;
+    padding: 32px 20px 28px !important;
+    border-radius: 24px !important;
+    background: #fff !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important;
+    overflow: hidden !important;
+    transition: all 0.35s cubic-bezier(0.23,1,0.32,1) !important;
+}
+
+.stat-premium-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12) !important;
+    border-color: transparent !important;
+}
+
+.stat-icon-wrap {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 16px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #fff !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+}
+
+.stat-value {
+    font-size: 2.1rem !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    margin-bottom: 8px !important;
+    letter-spacing: -1px !important;
+}
+
+.stat-label {
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.stat-glow {
+    position: absolute !important;
+    bottom: -30px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50% !important;
+    opacity: 0 !important;
+    filter: blur(20px) !important;
+    transition: opacity 0.35s ease !important;
+}
+
+.stat-premium-card:hover .stat-glow {
+    opacity: 0.25 !important;
+}
+
+/* ===== WhatsApp ===== */
 .whatsapp-v2 {
     position: fixed !important;
     bottom: 40px !important;
