@@ -51,9 +51,6 @@
     <div class="container pt-5 border-top border-secondary opacity-25">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
             <p class="small mb-0 opacity-50">© {{ date('Y') }} {{ get_settings('system_name') }}. {{ get_phrase('All Rights Reserved.') }}</p>
-            <div class="d-flex gap-4 small opacity-50">
-                <span class="text-white">{{ get_phrase('v2.7-Stable') }}</span>
-            </div>
         </div>
     </div>
 </footer>
