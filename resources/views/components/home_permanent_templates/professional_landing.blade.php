@@ -39,87 +39,214 @@
 
 @push('css')
 <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+        --lp-primary: #4f46e5;
+        --lp-primary-dark: #3730a3;
+        --lp-accent: #06b6d4;
+        --lp-gold: #f59e0b;
+        --lp-success: #10b981;
+        --lp-bg: #f8faff;
+        --lp-dark: #0f172a;
+        --lp-card-radius: 28px;
+    }
+
+    /* ===== HERO ===== */
     .vibrant-hero {
         padding: 180px 0 100px;
-        background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.1), transparent),
+        background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.12), transparent),
                     radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.1), transparent) !important;
-        background-color: var(--vibrant-light) !important;
-    }
-    
-    .bento-hero-grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: repeat(2, 300px);
-        gap: 24px;
+        background-color: var(--lp-bg) !important;
     }
 
-    .hero-main { grid-column: span 8; grid-row: span 2; background: #fff !important; }
-    .hero-stat-1 { grid-column: span 4; grid-row: span 1; background: var(--vibrant-primary) !important; color: #fff !important; }
-    .hero-stat-2 { grid-column: span 4; grid-row: span 1; background: var(--vibrant-accent) !important; color: #fff !important; }
+    /* ===== GLASS PILL ===== */
+    .glass-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 22px;
+        background: rgba(79, 70, 229, 0.08);
+        border: 1.5px solid rgba(79, 70, 229, 0.18);
+        border-radius: 100px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--lp-primary);
+        letter-spacing: 0.3px;
+    }
 
+    /* ===== CATEGORY CIRCLE ===== */
     .category-circle {
-        width: 120px;
-        height: 120px;
+        width: 90px;
+        height: 90px;
         border-radius: 50%;
-        background: #fff !important;
+        background: rgba(255,255,255,0.15) !important;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2.5rem;
+        font-size: 2rem;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 2px solid rgba(0,0,0,0.05) !important;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        border: 2px solid rgba(255,255,255,0.2) !important;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     }
 
     .category-item:hover .category-circle {
-        transform: rotate(15deg) scale(1.1);
-        border-color: var(--vibrant-primary);
-        box-shadow: 0 0 30px rgba(79, 70, 229, 0.2);
+        transform: rotate(10deg) scale(1.12);
+        background: rgba(255,255,255,0.25) !important;
+        box-shadow: 0 12px 40px rgba(79, 70, 229, 0.25);
     }
 
+    /* Category section - dark gradient bg */
+    #categories {
+        background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 60%, #0c1a3a 100%) !important;
+    }
+
+    /* ===== COURSE CARDS ===== */
     .vibrant-course-card {
-        border-radius: 30px;
-        padding: 10px;
+        border-radius: var(--lp-card-radius);
+        padding: 8px;
         background: #fff;
-        transition: all 0.4s ease;
-        border: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.35s ease;
+        border: 1px solid rgba(79, 70, 229, 0.07);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
     }
 
     .vibrant-course-card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 40px 80px rgba(0,0,0,0.07);
+        transform: translateY(-8px);
+        box-shadow: 0 24px 60px rgba(79, 70, 229, 0.12);
+        border-color: rgba(79, 70, 229, 0.15);
     }
 
     .vibrant-course-image {
-        border-radius: 24px;
-        height: 250px;
+        border-radius: 20px;
+        height: 220px;
         object-fit: cover;
         width: 100%;
     }
 
     .vibrant-tag {
-        background: rgba(79, 70, 229, 0.1);
-        color: var(--vibrant-primary);
-        padding: 4px 12px;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(6, 182, 212, 0.08));
+        color: var(--lp-primary);
+        padding: 5px 14px;
+        border-radius: 100px;
         font-weight: 700;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: 1px solid rgba(79, 70, 229, 0.15);
     }
 
-    @media (max-width: 991px) {
+    /* ===== WHY CHOOSE US ===== */
+    #why_us {
+        background: linear-gradient(180deg, #f0f4ff 0%, #f8faff 100%) !important;
+    }
+
+    #why_us .bento-item {
+        border: 1px solid rgba(79, 70, 229, 0.08) !important;
+        transition: all 0.3s ease;
+    }
+    #why_us .bento-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(79, 70, 229, 0.1) !important;
+        border-color: rgba(79, 70, 229, 0.2) !important;
+    }
+
+    /* ===== FILTER BUTTONS ===== */
+    .filter-btn {
+        transition: all 0.25s ease !important;
+        font-weight: 600 !important;
+    }
+    .filter-btn.active {
+        box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3) !important;
+        transform: translateY(-2px);
+    }
+
+    /* ===== ACCORDION ===== */
+    .custom-accordion .accordion-button:not(.collapsed) {
+        background: linear-gradient(135deg, rgba(79, 70, 229, 0.06), rgba(6, 182, 212, 0.04)) !important;
+        color: var(--lp-primary) !important;
+        box-shadow: none !important;
+    }
+    .custom-accordion .accordion-button:focus {
+        box-shadow: none !important;
+    }
+    .custom-accordion .accordion-item {
+        border: 1px solid rgba(79, 70, 229, 0.08) !important;
+        transition: all 0.3s ease;
+    }
+    .custom-accordion .accordion-item:hover {
+        border-color: rgba(79, 70, 229, 0.2) !important;
+        box-shadow: 0 8px 24px rgba(79, 70, 229, 0.08) !important;
+    }
+
+    /* ===== FAQ SECTION ===== */
+    #faq {
+        background: linear-gradient(180deg, #f0f4ff 0%, #f8faff 100%) !important;
+    }
+
+    /* ===== HERO STATS FLOATING CARDS ===== */
+    .floating-stat-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px 24px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.8);
+        backdrop-filter: blur(10px);
+    }
+
+    /* ===== COURSE SECTION ===== */
+    #courses {
+        background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    #about {
+        background: #fff;
+    }
+
+    /* ===== BLOG SECTION ===== */
+    #blog .bento-item {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(79, 70, 229, 0.06) !important;
+    }
+    #blog .bento-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(79, 70, 229, 0.1) !important;
+    }
+
+    /* ===== SWIPER PAGINATION ===== */
+    .swiper-pagination-bullet-active {
+        background: var(--lp-primary) !important;
+        width: 24px !important;
+        border-radius: 4px !important;
+    }
+    .swiper-pagination-bullet {
+        background: rgba(79, 70, 229, 0.3) !important;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
         .bento-hero-grid {
             grid-template-columns: 1fr;
             grid-template-rows: auto;
         }
         .hero-main, .hero-stat-1, .hero-stat-2 { grid-column: span 1; }
+
+        .vibrant-course-image { height: 190px; }
+
+        #home h1.display-1 {
+            font-size: 2.6rem !important;
+            letter-spacing: -1px !important;
+        }
+        .floating-3d-card img {
+            height: 320px !important;
+        }
     }
 </style>
 @endpush
 
 @section('content')
 <!-- Ultra Hero 4.0 -->
-<section id="home" class="mesh-gradient-bg py-100 overflow-hidden" style="padding-top: 220px !important;">
+<section id="home" class="mesh-gradient-bg py-100 overflow-hidden" style="padding-top: 210px !important; background: linear-gradient(160deg, #f8faff 0%, #eef2ff 50%, #f0f9ff 100%) !important;">
     <div class="container position-relative" style="z-index: 10;">
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
@@ -172,6 +299,31 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="container position-relative" style="z-index: 10; margin-top: 60px;">
+        <div class="row g-3 justify-content-center" data-aos="fade-up" data-aos-delay="500">
+            @php
+                $stats = [
+                    ['icon' => 'fi-rr-users', 'value' => '12K+', 'label' => $is_arabic ? 'طالب نشط' : 'Active Students', 'color' => '#4f46e5'],
+                    ['icon' => 'fi-rr-book-open-cover', 'value' => '120+', 'label' => $is_arabic ? 'دورة تدريبية' : 'Courses', 'color' => '#06b6d4'],
+                    ['icon' => 'fi-rr-badge-check', 'value' => '98%', 'label' => $is_arabic ? 'معدل النجاح' : 'Success Rate', 'color' => '#10b981'],
+                    ['icon' => 'fi-rr-star', 'value' => '4.9★', 'label' => $is_arabic ? 'تقييم المنصة' : 'Platform Rating', 'color' => '#f59e0b'],
+                ];
+            @endphp
+            @foreach($stats as $stat)
+            <div class="col-6 col-md-3">
+                <div class="text-center p-4 rounded-4 bg-white shadow-sm border" style="border-color: rgba(79,70,229,0.08) !important;">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3" style="width:52px;height:52px;background:{{ $stat['color'] }}18;">
+                        <i class="{{ $stat['icon'] }} fs-4" style="color:{{ $stat['color'] }};"></i>
+                    </div>
+                    <h3 class="fw-900 mb-1" style="color:{{ $stat['color'] }}; font-size:1.8rem;">{{ $stat['value'] }}</h3>
+                    <p class="text-muted small mb-0 fw-semibold">{{ $stat['label'] }}</p>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -291,41 +443,42 @@
 </section>
 
 <!-- Why Choose Us -->
-<section id="why_us" class="py-100 bg-light py-5">
+<section id="why_us" class="py-100 py-5" style="background: linear-gradient(160deg, #eef2ff 0%, #f0f9ff 100%);">
     <div class="container py-5">
         <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 fw-800">{{ $is_arabic ? 'لماذا تختار منصتنا؟' : get_phrase('Why Choose Us') }}</h2>
+            <span class="vibrant-tag mb-3 d-inline-block">{{ $is_arabic ? 'مميزاتنا' : 'Why Us' }}</span>
+            <h2 class="display-5 fw-800 mt-2">{{ $is_arabic ? 'لماذا تختار منصتنا؟' : get_phrase('Why Choose Us') }}</h2>
             <p class="text-muted">{{ $is_arabic ? 'نلتزم بأعلى معايير الجودة والاحترافية، المستمدّة من الخبرات السويسرية في مجال التعليم الإلكتروني.' : get_phrase('Quality education managed from Switzerland') }}</p>
         </div>
-        
+
         <div class="row g-4">
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="bento-item h-100 p-4 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
-                    <div class="category-circle mb-4 mx-auto" style="width: 80px; height: 80px; background: rgba(79, 70, 229, 0.1) !important;">
+                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
+                    <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(79,70,229,0.15), rgba(79,70,229,0.05));">
                         <i class="fi-rr-user-md text-vibrant-primary fs-2"></i>
                     </div>
                     <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'إدارة سويسرية ومدربون محترفون' : 'Swiss Management & Expert Instructors' }}</h4>
-                    <p class="text-muted text-center flex-grow-1 mb-0">{{ $is_arabic ? 'فريق من المدربين ذوي خبرة عملية طويلة يقدمون الإرشاد والتوجيه خطوة بخطوة خلال جميع مراحل التعلم بإدارة سويسرية موثوقة.' : 'Expert instructors providing step-by-step guidance.' }}</p>
+                    <p class="text-muted text-center flex-grow-1 mb-0 lh-lg">{{ $is_arabic ? 'فريق من المدربين ذوي خبرة عملية طويلة يقدمون الإرشاد والتوجيه خطوة بخطوة خلال جميع مراحل التعلم بإدارة سويسرية موثوقة.' : 'Expert instructors providing step-by-step guidance.' }}</p>
                 </div>
             </div>
-            
+
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="bento-item h-100 p-4 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
-                    <div class="category-circle mb-4 mx-auto" style="width: 80px; height: 80px; background: rgba(6, 182, 212, 0.1) !important;">
-                        <i class="fi-rr-computer text-info fs-2"></i>
+                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: linear-gradient(135deg, #4f46e5, #7c3aed) !important; color: #fff;">
+                    <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: rgba(255,255,255,0.2);">
+                        <i class="fi-rr-computer text-white fs-2"></i>
                     </div>
-                    <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'تعلم مرن ومجتمع داعم' : 'Flexible Learning & Support' }}</h4>
-                    <p class="text-muted text-center flex-grow-1 mb-0">{{ $is_arabic ? 'اختر ما يناسبك من التعليم عن بعد أو الحضور المباشر، وكن جزءاً من منتديات تفاعلية تجمع المتعلمين لتبادل الخبرات.' : 'Choose online or in-person learning and join a supportive community.' }}</p>
+                    <h4 class="fw-bold mb-3 text-center text-white">{{ $is_arabic ? 'تعلم مرن ومجتمع داعم' : 'Flexible Learning & Support' }}</h4>
+                    <p class="text-center flex-grow-1 mb-0 lh-lg" style="color: rgba(255,255,255,0.8);">{{ $is_arabic ? 'اختر ما يناسبك من التعليم عن بعد أو الحضور المباشر، وكن جزءاً من منتديات تفاعلية تجمع المتعلمين لتبادل الخبرات.' : 'Choose online or in-person learning and join a supportive community.' }}</p>
                 </div>
             </div>
-            
+
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="bento-item h-100 p-4 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
-                    <div class="category-circle mb-4 mx-auto" style="width: 80px; height: 80px; background: rgba(245, 158, 11, 0.1) !important;">
+                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
+                    <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05));">
                         <i class="fi-rr-badge-check text-warning fs-2"></i>
                     </div>
                     <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'شهادات إتمام معتمدة' : 'Certified Completion' }}</h4>
-                    <p class="text-muted text-center flex-grow-1 mb-0">{{ $is_arabic ? 'شهادات رقمية معترف بها تقدّم للمتدربين عند إكمال الدورات بنجاح، لتعزيز السيرة الذاتية والظهور المهني على الإنترنت.' : 'Recognized digital certificates to boost your resume and professional presence.' }}</p>
+                    <p class="text-muted text-center flex-grow-1 mb-0 lh-lg">{{ $is_arabic ? 'شهادات رقمية معترف بها تقدّم للمتدربين عند إكمال الدورات بنجاح، لتعزيز السيرة الذاتية والظهور المهني على الإنترنت.' : 'Recognized digital certificates to boost your resume and professional presence.' }}</p>
                 </div>
             </div>
         </div>
@@ -373,17 +526,27 @@
         </div>
     </div>
 </section>
-        
+
+<!-- Blog / Why Us Section -->
+<section id="blog" class="py-100 py-5" style="background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="vibrant-tag mb-3 d-inline-block">{{ $is_arabic ? 'لماذا تختار منصتنا؟' : get_phrase('Latest from our Blog') }}</span>
+            <h2 class="display-5 fw-800 mt-2">{{ $is_arabic ? ($ar['Latest from our Blog'] ?? get_phrase('Latest from our Blog')) : get_phrase('Latest from our Blog') }}</h2>
+            <p class="text-muted">{{ $is_arabic ? ($ar['Stay updated with the latest trends in education and technology'] ?? get_phrase('Stay updated with the latest trends in education and technology')) : get_phrase('Stay updated with the latest trends in education and technology') }}</p>
+        </div>
         <div class="row g-4">
             @foreach (App\Models\Blog::where('status', 1)->take(3)->get() as $blog)
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 150 }}">
-                    <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important;">
-                        <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 200px; object-fit: cover; border-radius: 20px;" alt="{{ $blog->title }}">
-                        <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? get_phrase(App\Models\Category::find($blog->category_id)->title) : ($is_arabic ? ($ar['General'] ?? get_phrase('General')) : get_phrase('General')) }}</span>
-                        <h4 class="fw-bold mb-3">
-                            <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($blog->title, 50) }}</a>
-                        </h4>
-                        <p class="text-muted small mb-0">{{ Str::limit(strip_tags($blog->description), 100) }}</p>
+                    <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important; background: #fff;">
+                        <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 210px; object-fit: cover; border-radius: 22px;" alt="{{ $blog->title }}">
+                        <div class="px-2 pb-2">
+                            <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? get_phrase(App\Models\Category::find($blog->category_id)->title) : ($is_arabic ? ($ar['General'] ?? get_phrase('General')) : get_phrase('General')) }}</span>
+                            <h4 class="fw-bold mb-3">
+                                <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($blog->title, 50) }}</a>
+                            </h4>
+                            <p class="text-muted small mb-0 lh-lg">{{ Str::limit(strip_tags($blog->description), 110) }}</p>
+                        </div>
                     </div>
                 </div>
             @endforeach

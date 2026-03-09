@@ -8077,6 +8077,41 @@ body {
         width: 100% !important;
         top: 0 !important;
         border-radius: 0 !important;
-        padding: 12px 20px !important;
+        padding: 10px 18px !important;
+        background: rgba(255, 255, 255, 0.97) !important;
+        backdrop-filter: blur(20px) !important;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
+    }
+
+    /* Always show logo on mobile regardless of scroll */
+    .vibrant-header .light-logo {
+        display: block !important;
+    }
+    .vibrant-header .dark-logo {
+        display: none !important;
+    }
+
+    /* Mobile hamburger button style */
+    .mobile-menu-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px !important;
+        background: rgba(79, 70, 229, 0.1) !important;
+        border: none !important;
+        color: var(--vibrant-primary) !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;
+        transition: all 0.3s ease !important;
+    }
+    .mobile-menu-btn:hover, .mobile-menu-btn:active {
+        background: var(--vibrant-primary) !important;
+        color: #fff !important;
+    }
+
+    /* Shrink logo on mobile */
+    .vibrant-header .logo-area img {
+        max-height: 48px !important;
     }
 }

@@ -22,15 +22,15 @@
     </nav>
 
     <div class="action-area d-flex align-items-center gap-3">
-        <!-- Language Switcher -->
-        <div class="dropdown">
+        <!-- Language Switcher - Desktop only -->
+        <div class="dropdown d-none d-lg-block">
             <button class="btn btn-light rounded-pill px-3 py-2 border-0 shadow-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown">
                 <i class="fa-solid fa-globe me-1"></i> {{ get_phrase(ucfirst(session('language') ?? get_settings('language'))) }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2 mt-3 animate-fade-up" style="border-radius: 20px;">
                 @foreach (DB::table('languages')->get() as $language)
                     <li>
-                        <a class="dropdown-item rounded-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'active bg-vibrant-primary text-white' : '' }}" 
+                        <a class="dropdown-item rounded-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'active bg-vibrant-primary text-white' : '' }}"
                            href="{{ route('select.lng', ['language' => $language->name]) }}">
                             {{ ucfirst($language->name) }}
                         </a>
@@ -40,7 +40,8 @@
         </div>
 
         @auth
-            <div class="dropdown">
+            <!-- User avatar - Desktop only -->
+            <div class="dropdown d-none d-lg-block">
                 <button class="btn p-0 border-0 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ get_phrase('User Menu') }}">
                     <img src="{{ get_image(auth()->user()->photo) }}" alt="User" class="rounded-circle" style="width: 40px; height: 40px; border: 2px solid var(--vibrant-primary);">
                 </button>
@@ -56,22 +57,24 @@
                 </ul>
             </div>
         @else
-            <a href="{{ route('login') }}" class="nav-link-vibrant d-none d-sm-block">{{ get_phrase('Login') }}</a>
-            <a href="{{ route('register.form') }}" class="btn-vibrant">{{ $is_arabic ? 'انضم الآن' : get_phrase('Join Free') }}</a>
+            <!-- Auth buttons - Desktop only -->
+            <a href="{{ route('login') }}" class="nav-link-vibrant d-none d-lg-block">{{ get_phrase('Login') }}</a>
+            <a href="{{ route('register.form') }}" class="btn-vibrant d-none d-lg-inline-block">{{ $is_arabic ? 'انضم الآن' : get_phrase('Join Free') }}</a>
         @endauth
-        
-        <button class="btn btn-light rounded-circle p-2 d-lg-none shadow-sm shadow-hover transition-all" type="button" data-bs-toggle="offcanvas" data-bs-target="#vibrantMobileNav" aria-controls="vibrantMobileNav" aria-label="{{ $is_arabic ? 'القائمة' : get_phrase('Toggle Menu') }}" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
-            <i class="fa-solid fa-bars-staggered fs-5 text-dark"></i>
+
+        <!-- Mobile Hamburger -->
+        <button class="btn mobile-menu-btn d-lg-none shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#vibrantMobileNav" aria-controls="vibrantMobileNav" aria-label="{{ $is_arabic ? 'القائمة' : get_phrase('Toggle Menu') }}">
+            <i class="fa-solid fa-bars-staggered fs-5"></i>
         </button>
     </div>
 </header>
 
 <!-- Vibrant Mobile Nav -->
-<div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="vibrantMobileNav" style="border-radius: 30px 0 0 30px; width: 340px;">
+<div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="vibrantMobileNav" style="border-radius: 28px 0 0 28px; width: 320px;">
     <!-- Offcanvas Header -->
-    <div class="offcanvas-header p-4 border-bottom border-light d-flex align-items-center justify-content-between" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
-        <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 55px;">
-        <button type="button" class="btn-close shadow-none p-3 bg-light rounded-circle" data-bs-dismiss="offcanvas" aria-label="Close" style="opacity: 1; transition: all 0.3s ease;"></button>
+    <div class="offcanvas-header p-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); min-height: 80px;">
+        <img src="{{ get_image(get_frontend_settings('light_logo')) }}" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 50px; filter: brightness(0) invert(1);">
+        <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close" style="opacity: 0.85; transition: all 0.3s ease; background-color: rgba(255,255,255,0.15); border-radius: 50%; padding: 10px; filter: invert(1);"></button>
     </div>
 
     <!-- Offcanvas Body -->
@@ -174,26 +177,50 @@
 </div>
 
 <style>
-    /* Mobile Nav Enhancements */
+    /* ===== Mobile Offcanvas Sidebar ===== */
+    #vibrantMobileNav {
+        background: #fff !important;
+    }
+    #vibrantMobileNav .offcanvas-header {
+        background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+        border-bottom: none !important;
+    }
+    #vibrantMobileNav .offcanvas-header img {
+        filter: brightness(0) invert(1) !important;
+    }
+    #vibrantMobileNav .btn-close {
+        filter: invert(1) !important;
+        opacity: 0.8 !important;
+        background-color: rgba(255,255,255,0.15) !important;
+        border-radius: 50% !important;
+        transition: all 0.3s ease !important;
+    }
     #vibrantMobileNav .btn-close:hover {
-        background-color: #e2e8f0 !important;
+        background-color: rgba(255,255,255,0.3) !important;
         transform: rotate(90deg);
+        opacity: 1 !important;
     }
     #vibrantMobileNav .hover-bg-light:hover {
-        background-color: #f8fafc !important;
-        border-color: #cbd5e1 !important;
+        background-color: #f1f5ff !important;
+        border-color: rgba(79,70,229,0.3) !important;
     }
     #vibrantMobileNav .hover-text-primary:hover {
         color: var(--vibrant-primary) !important;
         transform: translateY(-2px);
     }
-    #vibrantMobileNav .mobile-nav-links a:hover {
-        background: #f8fafc !important;
-        border-color: #e2e8f0 !important;
+    #vibrantMobileNav .mobile-nav-links a {
+        transition: all 0.25s ease !important;
+    }
+    #vibrantMobileNav .mobile-nav-links a:hover,
+    #vibrantMobileNav .mobile-nav-links a.active-link {
+        background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(124,58,237,0.05)) !important;
+        border-color: rgba(79,70,229,0.2) !important;
         color: var(--vibrant-primary) !important;
     }
     #vibrantMobileNav .mobile-nav-links a:hover .icon-box {
         background: var(--vibrant-primary) !important;
+        transform: rotate(-5deg) scale(1.1);
+        transition: all 0.25s ease;
     }
     #vibrantMobileNav .mobile-nav-links a:hover .icon-box i {
         color: white !important;
