@@ -48,10 +48,8 @@
                 </h6>
                 <ul style="list-style:none;padding:0;margin:0;">
                     @foreach([
-                        [route('courses'),               $is_arabic ? 'الدورات'        : get_phrase('Courses')],
-                        [route('blogs'),                 $is_arabic ? 'المدونة'        : get_phrase('Blog')],
-                        [route('knowledge.base.topicks'),$is_arabic ? 'قاعدة المعرفة' : get_phrase('Knowledge Base')],
-                        [route('faq'),                   $is_arabic ? 'الأسئلة الشائعة': get_phrase('FAQ')],
+                        [route('courses'), $is_arabic ? 'الدورات' : get_phrase('Courses')],
+                        [route('blogs'),   $is_arabic ? 'المدونة' : get_phrase('Blog')],
                     ] as [$url, $label])
                     <li style="margin-bottom:14px;">
                         <a href="{{ $url }}"

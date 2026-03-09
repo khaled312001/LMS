@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:swissbridgeacademy.com)",
+      "Bash(php artisan:*)",
+      "Bash(mysql:*)",
+      "Bash(where:*)",
+      "Bash(C:/tools/mysql/current/bin/mysql:*)",
+      "Bash(C:/xampp/mysql/bin/mysql:*)"
+    ]
+  }
+}
