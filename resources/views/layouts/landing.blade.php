@@ -82,7 +82,7 @@
     <script src="{{ asset('assets/frontend/default/js/plyr.js') }}"></script>
     
     <!-- Main Js -->
-    <script src="{{ asset('assets/frontend/default/js/script.js') }}"></script>
+    <script src="{{ asset('assets/frontend/default/js/script.js') }}?v=1.1"></script>
 
     @include('frontend.default.modal')
     @include('frontend.default.toaster')
