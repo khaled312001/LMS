@@ -44,6 +44,7 @@ Route::controller(NewsletterController::class)->group(function () {
 Route::controller(ContactController::class)->group(function () {
     Route::get('contact-us/', 'index')->name('contact.us');
     Route::post('contact/', 'store')->name('contact.store');
+    Route::post('instructor-join/', 'instructor_store')->name('instructor.store');
 });
 
 // about us

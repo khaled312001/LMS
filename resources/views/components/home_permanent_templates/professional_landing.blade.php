@@ -262,6 +262,7 @@
                 <div class="d-flex flex-wrap gap-4 align-items-center" data-aos="fade-up" data-aos-delay="300">
                     <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ $is_arabic ? ($ar['Explore Courses'] ?? get_phrase('Explore Courses')) : get_phrase('Explore Courses') }}</a>
                     <a href="{{ route('contact.us') }}" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ $is_arabic ? 'تواصل معنا' : get_phrase('Contact Us') }}</a>
+                    <a href="#instructor_join" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold ms-lg-2 mt-3 mt-lg-0">{{ $is_arabic ? 'انضم كمدرب' : 'Join as Instructor' }}</a>
                 </div>
                 <!-- Logo Cloud / Social Proof -->
                 <div class="mt-5 pt-2" data-aos="fade-up" data-aos-delay="400">
@@ -665,6 +666,97 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instructor Join Section -->
+<section id="instructor_join" class="py-100" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); position: relative; overflow: hidden;">
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-white-10" style="background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.05) 0%, transparent 50%); z-index: 1;"></div>
+    
+    <div class="container position-relative py-5" style="z-index: 2;">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5" data-aos="fade-right">
+                <span class="vibrant-tag mb-4 d-inline-block">{{ $is_arabic ? 'انضم كمدرب' : 'Join as Instructor' }}</span>
+                <h2 class="display-4 fw-900 mb-4" style="color: #0f172a; letter-spacing: -1.5px;">
+                    {{ $is_arabic ? 'شارك خبرتك وابْنِ' : 'Share Your Expertise &' }} <span class="text-vibrant-gradient">{{ $is_arabic ? 'مستقبلهم' : 'Build Their Future' }}</span>
+                </h2>
+                <p class="fs-5 text-muted mb-5 lh-lg">
+                    {{ $is_arabic ? 'تبحث Swiss Bridge Academy دائماً عن النخبة من المدربين لنقل رسالتنا المبنية على التعليم العملي الجاد. إذا كنت تمتلك الخبرة والشغف، أرسل سيرتك الذاتية وانضم إلينا.' : 'Swiss Bridge Academy is always looking for top trainers to carry our mission of practical and serious education. If you have the expertise and passion, send your CV and join us.' }}
+                </p>
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="bg-vibrant-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 50px; height: 50px;">
+                        <i class="fa-solid fa-chalkboard-user fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">{{ $is_arabic ? 'بيئة احترافية' : 'Professional Environment' }}</h5>
+                        <p class="text-muted small mb-0">{{ $is_arabic ? 'إدارة سويسرية وحلول تقنية متكاملة.' : 'Swiss management and integrated tech solutions.' }}</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-vibrant-accent text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 50px; height: 50px;">
+                        <i class="fa-solid fa-users fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">{{ $is_arabic ? 'مجتمع طلابي شغوف' : 'Passionate Student Community' }}</h5>
+                        <p class="text-muted small mb-0">{{ $is_arabic ? 'تفاعل مع طلاب يبحثون عن مهارات حقيقية.' : 'Interact with students looking for real skills.' }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
+                <div class="card border-0 shadow-xl rounded-5 overflow-hidden" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px);">
+                    <div class="card-body p-4 p-md-5">
+                        <form action="{{ route('instructor.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation">
+                            @csrf
+                            <h3 class="fw-bold mb-4">{{ $is_arabic ? 'نموذج تقديم المدربين' : 'Instructor Application Form' }}</h3>
+                            
+                            @if(Session::has('success'))
+                                <div class="alert alert-success rounded-4 fw-bold py-3"><i class="fa-solid fa-check-circle me-2"></i>{{ Session::get('success') }}</div>
+                            @endif
+                            @if(Session::has('error'))
+                                <div class="alert alert-danger rounded-4 fw-bold py-3"><i class="fa-solid fa-circle-exclamation me-2"></i>{{ Session::get('error') }}</div>
+                            @endif
+                            
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="form-floating text-dark">
+                                        <input type="text" class="form-control rounded-4 bg-light border-0 px-4" id="joinName" name="name" placeholder="John Doe" required style="height: 60px;">
+                                        <label for="joinName" class="text-muted">{{ $is_arabic ? 'الاسم الثلاثي' : 'Full Name' }} <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating text-dark">
+                                        <input type="email" class="form-control rounded-4 bg-light border-0 px-4" id="joinEmail" name="email" placeholder="name@example.com" required style="height: 60px;">
+                                        <label for="joinEmail" class="text-muted">{{ $is_arabic ? 'البريد الإلكتروني' : 'Email Address' }} <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-floating text-dark">
+                                        <input type="tel" class="form-control rounded-4 bg-light border-0 px-4" id="joinPhone" name="phone" placeholder="+123456789" required style="height: 60px;">
+                                        <label for="joinPhone" class="text-muted">{{ $is_arabic ? 'رقم الواتساب' : 'WhatsApp Number' }} <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-floating text-dark">
+                                        <textarea class="form-control rounded-4 bg-light border-0 px-4 py-3" id="joinMessage" name="message" placeholder="Cover Letter" style="height: 120px;" required></textarea>
+                                        <label for="joinMessage" class="text-muted">{{ $is_arabic ? 'رسالة تعريفية / مجالاتك' : 'Cover Letter / Your Domains' }} <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="fw-bold mb-2 text-dark">{{ $is_arabic ? 'المدونة الشخصية أو السيرة الذاتية (CV)' : 'Resume / CV (PDF, DOC)' }} <span class="text-danger">*</span></label>
+                                    <input class="form-control bg-light border-0 rounded-4" type="file" name="cv" accept=".pdf,.doc,.docx" required style="padding: 15px 20px;">
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-vibrant w-100 rounded-pill py-3 fw-bold fs-5 shadow-lg d-flex align-items-center justify-content-center gap-2">
+                                        {{ $is_arabic ? 'إرسال الطلب' : 'Submit Application' }} <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
