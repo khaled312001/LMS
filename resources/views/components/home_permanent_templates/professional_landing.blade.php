@@ -268,7 +268,7 @@
                 <!-- Logo Cloud / Social Proof -->
                 <div class="mt-5 pt-2" data-aos="fade-up" data-aos-delay="400">
                     <p class="small fw-700 text-uppercase mb-3" style="letter-spacing: 3px; color: #94a3b8;">{{ $is_arabic ? ($ar['Trusted By'] ?? get_phrase('Trusted By')) : get_phrase('Trusted By') }}</p>
-                    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; {{ $is_arabic ? 'justify-content:flex-start;direction:rtl;' : '' }}">
                         @foreach([
                             [$is_arabic ? 'تعلم عملي وتطبيقي' : 'Practical Learning', '#4f46e5'],
                             [$is_arabic ? 'عن بُعد أو حضوريًا' : 'Remote or On-site', '#06b6d4'],
@@ -292,7 +292,7 @@
                     </div>
                     
                     <!-- Floating Achievement Cards -->
-                    <div class="position-absolute animate-float shadow-lg p-4 bg-white rounded-4 border-0" data-aos="fade-left" data-aos-delay="600" style="top: -40px; right: -20px; width: 220px; z-index: 5;">
+                    <div class="position-absolute animate-float shadow-lg p-4 bg-white rounded-4 border-0" data-aos="fade-left" data-aos-delay="600" style="top: -40px; {{ $is_arabic ? 'left: -20px;' : 'right: -20px;' }} width: 220px; z-index: 5;">
                         <div class="d-flex align-items-center gap-3 mb-2">
                             <div class="bg-success rounded-circle" style="width: 12px; height: 12px;"></div>
                             <span class="small fw-bold">{{ $is_arabic ? ($ar['Live Learners'] ?? get_phrase('Live Learners')) : get_phrase('Live Learners') }}</span>
@@ -300,7 +300,7 @@
                         <h4 class="fw-900 mb-0">12,482+</h4>
                     </div>
                     
-                    <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" data-aos="fade-right" data-aos-delay="800" style="bottom: 40px; left: -40px; width: 200px; z-index: 5; animation-delay: 1.5s;">
+                    <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" data-aos="fade-right" data-aos-delay="800" style="bottom: 40px; {{ $is_arabic ? 'right: -40px;' : 'left: -40px;' }} width: 200px; z-index: 5; animation-delay: 1.5s;">
                         <div class="fs-1 mb-2">🏆</div>
                         <h5 class="fw-bold mb-1">{{ $is_arabic ? ($ar['Top Rated'] ?? get_phrase('Top Rated')) : get_phrase('Top Rated') }}</h5>
                         <p class="small mb-0 opacity-75">{{ $is_arabic ? ($ar['#1 LMS Choice 2026'] ?? get_phrase('#1 LMS Choice 2026')) : get_phrase('#1 LMS Choice 2026') }}</p>
@@ -416,7 +416,10 @@
 
 
         <!-- Course Swiper -->
-        <div class="swiper course-swiper pb-5 px-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="position-relative" data-aos="fade-up" data-aos-delay="200">
+        <button class="course-prev-btn" style="position:absolute;top:50%;left:-20px;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;background:#fff;border:none;box-shadow:0 4px 20px rgba(0,0,0,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--vibrant-primary);font-size:1.2rem;transition:all 0.3s;"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="course-next-btn" style="position:absolute;top:50%;right:-20px;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;background:#fff;border:none;box-shadow:0 4px 20px rgba(0,0,0,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--vibrant-primary);font-size:1.2rem;transition:all 0.3s;"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="swiper course-swiper pb-5 px-3">
             <div class="swiper-wrapper">
                 @foreach ($all_courses as $row)
                     @php
@@ -462,6 +465,7 @@
             </div>
             <!-- Pagination inside container (to center dots) -->
             <div class="swiper-pagination mt-4 position-relative" style="bottom: 0;"></div>
+        </div>
         </div>
     </div>
 </section>
@@ -589,10 +593,10 @@
                     </h2>
                     <p class="fs-5 opacity-80 mb-4 pe-lg-5 fw-medium">{{ $is_arabic ? 'بعد إتمام البرنامج بنجاح، نحرص على مساعدة الطالب في الاستعداد بشكل أفضل للمرحلة التالية، من خلال خدمات دعم مهني تساعده على تقديم نفسه بصورة أكثر احترافية.' : 'After completing the program successfully, we help you prepare for the next step professionally.' }}</p>
                     
-                    <ul class="list-unstyled fa-ul mb-5 opacity-90 fs-6 lh-lg ms-4">
-                        <li><span class="fa-li"><i class="fa-solid fa-check text-vibrant-accent"></i></span>{{ $is_arabic ? 'المساعدة في إعداد سيرة ذاتية احترافية' : 'CV Preparation' }}</li>
-                        <li><span class="fa-li"><i class="fa-solid fa-check text-vibrant-accent"></i></span>{{ $is_arabic ? 'الدعم في التحضير لمقابلات العمل' : 'Interview Preparation' }}</li>
-                        <li><span class="fa-li"><i class="fa-solid fa-check text-vibrant-accent"></i></span>{{ $is_arabic ? 'تحسين الحضور المهني على منصات مثل LinkedIn وBehance' : 'Professional Presence' }}</li>
+                    <ul class="list-unstyled mb-5 opacity-90 fs-6 lh-lg" style="{{ $is_arabic ? 'padding-right: 0;' : 'padding-left: 0;' }}">
+                        <li class="d-flex align-items-start gap-3 mb-3"><i class="fa-solid fa-check text-vibrant-accent mt-1 flex-shrink-0"></i><span>{{ $is_arabic ? 'المساعدة في إعداد سيرة ذاتية احترافية' : 'CV Preparation' }}</span></li>
+                        <li class="d-flex align-items-start gap-3 mb-3"><i class="fa-solid fa-check text-vibrant-accent mt-1 flex-shrink-0"></i><span>{{ $is_arabic ? 'الدعم في التحضير لمقابلات العمل' : 'Interview Preparation' }}</span></li>
+                        <li class="d-flex align-items-start gap-3 mb-3"><i class="fa-solid fa-check text-vibrant-accent mt-1 flex-shrink-0"></i><span>{{ $is_arabic ? 'تحسين الحضور المهني على منصات مثل LinkedIn وBehance' : 'Professional Presence' }}</span></li>
                     </ul>
                     
                         <div class="d-flex flex-wrap gap-4 align-items-center">
@@ -613,10 +617,10 @@
 
 <!-- Student Join Request Modal -->
 <div class="modal fade" id="joinRequestModal" tabindex="-1" aria-labelledby="joinRequestModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 shadow-2xl overflow-hidden" style="border-radius: 40px !important; background: #fff;">
-            <div class="modal-header border-0 p-4 pb-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 560px;">
+        <div class="modal-content border-0 shadow-2xl overflow-hidden" style="border-radius: 24px !important; background: #fff;">
+            <div class="modal-header border-0 p-3 pb-0 d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-light rounded-circle d-flex align-items-center justify-content-center" data-bs-dismiss="modal" aria-label="Close" style="width:36px;height:36px;z-index:10;"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body p-4 p-md-5 pt-0">
                 <div class="text-center mb-5">
@@ -805,7 +809,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="card-body p-4 p-md-5">
                         <form action="{{ route('instructor.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation">
                             @csrf
-                            <h3 class="fw-bold mb-4">{{ $is_arabic ? 'نموذج تقديم المدربين' : 'Instructor Application Form' }}</h3>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h3 class="fw-bold mb-0">{{ $is_arabic ? 'نموذج تقديم المدربين' : 'Instructor Application Form' }}</h3>
+                                <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="btn btn-sm btn-light rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
+                            </div>
                             
                             @if(Session::has('success'))
                                 <div class="alert alert-success rounded-4 fw-bold py-3"><i class="fa-solid fa-check-circle me-2"></i>{{ Session::get('success') }}</div>
@@ -881,6 +888,10 @@ document.addEventListener('DOMContentLoaded', function() {
             autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: ".course-next-btn",
+                prevEl: ".course-prev-btn",
             },
             pagination: {
                 el: ".swiper-pagination",

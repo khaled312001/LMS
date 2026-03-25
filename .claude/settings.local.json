@@ -8,7 +8,9 @@
       "Bash(C:/tools/mysql/current/bin/mysql:*)",
       "Bash(C:/xampp/mysql/bin/mysql:*)",
       "Bash(find /f/LMS -maxdepth 2 -name *.env* -o -name config.php -o -name .env)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(find f:/LMS/resources/views/frontend/default -name header* -o -name navbar* -o -name layout* -o -name master*)",
+      "Bash(grep -v \"^$\")"
     ]
   }
 }

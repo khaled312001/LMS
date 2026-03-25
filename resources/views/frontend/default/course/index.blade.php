@@ -124,12 +124,7 @@
     <div class="course-listing-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-4">
-                    <div class="filter-card">
-                        @include('frontend.default.course.filter')
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-8">
+                <div class="col-lg-12">
                     <div class="row g-4">
                         @foreach ($courses as $course)
                             @include('frontend.default.course.course_' . $layout)

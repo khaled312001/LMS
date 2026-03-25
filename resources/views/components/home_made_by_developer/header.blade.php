@@ -84,7 +84,7 @@
         <div class="mobile-nav-links mt-3">
             <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
                 <li>
-                    <a href="{{ route('home') }}#home" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                    <a href="{{ route('home') }}" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #f8fafc; border: 1px solid #e2e8f0;">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(79, 70, 229, 0.1);">
                             <i class="fi-rr-home text-primary fs-5"></i>
                         </div>
@@ -92,7 +92,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('home') }}#courses" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                    <a href="{{ route('courses') }}" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(6, 182, 212, 0.1);">
                             <i class="fi-rr-book-alt text-info fs-5"></i>
                         </div>
@@ -108,7 +108,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('home') }}#blog" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                    <a href="{{ route('blogs') }}" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1);">
                             <i class="fi-rr-edit text-success fs-5"></i>
                         </div>
@@ -224,6 +224,18 @@
     }
     #vibrantMobileNav .mobile-nav-links a:hover .icon-box i {
         color: white !important;
+    }
+    /* Hide join button on mobile - btn-vibrant overrides Bootstrap d-none */
+    @media (max-width: 991px) {
+        .vibrant-header .btn-vibrant,
+        .vibrant-header .btn-outline-vibrant {
+            display: none !important;
+        }
+        .vibrant-header {
+            left: 0 !important;
+            transform: none !important;
+            width: 100% !important;
+        }
     }
     .shadow-hover:hover {
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
