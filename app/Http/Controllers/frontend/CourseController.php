@@ -107,6 +107,45 @@ class CourseController extends Controller
         $course = Course::where('slug', $slug)->where('status', 'active');
         if ($course->exists()) {
             $course_details              = $course->first();
+
+            // Smart Language Redirect
+            $current_lang = strtolower(session('language') ?? get_settings('language'));
+            if ($current_lang === 'english' && strtolower($course_details->language) === 'arabic') {
+                $englishTitleMap = [
+                    'تطوير الواجهات الأمامية' => 'Front-End Web Development',
+                    'تطوير الويب المتكامل Full Stack' => 'Full Stack Web Development',
+                    'تطوير التطبيقات المحمولة' => 'Mobile App Development',
+                    'التسويق باستخدام أدوات الذكاء الاصطناعي' => 'AI-Powered Digital Marketing',
+                    'التصميم باستخدام أدوات الذكاء الاصطناعي' => 'AI-Powered Design',
+                    'دورة المبيعات' => 'Sales Mastery',
+                    'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة' => 'Learning Programming with Modern AI Tools'
+                ];
+                
+                if (isset($englishTitleMap[$course_details->title])) {
+                    $englishCourse = Course::where('title', $englishTitleMap[$course_details->title])->where('language', 'english')->first();
+                    if ($englishCourse) {
+                        return redirect()->route('course.details', $englishCourse->slug);
+                    }
+                }
+            } elseif ($current_lang === 'arabic' && strtolower($course_details->language) === 'english') {
+                $arabicTitleMap = [
+                    'Front-End Web Development' => 'تطوير الواجهات الأمامية',
+                    'Full Stack Web Development' => 'تطوير الويب المتكامل Full Stack',
+                    'Mobile App Development' => 'تطوير التطبيقات المحمولة',
+                    'AI-Powered Digital Marketing' => 'التسويق باستخدام أدوات الذكاء الاصطناعي',
+                    'AI-Powered Design' => 'التصميم باستخدام أدوات الذكاء الاصطناعي',
+                    'Sales Mastery' => 'دورة المبيعات',
+                    'Learning Programming with Modern AI Tools' => 'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة'
+                ];
+                
+                if (isset($arabicTitleMap[$course_details->title])) {
+                    $arabicCourse = Course::where('title', $arabicTitleMap[$course_details->title])->where('language', 'arabic')->first();
+                    if ($arabicCourse) {
+                        return redirect()->route('course.details', $arabicCourse->slug);
+                    }
+                }
+            }
+
             $page_data['course_details'] = $course_details;
             $page_data['sections']       = Section::where('course_id', $course_details->id)->orderBy('sort')->get() ?? collect([]);
             $page_data['total_lesson']   = Lesson::where('course_id', $course_details->id)->count();
