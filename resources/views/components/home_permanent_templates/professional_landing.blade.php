@@ -613,28 +613,40 @@
                     @php
                         $faqs = [
                             [
-                                'q' => 'ما هي طرق التعلم المتاحة؟',
-                                'a' => 'يمكنك اختيار بين التعلم عن بُعد أو الحضور الشخصي في المركز، بحسب البرنامج المتاح وما يناسب احتياجاتك.'
+                                'q_ar' => 'ما هي طرق التعلم المتاحة؟',
+                                'a_ar' => 'يمكنك اختيار بين التعلم عن بُعد أو الحضور الشخصي في المركز، بحسب البرنامج المتاح وما يناسب احتياجاتك.',
+                                'q_en' => 'What are the available learning methods?',
+                                'a_en' => 'You can choose between remote online learning or attending in-person at our center, depending on the available programs and your needs.'
                             ],
                             [
-                                'q' => 'هل يتم التدريس باللغة العربية فقط؟',
-                                'a' => 'نعتمد أسلوب تدريس يجمع بين العربية والإنجليزية لتسهيل الفهم، وفي الوقت نفسه مساعدة الطالب على التعرف على المصطلحات المستخدمة في المجال.'
+                                'q_ar' => 'هل يتم التدريس باللغة العربية فقط؟',
+                                'a_ar' => 'نعتمد أسلوب تدريس يجمع بين العربية والإنجليزية لتسهيل الفهم، وفي الوقت نفسه مساعدة الطالب على التعرف على المصطلحات المستخدمة في المجال.',
+                                'q_en' => 'Is the teaching only in Arabic?',
+                                'a_en' => 'We adopt a teaching style that blends Arabic and English to facilitate understanding while helping students learn industry-standard terminology.'
                             ],
                             [
-                                'q' => 'هل أحتاج إلى خبرة سابقة للتسجيل؟',
-                                'a' => 'ليس بالضرورة. لدينا برامج مناسبة لمستويات مختلفة، ويتم تحديد البداية المناسبة من خلال اختبار المستوى والمقابلة.'
+                                'q_ar' => 'هل أحتاج إلى خبرة سابقة للتسجيل؟',
+                                'a_ar' => 'ليس بالضرورة. لدينا برامج مناسبة لمستويات مختلفة، ويتم تحديد البداية المناسبة من خلال اختبار المستوى والمقابلة.',
+                                'q_en' => 'Do I need prior experience to register?',
+                                'a_en' => 'Not necessarily. We have programs suitable for different levels, and the right starting point is determined through a placement test and interview.'
                             ],
                             [
-                                'q' => 'ماذا يحدث بعد التخرج؟',
-                                'a' => 'نوفّر دعمًا يساعد الطالب على الاستعداد بشكل أفضل للمرحلة التالية، مثل المساعدة في السيرة الذاتية، مقابلات العمل، والحضور المهني الرقمي.'
+                                'q_ar' => 'ماذا يحدث بعد التخرج؟',
+                                'a_ar' => 'نوفّر دعمًا يساعد الطالب على الاستعداد بشكل أفضل للمرحلة التالية، مثل المساعدة في السيرة الذاتية، مقابلات العمل، والحضور المهني الرقمي.',
+                                'q_en' => 'What happens after graduation?',
+                                'a_en' => 'We provide support to better prepare students for their next steps, including help with their resumes, job interviews, and digital professional presence.'
                             ],
                             [
-                                'q' => 'كيف تتم عملية الانضمام؟',
-                                'a' => 'تتم من خلال طلب انضمام، اختبار مستوى، مقابلة، ثم الدفع والتسجيل.'
+                                'q_ar' => 'كيف تتم عملية الانضمام؟',
+                                'a_ar' => 'تتم من خلال طلب انضمام، اختبار مستوى، مقابلة، ثم الدفع والتسجيل.',
+                                'q_en' => 'How does the joining process work?',
+                                'a_en' => 'It starts with an application form, followed by a placement test, an interview, and finally payment and registration.'
                             ],
                             [
-                                'q' => 'هل أحصل على شهادة بعد انتهاء الدورة؟',
-                                'a' => 'يمكن منح الطالب شهادة إتمام بعد استكمال متطلبات البرنامج بنجاح.'
+                                'q_ar' => 'هل أحصل على شهادة بعد انتهاء الدورة؟',
+                                'a_ar' => 'يمكن منح الطالب شهادة إتمام بعد استكمال متطلبات البرنامج بنجاح.',
+                                'q_en' => 'Do I get a certificate after completing the course?',
+                                'a_en' => 'Yes, students are awarded a certificate of completion upon successfully finishing the program requirements.'
                             ]
                         ];
                     @endphp
@@ -643,12 +655,12 @@
                         <div class="accordion-item mb-3 border-0 rounded-4 shadow-sm bg-white overflow-hidden">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed fw-bold p-4 bg-white text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq-{{ $index }}">
-                                    {{ $faq['q'] }}
+                                    {{ $is_arabic ? $faq['q_ar'] : $faq['q_en'] }}
                                 </button>
                             </h2>
                             <div id="faq-{{ $index }}" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body p-4 pt-0 text-muted lh-lg">
-                                    {{ $faq['a'] }}
+                                    {{ $is_arabic ? $faq['a_ar'] : $faq['a_en'] }}
                                 </div>
                             </div>
                         </div>
