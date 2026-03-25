@@ -16,8 +16,9 @@
         box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
     }
     .custom-vibrant-tabs .nav-link:hover:not(.active) {
-        background: rgba(255,255,255,0.1);
-        color: white;
+        background: rgba(79, 70, 229, 0.05);
+        color: var(--vibrant-primary) !important;
+        border-color: rgba(79, 70, 229, 0.2);
     }
     .breadcum-area .breadcrumb-item + .breadcrumb-item::before {
         color: rgba(255,255,255,0.3) !important;
@@ -300,15 +301,8 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link rounded-pill px-4 fw-bold" id="pills-faq-tab" data-bs-toggle="pill" data-bs-target="#pills-faq" type="button" role="tab">{{ $is_arabic ? 'الأسئلة الشائعة' : get_phrase('FAQ') }}</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link rounded-pill px-4 fw-bold" id="pills-instructor-tab" data-bs-toggle="pill" data-bs-target="#pills-instructor" type="button" role="tab">{{ $is_arabic ? 'المدرب' : get_phrase('Instructor') }}</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link rounded-pill px-4 fw-bold" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab">{{ $is_arabic ? 'التقييمات' : get_phrase('Reviews') }}</button>
-                            </li>
                         </ul>
 
-                        <!-- Tab Content -->
                         <div class="tab-content border-0 p-0 shadow-none bg-transparent" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                                 @include('frontend.default.course.overview_area')
@@ -323,12 +317,6 @@
                                 <div class="p-4" style="background:#f8fafc; border-radius:20px;">
                                     @include('frontend.default.course.faq_area')
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="pills-instructor" role="tabpanel" aria-labelledby="pills-instructor-tab" tabindex="0">
-                                @include('frontend.default.course.instructor_area')
-                            </div>
-                            <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab" tabindex="0">
-                                @include('frontend.default.course.review_area')
                             </div>
                         </div>
 

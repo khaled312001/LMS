@@ -108,6 +108,7 @@
         transition: all 0.35s ease;
         border: 1px solid rgba(79, 70, 229, 0.07);
         box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        position: relative;
     }
 
     .vibrant-course-card:hover {
@@ -413,7 +414,12 @@
         <div class="swiper course-swiper pb-5 px-3" data-aos="fade-up" data-aos-delay="200">
             <div class="swiper-wrapper">
                 @foreach ($all_courses as $row)
-                    <div class="swiper-slide course-slide cat-{{ $row->category_id }}" style="height: auto;">
+                    @php
+                        $cat_id = $row->category_id;
+                        $parent_cat = App\Models\Category::find($cat_id);
+                        $parent_id = $parent_cat ? $parent_cat->parent_id : 0;
+                    @endphp
+                    <div class="swiper-slide course-slide cat-{{ $cat_id }} @if($parent_id > 0) cat-{{ $parent_id }} @endif" style="height: auto;">
                         <div class="vibrant-course-card p-3 h-100 d-flex flex-column" style="margin: 10px;">
                             <div class="position-relative mb-4">
                                 <img src="{{ get_image($row->thumbnail) }}" class="vibrant-course-image" alt="{{ $row->title }}">
