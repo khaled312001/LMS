@@ -13,4 +13,3 @@
         </a>
     @endif
 </div>
-@include('frontend.default.course.faq_area')

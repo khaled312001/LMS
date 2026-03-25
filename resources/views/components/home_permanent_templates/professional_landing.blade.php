@@ -560,7 +560,7 @@
     </div>
 </section>
 
-<!-- Final Call to Action -->
+<!-- Final Call to Action & Post-grad Support -->
 <section class="py-100 py-5">
     <div class="container py-5">
         <div class="bento-item p-0 position-relative overflow-hidden shadow-2xl border-0" data-aos="zoom-in-up" data-aos-duration="1000" style="min-height: 500px; border-radius: 50px !important; background: linear-gradient(135deg, var(--vibrant-darker), #1e1b4b) !important;">
@@ -570,43 +570,33 @@
             
             <div class="row align-items-center g-0 h-100">
                 <div class="col-lg-7 p-5 p-lg-10 text-white position-relative" data-aos="fade-right" data-aos-delay="200" style="z-index: 5;">
-                    <span class="vibrant-tag mb-4 d-inline-block px-4 py-2 border-0" style="background: rgba(255,255,255,0.1); color: var(--vibrant-accent); font-weight: 800; border-radius: 50px;">🚀 {{ $is_arabic ? ($ar['Career Fast-Track'] ?? get_phrase('Career Fast-Track')) : get_phrase('Career Fast-Track') }}</span>
-                    <h2 class="display-2 fw-800 mb-4 lh-1">
-                        {{ $is_arabic ? ($ar['Turn Your Passion Into A'] ?? get_phrase('Turn Your Passion Into A')) : get_phrase('Turn Your Passion Into A') }} <span class="text-vibrant-gradient">{{ $is_arabic ? ($ar['Global Career'] ?? get_phrase('Global Career')) : get_phrase('Global Career') }}</span>
+                    <span class="vibrant-tag mb-4 d-inline-block px-4 py-2 border-0" style="background: rgba(255,255,255,0.1); color: var(--vibrant-accent); font-weight: 800; border-radius: 50px;">🚀 {{ $is_arabic ? 'دعم بعد التخرج نحو الخطوة التالية' : get_phrase('Career Fast-Track') }}</span>
+                    <h2 class="display-4 fw-800 mb-4 lh-1">
+                        {{ $is_arabic ? 'ابدأ اليوم بخطوة تفتح لك أبوابًا جديدة' : 'Start Today, Open New Doors' }}
                     </h2>
-                    <p class="fs-4 opacity-75 mb-5 pe-lg-5 fw-medium">{{ $is_arabic ? ($ar['The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.'] ?? get_phrase('The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.')) : get_phrase('The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.') }}</p>
+                    <p class="fs-5 opacity-80 mb-4 pe-lg-5 fw-medium">{{ $is_arabic ? 'بعد إتمام البرنامج بنجاح، نحرص على مساعدة الطالب في الاستعداد بشكل أفضل للمرحلة التالية، من خلال خدمات دعم مهني تساعده على تقديم نفسه بصورة أكثر احترافية.' : 'After completing the program successfully, we help you prepare for the next step professionally.' }}</p>
+                    
+                    <ul class="list-unstyled fa-ul mb-5 opacity-90 fs-6 lh-lg ms-4">
+                        <li><span class="fa-li"><i class="fa-solid fa-check text-vibrant-accent"></i></span>{{ $is_arabic ? 'المساعدة في إعداد سيرة ذاتية احترافية' : 'CV Preparation' }}</li>
+                        <li><span class="fa-li"><i class="fa-solid fa-check text-vibrant-accent"></i></span>{{ $is_arabic ? 'الدعم في التحضير لمقابلات العمل' : 'Interview Preparation' }}</li>
+                        <li><span class="fa-li"><i class="fa-solid fa-check text-vibrant-accent"></i></span>{{ $is_arabic ? 'تحسين الحضور المهني على منصات مثل LinkedIn وBehance' : 'Professional Presence' }}</li>
+                    </ul>
                     
                         <div class="d-flex flex-wrap gap-4 align-items-center">
-                            <a href="{{ route('register.form') }}" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ $is_arabic ? ($ar['Get Started For Free'] ?? get_phrase('Get Started For Free')) : get_phrase('Get Started For Free') }}</a>
-                            <div class="d-flex -space-x-4">
-                                <!-- Placeholder for student avatars -->
-                                <div class="bg-white rounded-circle p-1 shadow-sm" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=1" class="rounded-circle w-100 h-100" alt="Student avatar 1"></div>
-                                <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=2" class="rounded-circle w-100 h-100" alt="Student avatar 2"></div>
-                                <div class="bg-white rounded-circle p-1 shadow-sm ms-n2" style="width: 45px; height: 45px;"><img src="https://i.pravatar.cc/150?u=3" class="rounded-circle w-100 h-100" alt="Student avatar 3"></div>
-                                <span class="ms-3 fs-6 fw-bold text-white-50">{{ $is_arabic ? ($ar['+45k Students'] ?? get_phrase('+45k Students')) : get_phrase('+45k Students') }}</span>
-                            </div>
+                            <a href="{{ route('courses') }}" class="btn-vibrant px-5 py-3 fs-6" style="border-radius: 100px !important;">{{ $is_arabic ? 'استكشف البرامج' : 'Explore Courses' }}</a>
+                            <a href="{{ route('register.form') }}" class="btn btn-outline-light border-2 px-5 py-3 fs-6 fw-bold" style="border-radius: 100px !important;">{{ $is_arabic ? 'قدّم طلب الانضمام' : 'Apply Now' }}</a>
                         </div>
                 </div>
                 <div class="col-lg-5 h-100 d-none d-lg-block position-relative overflow-hidden" data-aos="fade-left" data-aos-delay="400" style="min-height: 500px;">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200" class="position-absolute w-100 h-100 object-fit-cover" alt="CTA" style="opacity: 0.6; filter: contrast(1.2) brightness(0.8);">
                     <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(90deg, var(--vibrant-darker), transparent 70%);"></div>
-                    
-                    <!-- Floating Card Component -->
-                    <div class="position-absolute p-4 backdrop-blur shadow-2xl animate-float" style="bottom: 40px; right: 40px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; width: 250px;">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="bg-success rounded-circle" style="width: 10px; height: 10px;"></div>
-                            <span class="fw-bold text-white small">{{ $is_arabic ? ($ar['Live Success Rate'] ?? get_phrase('Live Success Rate')) : get_phrase('Live Success Rate') }}</span>
-                        </div>
-                        <h3 class="text-white fw-bold mb-0">98.2%</h3>
-                        <div class="progress mt-3 bg-white-10" style="height: 6px;">
-                            <div class="progress-bar bg-success" style="width: 98%;"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+@include('components.home_permanent_templates.swiss_bridge_extra_sections')
 
 <!-- FAQ Section -->
 <section id="faq" class="py-100 bg-light py-5">

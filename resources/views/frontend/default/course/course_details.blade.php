@@ -298,6 +298,9 @@
                                 <button class="nav-link rounded-pill px-4 fw-bold" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab">{{ $is_arabic ? 'التفاصيل' : get_phrase('Details') }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill px-4 fw-bold" id="pills-faq-tab" data-bs-toggle="pill" data-bs-target="#pills-faq" type="button" role="tab">{{ $is_arabic ? 'الأسئلة الشائعة' : get_phrase('FAQ') }}</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
                                 <button class="nav-link rounded-pill px-4 fw-bold" id="pills-instructor-tab" data-bs-toggle="pill" data-bs-target="#pills-instructor" type="button" role="tab">{{ $is_arabic ? 'المدرب' : get_phrase('Instructor') }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -315,6 +318,11 @@
                             </div>
                             <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
                                 @include('frontend.default.course.requirement_outcome_area')
+                            </div>
+                            <div class="tab-pane fade" id="pills-faq" role="tabpanel" aria-labelledby="pills-faq-tab" tabindex="0">
+                                <div class="p-4" style="background:#f8fafc; border-radius:20px;">
+                                    @include('frontend.default.course.faq_area')
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="pills-instructor" role="tabpanel" aria-labelledby="pills-instructor-tab" tabindex="0">
                                 @include('frontend.default.course.instructor_area')
