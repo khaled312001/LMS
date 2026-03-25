@@ -43,6 +43,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                     ['title' => "هل يتضمن البرنامج React؟", 'description' => "نعم، يتضمن أساسيات React وبناء واجهات تفاعلية حديثة."],
                     ['title' => "هل أحصل على شهادة؟", 'description' => "نعم، يحصل الطالب على شهادة إتمام بعد استكمال متطلبات البرنامج بنجاح."]
                 ]),
+                'thumbnail' => 'uploads/course-thumbnail/ttoyr-aloaghat-alamamy.jpg'
             ],
             [
                 'title' => 'تطوير الويب المتكامل Full Stack',
@@ -71,6 +72,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                     ['title' => "هل أتعلم React وNode.js؟", 'description' => "نعم، كلاهما جزء أساسي من هذا البرنامج."],
                     ['title' => "هل يوجد مشروع نهائي؟", 'description' => "نعم، يتضمن البرنامج مشروع Full Stack متكامل."]
                 ]),
+                'thumbnail' => 'uploads/course-thumbnail/ttoyr-aloeb-almtkaml-full-stack.jpg'
             ],
             [
                 'title' => 'تطوير التطبيقات المحمولة',
@@ -99,6 +101,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                     ['title' => "هل يشمل الربط مع Backend؟", 'description' => "نعم، يتضمن فهم الربط مع Node.js في الخلفية."],
                     ['title' => "هل يوجد مشروع تطبيقي؟", 'description' => "نعم، يتضمن البرنامج مشروعًا عمليًا متكاملًا."]
                 ]),
+                'thumbnail' => 'uploads/course-thumbnail/ttoyr-alttbykat-alhmol.jpg'
             ],
             [
                 'title' => 'التسويق باستخدام أدوات الذكاء الاصطناعي',
@@ -127,6 +130,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                     ['title' => "هل يشمل التسويق بالمحتوى؟", 'description' => "نعم، يتضمن البرنامج محتوى عمليًا في صناعة وتنظيم المحتوى التسويقي."],
                     ['title' => "هل توجد تطبيقات عملية؟", 'description' => "نعم، يتضمن البرنامج تطبيقات عملية ومشروعًا نهائيًا."]
                 ]),
+                'thumbnail' => 'uploads/course-thumbnail/altsyok-bastkhdam-adoat-althkaaa-alastnaaay.jpg'
             ],
             [
                 'title' => 'التصميم باستخدام أدوات الذكاء الاصطناعي',
@@ -155,6 +159,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                     ['title' => "هل أحتاج خبرة سابقة في التصميم؟", 'description' => "ليس بالضرورة، ويتم تقييم المستوى قبل بدء البرنامج."],
                     ['title' => "هل يوجد مشروع نهائي؟", 'description' => "نعم، يتضمن البرنامج مشروعًا نهائيًا أو ملف أعمال أوليًا."]
                 ]),
+                'thumbnail' => 'uploads/course-thumbnail/altsmym-bastkhdam-adoat-althkaaa-alastnaaay.jpg'
             ],
             [
                 'title' => 'دورة المبيعات',
@@ -183,6 +188,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                     ['title' => "هل أحتاج إلى خبرة سابقة؟", 'description' => "ليس بالضرورة، ويتم تقييم المستوى في بداية البرنامج."],
                     ['title' => "هل يوجد تقييم أو مشروع نهائي؟", 'description' => "نعم، يتضمن البرنامج تقييمًا أو مشروعًا عمليًا نهائيًا."]
                 ]),
+                'thumbnail' => 'uploads/course-thumbnail/dor-almbyaaat.jpg'
             ],
             [
                 'title' => 'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة',
@@ -211,7 +217,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                     ['title' => "ما هي الأدوات واللغات التي سيتم التركيز عليها؟", 'description' => "سنركز على لغات مثل Python و JavaScript مع استخدام مكثف لمحررات مثل Cursor AI وأدوات مثل GitHub Copilot."],
                     ['title' => "هل البرنامج تطبيقي أم نظري؟", 'description' => "البرنامج تطبيقي بنسبة 100٪. ستصنع أكوادك وبرامجك الخاصة من اليوم الأول للمخرجات باستخدام AI."]
                 ]),
-                'thumbnail' => 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200'
+                'thumbnail' => 'uploads/course-thumbnail/taalm-albrmg-bastkhdam.jpg'
             ]
         ];
 
@@ -227,6 +233,7 @@ class SwissBridgeCoursesSeeder extends Seeder
                 'faqs' => $courseData['faqs'],
                 'thumbnail' => $courseData['thumbnail'] ?? null,
                 'slug' => $slug,
+                'user_id' => 1,
                 'status' => 'active',
                 'language' => 'arabic',
                 'category_id' => 1,
