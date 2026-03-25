@@ -106,7 +106,13 @@
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
                 <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-clock text-sba-accent"></i> {{ $is_arabic ? 'المدة' : get_phrase('Duration') }}</span>
-                <span class="text-white fw-800">{{ total_durations($course_details->id) }}</span>
+                @php
+                    $duration = total_durations($course_details->id);
+                    if ($duration == '00h 00m' || (int) substr($duration, 0, 2) < 24) {
+                        $duration = '24h 00m';
+                    }
+                @endphp
+                <span class="text-white fw-800">{{ $duration }}</span>
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
                 <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-chart-pyramid text-sba-accent"></i> {{ $is_arabic ? 'المستوى' : get_phrase('Level') }}</span>

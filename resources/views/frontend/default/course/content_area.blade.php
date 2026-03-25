@@ -42,9 +42,63 @@
                 @endforeach
             </div>
         @else
-            <div class="text-center py-5 text-secondary opacity-50">
-                <i class="fi-rr-book fs-1 d-block mb-3"></i>
-                {{ get_phrase('Course curriculum Empty') }}
+            @php $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic'; @endphp
+            <div class="accordion custom-sba-accordion" id="placeholderAccordion">
+                <!-- Section 1 -->
+                <div class="accordion-item mb-3 border-0 bg-transparent">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button px-4 py-3 rounded-4 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#placeholder_1" style="background: #f8fafc; border: 1px solid #e2e8f0; color: #1e293b;">
+                            <span class="fw-bold">{{ $is_arabic ? 'المقدمة والأساسيات' : 'Introduction & Fundamentals' }}</span>
+                        </button>
+                    </h2>
+                    <div id="placeholder_1" class="accordion-collapse collapse show" data-bs-parent="#placeholderAccordion">
+                        <div class="accordion-body px-0 pt-2">
+                            <ul class="lesson-list list-unstyled m-0 d-flex flex-column gap-2">
+                                <li class="rounded-3 px-4 py-3" style="background: #ffffff; border: 1px solid #e2e8f0;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="fi-rr-play-alt text-primary fs-5 mt-1"></i>
+                                            <span class="text-secondary fw-bold">{{ $is_arabic ? 'مقدمة عن الدورة وما ستتعلمه' : 'Introduction to the course and what you will learn' }}</span>
+                                        </div>
+                                        <span class="badge rounded-pill px-3 py-2" style="background: #e0e7ff; color: #4338ca;">10:00</span>
+                                    </div>
+                                </li>
+                                <li class="rounded-3 px-4 py-3" style="background: #ffffff; border: 1px solid #e2e8f0;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="fi-rr-settings text-primary fs-5 mt-1"></i>
+                                            <span class="text-secondary fw-bold">{{ $is_arabic ? 'تجهيز الأدوات وبيئة العمل' : 'Setting up tools and workspace' }}</span>
+                                        </div>
+                                        <span class="badge rounded-pill px-3 py-2" style="background: #e0e7ff; color: #4338ca;">15:00</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Section 2 -->
+                <div class="accordion-item mb-3 border-0 bg-transparent">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed px-4 py-3 rounded-4 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#placeholder_2" style="background: #f8fafc; border: 1px solid #e2e8f0; color: #1e293b;">
+                            <span class="fw-bold">{{ $is_arabic ? 'التطبيق العملي والمشاريع' : 'Practical Application & Projects' }}</span>
+                        </button>
+                    </h2>
+                    <div id="placeholder_2" class="accordion-collapse collapse" data-bs-parent="#placeholderAccordion">
+                        <div class="accordion-body px-0 pt-2">
+                            <ul class="lesson-list list-unstyled m-0 d-flex flex-column gap-2">
+                                <li class="rounded-3 px-4 py-3" style="background: #ffffff; border: 1px solid #e2e8f0;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="fi-rr-laptop text-primary fs-5 mt-1"></i>
+                                            <span class="text-secondary fw-bold">{{ $is_arabic ? 'بدء المشروع الأول خطوة بخطوة' : 'Starting the first project step by step' }}</span>
+                                        </div>
+                                        <span class="badge rounded-pill px-3 py-2" style="background: #e0e7ff; color: #4338ca;">45:00</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endif
     </div>
