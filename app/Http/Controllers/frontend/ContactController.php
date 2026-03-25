@@ -119,7 +119,8 @@ class ContactController extends Controller
 
             Session::flash('success', get_phrase('Your application has been submitted successfully. We will contact you soon!'));
         } catch (\Exception $e) {
-            Session::flash('error', get_phrase('Failed to send application. Please try again later.'));
+            \Log::error('Instructor Mail Error: ' . $e->getMessage());
+            Session::flash('error', get_phrase('Failed to send application. Please try again later.') . ' Error: ' . $e->getMessage());
         }
 
         return redirect()->back();

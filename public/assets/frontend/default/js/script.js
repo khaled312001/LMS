@@ -9,45 +9,47 @@ $(document).ready(function () {
     // Nice Select
     $('.nice-control').niceSelect();
     //
-    $('.user-slider').owlCarousel({
-        loop: false,
-        autoplay: false,
-        margin: 10,
-        nav: true,
-        navText: ['<i class="fa-solid fa-chevron-left"></i>', '<i class="fa-solid fa-chevron-right"></i>'],
-        dots: false,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 1
-            },
-            1000: {
-                items: 1
+    if ($.fn.owlCarousel) {
+        $('.user-slider').owlCarousel({
+            loop: false,
+            autoplay: false,
+            margin: 10,
+            nav: true,
+            navText: ['<i class="fa-solid fa-chevron-left"></i>', '<i class="fa-solid fa-chevron-right"></i>'],
+            dots: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
             }
-        }
-    });
+        });
 
 
-    $('.cook_slider').owlCarousel({
-        loop: false,
-        autoplay: false,
-        margin: 10,
-        nav: false,
-        dots: false,
-        responsive: {
-            0: {
-                items: 2
-            },
-            600: {
-                items: 3
-            },
-            1000: {
-                items: 2
+        $('.cook_slider').owlCarousel({
+            loop: false,
+            autoplay: false,
+            margin: 10,
+            nav: false,
+            dots: false,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 2
+                }
             }
-        }
-    });
+        });
+    }
 
 
     // Pricing Range
