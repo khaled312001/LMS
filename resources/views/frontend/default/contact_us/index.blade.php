@@ -139,7 +139,7 @@
                         </div>
                         <h4 class="g-title mb-3">{{ get_phrase('Contact Email') }}</h4>
                         <p class="text-muted mb-4">{{ get_phrase('Send your message directly to our support team.') }}</p>
-                        <a href="mailto:{{ $contact_info['email'] }}" class="text-vibrant-primary fw-bold text-decoration-none fs-5">{{ $contact_info['email'] }}</a>
+                        <a href="mailto:info@swissbridgeacademy.com" class="text-vibrant-primary fw-bold text-decoration-none fs-5">info@swissbridgeacademy.com</a>
                     </div>
                 </div>
             </div>

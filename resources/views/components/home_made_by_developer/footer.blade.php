@@ -26,9 +26,13 @@
                     <i class="fa-solid fa-location-dot" style="color:#818cf8;margin-top:3px;"></i>
                     <span style="color:#9db8d2;font-size:0.88rem;">Bahnhofstrasse 37, 8001 Zürich</span>
                 </div>
-                <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;">
+                <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
                     <i class="fa-brands fa-whatsapp" style="color:#25d366;margin-top:3px;"></i>
                     <a href="https://wa.me/41779412126" target="_blank" style="color:#9db8d2;font-size:0.88rem;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9db8d2'">41779412126+</a>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;">
+                    <i class="fa-solid fa-envelope" style="color:#818cf8;margin-top:3px;"></i>
+                    <a href="mailto:info@swissbridgeacademy.com" style="color:#9db8d2;font-size:0.88rem;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9db8d2'">info@swissbridgeacademy.com</a>
                 </div>
 
                 {{-- Social icons --}}
