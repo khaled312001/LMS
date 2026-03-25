@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <h4 class="fw-900 text-dark mb-3 lh-base ellipsis-line-2" style="height: 3rem;">{{ ucfirst($course->title) }}</h4>
+                <h4 class="fw-900 text-dark mb-3 lh-base ellipsis-line-3" style="min-height: 3rem;">{{ ucfirst($course->title) }}</h4>
 
                 <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
                     <div class="d-flex align-items-center gap-2 text-muted small">
