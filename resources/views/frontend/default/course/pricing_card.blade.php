@@ -101,8 +101,8 @@
 
         <ul class="list-unstyled mb-0">
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
-                <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-users text-sba-accent"></i> {{ $is_arabic ? 'الطلاب' : get_phrase('Students') }}</span>
-                <span class="text-white fw-800">{{ total_enroll($course_details->id) }}</span>
+                <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-unlock text-sba-accent"></i> {{ $is_arabic ? 'الوصول' : get_phrase('Access') }}</span>
+                <span class="text-white fw-800">{{ $is_arabic ? 'مدى الحياة' : get_phrase('Lifetime') }}</span>
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
                 <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-clock text-sba-accent"></i> {{ $is_arabic ? 'المدة' : get_phrase('Duration') }}</span>
@@ -110,7 +110,7 @@
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
                 <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-chart-pyramid text-sba-accent"></i> {{ $is_arabic ? 'المستوى' : get_phrase('Level') }}</span>
-                <span class="text-white fw-800">{{ $is_arabic ? 'متقدم' : $course_details->level }}</span>
+                <span class="text-white fw-800">{{ $is_arabic ? 'مبتدئ' : 'Beginner' }}</span>
             </li>
             <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-white-10">
                 <span class="text-white opacity-60 small d-flex align-items-center gap-2"><i class="fi-rr-diploma text-sba-accent"></i> {{ $is_arabic ? 'شهادة' : get_phrase('Certificate') }}</span>

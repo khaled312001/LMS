@@ -397,8 +397,19 @@
         </div>
         
         @php
-            $featured_categories = DB::table('categories')->where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(5);
             $current_lang = strtolower(session('language') ?? get_settings('language'));
+            $featured_categories = DB::table('categories')
+                ->where('parent_id', 0)
+                ->get()
+                ->filter(function($c) use ($current_lang) {
+                    return DB::table('courses')
+                        ->where('status', 'active')
+                        ->where('language', $current_lang)
+                        ->where(function($q) use ($c) {
+                            $q->where('category_id', $c->id)
+                              ->orWhereIn('category_id', DB::table('categories')->where('parent_id', $c->id)->pluck('id'));
+                        })->count() > 0;
+                })->take(5);
             $all_courses = DB::table('courses')->where('status', 'active')->where('language', $current_lang)->orderBy('id', 'desc')->take(12)->get();
         @endphp
 
