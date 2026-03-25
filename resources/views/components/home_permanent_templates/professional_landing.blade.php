@@ -4,33 +4,33 @@
 @php
     $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
     $ar = [
-        'New Era of Learning' => 'عصر جديد من التعلم',
-        'Master Your' => 'أتقن',
-        'Future' => 'مستقبلك',
-        'with Creative Courseware' => 'مع حلول تعليمية إبداعية',
-        'Empowering students with' => 'تمكين الطلاب من خلال',
-        'flexible, high-quality' => 'تعلم مرن عالي الجودة',
-        'online learning. Discover your potential with our immersive platforms.' => 'نؤمن بأن التعليم يجب أن يكون ممتعًا وتفاعليًا ومتاحًا للجميع. يتولى التدريب نخبة من الخبراء في مجالات البرمجة والتصميم والتسويق.',
-        'Explore Courses' => 'استكشف الدورات',
-        'Latest News' => 'اتصل بنا',
-        'Trusted By' => 'موثوق من قبل',
+        'New Era of Learning' => 'بوابتك إلى المهارات الرقمية',
+        'Master Your' => 'بوابتك إلى',
+        'Future' => 'المهارات الرقمية',
+        'with Creative Courseware' => 'التي يصنع بها المستقبل',
+        'Empowering students with' => 'في Swiss Bridge Academy نوفّر تجربة تعليمية حديثة وعملية تساعدك على اكتساب مهارات حقيقية في البرمجة، تطوير التطبيقات، الذكاء الاصطناعي، التسويق، التصميم، والمبيعات.',
+        'flexible, high-quality' => '',
+        'online learning. Discover your potential with our immersive platforms.' => 'نقدّم مسارات تعليمية واضحة تركّز على التطبيق العملي، مع إمكانية التعلّم عن بُعد أو حضوريًا من داخل المركز.',
+        'Explore Courses' => 'استكشف البرامج',
+        'Latest News' => 'قدّم طلب الانضمام',
+        'Trusted By' => 'تعلم عملي. مسارات حديثة. خطوات واضحة نحو مستقبل مهني أقوى.',
         'Live Learners' => 'تطبيقات عملية',
         'Top Rated' => 'خبرة سويسرية',
         '#1 LMS Choice 2026' => 'دقة وجودة في التعليم الإلكتروني',
-        'What Do You Want To Learn?' => 'ماذا تريد أن تتعلم؟',
-        'Explore over 1200+ courses across various domains' => 'استكشف دوراتنا في البرمجة والتصميم والتسويق',
+        'What Do You Want To Learn?' => 'مساراتنا التعليمية',
+        'Explore over 1200+ courses across various domains' => 'اختر المجال الذي يناسب أهدافك، وابدأ رحلة تعليمية عملية تساعدك على بناء مهارات حديثة ومطلوبة.',
         'Best Instructors, Best Courses' => 'أفضل المدربين، أفضل الدورات',
         'Handpicked quality content for your career growth' => 'نوفر محتوى تعليمي محدث وفقًا لمتطلبات سوق العمل المحلي والدولي.',
-        'Browse All' => 'تصفح الكل',
+        'Browse All' => 'عرض جميع البرامج',
         'Professional' => 'احترافي',
         'General' => 'عام',
-        'Latest from our Blog' => 'لماذا تختار منصتنا؟',
+        'Latest from our Blog' => 'لماذا يختارنا الطلاب؟',
         'Stay updated with the latest trends in education and technology' => 'نلتزم بأعلى معايير الجودة والاحترافية، المستمدّة من الخبرات السويسرية في مجال التعليم الإلكتروني.',
-        'Career Fast-Track' => 'خدمة ما بعد التخرج',
-        'Turn Your Passion Into A' => 'انطلق نحو',
-        'Global Career' => 'سوق العمل',
-        'The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.' => 'نساعدكم في الاستعداد للدخول إلى سوق العمل من خلال تجهيز سيرة ذاتية احترافية، والتحضير لمقابلات العمل وبناء ملفك الشخصي.',
-        'Get Started For Free' => 'ابدأ الآن رحلتك',
+        'Career Fast-Track' => 'دعم بعد التخرج',
+        'Turn Your Passion Into A' => 'دعم بعد التخرج نحو',
+        'Global Career' => 'الخطوة التالية',
+        'The world is waiting for your unique skills. Join 45,000+ students and start your journey today with industry-standard training.' => 'بعد إتمام البرنامج بنجاح، نحرص على مساعدة الطالب في الاستعداد بشكل أفضل للمرحلة التالية، من خلال خدمات دعم مهني تساعده على تقديم نفسه بصورة أكثر احترافية.',
+        'Get Started For Free' => 'ابدأ طلب الانضمام',
         '+45k Students' => 'مجتمع داعم',
         'Live Success Rate' => 'معدل النجاح',
         'OFF' => 'خصم',
@@ -268,10 +268,10 @@
                     <p class="small fw-700 text-uppercase mb-3" style="letter-spacing: 3px; color: #94a3b8;">{{ $is_arabic ? ($ar['Trusted By'] ?? get_phrase('Trusted By')) : get_phrase('Trusted By') }}</p>
                     <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
                         @foreach([
-                            ['SwissLearningHub', '#4f46e5'],
-                            ['Taskbase',         '#06b6d4'],
-                            ['ACADEMIA',         '#f59e0b'],
-                            ['Global Swiss Learning', '#10b981'],
+                            [$is_arabic ? 'تعلم عملي وتطبيقي' : 'Practical Learning', '#4f46e5'],
+                            [$is_arabic ? 'عن بُعد أو حضوريًا' : 'Remote or On-site', '#06b6d4'],
+                            [$is_arabic ? 'مسارات حديثة' : 'Modern Tracks', '#f59e0b'],
+                            [$is_arabic ? 'دعم مهني بعد التخرج' : 'Career Support', '#10b981'],
                         ] as [$brand, $dot])
                         <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.07);border-radius:100px;padding:8px 18px 8px 14px;font-size:0.82rem;font-weight:700;color:#1e293b;box-shadow:0 2px 10px rgba(0,0,0,0.06);transition:all .25s;">
                             <span style="width:8px;height:8px;border-radius:50%;background:{{ $dot }};display:inline-block;flex-shrink:0;"></span>
@@ -458,40 +458,32 @@
     <div class="container py-5">
         <div class="text-center mb-5" data-aos="fade-up">
             <span class="vibrant-tag mb-3 d-inline-block">{{ $is_arabic ? 'مميزاتنا' : 'Why Us' }}</span>
-            <h2 class="display-5 fw-800 mt-2">{{ $is_arabic ? 'لماذا تختار منصتنا؟' : get_phrase('Why Choose Us') }}</h2>
-            <p class="text-muted">{{ $is_arabic ? 'نلتزم بأعلى معايير الجودة والاحترافية، المستمدّة من الخبرات السويسرية في مجال التعليم الإلكتروني.' : get_phrase('Quality education managed from Switzerland') }}</p>
+            <h2 class="display-5 fw-800 mt-2">{{ $is_arabic ? 'لماذا يختارنا الطلاب؟' : get_phrase('Why Choose Us') }}</h2>
         </div>
 
+        @php
+            $features = [
+                ['icon'=>'fi-rr-laptop','title_ar'=>'تعليم عملي يركّز على التطبيق','title_en'=>'Practical Hands-on Learning','desc_ar'=>'نحن نؤمن أن القيمة الحقيقية تأتي من القدرة على استخدام المعرفة، لذلك نركّز على التعلم العملي وليس الاكتفاء بالشرح النظري.','desc_en'=>'We focus on practical learning, not just theoretical explanations.','grad'=>'linear-gradient(135deg,rgba(79,70,229,0.15),rgba(79,70,229,0.05))','color'=>'text-vibrant-primary','bg'=>'#fff','text'=>''],
+                ['icon'=>'fi-rr-rocket','title_ar'=>'محتوى حديث يواكب السوق','title_en'=>'Up-to-date Market Content','desc_ar'=>'نصمم برامجنا بما ينسجم مع التغيرات السريعة في العالم الرقمي، حتى يتعلم الطالب مهارات مرتبطة بالواقع الحالي.','desc_en'=>'Programs designed to match the fast-changing digital world.','grad'=>'rgba(255,255,255,0.2)','color'=>'text-white','bg'=>'linear-gradient(135deg, #4f46e5, #7c3aed)','text'=>'color:rgba(255,255,255,0.8);'],
+                ['icon'=>'fi-rr-user-md','title_ar'=>'مدربون بخبرة عملية','title_en'=>'Experienced Instructors','desc_ar'=>'يقود العملية التعليمية مدربون لديهم خبرة عملية ومعرفة حقيقية بالمجالات التي يدرّسونها، بما يضمن تجربة أكثر واقعية وفائدة.','desc_en'=>'Instructors with real-world experience lead the learning process.','grad'=>'linear-gradient(135deg,rgba(6,182,212,0.15),rgba(6,182,212,0.05))','color'=>'text-vibrant-accent','bg'=>'#fff','text'=>''],
+                ['icon'=>'fi-rr-computer','title_ar'=>'تعلم مرن وواضح','title_en'=>'Flexible & Clear Learning','desc_ar'=>'نوفّر للطالب تجربة تعليمية مرنة ومنظمة، سواء اختار الدراسة عن بُعد أو حضوريًا من داخل المركز.','desc_en'=>'Flexible learning experience, remote or on-site.','grad'=>'linear-gradient(135deg,rgba(16,185,129,0.15),rgba(16,185,129,0.05))','color'=>'text-success','bg'=>'#fff','text'=>''],
+                ['icon'=>'fi-rr-comments','title_ar'=>'مزيج لغوي يدعم الفهم وسوق العمل','title_en'=>'Bilingual Approach','desc_ar'=>'نعتمد أسلوبًا يجمع بين العربية والإنجليزية بطريقة تساعد الطالب على الفهم، وفي الوقت نفسه تعرّفه على المصطلحات المستخدمة فعليًا في المجال.','desc_en'=>'Arabic-English mix for deep understanding and industry readiness.','grad'=>'linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05))','color'=>'text-warning','bg'=>'#fff','text'=>''],
+                ['icon'=>'fi-rr-badge-check','title_ar'=>'دعم يمتد لما بعد الدراسة','title_en'=>'Post-graduation Support','desc_ar'=>'لا يتوقف دورنا عند انتهاء الدورة، بل نساعد الطالب أيضًا في الاستعداد للخطوة التالية مهنيًا.','desc_en'=>'Our role extends beyond course completion to career readiness.','grad'=>'linear-gradient(135deg,rgba(126,34,206,0.15),rgba(126,34,206,0.05))','color'=>'text-purple','bg'=>'#fff','text'=>''],
+            ];
+        @endphp
+
         <div class="row g-4">
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
-                    <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(79,70,229,0.15), rgba(79,70,229,0.05));">
-                        <i class="fi-rr-user-md text-vibrant-primary fs-2"></i>
+            @foreach($features as $i => $f)
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 100 + $i * 100 }}">
+                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: {{ $f['bg'] }}; {{ $f['bg'] != '#fff' ? 'color:#fff;' : '' }}">
+                    <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: {{ $f['grad'] }};">
+                        <i class="{{ $f['icon'] }} {{ $f['color'] }} fs-2"></i>
                     </div>
-                    <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'إدارة سويسرية ومدربون محترفون' : 'Swiss Management & Expert Instructors' }}</h4>
-                    <p class="text-muted text-center flex-grow-1 mb-0 lh-lg">{{ $is_arabic ? 'فريق من المدربين ذوي خبرة عملية طويلة يقدمون الإرشاد والتوجيه خطوة بخطوة خلال جميع مراحل التعلم بإدارة سويسرية موثوقة.' : 'Expert instructors providing step-by-step guidance.' }}</p>
+                    <h4 class="fw-bold mb-3 text-center {{ $f['bg'] != '#fff' ? 'text-white' : '' }}">{{ $is_arabic ? $f['title_ar'] : $f['title_en'] }}</h4>
+                    <p class="text-center flex-grow-1 mb-0 lh-lg {{ $f['bg'] == '#fff' ? 'text-muted' : '' }}" style="{{ $f['text'] }}">{{ $is_arabic ? $f['desc_ar'] : $f['desc_en'] }}</p>
                 </div>
             </div>
-
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: linear-gradient(135deg, #4f46e5, #7c3aed) !important; color: #fff;">
-                    <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: rgba(255,255,255,0.2);">
-                        <i class="fi-rr-computer text-white fs-2"></i>
-                    </div>
-                    <h4 class="fw-bold mb-3 text-center text-white">{{ $is_arabic ? 'تعلم مرن ومجتمع داعم' : 'Flexible Learning & Support' }}</h4>
-                    <p class="text-center flex-grow-1 mb-0 lh-lg" style="color: rgba(255,255,255,0.8);">{{ $is_arabic ? 'اختر ما يناسبك من التعليم عن بعد أو الحضور المباشر، وكن جزءاً من منتديات تفاعلية تجمع المتعلمين لتبادل الخبرات.' : 'Choose online or in-person learning and join a supportive community.' }}</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: #fff;">
-                    <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05));">
-                        <i class="fi-rr-badge-check text-warning fs-2"></i>
-                    </div>
-                    <h4 class="fw-bold mb-3 text-center">{{ $is_arabic ? 'شهادات إتمام معتمدة' : 'Certified Completion' }}</h4>
-                    <p class="text-muted text-center flex-grow-1 mb-0 lh-lg">{{ $is_arabic ? 'شهادات رقمية معترف بها تقدّم للمتدربين عند إكمال الدورات بنجاح، لتعزيز السيرة الذاتية والظهور المهني على الإنترنت.' : 'Recognized digital certificates to boost your resume and professional presence.' }}</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -504,16 +496,19 @@
                 <div class="position-relative">
                     <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover;" alt="Team discussing project in a collaborative environment">
                     <div class="position-absolute bottom-0 start-0 bg-white p-4 m-4 rounded-4 shadow-lg animate-float" style="width: 250px;">
-                        <h4 class="fw-900 text-vibrant-primary mb-1">الرؤية والرسالة</h4>
-                        <p class="mb-0 text-muted small fw-medium">توفير تعليم عملي واحترافي باللغة العربية بمعايير دولية</p>
+                        <h4 class="fw-900 text-vibrant-primary mb-1">{{ $is_arabic ? 'تعليم عملي يربطك بالعالم الرقمي' : 'Practical Digital Education' }}</h4>
+                        <p class="mb-0 text-muted small fw-medium">{{ $is_arabic ? 'تعليم رقمي احترافي للناطقين بالعربية بأسلوب حديث ومنظم' : 'Professional digital education for Arabic speakers' }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left">
                 <span class="vibrant-tag mb-4 d-inline-block">{{ $is_arabic ? 'من نحن' : 'About Us' }}</span>
-                <h2 class="display-5 fw-800 mb-4">{{ $is_arabic ? 'منصة تعليمية إلكترونية عربية تُدار من سويسرا' : 'Arab E-Learning Platform Managed from Switzerland' }}</h2>
+                <h2 class="display-5 fw-800 mb-4">{{ $is_arabic ? 'تعليم عملي يربطك بالعالم الرقمي الحديث' : 'Practical Education Connecting You to the Modern Digital World' }}</h2>
                 <p class="fs-5 text-muted mb-4 lh-lg">
-                    {{ $is_arabic ? 'نحن منصة متخصصة في تقديم دورات تدريبية احترافية في البرمجة والتصميم والتسويق الرقمي، باستخدام مزيج من اللغة العربية والإنجليزية لضمان الفهم العميق والتطبيق العملي.' : 'We are a specialized platform offering professional training in programming, design, and digital marketing.' }}
+                    {{ $is_arabic ? 'Swiss Bridge Academy هي منصة تعليمية تُدار من سويسرا، وتركّز على تقديم تعليم رقمي احترافي للناطقين باللغة العربية، بأسلوب حديث، منظم، وعملي. هدفنا ليس فقط تقديم محتوى تعليمي، بل بناء تجربة تعلم تساعد الطالب على اكتساب مهارات واضحة وقابلة للتطبيق في الواقع المهني.' : 'Swiss Bridge Academy is an educational platform managed from Switzerland, focused on providing professional digital education for Arabic speakers in a modern, organized, and practical approach.' }}
+                </p>
+                <p class="text-muted mb-4 lh-lg">
+                    {{ $is_arabic ? 'نقدّم برامجنا بمزيج مدروس من اللغة العربية والإنجليزية، حتى يتمكن المتعلّم من الفهم العميق للمفاهيم، وفي الوقت نفسه التعرّف على المصطلحات والأدوات المستخدمة فعليًا في بيئة العمل الحديثة.' : 'We deliver our programs in a balanced mix of Arabic and English, enabling learners to deeply understand concepts while getting familiar with terminology used in the modern workplace.' }}
                 </p>
                 <div class="d-flex align-items-start gap-4 mb-4 mt-5">
                     <div class="bg-vibrant-light p-3 rounded-circle text-vibrant-primary">
@@ -521,7 +516,7 @@
                     </div>
                     <div>
                         <h4 class="fw-bold mb-2">{{ $is_arabic ? 'رسالتنا' : 'Our Mission' }}</h4>
-                        <p class="text-muted">{{ $is_arabic ? 'توفير تعليم عملي واحترافي في مجالات البرمجة والتصميم والتسويق، ومساعدة الخريجين على تحقيق انتقال سلس إلى الحياة المهنية.' : 'Provide practical, professional education and assist graduates in their career transition.' }}</p>
+                        <p class="text-muted">{{ $is_arabic ? 'توفير تعليم عملي واحترافي في مجالات البرمجة والتصميم والتسويق والمبيعات، ومساعدة الخريجين على تحقيق انتقال سلس إلى الحياة المهنية.' : 'Provide practical, professional education and assist graduates in their career transition.' }}</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-4">
@@ -627,28 +622,28 @@
                     @php
                         $faqs = [
                             [
-                                'q' => 'ما هي طرق التعلم المتاحة على المنصة؟',
-                                'a' => 'يمكنك اختيار بين التعلم عن بعد عبر الإنترنت أو الحضور الشخصي في المركز التدريبي حسب ما يناسب وقتك ومكانك.'
+                                'q' => 'ما هي طرق التعلم المتاحة؟',
+                                'a' => 'يمكنك اختيار بين التعلم عن بُعد أو الحضور الشخصي في المركز، بحسب البرنامج المتاح وما يناسب احتياجاتك.'
                             ],
                             [
-                                'q' => 'هل تُدرّس الدورات باللغة العربية فقط؟',
-                                'a' => 'نعتمد أسلوب تدريس بمزيج من اللغة العربية والإنجليزية لتسهيل الفهم واستخدام المصطلحات التقنية الأكثر شيوعًا في سوق العمل.'
-                            ],
-                            [
-                                'q' => 'هل أحصل على شهادة بعد انتهاء الدورة؟',
-                                'a' => 'نعم، بعد إتمام متطلبات الدورة، تحصل على شهادة إتمام إلكترونية معتمدة يمكنك إضافتها إلى سيرتك الذاتية أو حسابك على LinkedIn.'
-                            ],
-                            [
-                                'q' => 'هل هناك دعم بعد انتهاء الدورة؟',
-                                'a' => 'بالتأكيد! نقدّم خدمة تجهيز المتخرج لسوق العمل، وتشمل: إعداد سيرة ذاتية احترافية، تدريب على مقابلات العمل، وتطوير الحسابات المهنية على LinkedIn وBehance وGitHub.'
+                                'q' => 'هل يتم التدريس باللغة العربية فقط؟',
+                                'a' => 'نعتمد أسلوب تدريس يجمع بين العربية والإنجليزية لتسهيل الفهم، وفي الوقت نفسه مساعدة الطالب على التعرف على المصطلحات المستخدمة في المجال.'
                             ],
                             [
                                 'q' => 'هل أحتاج إلى خبرة سابقة للتسجيل؟',
-                                'a' => 'ليس بالضرورة. لدينا دورات مخصصة للمبتدئين وأخرى للمستويات المتقدمة، ويمكنك اختيار الدورة المناسبة لمستواك.'
+                                'a' => 'ليس بالضرورة. لدينا برامج مناسبة لمستويات مختلفة، ويتم تحديد البداية المناسبة من خلال اختبار المستوى والمقابلة.'
                             ],
                             [
-                                'q' => 'كيف أتواصل مع فريق الدعم؟',
-                                'a' => 'يمكنك التواصل معنا عبر نموذج “اتصل بنا” على الموقع، أو مراسلتنا عبر البريد الإلكتروني: info@swissbridgeacademy.com'
+                                'q' => 'ماذا يحدث بعد التخرج؟',
+                                'a' => 'نوفّر دعمًا يساعد الطالب على الاستعداد بشكل أفضل للمرحلة التالية، مثل المساعدة في السيرة الذاتية، مقابلات العمل، والحضور المهني الرقمي.'
+                            ],
+                            [
+                                'q' => 'كيف تتم عملية الانضمام؟',
+                                'a' => 'تتم من خلال طلب انضمام، اختبار مستوى، مقابلة، ثم الدفع والتسجيل.'
+                            ],
+                            [
+                                'q' => 'هل أحصل على شهادة بعد انتهاء الدورة؟',
+                                'a' => 'يمكن منح الطالب شهادة إتمام بعد استكمال متطلبات البرنامج بنجاح.'
                             ]
                         ];
                     @endphp

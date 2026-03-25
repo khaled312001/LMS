@@ -17,11 +17,19 @@
                 <a href="{{ route('home') }}" class="d-inline-block mb-4">
                     <img src="{{ get_image(get_frontend_settings('light_logo')) }}" alt="Logo" style="max-height:50px;">
                 </a>
-                <p style="color:#b0bec5;font-size:0.93rem;line-height:1.85;margin-bottom:28px;">
+                <p style="color:#b0bec5;font-size:0.93rem;line-height:1.85;margin-bottom:20px;">
                     {{ $is_arabic
-                        ? 'تمكين الجيل القادم من المبدعين والقادة من خلال تعليم عالمي المستوى وتجارب تعليمية حديثة.'
-                        : get_phrase('Empowering the next generation of creators and leaders through world-class education and modern learning experiences.') }}
+                        ? 'منصة تعليمية تُدار من سويسرا، تقدّم برامج عملية وحديثة في البرمجة، تطوير التطبيقات، الذكاء الاصطناعي، التسويق، التصميم، والمبيعات، عن بُعد أو حضوريًا من داخل المركز.'
+                        : get_phrase('An educational platform managed from Switzerland, offering practical and modern programs in programming, app development, AI, marketing, design, and sales.') }}
                 </p>
+                <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
+                    <i class="fa-solid fa-location-dot" style="color:#818cf8;margin-top:3px;"></i>
+                    <span style="color:#9db8d2;font-size:0.88rem;">Bahnhofstrasse 37, 8001 Zürich</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;">
+                    <i class="fa-brands fa-whatsapp" style="color:#25d366;margin-top:3px;"></i>
+                    <a href="https://wa.me/41779412126" style="color:#9db8d2;font-size:0.88rem;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9db8d2'">+41 77 941 21 26</a>
+                </div>
 
                 {{-- Social icons --}}
                 <div style="display:flex;gap:10px;">
@@ -151,7 +159,7 @@
 </footer>
 
 {{-- WhatsApp Floating Button --}}
-<a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', get_settings('phone')) }}"
+<a href="https://wa.me/41779412126"
    target="_blank" aria-label="WhatsApp"
    style="position:fixed;bottom:36px;right:36px;width:62px;height:62px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;z-index:10000;text-decoration:none;box-shadow:0 8px 28px rgba(37,211,102,0.45);transition:transform .3s cubic-bezier(.175,.885,.32,1.275);"
    onmouseover="this.style.transform='scale(1.12) rotate(8deg)';"
