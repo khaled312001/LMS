@@ -21,14 +21,14 @@
                                     @endphp
                                     @foreach ($lessons as $lesson)
                                         <li class="rounded-3 transition-all hover-translate-x-5" style="background: #ffffff; border: 1px solid #e2e8f0;">
-                                            <a href="{{ $course_details->is_paid ? 'javascript:: void(0);' : route('course.player', $course_details->slug) }}" class="d-flex justify-content-between align-items-center px-4 py-3 text-decoration-none">
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <i class="fi-rr-play-alt text-primary fs-5 mt-1"></i>
-                                                    <span class="text-secondary fw-bold">{{ ucfirst($lesson->title) }}</span>
+                                            <a href="{{ $course_details->is_paid ? 'javascript:: void(0);' : route('course.player', $course_details->slug) }}" class="d-flex justify-content-between align-items-start px-4 py-3 text-decoration-none gap-3">
+                                                <div class="d-flex align-items-start gap-3" style="flex: 1; min-width: 0;">
+                                                    <i class="fi-rr-play-alt text-primary fs-5 flex-shrink-0" style="margin-top: 2px;"></i>
+                                                    <span class="text-secondary fw-bold" style="line-height: 1.5;">{{ ucfirst($lesson->title) }}</span>
                                                 </div>
-                                                
+
                                                 @if($lesson->duration != '00:00:00' && $lesson->duration != "")
-                                                    <span class="badge rounded-pill px-3 py-2" style="background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe;">
+                                                    <span class="badge rounded-pill px-3 py-2 flex-shrink-0" style="background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe;">
                                                         <i class="fi-rr-clock me-1 small"></i> {{$lesson->duration}}
                                                     </span>
                                                 @endif
