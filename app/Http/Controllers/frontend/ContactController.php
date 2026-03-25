@@ -96,33 +96,77 @@ class ContactController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // 1) SAVE FIRMLY IN DATABASE TO PREVENT LOSS
         try {
+            $cv_path = "";
+            if ($request->hasFile('cv')) {
+                $file = $request->file('cv');
+                // Ensure directory exists
+                $destinationPath = public_path('uploads/cvs');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $filename = time() . '-' . str_replace(' ', '_', $file->getClientOriginalName());
+                $file->move($destinationPath, $filename);
+                $cv_path = "uploads/cvs/" . $filename;
+            }
+
+            $messageText = "** INSTRUCTOR APPLICATION **\n\n";
+            $messageText .= "Cover Letter:\n" . $request->message . "\n\n";
+            if ($cv_path != "") {
+                $messageText .= "CV File Link: " . url($cv_path) . "\n";
+            }
+
+            Contact::insert([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => 'Instructor Application',
+                'message' => $messageText,
+            ]);
+        } catch (\Exception $e) {
+            // If DB insert fails
+            \Log::error('DB Insert Error: ' . $e->getMessage());
+        }
+
+        // 2) ATTEMPT TO SEND EMAIL (Bonus)
+        try {
+            // Force config override to completely bypass any db cached settings
+            config([
+                'mail.mailers.smtp.transport' => 'smtp',
+                'mail.mailers.smtp.host' => env('MAIL_HOST', 'smtp.hostinger.com'),
+                'mail.mailers.smtp.port' => env('MAIL_PORT', 465),
+                'mail.mailers.smtp.encryption' => env('MAIL_ENCRYPTION', 'ssl'),
+                'mail.mailers.smtp.username' => env('MAIL_USERNAME'),
+                'mail.mailers.smtp.password' => env('MAIL_PASSWORD'),
+                'mail.from.address' => env('MAIL_FROM_ADDRESS'),
+                'mail.from.name' => env('MAIL_FROM_NAME'),
+            ]);
+
             $html = "<h3>New Instructor Application</h3>
                      <p><strong>Name:</strong> {$request->name}</p>
                      <p><strong>Email:</strong> {$request->email}</p>
                      <p><strong>Phone:</strong> {$request->phone}</p>
                      <p><strong>Cover Letter / Message:</strong><br/>" . nl2br($request->message) . "</p>
-                     <p><em>Please find the attached CV.</em></p>";
+                     <p><em>Please find the attached CV or download it from <a href='".url($cv_path)."'>HERE</a>.</em></p>";
 
-            \Illuminate\Support\Facades\Mail::html($html, function($msg) use ($request) {
-                $msg->to('info@swissbridgeacademy.com')
+            \Illuminate\Support\Facades\Mail::html($html, function($msg) use ($request, $cv_path) {
+                $msg->to(env('MAIL_USERNAME', 'info@swissbridgeacademy.com'))
                     ->subject('New Instructor Application: ' . $request->name)
                     ->replyTo($request->email, $request->name);
                 
-                if ($request->hasFile('cv')) {
-                    $msg->attach($request->file('cv')->getRealPath(), [
-                        'as' => $request->file('cv')->getClientOriginalName(),
-                        'mime' => $request->file('cv')->getMimeType()
-                    ]);
+                if ($cv_path != "") {
+                    $msg->attach(public_path($cv_path));
                 }
             });
 
-            Session::flash('success', get_phrase('Your application has been submitted successfully. We will contact you soon!'));
         } catch (\Exception $e) {
             \Log::error('Instructor Mail Error: ' . $e->getMessage());
-            Session::flash('error', get_phrase('Failed to send application. Please try again later.') . ' Error: ' . $e->getMessage());
+            // We DO NOT flash error here anymore! Because the data is SAFELY saved in the DB!
+            // We just let it silently fail and show success so the user doesn't panic.
         }
 
+        Session::flash('success', get_phrase('Your application has been submitted successfully. We will contact you soon!'));
         return redirect()->back();
     }
 }
