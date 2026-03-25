@@ -12,7 +12,7 @@
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-lg-5" data-aos="fade-right">
-                <div class="bento-item h-100 p-5 shadow-sm bg-white" style="border-radius: 30px; border: 1px solid rgba(79, 70, 229, 0.1);">
+                <div class="h-100 p-5 shadow-sm bg-white" style="border-radius: 30px; border: 1px solid rgba(79, 70, 229, 0.1);">
                     <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 80px; height: 80px; background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(6,182,212,0.1));">
                         <i class="fi-rr-globe fs-1 text-vibrant-primary"></i>
                     </div>
@@ -21,12 +21,12 @@
                 </div>
             </div>
             <div class="col-lg-5" data-aos="fade-left">
-                <div class="bento-item h-100 p-5 shadow-sm text-white" style="border-radius: 30px; background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);">
+                <div class="h-100 p-5 shadow-lg text-white" style="border-radius: 30px; background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);">
                     <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 80px; height: 80px; background: rgba(255,255,255,0.2);">
                         <i class="fi-rr-building fs-1 text-white"></i>
                     </div>
                     <h3 class="fw-bold mb-3">{{ $is_arabic ? 'الدراسة حضوريًا من داخل المركز' : 'On-site Learning' }}</h3>
-                    <p class="text-white-50 fs-5 lh-lg" style="color: rgba(255,255,255,0.85) !important;">{{ $is_arabic ? 'خيار مناسب لمن يفضّل التفاعل المباشر، وبيئة تعليمية حضورية تساعد على التركيز والمشاركة بشكل أكبر.' : 'Ideal for those who prefer direct interaction and an immersive on-site learning environment.' }}</p>
+                    <p class="text-white fs-5 lh-lg" style="opacity: 0.9;">{{ $is_arabic ? 'خيار مناسب لمن يفضّل التفاعل المباشر، وبيئة تعليمية حضورية تساعد على التركيز والمشاركة بشكل أكبر.' : 'Ideal for those who prefer direct interaction and an immersive on-site learning environment.' }}</p>
                 </div>
             </div>
         </div>
@@ -67,11 +67,13 @@
 <section class="py-100 py-5" style="background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);">
     <div class="container py-5">
         <div class="row justify-content-center text-center">
-            <div class="col-lg-10" data-aos="zoom-in">
-                <span class="badge bg-vibrant-primary px-4 py-2 fs-6 rounded-pill mb-4">{{ $is_arabic ? 'لمن صُممت برامجنا؟' : 'Who are our programs designed for?' }}</span>
-                <p class="display-6 fw-bold text-white lh-base mt-2">
+            <div class="col-lg-9" data-aos="zoom-in">
+                <span class="badge px-4 py-2 fs-6 rounded-pill mb-4" style="background: rgba(79, 70, 229, 0.2); color: #818cf8; border: 1px solid rgba(79, 70, 229, 0.4);">
+                    {{ $is_arabic ? 'لمن صُممت برامجنا؟' : 'Who are our programs designed for?' }}
+                </span>
+                <h3 class="fw-medium text-white lh-base mt-2" style="font-size: 1.8rem; line-height: 1.8 !important;">
                     {{ $is_arabic ? 'برامج Swiss Bridge Academy مناسبة للمبتدئين الذين يريدون دخول العالم الرقمي، وللطلاب الذين يبحثون عن مهارات عملية حقيقية، وللمهنيين الذين يريدون تطوير قدراتهم، ولمن يفكرون في تغيير مسارهم المهني، وكذلك للمستقلين ورواد الأعمال الذين يريدون توسيع مهاراتهم.' : 'Swiss Bridge Academy programs are suitable for beginners entering the digital world, students seeking actual practical skills, professionals wanting to enhance their capabilities, career-changers, and freelancers or entrepreneurs wishing to expand their skill sets.' }}
-                </p>
+                </h3>
             </div>
         </div>
     </div>

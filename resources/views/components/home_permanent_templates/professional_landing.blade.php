@@ -475,7 +475,7 @@
         <div class="row g-4">
             @foreach($features as $i => $f)
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 100 + $i * 100 }}">
-                <div class="bento-item h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: {{ $f['bg'] }}; {{ $f['bg'] != '#fff' ? 'color:#fff;' : '' }}">
+                <div class="h-100 p-5 shadow-sm border-0 d-flex flex-column" style="border-radius: 30px !important; background: {{ $f['bg'] }}; {{ $f['bg'] != '#fff' ? 'color:#fff;' : 'border: 1px solid rgba(79, 70, 229, 0.08);' }}">
                     <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-4" style="width: 70px; height: 70px; background: {{ $f['grad'] }};">
                         <i class="{{ $f['icon'] }} {{ $f['color'] }} fs-2"></i>
                     </div>
