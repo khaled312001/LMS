@@ -413,13 +413,7 @@
             $all_courses = DB::table('courses')->where('status', 'active')->where('language', $current_lang)->orderBy('id', 'desc')->take(12)->get();
         @endphp
 
-        <!-- Filters -->
-        <div class="d-flex justify-content-center flex-wrap gap-2 mb-5" data-aos="fade-up">
-            <button class="btn btn-vibrant rounded-pill px-4 py-2 filter-btn active" data-filter="all">{{ $is_arabic ? 'الكل' : get_phrase('All') }}</button>
-            @foreach ($featured_categories as $cat)
-                <button class="btn btn-outline-vibrant border-2 rounded-pill px-4 fw-bold mb-2 filter-btn" data-filter="cat-{{ $cat->id }}">{{ get_phrase($cat->title) }}</button>
-            @endforeach
-        </div>
+
 
         <!-- Course Swiper -->
         <div class="swiper course-swiper pb-5 px-3" data-aos="fade-up" data-aos-delay="200">
