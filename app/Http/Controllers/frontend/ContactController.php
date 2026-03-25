@@ -21,16 +21,8 @@ class ContactController extends Controller
         $input = $request->all();
 
         if (get_frontend_settings('recaptcha_status') == true && check_recaptcha($input['g-recaptcha-response']) == false) {
-
             Session::flash('error', get_phrase('Recaptcha verification failed'));
-
             return redirect(route('contact.us'));
-        }
-
-        // check duplicate
-        if (Contact::where('email', $request->email)->exists()) {
-            Session::flash('error', get_phrase('This email has been taken.'));
-            return redirect()->back();
         }
 
         // validate user data
@@ -41,6 +33,7 @@ class ContactController extends Controller
             'address' => 'required',
             'message' => 'required',
         ];
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
@@ -59,6 +52,18 @@ class ContactController extends Controller
 
         // Send Email to Admin
         try {
+            // Force config override to completely bypass any db cached settings
+            config([
+                'mail.mailers.smtp.transport' => 'smtp',
+                'mail.mailers.smtp.host' => env('MAIL_HOST', 'smtp.hostinger.com'),
+                'mail.mailers.smtp.port' => env('MAIL_PORT', 465),
+                'mail.mailers.smtp.encryption' => env('MAIL_ENCRYPTION', 'ssl'),
+                'mail.mailers.smtp.username' => env('MAIL_USERNAME'),
+                'mail.mailers.smtp.password' => env('MAIL_PASSWORD'),
+                'mail.from.address' => env('MAIL_FROM_ADDRESS'),
+                'mail.from.name' => env('MAIL_FROM_NAME'),
+            ]);
+
             $html = "<h3>New Contact Message</h3>
                      <p><strong>Name:</strong> {$request->name}</p>
                      <p><strong>Email:</strong> {$request->email}</p>
@@ -67,12 +72,13 @@ class ContactController extends Controller
                      <p><strong>Message:</strong><br/>" . nl2br($request->message) . "</p>";
 
             \Illuminate\Support\Facades\Mail::html($html, function($msg) use ($request) {
-                $msg->to('info@swissbridgeacademy.com')
+                $msg->to(env('MAIL_USERNAME', 'info@swissbridgeacademy.com'))
                     ->subject('New Contact Form Submission - ' . $request->name)
                     ->replyTo($request->email, $request->name);
             });
         } catch (\Exception $e) {
-            // Ignore email fail silently to not break user experience
+            \Log::error('Contact Mail Error: ' . $e->getMessage());
+            // Ignore email fail silently to not break user experience as the record is saved
         }
 
         // redirect back

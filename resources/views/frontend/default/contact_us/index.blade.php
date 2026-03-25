@@ -83,6 +83,7 @@
 </style>
 @endpush
 @section('content')
+    @php $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic'; @endphp
     <!-- Breadcrumb Area -->
     <section class="mesh-gradient-breadcrumb">
         <div class="container">
@@ -90,12 +91,12 @@
                 <div class="col-lg-12">
                     <nav aria-label="breadcrumb" class="mb-4">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ get_phrase('Home') }}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ get_phrase('Contact us') }}</li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ $is_arabic ? 'الرئيسية' : get_phrase('Home') }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $is_arabic ? 'اتصل بنا' : get_phrase('Contact us') }}</li>
                         </ol>
                     </nav>
-                    <h1 class="display-3 g-title mb-2">{{ get_phrase('Get in Touch') }}</h1>
-                    <p class="text-muted mb-0 fs-5">{{ get_phrase("We're always here to help you. Reach out anytime.") }}</p>
+                    <h1 class="display-3 g-title mb-2">{{ $is_arabic ? 'تواصل معنا' : get_phrase('Get in Touch') }}</h1>
+                    <p class="text-muted mb-0 fs-5">{{ $is_arabic ? 'نحن هنا دائماً لمساعدتك. تواصل معنا في أي وقت.' : get_phrase("We're always here to help you. Reach out anytime.") }}</p>
                 </div>
             </div>
         </div>
