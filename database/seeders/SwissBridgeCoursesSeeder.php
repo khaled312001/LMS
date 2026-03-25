@@ -223,6 +223,18 @@ class SwissBridgeCoursesSeeder extends Seeder
 
         foreach ($courses as $courseData) {
             $slug = Str::slug($courseData['title']) . '-' . rand(100, 999);
+            // Assign a unique price based on title (or fallback to 199)
+            $prices = [
+                'تطوير الواجهات الأمامية' => 250,
+                'تطوير الويب المتكامل Full Stack' => 450,
+                'تطوير التطبيقات المحمولة' => 350,
+                'التسويق باستخدام أدوات الذكاء الاصطناعي' => 199,
+                'التصميم باستخدام أدوات الذكاء الاصطناعي' => 199,
+                'دورة المبيعات' => 150,
+                'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة' => 299,
+            ];
+            $coursePrice = $prices[$courseData['title']] ?? 199;
+
             DB::table('courses')->insert([
                 'title' => $courseData['title'],
                 'short_description' => $courseData['short_description'],
@@ -232,13 +244,14 @@ class SwissBridgeCoursesSeeder extends Seeder
                 'technologies' => $courseData['technologies'],
                 'faqs' => $courseData['faqs'],
                 'thumbnail' => $courseData['thumbnail'] ?? null,
+                'banner' => $courseData['thumbnail'] ?? null,
                 'slug' => $slug,
                 'user_id' => 1,
                 'status' => 'active',
                 'language' => 'arabic',
                 'category_id' => 1,
-                'is_paid' => 0,
-                'price' => 0,
+                'is_paid' => 1,
+                'price' => $coursePrice,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

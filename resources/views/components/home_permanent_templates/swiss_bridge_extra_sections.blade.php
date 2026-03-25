@@ -8,7 +8,7 @@
         <div class="text-center mb-5" data-aos="fade-up">
             <span class="vibrant-tag mb-3 d-inline-block">{{ $is_arabic ? 'نمط الدراسة' : 'Study Mode' }}</span>
             <h2 class="display-5 fw-800">{{ $is_arabic ? 'تعلّم بالطريقة التي تناسبك' : 'Learn in the Way That Suits You' }}</h2>
-            <p class="text-muted col-md-8 mx-auto">{{ $is_arabic ? 'نحن نؤمن أن المرونة جزء مهم من نجاح التجربة التعليمية، لذلك نوفر للطلاب خيارين في الدراسة بحسب طبيعة البرنامج وما يناسب احتياجاتهم.' : 'We believe flexibility is key to a successful learning experience.' }}</p>
+            <p class="text-muted col-md-8 mx-auto">{{ $is_arabic ? 'نحن نؤمن أن المرونة جزء مهم من نجاح التجربة التعليمية، لذلك نوفر للطلاب خيارين في الدراسة بحسب طبيعة البرنامج وما يناسب احتياجاتهم.' : 'We believe flexibility is a crucial part of a successful learning experience, which is why we offer students two study options based on the program\'s nature and their needs.' }}</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-lg-5" data-aos="fade-right">
@@ -17,7 +17,7 @@
                         <i class="fi-rr-globe fs-1 text-vibrant-primary"></i>
                     </div>
                     <h3 class="fw-bold mb-3">{{ $is_arabic ? 'الدراسة عن بُعد' : 'Online Learning' }}</h3>
-                    <p class="text-muted fs-5 lh-lg">{{ $is_arabic ? 'خيار مناسب لمن يبحث عن المرونة وإمكانية التعلّم من أي مكان، مع متابعة منظمة وتجربة تعليمية واضحة.' : 'Perfect for those seeking flexibility to learn from anywhere with organized follow-ups.' }}</p>
+                    <p class="text-muted fs-5 lh-lg">{{ $is_arabic ? 'خيار مناسب لمن يبحث عن المرونة وإمكانية التعلّم من أي مكان، مع متابعة منظمة وتجربة تعليمية واضحة.' : 'Perfect for those seeking flexibility to learn from anywhere with organized follow-ups and a clear educational experience.' }}</p>
                 </div>
             </div>
             <div class="col-lg-5" data-aos="fade-left">
@@ -26,7 +26,7 @@
                         <i class="fi-rr-building fs-1 text-white"></i>
                     </div>
                     <h3 class="fw-bold mb-3">{{ $is_arabic ? 'الدراسة حضوريًا من داخل المركز' : 'On-site Learning' }}</h3>
-                    <p class="text-white fs-5 lh-lg" style="opacity: 0.9;">{{ $is_arabic ? 'خيار مناسب لمن يفضّل التفاعل المباشر، وبيئة تعليمية حضورية تساعد على التركيز والمشاركة بشكل أكبر.' : 'Ideal for those who prefer direct interaction and an immersive on-site learning environment.' }}</p>
+                    <p class="text-white fs-5 lh-lg" style="opacity: 0.9;">{{ $is_arabic ? 'خيار مناسب لمن يفضّل التفاعل المباشر، وبيئة تعليمية حضورية تساعد على التركيز والمشاركة بشكل أكبر.' : 'Ideal for those who prefer direct interaction and an immersive on-site learning environment that helps with focus and participation.' }}</p>
                 </div>
             </div>
         </div>
@@ -42,19 +42,22 @@
             </div>
             <div class="col-lg-6" data-aos="fade-left">
                 <h2 class="display-5 fw-800 mb-4">{{ $is_arabic ? 'ماذا ستكتسب من رحلتك معنا؟' : 'What will you gain from your journey with us?' }}</h2>
-                <p class="fs-5 text-muted mb-4">{{ $is_arabic ? 'هدفنا أن تخرج من التجربة التعليمية بمهارات عملية وفهم أوضح وثقة أكبر في قدرتك على التقدّم.' : 'Our goal is for you to exit the educational experience with practical skills, clearer understanding, and greater confidence.' }}</p>
+                <p class="fs-5 text-muted mb-4">{{ $is_arabic ? 'هدفنا أن تخرج من التجربة التعليمية بمهارات عملية وفهم أوضح وثقة أكبر في قدرتك على التقدّم.' : 'Our goal is for you to exit the educational experience with practical skills, a clearer understanding, and greater confidence in your ability to progress.' }}</p>
                 
+                @php
+                    $gains = [
+                        ['فهم عملي لمجالات رقمية حديثة', 'Practical understanding of modern digital fields'],
+                        ['قدرة أفضل على استخدام الأدوات والتقنيات المعاصرة', 'Better ability to use contemporary tools and technologies'],
+                        ['مهارات قابلة للتطبيق في الدراسة أو العمل أو المشاريع الشخصية', 'Applicable skills for study, work, or personal projects'],
+                        ['تطور في الجاهزية المهنية والعملية', 'Improvement in professional and practical readiness'],
+                        ['أساس قوي يمكن البناء عليه مستقبلًا', 'A strong foundation to build on in the future']
+                    ];
+                @endphp
                 <ul class="list-unstyled fa-ul mt-4 ms-4">
-                    @foreach([
-                        'فهم عملي لمجالات رقمية حديثة',
-                        'قدرة أفضل على استخدام الأدوات والتقنيات المعاصرة',
-                        'مهارات قابلة للتطبيق في الدراسة أو العمل أو المشاريع الشخصية',
-                        'تطور في الجاهزية المهنية والعملية',
-                        'أساس قوي يمكن البناء عليه مستقبلًا'
-                    ] as $point)
+                    @foreach($gains as $point)
                     <li class="mb-3 fs-5 text-dark fw-medium d-flex align-items-start gap-3">
                         <i class="fa-solid fa-check-circle text-success mt-1 fs-4"></i>
-                        <span>{{ $is_arabic ? $point : $point }}</span>
+                        <span>{{ $is_arabic ? $point[0] : $point[1] }}</span>
                     </li>
                     @endforeach
                 </ul>
@@ -84,7 +87,7 @@
     <div class="container py-5">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="display-5 fw-800">{{ $is_arabic ? 'كيف تنضم إلى Swiss Bridge Academy؟' : 'How to join Swiss Bridge Academy?' }}</h2>
-            <p class="text-muted">{{ $is_arabic ? 'صممنا عملية الانضمام بطريقة واضحة ومنظمة، حتى نساعد كل متقدم على البدء من المكان الصحيح وفي المسار الأنسب له.' : 'We designed an organized joining process to help every applicant start correctly.' }}</p>
+            <p class="text-muted">{{ $is_arabic ? 'صممنا عملية الانضمام بطريقة واضحة ومنظمة، حتى نساعد كل متقدم على البدء من المكان الصحيح وفي المسار الأنسب له.' : 'We designed an organized joining process to help every applicant start correctly from the right place and on the most suitable path.' }}</p>
         </div>
         
         <div class="row g-4 mt-4 position-relative">
@@ -93,11 +96,11 @@
             
             @php
                 $steps = [
-                    ['1', 'تعبئة طلب الانضمام', 'تبدأ الرحلة من خلال تعبئة نموذج طلب الانضمام، حيث نأخذ فكرة أولية عن اهتمامك، خلفيتك، والبرنامج الذي ترغب في الالتحاق به.'],
-                    ['2', 'اختبار تحديد المستوى', 'بعد مراجعة الطلب، يتم توجيهك إلى اختبار مستوى مناسب يساعدنا على فهم مستواك الحالي وتحديد نقطة البداية الأنسب لك.'],
-                    ['3', 'المقابلة', 'نجري مقابلة قصيرة للتعرف عليك بشكل أفضل، وفهم أهدافك، والتأكد من اختيار المسار المناسب لطموحك ومستواك.'],
-                    ['4', 'تأكيد القبول وإتمام الدفع', 'بعد مراجعة الطلب والاختبار والمقابلة، يتم توضيح الخطوة التالية واستكمال إجراءات الدفع والتسجيل.'],
-                    ['5', 'التسجيل وبدء الرحلة', 'بمجرد تأكيد التسجيل، تبدأ رحلتك التعليمية معنا، سواء عن بُعد أو حضوريًا من داخل المركز.']
+                    ['1', 'تعبئة طلب الانضمام', 'تبدأ الرحلة من خلال تعبئة نموذج طلب الانضمام، حيث نأخذ فكرة أولية عن اهتمامك، خلفيتك، والبرنامج الذي ترغب في الالتحاق به.', 'Fill Application', 'The journey starts by filling out the application form, where we get an initial idea of your interests, background, and the program you wish to join.'],
+                    ['2', 'اختبار تحديد المستوى', 'بعد مراجعة الطلب، يتم توجيهك إلى اختبار مستوى مناسب يساعدنا على فهم مستواك الحالي وتحديد نقطة البداية الأنسب لك.', 'Placement Test', 'After reviewing the application, you\'ll be directed to a placement test that helps us understand your current level and determine the most suitable starting point.'],
+                    ['3', 'المقابلة', 'نجري مقابلة قصيرة للتعرف عليك بشكل أفضل، وفهم أهدافك، والتأكد من اختيار المسار المناسب لطموحك ومستواك.', 'Interview', 'We conduct a short interview to get to know you better, understand your goals, and ensure the chosen path fits your ambition and level.'],
+                    ['4', 'تأكيد القبول وإتمام الدفع', 'بعد مراجعة الطلب والاختبار والمقابلة، يتم توضيح الخطوة التالية واستكمال إجراءات الدفع والتسجيل.', 'Acceptance & Payment', 'Following the application, test, and interview review, the next step is clarified and payment and registration procedures are completed.'],
+                    ['5', 'التسجيل وبدء الرحلة', 'بمجرد تأكيد التسجيل، تبدأ رحلتك التعليمية معنا، سواء عن بُعد أو حضوريًا من داخل المركز.', 'Registration & Start', 'Once registration is confirmed, your educational journey with us begins, whether online or on-site at our center.']
                 ];
             @endphp
             @foreach($steps as $index => $step)
@@ -107,15 +110,15 @@
                         {{ $step[0] }}
                     </div>
                     <div class="mt-4 p-3 bg-light rounded-4 shadow-sm h-100 border border-1 border-white" style="transition: transform .3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform=''">
-                        <h6 class="fw-bold text-dark">{{ $step[1] }}</h6>
-                        <p class="small text-muted mb-0 lh-lg">{{ $step[2] }}</p>
+                        <h6 class="fw-bold text-dark">{{ $is_arabic ? $step[1] : $step[3] }}</h6>
+                        <p class="small text-muted mb-0 lh-lg">{{ $is_arabic ? $step[2] : $step[4] }}</p>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
         <div class="text-center mt-5" data-aos="fade-up">
-            <p class="text-muted fst-italic mb-4">{{ $is_arabic ? 'هدفنا من هذه الخطوات هو مساعدتك على البدء بالشكل الصحيح، وليس تعقيد عملية التسجيل.' : 'Our goal is to help you start right, not to complicate the registration process.' }}</p>
+            <p class="text-muted fst-italic mb-4">{{ $is_arabic ? 'هدفنا من هذه الخطوات هو مساعدتك على البدء بالشكل الصحيح، وليس تعقيد عملية التسجيل.' : 'Our goal with these steps is to help you start right, not to complicate the registration process.' }}</p>
             <a href="{{ route('register.form') }}" class="btn btn-vibrant rounded-pill px-5 py-3 fw-bold fs-5 shadow-lg">{{ $is_arabic ? 'ابدأ طلب الانضمام' : 'Start Application' }}</a>
         </div>
     </div>
@@ -128,21 +131,24 @@
             <div class="col-lg-6" data-aos="fade-right">
                 <h2 class="display-6 fw-800 text-dark mb-4">{{ $is_arabic ? 'تجربة تعليمية تقوم على الجودة والوضوح' : 'An Educational Experience Based on Quality and Clarity' }}</h2>
                 <p class="fs-5 text-muted lh-base mb-4">
-                    {{ $is_arabic ? 'نحرص في Swiss Bridge Academy على تقديم تجربة تعليمية واضحة، منظمة، وعملية، تركّز على بناء المهارات الحقيقية وتقديم محتوى يساعد الطالب على الاستفادة الفعلية، وليس فقط المتابعة النظرية.' : 'At Swiss Bridge Academy, we ensure an organized and practical learning experience focused on building real skills.' }}
+                    {{ $is_arabic ? 'نحرص في Swiss Bridge Academy على تقديم تجربة تعليمية واضحة، منظمة، وعملية، تركّز على بناء المهارات الحقيقية وتقديم محتوى يساعد الطالب على الاستفادة الفعلية، وليس فقط المتابعة النظرية.' : 'At Swiss Bridge Academy, we are keen on providing a clear, organized, and practical learning experience that focuses on building real skills and offering content that helps the student actually benefit, rather than just theoretically follow along.' }}
                 </p>
+                @php
+                    $qualities = [
+                        ['إدارة من سويسرا', 'Swiss Management'],
+                        ['محتوى حديث وموجه للواقع العملي', 'Modern, practically-oriented content'],
+                        ['مدربون بخبرة عملية', 'Trainers with practical experience'],
+                        ['تعلم عن بُعد أو حضوريًا من داخل المركز', 'Online or on-site learning'],
+                        ['دعم بعد التخرج', 'Post-graduation support'],
+                        ['شهادة إتمام', 'Certificate of completion']
+                    ];
+                @endphp
                 <div class="row g-3">
-                    @foreach([
-                        'إدارة من سويسرا',
-                        'محتوى حديث وموجه للواقع العملي',
-                        'مدربون بخبرة عملية',
-                        'تعلم عن بُعد أو حضوريًا من داخل المركز',
-                        'دعم بعد التخرج',
-                        'شهادة إتمام'
-                    ] as $quality)
+                    @foreach($qualities as $quality)
                     <div class="col-sm-6">
                         <div class="d-flex align-items-center gap-2 text-dark fw-bold">
                             <i class="fa-solid fa-star text-warning"></i>
-                            {{ $quality }}
+                            {{ $is_arabic ? $quality[0] : $quality[1] }}
                         </div>
                     </div>
                     @endforeach

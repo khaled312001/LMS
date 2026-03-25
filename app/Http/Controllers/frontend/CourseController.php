@@ -72,6 +72,11 @@ class CourseController extends Controller
         if (request()->has('language')) {
             $language = request()->query('language');
             $query    = $query->where('language', $language);
+        } else {
+            $language = session('language') ?? get_settings('language');
+            if ($language) {
+                $query = $query->where('language', strtolower($language));
+            }
         }
 
         // filter by rating

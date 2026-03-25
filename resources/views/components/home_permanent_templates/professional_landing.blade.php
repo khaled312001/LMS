@@ -396,7 +396,8 @@
         
         @php
             $featured_categories = DB::table('categories')->where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(5);
-            $all_courses = DB::table('courses')->where('status', 'active')->orderBy('id', 'desc')->take(12)->get();
+            $current_lang = strtolower(session('language') ?? get_settings('language'));
+            $all_courses = DB::table('courses')->where('status', 'active')->where('language', $current_lang)->orderBy('id', 'desc')->take(12)->get();
         @endphp
 
         <!-- Filters -->
