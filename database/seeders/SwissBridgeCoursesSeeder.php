@@ -229,12 +229,11 @@ class SwissBridgeCoursesSeeder extends Seeder
                 'slug' => $slug,
                 'status' => 'active',
                 'language' => 'arabic',
-                'category_id' => 1, // Defaulting to 1, User can update category later
-                'sub_category_id' => 0,
+                'category_id' => 1,
+                'is_paid' => 0,
                 'price' => 0,
-                'is_free' => 1,
-                'date_added' => strtotime(now()),
-                'last_modified' => strtotime(now()),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }
