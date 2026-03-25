@@ -30,7 +30,6 @@ class ContactController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'address' => 'required',
             'message' => 'required',
         ];
 
@@ -44,7 +43,7 @@ class ContactController extends Controller
         $contact['name'] = $request->name;
         $contact['email'] = $request->email;
         $contact['phone'] = $request->phone;
-        $contact['address'] = $request->address;
+        $contact['address'] = $request->address ?? 'N/A';
         $contact['message'] = $request->message;
 
         // insert data
@@ -64,16 +63,20 @@ class ContactController extends Controller
                 'mail.from.name' => env('MAIL_FROM_NAME'),
             ]);
 
-            $html = "<h3>New Contact Message</h3>
+            $subject = $request->subject ?? 'New Contact Form Submission - ' . $request->name;
+            $course = $request->course_interest ? "<p><strong>Interested In:</strong> {$request->course_interest}</p>" : "";
+
+            $html = "<h3>{$subject}</h3>
                      <p><strong>Name:</strong> {$request->name}</p>
                      <p><strong>Email:</strong> {$request->email}</p>
                      <p><strong>Phone:</strong> {$request->phone}</p>
-                     <p><strong>Address:</strong> {$request->address}</p>
-                     <p><strong>Message:</strong><br/>" . nl2br($request->message) . "</p>";
+                     <p><strong>Address/Location:</strong> " . ($request->address ?? 'Not Provided') . "</p>
+                     {$course}
+                     <p><strong>Message / Motivation:</strong><br/>" . nl2br($request->message) . "</p>";
 
-            \Illuminate\Support\Facades\Mail::html($html, function($msg) use ($request) {
+            \Illuminate\Support\Facades\Mail::html($html, function($msg) use ($request, $subject) {
                 $msg->to(env('MAIL_USERNAME', 'info@swissbridgeacademy.com'))
-                    ->subject('New Contact Form Submission - ' . $request->name)
+                    ->subject($subject)
                     ->replyTo($request->email, $request->name);
             });
         } catch (\Exception $e) {

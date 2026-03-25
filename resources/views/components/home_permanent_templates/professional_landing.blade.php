@@ -371,7 +371,7 @@
             @foreach (App\Models\Category::where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(8) as $category)
                 <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="category-item text-center">
-                        <a href="{{ route('courses', $category->slug) }}" class="text-decoration-none d-block p-4 rounded-5 transition-all h-100 bento-item border-0" style="background: rgba(255,255,255,0.03) !important; backdrop-filter: blur(10px);">
+                        <a href="javascript:void(0)" class="text-decoration-none d-block p-4 rounded-5 transition-all h-100 bento-item border-0" style="background: rgba(255,255,255,0.03) !important; backdrop-filter: blur(10px); cursor: default;">
                             <div class="category-circle mb-4 mx-auto shadow-lg" style="background: linear-gradient(135deg, #fff, #f8f9fa) !important;">
                                 <i class="{{ $icons[$category->title] ?? ($category->icon ?: 'fa-solid fa-graduation-cap') }} text-vibrant-gradient fs-1"></i>
                             </div>
@@ -616,6 +616,89 @@
 </section>
 
 @include('components.home_permanent_templates.swiss_bridge_extra_sections')
+
+<!-- Student Join Request Modal -->
+<div class="modal fade" id="joinRequestModal" tabindex="-1" aria-labelledby="joinRequestModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-2xl overflow-hidden" style="border-radius: 40px !important; background: #fff;">
+            <div class="modal-header border-0 p-4 pb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 p-md-5 pt-0">
+                <div class="text-center mb-5">
+                    <div class="vibrant-tag mb-3 d-inline-block px-4 py-2 border-0" style="background: rgba(79, 70, 229, 0.1); color: var(--vibrant-primary); font-weight: 800; border-radius: 50px;">🚀 {{ $is_arabic ? 'انضم إلى مستقبل التعليم الرقمي' : 'Join the Future of Digital Education' }}</div>
+                    <h2 class="display-6 fw-800 mb-3">{{ $is_arabic ? 'تقديم طلب انضمام' : 'Submit Admission Application' }}</h2>
+                    <p class="text-muted">{{ $is_arabic ? 'املأ النموذج أدناه وسيقوم فريقنا بالتواصل معك لتحديد موعد اختبار المستوى والمقابلة.' : 'Fill the form below and our team will contact you to schedule your placement test and interview.' }}</p>
+                </div>
+
+                <form action="{{ route('contact.store') }}" method="POST" id="joinRequestForm" class="needs-validation">
+                    @csrf
+                    <input type="hidden" name="subject" value="New Student Admission Application">
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="form-floating text-dark">
+                                <input type="text" class="form-control rounded-4 bg-light border-0 px-4" id="stdName" name="name" placeholder="Name" required style="height: 60px;">
+                                <label for="stdName" class="text-muted">{{ $is_arabic ? 'الاسم الكامل' : 'Full Name' }} *</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating text-dark">
+                                <input type="email" class="form-control rounded-4 bg-light border-0 px-4" id="stdEmail" name="email" placeholder="Email" required style="height: 60px;">
+                                <label for="stdEmail" class="text-muted">{{ $is_arabic ? 'البريد الإلكتروني' : 'Email Address' }} *</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating text-dark">
+                                <input type="tel" class="form-control rounded-4 bg-light border-0 px-4" id="stdPhone" name="phone" placeholder="Phone" required style="height: 60px;">
+                                <label for="stdPhone" class="text-muted">{{ $is_arabic ? 'رقم الواتساب' : 'WhatsApp Number' }} *</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating text-dark">
+                                <select class="form-select rounded-4 bg-light border-0 px-4" id="stdCourse" name="course_interest" style="height: 60px;">
+                                    <option value="" selected>{{ $is_arabic ? 'اختر التخصص المهتم به' : 'Select interested field' }}</option>
+                                    @php
+                                        $cats = DB::table('categories')->where('parent_id', 0)->get();
+                                    @endphp
+                                    @foreach($cats as $cat)
+                                        <option value="{{ $cat->title }}">{{ $is_arabic ? get_phrase($cat->title) : $cat->title }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="stdCourse" class="text-muted">{{ $is_arabic ? 'التخصص المطلوب' : 'Preferred Program' }}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating text-dark">
+                                <textarea class="form-control rounded-4 bg-light border-0 px-4 py-3" id="stdMessage" name="message" placeholder="Message" style="height: 120px;" required></textarea>
+                                <label for="stdMessage" class="text-muted">{{ $is_arabic ? 'لماذا تريد الانضمام إلينا؟' : 'Why do you want to join us?' }} *</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4 text-center">
+                            <button type="submit" class="btn btn-vibrant px-5 py-3 rounded-pill fw-bold fs-5 shadow-lg w-100">{{ $is_arabic ? 'إرسال طلب الانضمام' : 'Submit Application' }}</button>
+                            <p class="small text-muted mt-3 mb-0">{{ $is_arabic ? 'سوف يصلنا بريدك وسنتواصل معك خلال 24-48 ساعة.' : 'Your application will be sent to our team, and we will contact you within 24-48 hours.' }}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts to handle modal trigger -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all apply now links/buttons
+    const applyLinks = document.querySelectorAll('a[href*="register"]');
+    applyLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('joinRequestModal'));
+            modal.show();
+        });
+    });
+});
+</script>
 
 <!-- FAQ Section -->
 <section id="faq" class="py-100 bg-light py-5">

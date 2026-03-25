@@ -6,7 +6,8 @@
       "Bash(mysql:*)",
       "Bash(where:*)",
       "Bash(C:/tools/mysql/current/bin/mysql:*)",
-      "Bash(C:/xampp/mysql/bin/mysql:*)"
+      "Bash(C:/xampp/mysql/bin/mysql:*)",
+      "Bash(find /f/LMS -maxdepth 2 -name *.env* -o -name config.php -o -name .env)"
     ]
   }
 }
