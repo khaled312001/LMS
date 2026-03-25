@@ -119,7 +119,7 @@
                         </div>
                         <h4 class="g-title mb-3">{{ get_phrase('Our Address') }}</h4>
                         <p class="text-muted mb-4">{{ get_phrase('Visit our main office and experience our culture.') }}</p>
-                        <a href="#" class="text-vibrant-primary fw-bold text-decoration-none fs-5">{{ $contact_info['address'] }}</a>
+                        <a href="https://maps.google.com/?q=Bahnhofstrasse 37, 8001 Zürich" target="_blank" class="text-vibrant-primary fw-bold text-decoration-none fs-5">Bahnhofstrasse 37, 8001 Zürich</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -129,7 +129,7 @@
                         </div>
                         <h4 class="g-title mb-3">{{ get_phrase('Contact Info') }}</h4>
                         <p class="text-muted mb-4">{{ get_phrase('Open a chat or give us a call at any time.') }}</p>
-                        <a href="tel:{{ $contact_info['phone'] }}" class="text-vibrant-primary fw-bold text-decoration-none fs-5">{{ $contact_info['phone'] }}</a>
+                        <a href="tel:+41779412126" class="text-vibrant-primary fw-bold text-decoration-none fs-5">+41779412126</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -146,7 +146,7 @@
             <div class="row pt-100 align-items-stretch">
                 <div class="col-lg-5 mb-5 mb-lg-0">
                     <div class="map-container-vibrant h-100">
-                        <iframe class="border-0 w-100 h-100" src="https://maps.google.com/maps?q={{ $contact_info['location'] }}&hl=es&z=14&amp;output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe class="border-0 w-100 h-100" src="https://maps.google.com/maps?q=Bahnhofstrasse 37, 8001 Zürich&hl=en&z=16&amp;output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
                 <div class="col-lg-7">
