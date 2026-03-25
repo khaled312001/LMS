@@ -66,49 +66,36 @@
             }
         @endphp
 
+        @php
+            $current_price = $course_details->is_paid ? ($course_details->discount_flag ? $course_details->discounted_price : $course_details->price) : 0;
+            $wa_msg = ($is_arabic ? 'مرحباً، أريد طلب هذه الدورة:' : 'Hello, I want to order this course:') . "\n";
+            $wa_msg .= ($is_arabic ? '*الدورة:* ' : '*Course:* ') . $course_details->title . "\n";
+            $wa_msg .= ($is_arabic ? '*السعر:* ' : '*Price:* ') . currency($current_price, 2) . "\n";
+            $wa_msg .= ($is_arabic ? '*الرابط:* ' : '*Link:* ') . route('course.details', $course_details->slug);
+            $whatsapp_url = "https://wa.me/41779412126?text=" . urlencode($wa_msg);
+        @endphp
+
         <div class="d-grid gap-3 mb-4">
-            @if (isset(auth()->user()->id))
-                @if (in_array($course_details->id, $pending_course))
-                    <button disabled class="btn btn-secondary py-3 rounded-pill fw-bold opacity-75">
-                        {{ $is_arabic ? 'قيد المراجعة' : get_phrase('In progress') }}
-                    </button>
-                @else
-                    @if ($is_enrolled)
-                        <a href="{{ route('my.courses') }}" class="btn-sba-primary py-3 rounded-pill fw-bold text-center">
-                            {{ $is_arabic ? 'ابدأ التعلم' : get_phrase('Start Now') }}
-                        </a>
+            @if (isset(auth()->user()->id) && $is_enrolled)
+                <a href="{{ route('my.courses') }}" class="btn-sba-primary py-3 rounded-pill fw-bold text-center">
+                    {{ $is_arabic ? 'ابدأ التعلم' : get_phrase('Start Now') }}
+                </a>
+            @else
+                <a href="{{ $whatsapp_url }}" target="_blank" class="btn-sba-primary py-3 rounded-pill fw-bold text-center" style="background: linear-gradient(135deg, #25d366, #128c7e) !important; border:none; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);">
+                    <i class="fab fa-whatsapp me-2"></i> {{ $is_arabic ? 'طلب الدورة الآن' : 'Order Course Now' }}
+                </a>
+                
+                @if (isset(auth()->user()->id))
+                    @if ($in_wishlist)
+                        <button class="btn btn-link text-white opacity-50 text-decoration-none fw-bold toggleWishItem" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
+                            <i class="fa-solid fa-heart me-2 text-danger"></i> {{ $is_arabic ? 'حذف من المفضلة' : get_phrase('Remove from wishlist') }}
+                        </button>
                     @else
-                        <a href="{{ route('purchase.course', $course_details->id) }}" class="btn-sba-primary py-3 rounded-pill fw-bold text-center">
-                            {{ $is_arabic ? 'اشتر الآن' : get_phrase($course_details->is_paid ? 'Buy Now' : 'Enroll Now') }}
-                        </a>
-
-                        @if (isset($course_details->is_paid) && $course_details->is_paid == 1)
-                            @if ($in_cart)
-                                <a href="{{ route('cart.delete', ['id' => $course_details->id]) }}" class="btn btn-outline-danger py-3 rounded-pill fw-bold">
-                                    {{ $is_arabic ? 'حذف من العربة' : get_phrase('Remove from cart') }}
-                                </a>
-                            @else
-                                <a href="{{ route('cart.store', $course_details->id) }}" class="btn btn-outline-sba py-3 rounded-pill fw-bold">
-                                    {{ $is_arabic ? 'أضف إلى العربة' : get_phrase('Add to cart') }}
-                                </a>
-                            @endif
-                        @endif
-
-                        @if ($in_wishlist)
-                            <button class="btn btn-link text-white opacity-50 text-decoration-none fw-bold toggleWishItem" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
-                                <i class="fa-solid fa-heart me-2 text-danger"></i> {{ $is_arabic ? 'حذف من المفضلة' : get_phrase('Remove from wishlist') }}
-                            </button>
-                        @else
-                            <button class="btn btn-link text-white opacity-50 text-decoration-none fw-bold toggleWishItem" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
-                                <i class="fa-regular fa-heart me-2"></i> {{ $is_arabic ? 'أضف للمفضلة' : get_phrase('Add to wishlist') }}
-                            </button>
-                        @endif
+                        <button class="btn btn-link text-white opacity-50 text-decoration-none fw-bold toggleWishItem" onclick="wishlistToggleButton('{{ $course_details->id }}', this)">
+                            <i class="fa-regular fa-heart me-2"></i> {{ $is_arabic ? 'أضف للمفضلة' : get_phrase('Add to wishlist') }}
+                        </button>
                     @endif
                 @endif
-            @else
-                <a href="{{ route('purchase.course', $course_details->id) }}" class="btn-sba-primary py-3 rounded-pill fw-bold text-center">
-                    {{ $is_arabic ? 'اشتر الآن' : get_phrase($course_details->is_paid ? 'Buy Now' : 'Enroll Now') }}
-                </a>
             @endif
         </div>
 
