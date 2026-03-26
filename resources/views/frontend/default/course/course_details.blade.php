@@ -333,59 +333,6 @@
     <!------------------- Course Area End  --------->
 
 
-    <!-- Vertically centered modal -->
-    <div class="modal fade-in-effect" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-body bg-dark">
-                    <link rel="stylesheet" href="{{ asset('assets/global/plyr/plyr.css') }}">
-                    @php
-                        $preview_video_type = str_contains($course_details->preview, 'youtu') ? 'youtube' : '';
-                        $preview_video_type = str_contains($course_details->preview, 'vimeo') && $preview_video_type == '' ? 'vimeo' : $preview_video_type;
-                        $preview_video_type = str_contains($course_details->preview, 'http') && $preview_video_type == '' ? 'html5' : $preview_video_type;
-                    @endphp
-
-                    @if ($preview_video_type == 'youtube')
-                        <div class="plyr__video-embed" id="promoPlayer">
-                            <iframe height="500" src="{{ $course_details->preview }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
-                        </div>
-                    @elseif ($preview_video_type == 'vimeo')
-                        <div class="plyr__video-embed" id="promoPlayer">
-                            <iframe height="500" id="promoPlayer" src="https://player.vimeo.com/video/{{ $course_details->preview }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" allowfullscreen allowtransparency allow="autoplay"></iframe>
-                        </div>
-                    @elseif($preview_video_type == 'html5')
-                        <video id="promoPlayer" playsinline controls>
-                            <source src="{{ $course_details->preview }}" type="video/mp4">
-                        </video>
-                    @else
-                        <video id="promoPlayer" playsinline controls>
-                            <source src="{{ asset($course_details->preview) }}" type="video/mp4">
-                        </video>
-                    @endif
-
-                    <script src="{{ asset('assets/global/plyr/plyr.js') }}"></script>
-                    <script>
-                        "use strict";
-                        const promoPlayer = new Plyr('#promoPlayer');
-                    </script>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        "use strict";
-        const myModalElement = document.getElementById('exampleModal')
-        myModalElement.addEventListener('hidden.bs.modal', event => {
-            promoPlayer.pause();
-            $('#exampleModal').toggleClass('in');
-        });
-        myModalElement.addEventListener('shown.bs.modal', event => {
-            promoPlayer.play();
-            $('#exampleModal').toggleClass('in');
-        });
-    </script>
 
 @endsection
 @push('js')

@@ -8,11 +8,6 @@
         <div class="hero-details mb-4">
             <div class="position-relative overflow-hidden sba-shadow-premium" style="border-radius: 30px;">
                 <img class="w-100" src="{{ get_image($course_details->banner) }}" alt="{{ $course_details->title }}" style="transition: transform 0.5s ease; height: 220px; object-fit: cover;">
-                <div class="position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center" style="background: rgba(15, 23, 42, 0.4);">
-                    <div class="play-circle cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(0,0,0,0.3); transition: all 0.3s ease;">
-                        <i class="fa-solid fa-play text-white fs-3 ms-1"></i>
-                    </div>
-                </div>
             </div>
         </div>
 
