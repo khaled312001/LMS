@@ -84,35 +84,43 @@
         <div class="mobile-nav-links mt-3">
             <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
                 <li>
-                    <a href="{{ route('home') }}" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                    <a href="{{ route('home') }}" class="nav-offcanvas-link d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold" style="background: #f8fafc; border: 1px solid #e2e8f0;">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(79, 70, 229, 0.1);">
                             <i class="fi-rr-home text-primary fs-5"></i>
                         </div>
-                        <span class="fs-5">{{ get_phrase('Home') }}</span>
+                        <span class="fs-5">{{ $is_arabic ? 'الرئيسية' : get_phrase('Home') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('courses') }}" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                    <a href="{{ route('courses') }}" class="nav-offcanvas-link d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold" style="background: #ffffff; border: 1px solid #e2e8f0;">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(6, 182, 212, 0.1);">
                             <i class="fi-rr-book-alt text-info fs-5"></i>
                         </div>
-                        <span class="fs-5">{{ get_phrase('Courses') }}</span>
+                        <span class="fs-5">{{ $is_arabic ? 'الدورات' : get_phrase('Courses') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('home') }}#categories" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                    <a href="{{ route('home') }}#categories" class="nav-offcanvas-link d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold" style="background: #ffffff; border: 1px solid #e2e8f0;">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1);">
                             <i class="fi-rr-apps text-warning fs-5"></i>
                         </div>
-                        <span class="fs-5">{{ get_phrase('Categories') }}</span>
+                        <span class="fs-5">{{ $is_arabic ? 'الفئات' : get_phrase('Categories') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('blogs') }}" class="d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold transition-all hover-translate-x-5" data-bs-dismiss="offcanvas" style="background: #ffffff; border: 1px solid transparent;">
+                    <a href="{{ route('blogs') }}" class="nav-offcanvas-link d-flex align-items-center gap-3 p-3 rounded-4 text-dark text-decoration-none fw-bold" style="background: #ffffff; border: 1px solid #e2e8f0;">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1);">
                             <i class="fi-rr-edit text-success fs-5"></i>
                         </div>
-                        <span class="fs-5">{{ get_phrase('Blog') }}</span>
+                        <span class="fs-5">{{ $is_arabic ? 'المدونة' : get_phrase('Blog') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('register.form') }}" class="nav-offcanvas-link d-flex align-items-center gap-3 p-3 rounded-4 text-decoration-none fw-bold" style="background: linear-gradient(135deg,rgba(79,70,229,0.1),rgba(124,58,237,0.08)); border: 1px solid rgba(79,70,229,0.2); color: var(--vibrant-primary);">
+                        <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: var(--vibrant-primary);">
+                            <i class="fi-rr-user-add text-white fs-5"></i>
+                        </div>
+                        <span class="fs-5">{{ $is_arabic ? 'تقديم طلب الطالب' : 'Student Application' }}</span>
                     </a>
                 </li>
             </ul>
@@ -250,6 +258,27 @@
         } else {
             $('.vibrant-header').removeClass('scrolled');
         }
+    });
+
+    // Fix offcanvas nav links - close offcanvas then navigate
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.nav-offcanvas-link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var href = this.getAttribute('href');
+                var offcanvasEl = document.getElementById('vibrantMobileNav');
+                var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                if (offcanvasInstance) {
+                    offcanvasEl.addEventListener('hidden.bs.offcanvas', function handler() {
+                        offcanvasEl.removeEventListener('hidden.bs.offcanvas', handler);
+                        window.location.href = href;
+                    });
+                    offcanvasInstance.hide();
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
     });
 </script>
 @endpush

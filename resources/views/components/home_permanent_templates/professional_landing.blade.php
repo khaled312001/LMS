@@ -260,10 +260,14 @@
                 <p class="fs-4 text-muted mb-5 pe-lg-5" data-aos="fade-up" data-aos-delay="200">
                     {{ $is_arabic ? ($ar['Empowering students with'] ?? get_phrase('Empowering students with')) : get_phrase('Empowering students with') }} <span class="text-dark fw-bold">{{ $is_arabic ? ($ar['flexible, high-quality'] ?? get_phrase('flexible, high-quality')) : get_phrase('flexible, high-quality') }}</span> {{ $is_arabic ? ($ar['online learning. Discover your potential with our immersive platforms.'] ?? get_phrase('online learning. Discover your potential with our immersive platforms.')) : get_phrase('online learning. Discover your potential with our immersive platforms.') }}
                 </p>
-                <div class="d-flex flex-wrap gap-4 align-items-center" data-aos="fade-up" data-aos-delay="300">
-                    <a href="#courses" class="btn-vibrant px-12 py-4 fs-5" style="border-radius: 100px !important;">{{ $is_arabic ? ($ar['Explore Courses'] ?? get_phrase('Explore Courses')) : get_phrase('Explore Courses') }}</a>
-                    <a href="{{ route('contact.us') }}" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold">{{ $is_arabic ? 'تواصل معنا' : get_phrase('Contact Us') }}</a>
-                    <a href="#instructor_join" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-4 fw-bold ms-lg-2 mt-3 mt-lg-0">{{ $is_arabic ? 'انضم كمدرب' : 'Join as Instructor' }}</a>
+                <div class="d-flex flex-wrap gap-3 align-items-center" data-aos="fade-up" data-aos-delay="300">
+                    <a href="#courses" class="btn-vibrant px-5 py-3 fs-5" style="border-radius: 100px !important;">{{ $is_arabic ? 'استكشف البرامج' : get_phrase('Explore Courses') }}</a>
+                    <button type="button" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-3 fw-bold" onclick="document.getElementById('joinRequestModal') && new bootstrap.Modal(document.getElementById('joinRequestModal')).show()">
+                        <i class="fa-solid fa-graduation-cap me-2"></i>{{ $is_arabic ? 'انضم كطالب' : 'Join as Student' }}
+                    </button>
+                    <button type="button" class="btn btn-outline-vibrant border-2 rounded-pill px-5 py-3 fw-bold" onclick="document.getElementById('instructor_join') && document.getElementById('instructor_join').scrollIntoView({behavior:'smooth'})">
+                        <i class="fa-solid fa-chalkboard-user me-2"></i>{{ $is_arabic ? 'انضم كمدرب' : 'Join as Instructor' }}
+                    </button>
                 </div>
                 <!-- Logo Cloud / Social Proof -->
                 <div class="mt-5 pt-2" data-aos="fade-up" data-aos-delay="400">
@@ -786,50 +790,39 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
                 <div class="card border-0 shadow-xl rounded-5 overflow-hidden" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px);">
                     <div class="card-body p-4 p-md-5">
-                        <form action="{{ route('instructor.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation" {{ $is_arabic ? 'dir=rtl' : '' }}>
+                        <form action="{{ route('instructor.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation" dir="{{ $is_arabic ? 'rtl' : 'ltr' }}">
                             @csrf
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h3 class="fw-bold mb-0">{{ $is_arabic ? 'نموذج تقديم المدربين' : 'Instructor Application Form' }}</h3>
                                 <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="btn btn-sm btn-light rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
                             </div>
-                            
+
                             @if(Session::has('success'))
                                 <div class="alert alert-success rounded-4 fw-bold py-3"><i class="fa-solid fa-check-circle me-2"></i>{{ Session::get('success') }}</div>
                             @endif
                             @if(Session::has('error'))
                                 <div class="alert alert-danger rounded-4 fw-bold py-3"><i class="fa-solid fa-circle-exclamation me-2"></i>{{ Session::get('error') }}</div>
                             @endif
-                            
-                            <div class="row g-4">
+
+                            @php $inp = 'form-control rounded-4 bg-light border-0 px-4'; $inp_style = 'height:58px;text-align:'.($is_arabic?'right':'left').';'; @endphp
+                            <div class="row g-3">
                                 <div class="col-md-6">
-                                    <div class="form-floating text-dark">
-                                        <input type="text" class="form-control rounded-4 bg-light border-0 px-4" id="joinName" name="name" placeholder="John Doe" required style="height: 60px;">
-                                        <label for="joinName" class="text-muted">{{ $is_arabic ? 'الاسم الثلاثي' : 'Full Name' }} <span class="text-danger">*</span></label>
-                                    </div>
+                                    <input type="text" class="{{ $inp }}" name="name" placeholder="{{ $is_arabic ? 'الاسم الثلاثي *' : 'Full Name *' }}" required style="{{ $inp_style }}">
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-floating text-dark">
-                                        <input type="email" class="form-control rounded-4 bg-light border-0 px-4" id="joinEmail" name="email" placeholder="name@example.com" required style="height: 60px;">
-                                        <label for="joinEmail" class="text-muted">{{ $is_arabic ? 'البريد الإلكتروني' : 'Email Address' }} <span class="text-danger">*</span></label>
-                                    </div>
+                                    <input type="email" class="{{ $inp }}" name="email" placeholder="{{ $is_arabic ? 'البريد الإلكتروني *' : 'Email *' }}" required style="{{ $inp_style }}">
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-floating text-dark">
-                                        <input type="tel" class="form-control rounded-4 bg-light border-0 px-4" id="joinPhone" name="phone" placeholder="+123456789" required style="height: 60px;">
-                                        <label for="joinPhone" class="text-muted">{{ $is_arabic ? 'رقم الواتساب' : 'WhatsApp Number' }} <span class="text-danger">*</span></label>
-                                    </div>
+                                    <input type="tel" class="{{ $inp }}" name="phone" placeholder="{{ $is_arabic ? 'رقم الواتساب *' : 'WhatsApp *' }}" required style="{{ $inp_style }}">
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-floating text-dark">
-                                        <textarea class="form-control rounded-4 bg-light border-0 px-4 py-3" id="joinMessage" name="message" placeholder="Cover Letter" style="height: 120px;" required></textarea>
-                                        <label for="joinMessage" class="text-muted">{{ $is_arabic ? 'رسالة تعريفية / مجالاتك' : 'Cover Letter / Your Domains' }} <span class="text-danger">*</span></label>
-                                    </div>
+                                    <textarea class="form-control rounded-4 bg-light border-0 px-4 py-3" name="message" placeholder="{{ $is_arabic ? 'رسالة تعريفية / مجالاتك *' : 'Cover Letter / Your Domains *' }}" style="height:110px;text-align:{{ $is_arabic?'right':'left' }};" required></textarea>
                                 </div>
                                 <div class="col-md-12">
-                                    <label class="fw-bold mb-2 text-dark">{{ $is_arabic ? 'المدونة الشخصية أو السيرة الذاتية (CV)' : 'Resume / CV (PDF, DOC)' }} <span class="text-danger">*</span></label>
-                                    <input class="form-control bg-light border-0 rounded-4" type="file" name="cv" accept=".pdf,.doc,.docx" required style="padding: 15px 20px;">
+                                    <label class="fw-bold mb-2 d-block text-dark" style="text-align:{{ $is_arabic?'right':'left' }};">{{ $is_arabic ? 'السيرة الذاتية (CV)' : 'Resume / CV' }} <span class="text-danger">*</span></label>
+                                    <input class="form-control bg-light border-0 rounded-4" type="file" name="cv" accept=".pdf,.doc,.docx" required style="padding:14px 18px;">
                                 </div>
-                                <div class="col-12 mt-4">
+                                <div class="col-12 mt-2">
                                     <button type="submit" class="btn btn-vibrant w-100 rounded-pill py-3 fw-bold fs-5 shadow-lg d-flex align-items-center justify-content-center gap-2">
                                         {{ $is_arabic ? 'إرسال الطلب' : 'Submit Application' }} <i class="fa-solid fa-paper-plane"></i>
                                     </button>
@@ -854,6 +847,11 @@ document.addEventListener('DOMContentLoaded', function() {
     .ms-n2 { margin-left: -15px !important; transition: all 0.3s ease; }
     .ms-n2:hover { margin-left: -5px !important; }
     .bg-white-10 { background: rgba(255,255,255,0.1); }
+    .floating-stat-mini { padding: 14px 18px !important; }
+    @media (max-width: 768px) {
+        .floating-stat-mini { display: none !important; }
+        .hero-visual-container .position-absolute.animate-float { display: none !important; }
+    }
 </style>
 @endsection
 
