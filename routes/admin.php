@@ -49,6 +49,7 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
 
     //dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('sync-data', [DashboardController::class, 'syncData'])->name('sync.data');
     Route::get('phpinfo', function(){
         phpinfo();
     });

@@ -11,7 +11,17 @@
                     <i class="fi-rr-settings-sliders me-2"></i>
                     {{ get_phrase('Dashboard') }}
                 </h4>
+                <a href="{{ route('admin.sync.data') }}"
+                   class="btn btn-primary d-flex align-items-center gap-2"
+                   onclick="return confirm('سيتم تحديث تقييمات الكورسات واللغات والـ SEO. هل تريد المتابعة؟')"
+                   style="border-radius: 10px; font-weight: 700;">
+                    <i class="fi-rr-refresh"></i>
+                    مزامنة البيانات
+                </a>
             </div>
+            @if(session('success'))
+                <div class="alert alert-success mt-3 mb-0 rounded-3">{{ session('success') }}</div>
+            @endif
         </div>
     </div>
 
