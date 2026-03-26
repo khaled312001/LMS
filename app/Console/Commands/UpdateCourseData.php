@@ -31,7 +31,7 @@ class UpdateCourseData extends Command
         // ── 3. Site settings ───────────────────────────────────────────────
         $settings = [
             'system_title'        => 'Swiss Bridge Academy',
-            'website_description' => 'منصة Swiss Bridge Academy - تعلم البرمجة والتصميم والتسويق بأسلوب احترافي يجمع بين العربية والإنجليزية، بإدارة سويسرية متميزة.',
+            'website_description' => 'منصة Swiss Bridge Academy | تعلم البرمجة والتصميم والتسويق بأسلوب احترافي يجمع بين العربية والإنجليزية، بإدارة سويسرية متميزة.',
             'website_keywords'    => 'Swiss Bridge Academy, تعليم, كورسات, برمجة, تصميم, تسويق, تطوير ويب, دورات تدريبية, سويسرا, تعلم أونلاين',
         ];
         foreach ($settings as $type => $value) {
@@ -40,42 +40,71 @@ class UpdateCourseData extends Command
             } else {
                 DB::table('settings')->insert(['type' => $type, 'description' => $value]);
             }
-            $this->info("Setting: {$type} = {$value}");
+            $this->info("Setting updated: {$type}");
         }
 
-        // ── 4. Fix seo_fields table - clear dummy OG values ────────────────
-        // Clear any seo_field rows that have placeholder/dummy og_title or og_description
-        $badPatterns = ['000', 'zzz', 'xxx', 'test', 'example', 'dummy', 'placeholder'];
-        $seoFields = DB::table('seo_fields')->get();
-        foreach ($seoFields as $field) {
-            $needsUpdate = false;
-            $updateData  = [];
-
+        // ── 4. Fix seo_fields: clear dummy values ─────────────────────────
+        $badPatterns = ['000', 'zzz', 'xxx', 'dummy', 'placeholder'];
+        foreach (DB::table('seo_fields')->get() as $field) {
+            $updateData = [];
             foreach ($badPatterns as $pattern) {
-                if (!empty($field->og_title) && stripos($field->og_title, $pattern) !== false) {
-                    $updateData['og_title'] = '';
-                    $needsUpdate = true;
-                }
-                if (!empty($field->og_description) && stripos($field->og_description, $pattern) !== false) {
-                    $updateData['og_description'] = '';
-                    $needsUpdate = true;
-                }
-                if (!empty($field->meta_title) && stripos($field->meta_title, $pattern) !== false) {
-                    $updateData['meta_title'] = '';
-                    $needsUpdate = true;
-                }
-                if (!empty($field->meta_description) && stripos($field->meta_description, $pattern) !== false) {
-                    $updateData['meta_description'] = '';
-                    $needsUpdate = true;
-                }
+                if (!empty($field->og_title)        && stripos($field->og_title,        $pattern) !== false) $updateData['og_title']        = null;
+                if (!empty($field->og_description)  && stripos($field->og_description,  $pattern) !== false) $updateData['og_description']  = null;
+                if (!empty($field->meta_title)      && stripos($field->meta_title,      $pattern) !== false) $updateData['meta_title']      = null;
+                if (!empty($field->meta_description)&& stripos($field->meta_description,$pattern) !== false) $updateData['meta_description']= null;
             }
-
-            if ($needsUpdate) {
+            if (!empty($updateData)) {
                 DB::table('seo_fields')->where('id', $field->id)->update($updateData);
                 $this->warn("  seo_field #{$field->id} ({$field->name_route}): cleared dummy values");
             }
         }
         $this->info('SEO fields: dummy values cleared');
+
+        // ── 5. Set homepage SEO (route: home) ─────────────────────────────
+        $homeData = [
+            'name_route'       => 'home',
+            'route'            => '/',
+            'meta_title'       => 'Swiss Bridge Academy | منصة تعليمية متخصصة',
+            'meta_description' => 'تعلم البرمجة والتصميم والتسويق مع خبراء بإدارة سويسرية. دورات احترافية بمزيج عربي-إنجليزي تفتح لك أبواب سوق العمل.',
+            'meta_keywords'    => 'Swiss Bridge Academy, برمجة, تصميم, تسويق, تطوير ويب, كورسات, دورات, سويسرا',
+            'og_title'         => 'Swiss Bridge Academy | منصة تعليمية متخصصة',
+            'og_description'   => 'تعلم البرمجة والتصميم والتسويق مع خبراء بإدارة سويسرية. دورات احترافية بمزيج عربي-إنجليزي تفتح لك أبواب سوق العمل.',
+            'meta_robot'       => 'index, follow',
+            'updated_at'       => now(),
+        ];
+
+        $existing = DB::table('seo_fields')->where('name_route', 'home')->first();
+        if ($existing) {
+            DB::table('seo_fields')->where('name_route', 'home')->update($homeData);
+            $this->info('Homepage SEO: updated');
+        } else {
+            $homeData['created_at'] = now();
+            DB::table('seo_fields')->insert($homeData);
+            $this->info('Homepage SEO: inserted');
+        }
+
+        // ── 6. Set /courses page SEO ──────────────────────────────────────
+        $coursesData = [
+            'name_route'       => 'courses',
+            'route'            => '/courses',
+            'meta_title'       => 'كل الدورات | Swiss Bridge Academy',
+            'meta_description' => 'استعرض جميع الدورات التدريبية في البرمجة والتصميم والتسويق. دورات احترافية باللغتين العربية والإنجليزية.',
+            'meta_keywords'    => 'دورات تدريبية, كورسات, برمجة, تصميم, تسويق, Swiss Bridge Academy',
+            'og_title'         => 'كل الدورات | Swiss Bridge Academy',
+            'og_description'   => 'استعرض جميع الدورات التدريبية في البرمجة والتصميم والتسويق. دورات احترافية باللغتين العربية والإنجليزية.',
+            'meta_robot'       => 'index, follow',
+            'updated_at'       => now(),
+        ];
+
+        $existing = DB::table('seo_fields')->where('name_route', 'courses')->first();
+        if ($existing) {
+            DB::table('seo_fields')->where('name_route', 'courses')->update($coursesData);
+            $this->info('/courses SEO: updated');
+        } else {
+            $coursesData['created_at'] = now();
+            DB::table('seo_fields')->insert($coursesData);
+            $this->info('/courses SEO: inserted');
+        }
 
         $this->info('Done!');
     }
