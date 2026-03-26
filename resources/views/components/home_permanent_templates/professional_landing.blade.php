@@ -292,12 +292,12 @@
                     </div>
                     
                     <!-- Floating Achievement Cards -->
-                    <div class="position-absolute animate-float shadow-lg p-4 bg-white rounded-4 border-0" data-aos="fade-left" data-aos-delay="600" style="top: -40px; {{ $is_arabic ? 'left: -20px;' : 'right: -20px;' }} width: 220px; z-index: 5;">
-                        <div class="d-flex align-items-center gap-3 mb-2">
-                            <div class="bg-success rounded-circle" style="width: 12px; height: 12px;"></div>
+                    <div class="position-absolute animate-float shadow-lg floating-stat-mini bg-white rounded-4 border-0" data-aos="fade-left" data-aos-delay="600" style="top: -40px; {{ $is_arabic ? 'left: -20px;' : 'right: -20px;' }} width: 180px; z-index: 5;">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <div class="bg-success rounded-circle flex-shrink-0" style="width: 10px; height: 10px;"></div>
                             <span class="small fw-bold">{{ $is_arabic ? ($ar['Live Learners'] ?? get_phrase('Live Learners')) : get_phrase('Live Learners') }}</span>
                         </div>
-                        <h4 class="fw-900 mb-0">12,482+</h4>
+                        <h4 class="fw-900 mb-0 fs-5">12,482+</h4>
                     </div>
                     
                     <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" data-aos="fade-right" data-aos-delay="800" style="bottom: 40px; {{ $is_arabic ? 'right: -40px;' : 'left: -40px;' }} width: 200px; z-index: 5; animation-delay: 1.5s;">
@@ -617,64 +617,43 @@
 
 <!-- Student Join Request Modal -->
 <div class="modal fade" id="joinRequestModal" tabindex="-1" aria-labelledby="joinRequestModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 560px;">
-        <div class="modal-content border-0 shadow-2xl overflow-hidden" style="border-radius: 24px !important; background: #fff;">
-            <div class="modal-header border-0 p-3 pb-0 d-flex justify-content-end">
-                <button type="button" class="btn btn-sm btn-light rounded-circle d-flex align-items-center justify-content-center" data-bs-dismiss="modal" aria-label="Close" style="width:36px;height:36px;z-index:10;"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 460px;">
+        <div class="modal-content border-0 shadow-2xl overflow-hidden" style="border-radius: 20px !important; background: #fff;">
+            <div class="modal-header border-0 px-4 pt-3 pb-0 d-flex justify-content-between align-items-center">
+                <h5 class="fw-800 mb-0">{{ $is_arabic ? 'تقديم طلب انضمام' : 'Submit Application' }}</h5>
+                <button type="button" class="btn btn-sm btn-light rounded-circle d-flex align-items-center justify-content-center" data-bs-dismiss="modal" aria-label="Close" style="width:32px;height:32px;"><i class="fa-solid fa-xmark small"></i></button>
             </div>
-            <div class="modal-body p-4 p-md-5 pt-0">
-                <div class="text-center mb-5">
-                    <div class="vibrant-tag mb-3 d-inline-block px-4 py-2 border-0" style="background: rgba(79, 70, 229, 0.1); color: var(--vibrant-primary); font-weight: 800; border-radius: 50px;">🚀 {{ $is_arabic ? 'انضم إلى مستقبل التعليم الرقمي' : 'Join the Future of Digital Education' }}</div>
-                    <h2 class="display-6 fw-800 mb-3">{{ $is_arabic ? 'تقديم طلب انضمام' : 'Submit Admission Application' }}</h2>
-                    <p class="text-muted">{{ $is_arabic ? 'املأ النموذج أدناه وسيقوم فريقنا بالتواصل معك لتحديد موعد اختبار المستوى والمقابلة.' : 'Fill the form below and our team will contact you to schedule your placement test and interview.' }}</p>
-                </div>
+            <div class="modal-body px-4 pt-2 pb-4">
+                <p class="text-muted small mb-3">{{ $is_arabic ? 'سيتواصل معك فريقنا لتحديد موعد اختبار المستوى.' : 'Our team will contact you to schedule a placement test.' }}</p>
 
-                <form action="{{ route('contact.store') }}" method="POST" id="joinRequestForm" class="needs-validation">
+                <form action="{{ route('contact.store') }}" method="POST" id="joinRequestForm">
                     @csrf
                     <input type="hidden" name="subject" value="New Student Admission Application">
-                    
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="form-floating text-dark">
-                                <input type="text" class="form-control rounded-4 bg-light border-0 px-4" id="stdName" name="name" placeholder="Name" required style="height: 60px;">
-                                <label for="stdName" class="text-muted">{{ $is_arabic ? 'الاسم الكامل' : 'Full Name' }} *</label>
-                            </div>
+
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <input type="text" class="form-control rounded-3 bg-light border-0" name="name" placeholder="{{ $is_arabic ? 'الاسم الكامل *' : 'Full Name *' }}" required style="height:48px;">
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating text-dark">
-                                <input type="email" class="form-control rounded-4 bg-light border-0 px-4" id="stdEmail" name="email" placeholder="Email" required style="height: 60px;">
-                                <label for="stdEmail" class="text-muted">{{ $is_arabic ? 'البريد الإلكتروني' : 'Email Address' }} *</label>
-                            </div>
+                        <div class="col-6">
+                            <input type="email" class="form-control rounded-3 bg-light border-0" name="email" placeholder="{{ $is_arabic ? 'البريد الإلكتروني *' : 'Email *' }}" required style="height:48px;">
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating text-dark">
-                                <input type="tel" class="form-control rounded-4 bg-light border-0 px-4" id="stdPhone" name="phone" placeholder="Phone" required style="height: 60px;">
-                                <label for="stdPhone" class="text-muted">{{ $is_arabic ? 'رقم الواتساب' : 'WhatsApp Number' }} *</label>
-                            </div>
+                        <div class="col-6">
+                            <input type="tel" class="form-control rounded-3 bg-light border-0" name="phone" placeholder="{{ $is_arabic ? 'رقم الواتساب *' : 'WhatsApp *' }}" required style="height:48px;">
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating text-dark">
-                                <select class="form-select rounded-4 bg-light border-0 px-4" id="stdCourse" name="course_interest" style="height: 60px;">
-                                    <option value="" selected>{{ $is_arabic ? 'اختر التخصص المهتم به' : 'Select interested field' }}</option>
-                                    @php
-                                        $cats = DB::table('categories')->where('parent_id', 0)->get();
-                                    @endphp
-                                    @foreach($cats as $cat)
-                                        <option value="{{ $cat->title }}">{{ $is_arabic ? get_phrase($cat->title) : $cat->title }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="stdCourse" class="text-muted">{{ $is_arabic ? 'التخصص المطلوب' : 'Preferred Program' }}</label>
-                            </div>
+                        <div class="col-6">
+                            <select class="form-select rounded-3 bg-light border-0" name="course_interest" style="height:48px;">
+                                <option value="">{{ $is_arabic ? 'التخصص' : 'Program' }}</option>
+                                @php $cats = DB::table('categories')->where('parent_id', 0)->get(); @endphp
+                                @foreach($cats as $cat)
+                                    <option value="{{ $cat->title }}">{{ $is_arabic ? get_phrase($cat->title) : $cat->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-floating text-dark">
-                                <textarea class="form-control rounded-4 bg-light border-0 px-4 py-3" id="stdMessage" name="message" placeholder="Message" style="height: 120px;" required></textarea>
-                                <label for="stdMessage" class="text-muted">{{ $is_arabic ? 'لماذا تريد الانضمام إلينا؟' : 'Why do you want to join us?' }} *</label>
-                            </div>
+                        <div class="col-12">
+                            <textarea class="form-control rounded-3 bg-light border-0" name="message" placeholder="{{ $is_arabic ? 'لماذا تريد الانضمام إلينا؟ *' : 'Why join us? *' }}" style="height:90px;" required></textarea>
                         </div>
-                        <div class="col-12 mt-4 text-center">
-                            <button type="submit" class="btn btn-vibrant px-5 py-3 rounded-pill fw-bold fs-5 shadow-lg w-100">{{ $is_arabic ? 'إرسال طلب الانضمام' : 'Submit Application' }}</button>
-                            <p class="small text-muted mt-3 mb-0">{{ $is_arabic ? 'سوف يصلنا بريدك وسنتواصل معك خلال 24-48 ساعة.' : 'Your application will be sent to our team, and we will contact you within 24-48 hours.' }}</p>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-vibrant w-100 rounded-pill py-2 fw-bold">{{ $is_arabic ? 'إرسال طلب الانضمام' : 'Submit Application' }}</button>
                         </div>
                     </div>
                 </form>
@@ -807,7 +786,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
                 <div class="card border-0 shadow-xl rounded-5 overflow-hidden" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px);">
                     <div class="card-body p-4 p-md-5">
-                        <form action="{{ route('instructor.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation">
+                        <form action="{{ route('instructor.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation" {{ $is_arabic ? 'dir=rtl' : '' }}>
                             @csrf
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h3 class="fw-bold mb-0">{{ $is_arabic ? 'نموذج تقديم المدربين' : 'Instructor Application Form' }}</h3>
