@@ -408,13 +408,13 @@
                 ->filter(function($c) use ($current_lang) {
                     return DB::table('courses')
                         ->where('status', 'active')
-                        ->where('language', $current_lang)
+                        ->where('language', 'like', '%' . $current_lang . '%')
                         ->where(function($q) use ($c) {
                             $q->where('category_id', $c->id)
                               ->orWhereIn('category_id', DB::table('categories')->where('parent_id', $c->id)->pluck('id'));
                         })->count() > 0;
                 })->take(5);
-            $all_courses = DB::table('courses')->where('status', 'active')->where('language', $current_lang)->orderBy('id', 'desc')->take(12)->get();
+            $all_courses = DB::table('courses')->where('status', 'active')->where('language', 'like', '%' . $current_lang . '%')->orderBy('id', 'desc')->take(12)->get();
         @endphp
 
 

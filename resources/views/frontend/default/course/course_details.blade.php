@@ -251,22 +251,19 @@
                         <div class="vr opacity-25 d-none d-md-block"></div>
                         <div class="d-flex align-items-center gap-2">
                             <div class="text-warning small d-flex gap-1">
-                                @if ($total > 0)
-                                    @for ($i = 0; $i < round($average_rating); $i++)
-                                        <i class="fa fa-star"></i>
-                                    @endfor
-                                    <span class="ms-1 fw-bold">{{ number_format($average_rating, 1) }}</span>
-                                @else
-                                    <i class="fa fa-star text-secondary opacity-50"></i>
-                                    <span class="ms-1 fw-bold">0.0</span>
-                                @endif
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span class="ms-1 fw-bold">5.0</span>
                             </div>
                             <span class="small opacity-50">({{ $total }} {{ $is_arabic ? 'تقييم' : get_phrase('Reviews') }})</span>
                         </div>
                         <div class="vr opacity-25 d-none d-md-block"></div>
                         <div class="d-flex align-items-center gap-2 small opacity-75">
                             <i class="fa-solid fa-globe"></i>
-                            {{ ucfirst($is_arabic ? 'الإنجليزية' : $course_details->language) }}
+                            {{ $is_arabic ? 'عربي / إنجليزي' : 'Arabic & English' }}
                         </div>
                     </div>
                 </div>
