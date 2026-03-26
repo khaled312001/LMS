@@ -82,20 +82,36 @@
         $og_description = '';
     }
     
-    // Use fallbacks if empty
+    // Use course/blog data if on a detail page
+    if (isset($course_details) && !empty($course_details)) {
+        $og_title       = $og_title       ?: $course_details->title . ' | ' . $site_name;
+        $og_description = $og_description ?: strip_tags($course_details->short_description ?? $course_details->description ?? '');
+    } elseif (isset($blog_details) && !empty($blog_details)) {
+        $og_title       = $og_title       ?: ($blog_details->title ?? '') . ' | ' . $site_name;
+        $og_description = $og_description ?: strip_tags($blog_details->description ?? '');
+    }
+
+    // Use fallbacks if still empty
     if (empty($og_title)) {
         $page_title = trim($__env->yieldPushContent('title'));
-        $og_title = $page_title ? $page_title.' | '.$meta_title : $meta_title;
+        $og_title = $page_title ? $page_title . ' | ' . $meta_title : $meta_title;
     }
     if (empty($og_description)) {
         $og_description = $meta_description;
     }
-    
-    $og_image = !empty($seo_field['og_image']) ? get_image($seo_field['og_image']) : asset(get_frontend_settings('dark_logo'));
+
+    // OG image: prefer course thumbnail, then seo_field image, then site logo
+    if (isset($course_details) && !empty($course_details->thumbnail)) {
+        $og_image = get_image($course_details->thumbnail);
+    } elseif (!empty($seo_field['og_image'])) {
+        $og_image = get_image($seo_field['og_image']);
+    } else {
+        $og_image = asset(get_frontend_settings('dark_logo'));
+    }
 @endphp
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content="{{ isset($course_details) ? 'article' : 'website' }}" />
 <meta property="og:url" content="{{ url()->current() }}" />
 <meta property="og:title" content="{{ $og_title }}" />
 <meta property="og:description" content="{{ $og_description }}" />
