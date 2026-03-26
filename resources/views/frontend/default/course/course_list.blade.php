@@ -37,12 +37,12 @@
                         <div class="mt-auto pt-3 border-top d-flex flex-wrap justify-content-between align-items-center">
                             <div class="d-flex align-items-center gap-4 text-muted small">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ get_image($course->instructor_image) }}" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
-                                    <span class="fw-bold">{{ $course->instructor_name }}</span>
-                                </div>
-                                <div class="d-flex align-items-center gap-2">
                                     <i class="fi-rr-play-alt text-vibrant-primary"></i>
                                     <span>{{ lesson_count($course->id) }} {{ $is_arabic ? 'درس' : get_phrase('lessons') }}</span>
+                                </div>
+                                <div class="text-warning">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    <span class="text-muted ms-1 small">(5.0)</span>
                                 </div>
                             </div>
                             <div class="price mt-2 mt-md-0">

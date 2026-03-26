@@ -90,7 +90,7 @@ class CourseController extends Controller
             $wishlist = Wishlist::where('user_id', auth()->user()->id)->pluck('course_id')->toArray();
         }
 
-        $page_data['courses']  = $query->latest('id')->paginate($layout == 'grid' ? 9 : 5)->appends($request->query());
+        $page_data['courses']  = $query->latest('id')->get();
         $page_data['wishlist'] = $wishlist;
         $page_data['category_details'] = Category::where('slug', $category)->first();
         return view('frontend' . '.' . get_frontend_settings('theme') . '.course.index', $page_data);

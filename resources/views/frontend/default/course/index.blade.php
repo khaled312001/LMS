@@ -94,7 +94,7 @@
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-4">
                         <div>
                             <h1 class="display-4 g-title mb-2">{{ $category_details['title'] ?? get_phrase('All Courses') }}</h1>
-                            <p class="text-muted mb-0">{{ get_phrase('Showing') . ' ' . count($courses) . ' ' . get_phrase('of') . ' ' . $courses->total() . ' ' . get_phrase('results') }}</p>
+                            <p class="text-muted mb-0">{{ count($courses) . ' ' . get_phrase('results') }}</p>
                         </div>
                         <div class="tab-list">
                             <ul>
@@ -137,15 +137,6 @@
                         @endif
                     </div>
 
-                    <!-- Pagination -->
-                        @if (count($courses) > 0)
-                            <div class="entry-pagination mt-5 d-flex justify-content-center">
-                                <nav aria-label="Page navigation">
-                                    {{ $courses->links() }}
-                                </nav>
-                            </div>
-                        @endif
-                    <!-- Pagination -->
                 </div>
             </div>
         </div>

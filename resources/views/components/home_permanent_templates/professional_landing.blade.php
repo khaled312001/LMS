@@ -443,17 +443,14 @@
                                 <div class="d-flex justify-content-between mb-3">
                                     <span class="vibrant-tag">{{ get_phrase(App\Models\Category::find($row->category_id)->title ?? 'Professional') }}</span>
                                     <div class="text-warning small fw-bold">
-                                        <i class="fa-solid fa-star me-1"></i>4.9
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                        <span class="text-muted ms-1">(5.0)</span>
                                     </div>
                                 </div>
                                 <h4 class="fw-bold mb-4 flex-grow-1">
                                     <a href="{{ route('course.details', $row->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($row->title, 50) }}</a>
                                 </h4>
-                                <div class="d-flex justify-content-between align-items-center border-top pt-4 mt-auto">
-                                    <div class="d-flex align-items-center gap-2 position-relative" style="z-index: 2;">
-                                        <img src="{{ course_instructor_image($row->id) }}" class="rounded-circle shadow-sm border border-white" style="width: 38px; height: 38px; object-fit: cover;">
-                                        <span class="small fw-bold text-dark">{{ course_by_instructor($row->id)->name }}</span>
-                                    </div>
+                                <div class="d-flex justify-content-end align-items-center border-top pt-4 mt-auto">
                                     <div class="price position-relative" style="z-index: 2;">
                                         @if ($row->is_paid == 0)
                                             <span class="fs-4 fw-bold text-success">{{ get_phrase('Free') }}</span>
@@ -669,15 +666,21 @@
 <!-- Scripts to handle modal trigger -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all apply now links/buttons
+    // Open modal for register links
     const applyLinks = document.querySelectorAll('a[href*="register"]');
     applyLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const modal = new bootstrap.Modal(document.getElementById('joinRequestModal'));
-            modal.show();
+            new bootstrap.Modal(document.getElementById('joinRequestModal')).show();
         });
     });
+    // Auto-open modal if redirected from another page with #join hash
+    if (window.location.hash === '#join') {
+        setTimeout(function() {
+            new bootstrap.Modal(document.getElementById('joinRequestModal')).show();
+            history.replaceState(null, '', window.location.pathname);
+        }, 400);
+    }
 });
 </script>
 

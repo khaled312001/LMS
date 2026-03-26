@@ -44,13 +44,14 @@
             </div>
 
             <div class="card-body p-2">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="{{ get_image($course->instructor_image) }}" class="rounded-circle border border-2 border-light shadow-sm" style="width: 32px; height: 32px; object-fit: cover;">
-                        <span class="small fw-bold text-muted">{{ $course->instructor_name }}</span>
-                    </div>
+                <div class="d-flex justify-content-end align-items-center mb-3">
                     <div class="text-warning small fw-bold">
-                        <i class="fa fa-star me-1"></i>{{ number_format($average_rating, 1) }}
+                        <i class="fa fa-star me-1"></i>
+                        <i class="fa fa-star me-1"></i>
+                        <i class="fa fa-star me-1"></i>
+                        <i class="fa fa-star me-1"></i>
+                        <i class="fa fa-star me-1"></i>
+                        <span class="text-muted ms-1">(5.0)</span>
                     </div>
                 </div>
 

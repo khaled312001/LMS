@@ -116,7 +116,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('register.form') }}" class="nav-offcanvas-link d-flex align-items-center gap-3 p-3 rounded-4 text-decoration-none fw-bold" style="background: linear-gradient(135deg,rgba(79,70,229,0.1),rgba(124,58,237,0.08)); border: 1px solid rgba(79,70,229,0.2); color: var(--vibrant-primary);">
+                    <a href="#" id="sidebarJoinStudent" class="d-flex align-items-center gap-3 p-3 rounded-4 text-decoration-none fw-bold" style="background: linear-gradient(135deg,rgba(79,70,229,0.1),rgba(124,58,237,0.08)); border: 1px solid rgba(79,70,229,0.2); color: var(--vibrant-primary);">
                         <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: var(--vibrant-primary);">
                             <i class="fi-rr-user-add text-white fs-5"></i>
                         </div>
@@ -260,8 +260,8 @@
         }
     });
 
-    // Fix offcanvas nav links - close offcanvas then navigate
     document.addEventListener('DOMContentLoaded', function() {
+        // Fix offcanvas nav links - close offcanvas then navigate
         document.querySelectorAll('.nav-offcanvas-link').forEach(function(link) {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -279,6 +279,33 @@
                 }
             });
         });
+
+        // Student join button - open modal if exists, else go home
+        var joinBtn = document.getElementById('sidebarJoinStudent');
+        if (joinBtn) {
+            joinBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var offcanvasEl = document.getElementById('vibrantMobileNav');
+                var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                var modalEl = document.getElementById('joinRequestModal');
+                function openModal() {
+                    if (modalEl) {
+                        new bootstrap.Modal(modalEl).show();
+                    } else {
+                        window.location.href = '{{ route("home") }}#join';
+                    }
+                }
+                if (offcanvasInstance) {
+                    offcanvasEl.addEventListener('hidden.bs.offcanvas', function handler() {
+                        offcanvasEl.removeEventListener('hidden.bs.offcanvas', handler);
+                        openModal();
+                    });
+                    offcanvasInstance.hide();
+                } else {
+                    openModal();
+                }
+            });
+        }
     });
 </script>
 @endpush

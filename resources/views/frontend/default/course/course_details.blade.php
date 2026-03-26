@@ -248,10 +248,6 @@
                     </p>
 
                     <div class="d-flex flex-wrap gap-4 align-items-center text-white pb-4">
-                        <div class="d-flex align-items-center gap-2">
-                             <img class="rounded-circle border border-2 border-white-10" width="40" height="40" src="{{ get_image(course_by_instructor($course_details->id)->photo) }}" alt="instructor-image">
-                             <span class="fw-bold opacity-75">{{ course_by_instructor($course_details->id)->name }}</span>
-                        </div>
                         <div class="vr opacity-25 d-none d-md-block"></div>
                         <div class="d-flex align-items-center gap-2">
                             <div class="text-warning small d-flex gap-1">
