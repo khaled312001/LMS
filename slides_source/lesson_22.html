@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 22</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0f;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;
+}
+.deck section {
+    width: 1280px !important;
+    height: 720px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 40px 48px !important;
+    overflow: hidden !important;
+    display: block !important;
+    page-break-after: always;
+}
+.deck section h2 {
+    font-size: 28px !important;
+    margin-bottom: 16px !important;
+}
+.deck section h1 {
+    font-size: 36px !important;
+}
+.deck section p,
+.deck section li,
+.deck section td,
+.deck section th {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+.deck section pre {
+    font-size: 11px !important;
+    padding: 12px !important;
+}
+.deck section code {
+    font-size: 11px !important;
+}
+.deck section table {
+    font-size: 12px !important;
+}
+.deck section ul li,
+.deck section ol li {
+    padding: 7px 12px 7px 36px !important;
+    margin: 4px 0 !important;
+    font-size: 12px !important;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<div style="max-width:100%;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;line-height:1.7;color:#e2e8f0;"><section style="background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 40%,#db2777 100%);border-radius:16px;padding:72px 48px;margin:24px 0;min-height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="Swiss Bridge Academy" style="height:52px;margin-bottom:28px;filter:brightness(0) invert(1);">
+  <div style="display:inline-block;padding:8px 20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:24px;">LESSON 22 / 24</div>
+  <h1 style="font-size:40px;font-weight:800;color:#fff;margin:12px 0;line-height:1.2;max-width:900px;">Web Security — OWASP Top 10, HTTPS, and AI Code Review</h1>
+  <p style="font-size:18px;color:rgba(255,255,255,0.9);max-width:720px;margin:16px 0 32px 0;line-height:1.6;">Every site gets attacked. Learn to defend against the ten most common web vulnerabilities, enable proper HTTPS and HSTS, and use AI as a second pair of eyes on every change.</p>
+  <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">3h 30m</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Duration</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Module 6</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Module</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">English</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Language</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Hands-on</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Format</span></div>
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 2 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">The OWASP Top 10 (2025 edition)</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Broken Access Control</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Cryptographic Failures</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Injection (SQL, NoSQL, LDAP, OS)</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Insecure Design</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Security Misconfiguration</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">6</span>Vulnerable and Outdated Components</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">7</span>Identification and Authentication Failures</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">8</span>Software and Data Integrity Failures</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">9</span>Security Logging and Monitoring Failures</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">10</span>Server-Side Request Forgery (SSRF)</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 3 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Broken Access Control</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// BAD: any user can delete any order
+Route::delete(&#039;/orders/{id}&#039;, fn($id) =&gt; Order::destroy($id));
+
+// GOOD: only the owner or admin
+Route::delete(&#039;/orders/{order}&#039;, function (Order $order) {
+    Gate::authorize(&#039;delete&#039;, $order);
+    $order-&gt;delete();
+});</pre></div><div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #ef4444;background:rgba(239,68,68,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Test this</strong>Log in as User A, try to fetch User B's resources. If you succeed, you have a bug.</div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 4 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">SQL Injection</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// BAD
+$name = $_GET[&#039;name&#039;];
+DB::select(&quot;SELECT * FROM users WHERE name = &#039;$name&#039;&quot;);
+
+// GOOD (Laravel, auto-prepared)
+DB::select(&#039;SELECT * FROM users WHERE name = ?&#039;, [$name]);
+
+// GOOD (Eloquent)
+User::where(&#039;name&#039;, $name)-&gt;first();
+
+// GOOD (Node mongo — don&#039;t concat queries)
+User.find({ name: { $eq: req.body.name } });</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 5 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">XSS (Cross-Site Scripting)</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// BAD — raw user HTML
+&lt;p&gt;{!! $post-&gt;body !!}&lt;/p&gt;
+
+// GOOD — escaped
+&lt;p&gt;{{ $post-&gt;body }}&lt;/p&gt;
+
+// In React, auto-escaped by default:
+&lt;p&gt;{post.body}&lt;/p&gt;
+
+// Allow only specific HTML (use HTMLPurifier)
+&lt;p&gt;{{ Purifier::clean($post-&gt;body) }}&lt;/p&gt;</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 6 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">CSRF</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">&lt;!-- Blade --&gt;
+&lt;form method=&quot;POST&quot; action=&quot;/account/delete&quot;&gt;
+  @csrf
+  @method(&#039;DELETE&#039;)
+  &lt;button&gt;Delete account&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- Express (cookie-based SPA) --&gt;
+app.get(&#039;/csrf&#039;, csurf(), (req, res) =&gt; res.json({ token: req.csrfToken() }));
+// Frontend includes &#039;csrf-token&#039; header on mutating requests.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 7 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Secure Cookies</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">javascript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">res.cookie(&#039;session&#039;, value, {
+  httpOnly: true,      // JS can&#039;t read it → blocks XSS theft
+  secure:   true,      // only sent over HTTPS
+  sameSite: &#039;strict&#039;,  // never sent on cross-site requests
+  maxAge:   30 * 24 * 60 * 60 * 1000,
+  path:     &#039;/&#039;,
+});</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 8 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">HTTPS & HSTS</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Always use HTTPS — Let's Encrypt is free</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Enable HSTS once confident: <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Submit to <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">hstspreload.org</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Redirect all <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">http://</code> to <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">https://</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use TLS 1.2+ only (disable TLS 1.0/1.1)</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 9 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Content Security Policy</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">http</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">Content-Security-Policy:
+  default-src &#039;self&#039;;
+  script-src  &#039;self&#039; https://js.stripe.com;
+  img-src     &#039;self&#039; data: https:;
+  connect-src &#039;self&#039; https://api.stripe.com;
+  style-src   &#039;self&#039; &#039;unsafe-inline&#039;;
+  frame-ancestors &#039;none&#039;;
+  base-uri    &#039;self&#039;;
+  form-action &#039;self&#039;;
+  object-src  &#039;none&#039;;</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 10 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Password Security</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Minimum length 12, no complexity rules (NIST 800-63)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Block 1 million most-leaked passwords (<code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">haveibeenpwned.com</code>)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Argon2id or bcrypt 12+</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Never log or email passwords</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Encourage / require 2FA for high-value accounts</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 11 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Secrets Management</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Never commit <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">.env</code>, API keys, private certificates</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Rotate secrets quarterly and after any staff departure</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use a manager: <b>Doppler</b>, <b>1Password CLI</b>, <b>AWS Secrets Manager</b>, <b>HashiCorp Vault</b></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Audit git history with <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">trufflehog</code> / <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">gitleaks</code></li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 12 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Dependency Hygiene</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># Node
+npm audit
+npm audit fix
+npx npm-check-updates -u
+
+# PHP
+composer audit
+composer outdated --direct
+
+# GitHub
+Dependabot → automatic PRs for security updates
+Snyk / Socket — deeper scans</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 13 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">SSRF Prevention</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// BAD — fetches whatever the user provides
+const r = await fetch(req.body.url);
+
+// GOOD — allow only whitelisted domains
+const ALLOWED = [&#039;images.unsplash.com&#039;, &#039;cdn.shopify.com&#039;];
+const u = new URL(req.body.url);
+if (!ALLOWED.includes(u.hostname)) throw new HttpError(400, &#039;bad url&#039;);
+
+// Also block localhost / private IP ranges before fetching</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 14 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Rate Limiting & DDoS</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Cloudflare in front of every site — free tier stops 99% of DDoS</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Per-endpoint rate-limits (Express, Laravel throttle)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>CAPTCHA on sensitive endpoints (login, sign-up, contact)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">fail2ban</code> on SSH</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 15 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Logging & Monitoring</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Centralise logs — Logtail, Papertrail, Datadog</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Sentry for error tracking</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Alert on 5xx spikes, failed logins, DB errors</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Keep logs ≥ 90 days for forensic analysis</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Never log PII, passwords, full credit cards</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 16 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">AI Code Review Prompt</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">prompt</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">You are a principal security engineer.
+Review the following &lt;pr-diff&gt;. For each hunk:
+ - Quote the line
+ - Label the issue (A01-A10 from OWASP 2025)
+ - Suggest the exact fix
+Ignore lint / cosmetic issues. Be strict.
+If clean, reply &#039;LGTM — no security issues found&#039;.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 17 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Pen-Testing Basics</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use <b>Burp Suite Community</b> to intercept requests</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Try <b>OWASP ZAP</b> automated scan on staging</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Check mobile apps with <b>mitmproxy</b></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Never scan sites you do not own</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Maintain a <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">security.txt</code> file for disclosures</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 18 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Incident Response</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Contain — rotate keys, revoke tokens, block the attacker IP</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Assess — what data did they reach?</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Notify — customers, authorities (GDPR 72h rule)</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Fix root cause</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Postmortem — blameless, actionable, published internally</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 19 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Security Headers Cheatsheet</h2>
+  <table style="width:100%;border-collapse:collapse;margin:16px 0;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden;"><thead><tr><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Header</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Value</th></tr></thead><tbody><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Strict-Transport-Security</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">max-age=31536000; includeSubDomains; preload</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">X-Content-Type-Options</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">nosniff</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">X-Frame-Options</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">DENY or SAMEORIGIN</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Referrer-Policy</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">strict-origin-when-cross-origin</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Permissions-Policy</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">geolocation=(), microphone=(), camera=()</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Cross-Origin-Opener-Policy</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">same-origin</td></tr></tbody></table>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 20 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Key Takeaways</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Every input is hostile — validate and escape</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Auth + authorisation are separate — always check both</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>HTTPS, HSTS, CSP, and secure cookies are non-negotiable</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use AI to double-check every PR for OWASP issues</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Have an incident-response plan <b>before</b> you need it</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 21 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Up Next — Lesson 23</h2>
+  <p style="font-size:18px;color:#e2e8f0;line-height:1.7;margin:0 0 20px 0;">Time to go live! Next: <b>Deploying to Hostinger — domains, MySQL, SSL &amp; email</b>.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section></div>
+</div>
+</body>
+</html>

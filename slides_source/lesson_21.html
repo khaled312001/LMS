@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 21</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0f;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;
+}
+.deck section {
+    width: 1280px !important;
+    height: 720px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 40px 48px !important;
+    overflow: hidden !important;
+    display: block !important;
+    page-break-after: always;
+}
+.deck section h2 {
+    font-size: 28px !important;
+    margin-bottom: 16px !important;
+}
+.deck section h1 {
+    font-size: 36px !important;
+}
+.deck section p,
+.deck section li,
+.deck section td,
+.deck section th {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+.deck section pre {
+    font-size: 11px !important;
+    padding: 12px !important;
+}
+.deck section code {
+    font-size: 11px !important;
+}
+.deck section table {
+    font-size: 12px !important;
+}
+.deck section ul li,
+.deck section ol li {
+    padding: 7px 12px 7px 36px !important;
+    margin: 4px 0 !important;
+    font-size: 12px !important;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<div style="max-width:100%;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;line-height:1.7;color:#e2e8f0;"><section style="background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 40%,#db2777 100%);border-radius:16px;padding:72px 48px;margin:24px 0;min-height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="Swiss Bridge Academy" style="height:52px;margin-bottom:28px;filter:brightness(0) invert(1);">
+  <div style="display:inline-block;padding:8px 20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:24px;">LESSON 21 / 24</div>
+  <h1 style="font-size:40px;font-weight:800;color:#fff;margin:12px 0;line-height:1.2;max-width:900px;">SEO, Analytics & Core Web Vitals with AI Optimization</h1>
+  <p style="font-size:18px;color:rgba(255,255,255,0.9);max-width:720px;margin:16px 0 32px 0;line-height:1.6;">A beautiful site that nobody finds is a failed project. This lesson covers technical SEO, on-page SEO, Core Web Vitals, and the AI tools that automate 80% of the work.</p>
+  <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">3h 30m</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Duration</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Module 6</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Module</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">English</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Language</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Hands-on</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Format</span></div>
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 2 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">SEO In 2026</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Google AI Overviews now handle 40%+ of searches</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Quality + E-E-A-T (Experience, Expertise, Authoritativeness, Trust) matter more than ever</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Core Web Vitals are direct ranking signals</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>LLM crawlers (GPTBot, ClaudeBot, Perplexity) read your content too</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Structured data (schema.org) drives rich results</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 3 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">On-Page SEO Checklist</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Unique <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">&lt;title&gt;</code> (50-60 chars)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Unique <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">meta description</code> (120-160 chars)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Single <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">&lt;h1&gt;</code> that matches user intent</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">alt</code> text on every image</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Fast-loading pages (CWV green)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Clean URL slugs: <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">/products/swiss-classic-chrono</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Internal links to related content</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">&lt;link rel="canonical"&gt;</code> set</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 4 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Structured Data (Schema.org)</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">html</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;Product&quot;,
+  &quot;name&quot;: &quot;Swiss Classic Chrono&quot;,
+  &quot;image&quot;: [&quot;https://…/front.jpg&quot;, &quot;https://…/back.jpg&quot;],
+  &quot;description&quot;: &quot;Automatic chronograph with sapphire crystal…&quot;,
+  &quot;sku&quot;: &quot;SCC-42&quot;,
+  &quot;brand&quot;: { &quot;@type&quot;: &quot;Brand&quot;, &quot;name&quot;: &quot;SwissShop&quot; },
+  &quot;offers&quot;: {
+    &quot;@type&quot;: &quot;Offer&quot;,
+    &quot;url&quot;: &quot;https://swissshop.com/products/scc-42&quot;,
+    &quot;priceCurrency&quot;: &quot;CHF&quot;,
+    &quot;price&quot;: &quot;1299.00&quot;,
+    &quot;availability&quot;: &quot;https://schema.org/InStock&quot;
+  },
+  &quot;aggregateRating&quot;: { &quot;@type&quot;: &quot;AggregateRating&quot;, &quot;ratingValue&quot;: &quot;4.8&quot;, &quot;reviewCount&quot;: &quot;36&quot; }
+}
+&lt;/script&gt;</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 5 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Core Web Vitals</h2>
+  <table style="width:100%;border-collapse:collapse;margin:16px 0;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden;"><thead><tr><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Metric</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">What it measures</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Good</th></tr></thead><tbody><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">LCP</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Time to largest paint</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">< 2.5s</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">INP</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Interaction responsiveness</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">< 200ms</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">CLS</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Visual stability (layout shift)</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">< 0.1</td></tr></tbody></table><div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #06b6d4;background:rgba(6,182,212,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Why you care</strong>Google ranks slow pages lower. A fast site = more organic traffic + higher conversion.</div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 6 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Measure With Lighthouse</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Open Chrome DevTools → Lighthouse tab</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Tick "Performance, Accessibility, Best Practices, SEO"</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Mode: Navigation, Device: Mobile</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Generate report — aim ≥ 90 in every category</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Export JSON and run PageSpeed Insights on your live URL</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 7 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Speeding Up Images</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">&lt;img width&gt; and height</code> to prevent CLS</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>WebP or AVIF (30-70% smaller than JPEG)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Responsive <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">srcset</code> + <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">sizes</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">loading="lazy"</code> for below-the-fold</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>CDN — Cloudflare Polish, Bunny Optimiser</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 8 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">JavaScript Performance</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Code-split by route — React.lazy + Suspense / Next dynamic imports</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Remove unused JS libraries (audit bundle with <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">vite-bundle-visualizer</code>)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Defer non-critical scripts with <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">async/defer</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Prefer Edge runtime / streaming where possible</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Avoid heavy framework updates on every keystroke — use <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">useDeferredValue</code></li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 9 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Sitemap & robots.txt</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">xml</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /cart
+Disallow: /checkout
+Sitemap: https://swissshop.com/sitemap.xml
+
+# sitemap.xml (one per section)
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://swissshop.com/products/scc-42&lt;/loc&gt;
+    &lt;lastmod&gt;2026-04-18&lt;/lastmod&gt;
+    &lt;changefreq&gt;weekly&lt;/changefreq&gt;
+    &lt;priority&gt;0.9&lt;/priority&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 10 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Analytics — What To Track</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Acquisition</b>: source/medium (organic, paid, direct)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Engagement</b>: time on page, scroll depth, clicks</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Conversion</b>: add-to-cart, begin-checkout, purchase</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Revenue</b>: value, AOV, LTV</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Attribution</b>: first-click vs last-click</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 11 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Setting Up GA4 With GDPR Consent</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">html</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Use Google Tag Manager for easier switching
+&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=G-XXXX&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag(&#039;consent&#039;, &#039;default&#039;, {
+    &#039;ad_storage&#039;:         &#039;denied&#039;,
+    &#039;analytics_storage&#039;:  &#039;denied&#039;
+  });
+  gtag(&#039;js&#039;, new Date());
+  gtag(&#039;config&#039;, &#039;G-XXXX&#039;);
+&lt;/script&gt;
+&lt;!-- Call gtag(&#039;consent&#039;, &#039;update&#039;, {...}) after banner accept --&gt;</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 12 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">E-commerce Tracking Events</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">javascript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Fire on add to cart
+gtag(&#039;event&#039;, &#039;add_to_cart&#039;, {
+  currency: &#039;CHF&#039;,
+  value: 1299,
+  items: [{ item_id: &#039;SCC-42&#039;, item_name: &#039;Swiss Classic Chrono&#039;, price: 1299, quantity: 1 }]
+});
+
+// Fire on purchase
+gtag(&#039;event&#039;, &#039;purchase&#039;, {
+  transaction_id: &#039;ORD-4821&#039;,
+  currency: &#039;CHF&#039;,
+  value: 1299,
+  tax: 95.38,
+  shipping: 0,
+  items: [ /* ... */ ]
+});</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 13 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Search Console</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Add and verify your site at <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">search.google.com/search-console</code></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Submit your sitemap</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Monitor Coverage → fix any errors</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Core Web Vitals report → fix URLs flagged poor</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Performance → which queries bring you traffic</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 14 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Content SEO With AI</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">prompt</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">Prompt:
+You are an SEO content strategist.
+My niche: luxury Swiss watches for men aged 35-55.
+List 20 long-tail SEO keywords with search intent
+(informational / commercial / transactional) and
+difficulty (low/med/high). Also suggest 10 blog titles
+that would rank for at least two of these keywords each.
+Output as a markdown table.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 15 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Writing For LLMs (Answer Engine Optimisation)</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use clear H2/H3 hierarchy — LLMs parse structure</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Put direct answers in the first paragraph</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Add summary / TL;DR sections</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use lists, tables, and bolded key phrases</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Cite authoritative sources and link out — improves trust</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 16 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Internal Linking Strategy</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Every new post links to ≥ 3 older, related posts</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Pillar + cluster model: one long guide + 5-10 deep-dive articles</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Link from high-traffic pages to conversion pages</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use descriptive anchor text — "best Swiss watches", not "click here"</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 17 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Backlinks (Off-Page SEO)</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Guest posts on industry blogs</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Digital PR — data-driven studies journalists quote</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Podcast appearances with show-notes links</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Partnerships & co-marketing</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Never buy links — Google penalises</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 18 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Monitoring & Alerts</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>UptimeRobot / Better Stack — alert when site is down</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Search Console — weekly performance email</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>GA4 intelligence alerts on anomalies</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Cron job that checks the homepage daily for regressions</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 19 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Automating SEO With AI</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Crawl your site with Screaming Frog or Sitebulb</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Export the URL list</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Ask Claude to audit titles, meta descriptions, H1s</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Produce a CSV with recommended changes</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Update in bulk via WP-CLI or a Laravel artisan command</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 20 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Key Takeaways</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Core Web Vitals + structured data = baseline for ranking</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Write for humans first, machines second</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>AI accelerates keyword research, content drafts, audits</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Measure — GA4, Search Console, Lighthouse, real-user monitoring</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Internal links + backlinks + authority > keyword stuffing</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 21 / 21</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Up Next — Lesson 22</h2>
+  <p style="font-size:18px;color:#e2e8f0;line-height:1.7;margin:0 0 20px 0;">You can be found. Now we make sure you can't be hacked: <b>Web Security — OWASP Top 10</b>.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section></div>
+</div>
+</body>
+</html>

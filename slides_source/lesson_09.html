@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 9</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0f;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;
+}
+.deck section {
+    width: 1280px !important;
+    height: 720px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 40px 48px !important;
+    overflow: hidden !important;
+    display: block !important;
+    page-break-after: always;
+}
+.deck section h2 {
+    font-size: 28px !important;
+    margin-bottom: 16px !important;
+}
+.deck section h1 {
+    font-size: 36px !important;
+}
+.deck section p,
+.deck section li,
+.deck section td,
+.deck section th {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+.deck section pre {
+    font-size: 11px !important;
+    padding: 12px !important;
+}
+.deck section code {
+    font-size: 11px !important;
+}
+.deck section table {
+    font-size: 12px !important;
+}
+.deck section ul li,
+.deck section ol li {
+    padding: 7px 12px 7px 36px !important;
+    margin: 4px 0 !important;
+    font-size: 12px !important;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<div style="max-width:100%;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;line-height:1.7;color:#e2e8f0;"><section style="background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 40%,#db2777 100%);border-radius:16px;padding:72px 48px;margin:24px 0;min-height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="Swiss Bridge Academy" style="height:52px;margin-bottom:28px;filter:brightness(0) invert(1);">
+  <div style="display:inline-block;padding:8px 20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:24px;">LESSON 9 / 24</div>
+  <h1 style="font-size:40px;font-weight:800;color:#fff;margin:12px 0;line-height:1.2;max-width:900px;">TypeScript & Modern React 19 with Hooks and Context</h1>
+  <p style="font-size:18px;color:rgba(255,255,255,0.9);max-width:720px;margin:16px 0 32px 0;line-height:1.6;">Pure JavaScript rots at scale. TypeScript + React 19 is the production stack powering Shopify, Stripe, Vercel and Next.js. Let's make you proficient.</p>
+  <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">4h 30m</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Duration</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Module 2</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Module</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">English</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Language</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Hands-on</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Format</span></div>
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 2 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Why TypeScript</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Catches 40% of bugs before they happen (Airbnb engineering study)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Self-documenting — your editor knows every prop and return type</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Refactor with confidence — rename a field, the compiler finds every caller</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Adopted by the entire React/Next.js ecosystem</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Runs anywhere JS runs (Node, browser, Deno, Bun)</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 3 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">TypeScript in 5 Minutes</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Basic types
+let name: string = &#039;Alice&#039;;
+let age: number = 30;
+let isPro: boolean = true;
+let tags: string[] = [&#039;admin&#039;, &#039;staff&#039;];
+let point: [number, number] = [1, 2];       // tuple
+
+// Interfaces for shapes
+interface User {
+  id: number;
+  email: string;
+  name?: string;           // optional
+  readonly createdAt: Date;
+}
+
+// Function types
+function greet(user: User): string {
+  return `Hi ${user.name ?? &#039;friend&#039;}`;
+}
+
+// Unions &amp; narrowing
+type Role = &#039;admin&#039; | &#039;student&#039; | &#039;instructor&#039;;
+function welcome(role: Role) { /* … */ }</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 4 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Generics — Functions That Work For Any Type</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">function first&lt;T&gt;(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+const n = first&lt;number&gt;([1, 2, 3]);   // number
+const s = first([&#039;a&#039;, &#039;b&#039;]);          // string (inferred)
+
+// Generic React component
+interface ListProps&lt;T&gt; {
+  items: T[];
+  render: (item: T) =&gt; React.ReactNode;
+}
+
+function List&lt;T&gt;({ items, render }: ListProps&lt;T&gt;) {
+  return &lt;ul&gt;{items.map((i, k) =&gt; &lt;li key={k}&gt;{render(i)}&lt;/li&gt;)}&lt;/ul&gt;;
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 5 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Utility Types You Will Use Weekly</h2>
+  <table style="width:100%;border-collapse:collapse;margin:16px 0;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden;"><thead><tr><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Type</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">What it does</th></tr></thead><tbody><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Partial&lt;T&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Makes every property optional</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Required&lt;T&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Makes every property required</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Pick&lt;T, K&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Keeps only the listed keys</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Omit&lt;T, K&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Removes the listed keys</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Record&lt;K, V&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Object type with keys K and values V</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">ReturnType&lt;f&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">The return type of a function</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Awaited&lt;P&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Unwraps a Promise</td></tr></tbody></table>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 6 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Setting Up a React 19 + Vite Project</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm install
+npm run dev        # open http://localhost:5173</pre></div><p style="font-size:16px;color:#cbd5e1;margin:0 0 16px 0;line-height:1.7;">Vite replaces Create React App. Instant hot-reload, native TypeScript, tiny output.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 7 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Your First Component</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// src/components/Hello.tsx
+interface Props {
+  name: string;
+  age?: number;
+}
+
+export function Hello({ name, age = 0 }: Props) {
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;Hello, {name}!&lt;/h1&gt;
+      {age &gt; 0 &amp;&amp; &lt;p&gt;You are {age} years old.&lt;/p&gt;}
+    &lt;/section&gt;
+  );
+}
+
+// src/App.tsx
+import { Hello } from &#039;./components/Hello&#039;;
+export default function App() {
+  return &lt;Hello name=&quot;Alice&quot; age={30} /&gt;;
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 8 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">JSX — What You Need To Know</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Components must return a <b>single</b> root element (or a <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">&lt;&gt;...&lt;/&gt;</code> fragment)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">className</code> (not <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">class</code>) and <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">htmlFor</code> (not <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">for</code>)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Inline CSS is an object: <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">style={{ color: "red" }}</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Render lists with <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">items.map(i =&gt; &lt;li key={i.id}&gt;…&lt;/li&gt;)</code> — <b>always</b> a key</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Event handlers are camelCase: <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">onClick</code>, <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">onChange</code></li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 9 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">The Essential Hooks</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// State
+const [count, setCount] = useState(0);
+
+// Side effects
+useEffect(() =&gt; {
+  const id = setInterval(() =&gt; setCount(c =&gt; c + 1), 1000);
+  return () =&gt; clearInterval(id);              // cleanup
+}, []);                                        // run once
+
+// Memoised value / function
+const doubled = useMemo(() =&gt; count * 2, [count]);
+const handle  = useCallback(() =&gt; setCount(0), []);
+
+// Ref — direct DOM access or mutable value
+const input = useRef&lt;HTMLInputElement&gt;(null);
+useEffect(() =&gt; { input.current?.focus(); }, []);</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 10 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">useState Patterns</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Primitives
+const [open, setOpen] = useState(false);
+
+// Objects — always spread when updating
+const [user, setUser] = useState({ name: &#039;&#039;, email: &#039;&#039; });
+setUser(u =&gt; ({ ...u, name: &#039;Alice&#039; }));
+
+// Functional updater for correctness under closures
+setCount(c =&gt; c + 1);                 // safer than setCount(count + 1)
+
+// Derived state — compute in render, don&#039;t store it
+const isValid = email.includes(&#039;@&#039;);  // no useState needed</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 11 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">useEffect — Rules Of Engagement</h2>
+  <div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #f59e0b;background:rgba(245,158,11,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">The #1 React mistake</strong>Running fetches in useEffect without a cleanup function. In React 19 with Strict Mode you will fire two requests and see duplicate state.</div><div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">useEffect(() =&gt; {
+  let cancelled = false;
+
+  async function load() {
+    const data = await fetchUser(id);
+    if (!cancelled) setUser(data);        // guard
+  }
+
+  load();
+  return () =&gt; { cancelled = true; };     // cleanup
+}, [id]);                                 // re-run when id changes</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 12 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Context — Share State Without Prop Drilling</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// auth-context.tsx
+import { createContext, useContext, useState, ReactNode } from &#039;react&#039;;
+
+interface AuthCtx {
+  user: User | null;
+  login: (u: User) =&gt; void;
+  logout: () =&gt; void;
+}
+const AuthContext = createContext&lt;AuthCtx | null&gt;(null);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState&lt;User | null&gt;(null);
+  return (
+    &lt;AuthContext.Provider value={{
+      user,
+      login: setUser,
+      logout: () =&gt; setUser(null),
+    }}&gt;
+      {children}
+    &lt;/AuthContext.Provider&gt;
+  );
+}
+
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error(&#039;useAuth must be inside AuthProvider&#039;);
+  return ctx;
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 13 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Forms With react-hook-form + zod</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">import { useForm } from &#039;react-hook-form&#039;;
+import { zodResolver } from &#039;@hookform/resolvers/zod&#039;;
+import { z } from &#039;zod&#039;;
+
+const schema = z.object({
+  email:    z.string().email(),
+  password: z.string().min(12),
+});
+type FormData = z.infer&lt;typeof schema&gt;;
+
+function LoginForm() {
+  const { register, handleSubmit, formState:{ errors } } =
+    useForm&lt;FormData&gt;({ resolver: zodResolver(schema) });
+
+  return (
+    &lt;form onSubmit={handleSubmit(login)}&gt;
+      &lt;input {...register(&#039;email&#039;)} /&gt;
+      {errors.email &amp;&amp; &lt;p&gt;{errors.email.message}&lt;/p&gt;}
+      &lt;input type=&quot;password&quot; {...register(&#039;password&#039;)} /&gt;
+      &lt;button&gt;Sign in&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 14 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Fetching With TanStack Query</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">import { useQuery } from &#039;@tanstack/react-query&#039;;
+
+function ProductList() {
+  const { data, isPending, error } = useQuery({
+    queryKey: [&#039;products&#039;],
+    queryFn:  () =&gt; fetch(&#039;/api/products&#039;).then(r =&gt; r.json()),
+  });
+
+  if (isPending) return &lt;Spinner/&gt;;
+  if (error)     return &lt;p&gt;Failed: {error.message}&lt;/p&gt;;
+  return (
+    &lt;ul&gt;{data.map(p =&gt; &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}&lt;/ul&gt;
+  );
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 15 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">React Router v7</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">import { createBrowserRouter, RouterProvider, Link } from &#039;react-router-dom&#039;;
+
+const router = createBrowserRouter([
+  { path: &#039;/&#039;,          element: &lt;Home/&gt; },
+  { path: &#039;/products&#039;,  element: &lt;Products/&gt; },
+  { path: &#039;/products/:id&#039;, element: &lt;Product/&gt; },
+  { path: &#039;*&#039;,          element: &lt;NotFound/&gt; },
+]);
+
+export default function App() { return &lt;RouterProvider router={router}/&gt;; }</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 16 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Component Composition vs Inheritance</h2>
+  <div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #06b6d4;background:rgba(6,182,212,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">React philosophy</strong>React never uses inheritance. You <b>compose</b> small components.</div><div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Bad: huge component with everything
+function Dashboard({ user, stats, notifications }) { /* 500 lines */ }
+
+// Good: compose from smaller pieces
+function Dashboard() {
+  return (
+    &lt;Layout&gt;
+      &lt;Header/&gt;
+      &lt;StatsPanel/&gt;
+      &lt;NotificationList/&gt;
+    &lt;/Layout&gt;
+  );
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 17 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Performance Tips</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>useMemo</b> only for expensive calculations</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>React.memo</b> only when profiler shows re-renders</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>useCallback</b> when passing callbacks to memoised children</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Virtualise long lists with <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">react-virtuoso</code> or TanStack Virtual</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Split your bundle with <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">React.lazy + Suspense</code></li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 18 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Accessibility in React</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">typescript</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Every interactive element is a real &lt;button&gt;, not a &lt;div&gt;
+&lt;button onClick={open} aria-label=&quot;Add to cart&quot;&gt;
+  &lt;ShoppingCartIcon aria-hidden=&quot;true&quot;/&gt;
+&lt;/button&gt;
+
+// Announce dynamic updates
+&lt;div role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;
+  {items.length} items in cart
+&lt;/div&gt;
+
+// Focus management after navigation
+useEffect(() =&gt; {
+  mainHeading.current?.focus();
+}, [location.pathname]);</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 19 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">React 19 New Features</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Actions</b> — pass async functions to <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">&lt;form action={…}&gt;</code></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>useFormStatus</b> & <b>useActionState</b> — loading/error UI for free</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>useOptimistic</b> — UI updates before the server responds</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>use()</b> — unwrap promises directly in components with Suspense</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Asset preloading built-in</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Server Components ready out of the box (with Next.js)</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 20 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Prompting AI for React</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">prompt</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">ROLE:    Senior React engineer.
+STACK:   React 19 + TypeScript + Tailwind + TanStack Query.
+TASK:    Build &lt;ProductCard&gt; that shows image, name, price,
+         and &#039;Add to cart&#039; button. Add to cart uses a mutation
+         from /api/cart. Loading and error states handled.
+RULES:   - Strict TypeScript
+         - WCAG AA accessible
+         - Responsive (mobile: column, md: row)
+         - Compose with &lt;Card&gt; from shadcn/ui
+OUTPUT:  One .tsx file + a short sample usage snippet.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 21 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Key Takeaways</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>TypeScript turns runtime bugs into compile-time errors</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>React is functional — hooks replace class state</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>useState + useEffect + Context cover 90% of needs</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use TanStack Query for server state, not Redux</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Compose small components; never write 500-line ones</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 22 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Up Next — Lesson 10</h2>
+  <p style="font-size:18px;color:#e2e8f0;line-height:1.7;margin:0 0 20px 0;">Theory is complete. Next we build a real shop: <b>React + TypeScript Storefront UI with AI</b>.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section></div>
+</div>
+</body>
+</html>

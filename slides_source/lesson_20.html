@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 20</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0f;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;
+}
+.deck section {
+    width: 1280px !important;
+    height: 720px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 40px 48px !important;
+    overflow: hidden !important;
+    display: block !important;
+    page-break-after: always;
+}
+.deck section h2 {
+    font-size: 28px !important;
+    margin-bottom: 16px !important;
+}
+.deck section h1 {
+    font-size: 36px !important;
+}
+.deck section p,
+.deck section li,
+.deck section td,
+.deck section th {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+.deck section pre {
+    font-size: 11px !important;
+    padding: 12px !important;
+}
+.deck section code {
+    font-size: 11px !important;
+}
+.deck section table {
+    font-size: 12px !important;
+}
+.deck section ul li,
+.deck section ol li {
+    padding: 7px 12px 7px 36px !important;
+    margin: 4px 0 !important;
+    font-size: 12px !important;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<div style="max-width:100%;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;line-height:1.7;color:#e2e8f0;"><section style="background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 40%,#db2777 100%);border-radius:16px;padding:72px 48px;margin:24px 0;min-height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="Swiss Bridge Academy" style="height:52px;margin-bottom:28px;filter:brightness(0) invert(1);">
+  <div style="display:inline-block;padding:8px 20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:24px;">LESSON 20 / 24</div>
+  <h1 style="font-size:40px;font-weight:800;color:#fff;margin:12px 0;line-height:1.2;max-width:900px;">Project #3 — Build a WordPress + WooCommerce Store</h1>
+  <p style="font-size:18px;color:rgba(255,255,255,0.9);max-width:720px;margin:16px 0 32px 0;line-height:1.6;">Ship a professional e-commerce site in hours, not weeks: WooCommerce setup, Stripe + PayPal payments, shipping zones, a custom theme, and AI-assisted product copy.</p>
+  <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">5h 30m</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Duration</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Module 5</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Module</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">English</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Language</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Hands-on</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Format</span></div>
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 2 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">WooCommerce In Numbers</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>28% of all online stores worldwide</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>6+ million active installs</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Free, open-source, GPL-licensed</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Hundreds of payment gateways</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Themes & add-ons for any use case</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 3 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Installation</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>WordPress admin → Plugins → Add New → search "WooCommerce"</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Install &amp; activate</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Run the setup wizard: store address, currency, industry</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Add tax regions, shipping zones, payment methods</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Install storefront-friendly theme (Storefront, Kadence, Blocksy)</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 4 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Core WooCommerce Concepts</h2>
+  <table style="width:100%;border-collapse:collapse;margin:16px 0;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden;"><thead><tr><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Object</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Description</th></tr></thead><tbody><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Product</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Simple, variable (size/color), grouped, external</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Category / Tag</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Taxonomy for browsing</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Attribute</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Color, size — used for variations</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Order</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Lifecycle: pending → processing → completed</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Coupon</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Discount codes — percent, fixed, BOGO</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Customer</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Extends WP User with billing + shipping</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Shipping Zone</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Regions + shipping methods per zone</td></tr></tbody></table>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 5 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Payment Gateways</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Stripe</b> — free plugin, Apple/Google Pay supported</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>PayPal</b> — built-in</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Razorpay</b> — for India</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Mollie</b> — European-friendly</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span><b>Square</b>, <b>Authorize.net</b>, <b>Klarna</b>, <b>AfterPay</b></li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Manual — bank transfer, cash on delivery</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 6 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Adding A Product</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Products → Add New → title, description, excerpt, featured image</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Product data → Simple product → Regular price / Sale price</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Inventory tab → SKU, stock quantity, low-stock threshold</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Shipping tab → weight, dimensions → used for rate calculation</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Linked products → upsells, cross-sells</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">6</span>Attributes → add color, size for variations</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">7</span>Advanced → purchase note, enable reviews, menu order</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">8</span>Categories + tags + product image in sidebar</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">9</span>Publish</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 7 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Variable Products</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">text</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">Attributes:
+  Size:  S | M | L | XL
+  Color: Black | White | Red
+
+Generate variations automatically → set price, stock, image per variation.
+Shopper picks size + color on the product page → right variation added to cart.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 8 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Shipping Zones & Classes</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>WooCommerce → Settings → Shipping → Add Shipping Zone</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Define region (e.g. United States, EU, Switzerland)</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Add method: Flat rate / Free shipping / Local pickup / Real-time (DHL, FedEx via plugin)</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Shipping classes → optional, to group heavy/fragile items</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 9 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Tax</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Settings → General → Enable tax</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Settings → Tax → tax rates per region</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Or plug in <b>Avalara</b> / <b>TaxJar</b> for automation</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Swiss & EU VAT — use "Prices include tax" mode</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Test with a low-tax and high-tax region</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 10 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Customizing The Storefront Theme</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">/* child theme style.css */
+.woocommerce ul.products li.product h2 {
+  font-family: &#039;Inter&#039;, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.woocommerce .button.alt {
+  background: linear-gradient(135deg,#6366f1,#ec4899);
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* child theme functions.php */
+add_filter(&#039;woocommerce_currency_symbol&#039;, function ($s, $c) {
+  return $c === &#039;CHF&#039; ? &#039;CHF &#039; : $s;
+}, 10, 2);</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 11 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Template Overrides</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">text</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Copy a WooCommerce template into your theme to override it:
+wp-content/plugins/woocommerce/templates/single-product/meta.php
+→ wp-content/themes/your-child/woocommerce/single-product/meta.php
+
+WooCommerce auto-uses your override. Document with the version
+header to stay in sync when Woo updates.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 12 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">WooCommerce Hooks</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Add content before &#039;add to cart&#039;
+add_action(&#039;woocommerce_before_add_to_cart_button&#039;, function () {
+    echo &#039;&lt;p class=&quot;eco-badge&quot;&gt;🌿 Ethically sourced&lt;/p&gt;&#039;;
+});
+
+// Change price display
+add_filter(&#039;woocommerce_get_price_html&#039;, function ($html, $product) {
+  if ($product-&gt;is_on_sale()) return &#039;&lt;span class=&quot;sale&quot;&gt;&#039;.$html.&#039;&lt;/span&gt;&#039;;
+  return $html;
+}, 10, 2);
+
+// Send admin email on low-stock alert (built-in) — just enable it</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 13 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Custom Fields For Products</h2>
+  <p style="font-size:16px;color:#cbd5e1;margin:0 0 16px 0;line-height:1.7;">Use ACF to add fields like "Care instructions" or "Country of origin".</p><div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// template: single-product/tabs/description.php
+&lt;?php
+$care = get_field(&#039;care_instructions&#039;, get_the_ID());
+if ($care) echo &#039;&lt;h4&gt;Care&lt;/h4&gt;&lt;p&gt;&#039;.esc_html($care).&#039;&lt;/p&gt;&#039;;
+?&gt;</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 14 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Reports & Analytics</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Built-in Analytics dashboard → revenue, orders, customers, products</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Google Analytics 4 via WooCommerce plugin</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Meta Pixel for ads</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Hotjar for user session recording</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Mailchimp / Klaviyo for email marketing integration</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 15 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Security & GDPR</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Force HTTPS site-wide</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Disable "Comments" on products unless you moderate</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Privacy Policy page linked in footer</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Consent banner (Complianz or Iubenda plugin)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Remove billing data after X days (tools)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Disable <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">XML-RPC</code> and <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">wp-login</code> brute force via Wordfence</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 16 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Performance For WooCommerce</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>PHP 8.2+ with OPcache & JIT</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Redis object cache</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>WP Rocket or LiteSpeed page cache with rules for cart/checkout exclusions</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Image CDN (Bunny, Cloudflare)</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Audit with Query Monitor plugin</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 17 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">AI-Powered Product Copy</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">prompt</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">Prompt:
+ You are a luxury e-commerce copywriter.
+ Write a 120-word product description for:
+   Name: &#039;Swiss Classic Chrono&#039;
+   Features: Automatic movement, sapphire crystal, 42mm case,
+             leather strap, 100m water resistance
+   Tone: Refined, confident, not hype-y
+ Return the description + 5 SEO keywords.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 18 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">AI Prompt — Custom Wo Hook</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">prompt</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">Write a WooCommerce snippet that:
+ - Adds a &#039;Gift wrap +$5&#039; checkbox on the cart page
+ - If checked, adds a fee to the order total
+ - Shows the wrap choice in the admin order details
+ - Persists the choice across cart refreshes
+Use WooCommerce hooks (woocommerce_before_calculate_totals, etc).
+Follow WooCommerce coding standards. Secure &amp; escaped.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 19 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Abandoned Cart Recovery</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Plugin: CartBounty / Abandoned Cart Lite</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Store carts in DB; capture email early at checkout</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Auto-send 3 recovery emails at 1h, 24h, 72h</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>A/B test subject lines and discount offers</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Average recovery = 10-20% of abandoned revenue</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 20 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Your Deliverable — Launched Shop</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>20 products with real images and AI-written descriptions</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>5 categories, 10 tags</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Stripe + PayPal in test mode</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Shipping zones: your country + international flat rate</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Custom child theme with branded colours</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">6</span>At least one custom block or hook</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">7</span>Demo video walking through a test purchase</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 21 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Key Takeaways</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>WooCommerce + a good theme = a real store in under a day</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Stripe + PayPal cover 95% of customers</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Child themes + overrides keep you update-safe</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Hooks let you change WooCommerce's behaviour without editing core</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>AI writes faster and often better product copy</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 22 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Up Next — Lesson 21</h2>
+  <p style="font-size:18px;color:#e2e8f0;line-height:1.7;margin:0 0 20px 0;">Three shops shipped! Now we zoom out: <b>SEO, Analytics & Core Web Vitals</b>.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section></div>
+</div>
+</body>
+</html>

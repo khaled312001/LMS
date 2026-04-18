@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 13</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0f;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;
+}
+.deck section {
+    width: 1280px !important;
+    height: 720px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 40px 48px !important;
+    overflow: hidden !important;
+    display: block !important;
+    page-break-after: always;
+}
+.deck section h2 {
+    font-size: 28px !important;
+    margin-bottom: 16px !important;
+}
+.deck section h1 {
+    font-size: 36px !important;
+}
+.deck section p,
+.deck section li,
+.deck section td,
+.deck section th {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+.deck section pre {
+    font-size: 11px !important;
+    padding: 12px !important;
+}
+.deck section code {
+    font-size: 11px !important;
+}
+.deck section table {
+    font-size: 12px !important;
+}
+.deck section ul li,
+.deck section ol li {
+    padding: 7px 12px 7px 36px !important;
+    margin: 4px 0 !important;
+    font-size: 12px !important;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<div style="max-width:100%;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;line-height:1.7;color:#e2e8f0;"><section style="background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 40%,#db2777 100%);border-radius:16px;padding:72px 48px;margin:24px 0;min-height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="Swiss Bridge Academy" style="height:52px;margin-bottom:28px;filter:brightness(0) invert(1);">
+  <div style="display:inline-block;padding:8px 20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:24px;">LESSON 13 / 24</div>
+  <h1 style="font-size:40px;font-weight:800;color:#fff;margin:12px 0;line-height:1.2;max-width:900px;">Laravel 11 Deep Dive — Eloquent, Blade, Auth & API</h1>
+  <p style="font-size:18px;color:rgba(255,255,255,0.9);max-width:720px;margin:16px 0 32px 0;line-height:1.6;">Laravel is PHP's most loved framework — elegant, productive, and deeply powered by AI tooling. In this lesson you master routing, Eloquent, Blade, authentication, and REST API building.</p>
+  <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">5h 30m</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Duration</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Module 3</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Module</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">English</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Language</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Hands-on</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Format</span></div>
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 2 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Why Laravel</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Beautiful, opinionated conventions that make teams productive</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Eloquent ORM — expressive queries, relationships, events</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Built-in auth, queues, caching, broadcasting, storage, jobs</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Artisan CLI: scaffolding, migrations, generators</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Huge ecosystem: Breeze, Jetstream, Livewire, Inertia, Filament</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 3 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Creating A Laravel Project</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">composer create-project laravel/laravel my-shop
+cd my-shop
+php artisan serve           # http://localhost:8000
+
+# Or with the global installer
+composer global require laravel/installer
+laravel new my-shop --git
+
+# Configure .env
+DB_DATABASE=shop
+DB_USERNAME=root
+DB_PASSWORD=secret
+php artisan migrate</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 4 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Laravel Anatomy</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">text</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">my-shop/
+├── app/
+│   ├── Http/Controllers/
+│   ├── Models/
+│   └── Providers/
+├── bootstrap/
+├── config/
+├── database/
+│   ├── migrations/
+│   ├── seeders/
+│   └── factories/
+├── public/          # index.php — your webroot
+├── resources/
+│   ├── views/       # Blade templates
+│   ├── js/
+│   └── css/
+├── routes/
+│   ├── web.php
+│   └── api.php
+├── tests/
+└── .env</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 5 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Routing Basics</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// routes/web.php
+use App\Http\Controllers\ProductController;
+
+Route::get(&#039;/&#039;,              [HomeController::class, &#039;index&#039;]);
+Route::get(&#039;/products&#039;,      [ProductController::class, &#039;index&#039;]);
+Route::get(&#039;/products/{id}&#039;, [ProductController::class, &#039;show&#039;])-&gt;whereNumber(&#039;id&#039;);
+
+// Grouped with middleware
+Route::middleware(&#039;auth&#039;)-&gt;prefix(&#039;admin&#039;)-&gt;group(function () {
+    Route::resource(&#039;products&#039;, AdminProductController::class);
+});</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 6 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Controllers</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">&lt;?php
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+
+class ProductController extends Controller
+{
+    public function index(Request $request)
+    {
+        $products = Product::query()
+            -&gt;when($request-&gt;category, fn($q, $c) =&gt; $q-&gt;where(&#039;category_id&#039;, $c))
+            -&gt;latest()
+            -&gt;paginate(20);
+
+        return view(&#039;products.index&#039;, compact(&#039;products&#039;));
+    }
+
+    public function show(Product $product)   // route-model binding
+    {
+        return view(&#039;products.show&#039;, compact(&#039;product&#039;));
+    }
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 7 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Eloquent Models</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">&lt;?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    protected $fillable = [&#039;name&#039;, &#039;price_cents&#039;, &#039;stock&#039;, &#039;category_id&#039;];
+    protected $casts    = [&#039;price_cents&#039; =&gt; &#039;int&#039;];
+
+    public function category() { return $this-&gt;belongsTo(Category::class); }
+    public function reviews()  { return $this-&gt;hasMany(Review::class); }
+    public function tags()     { return $this-&gt;belongsToMany(Tag::class); }
+
+    public function scopeInStock($q) { return $q-&gt;where(&#039;stock&#039;, &#039;&gt;&#039;, 0); }
+}
+
+// Usage:
+$list = Product::inStock()-&gt;with(&#039;category&#039;)-&gt;get();</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 8 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Migrations</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// database/migrations/2026_04_18_create_products_table.php
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::create(&#039;products&#039;, function (Blueprint $t) {
+            $t-&gt;id();
+            $t-&gt;string(&#039;sku&#039;)-&gt;unique();
+            $t-&gt;string(&#039;name&#039;);
+            $t-&gt;string(&#039;slug&#039;)-&gt;unique();
+            $t-&gt;text(&#039;description&#039;)-&gt;nullable();
+            $t-&gt;unsignedInteger(&#039;price_cents&#039;);
+            $t-&gt;unsignedInteger(&#039;stock&#039;)-&gt;default(0);
+            $t-&gt;foreignId(&#039;category_id&#039;)-&gt;constrained();
+            $t-&gt;timestamps();
+        });
+    }
+};
+// Run: php artisan migrate</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 9 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Seeders & Factories</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// database/factories/ProductFactory.php
+class ProductFactory extends Factory {
+    public function definition(): array {
+        return [
+            &#039;sku&#039;         =&gt; strtoupper(fake()-&gt;bothify(&#039;??-####&#039;)),
+            &#039;name&#039;        =&gt; fake()-&gt;words(3, true),
+            &#039;slug&#039;        =&gt; fake()-&gt;unique()-&gt;slug(),
+            &#039;price_cents&#039; =&gt; fake()-&gt;numberBetween(1000, 50000),
+            &#039;stock&#039;       =&gt; fake()-&gt;numberBetween(0, 200),
+            &#039;category_id&#039; =&gt; Category::factory(),
+        ];
+    }
+}
+// Seed:
+php artisan tinker
+&gt;&gt;&gt; Product::factory(100)-&gt;create();</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 10 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Blade Templates</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">{{-- resources/views/layouts/app.blade.php --}}
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;@yield(&#039;title&#039;) – SwissShop&lt;/title&gt;
+  @vite([&#039;resources/css/app.css&#039;, &#039;resources/js/app.js&#039;])
+&lt;/head&gt;
+&lt;body&gt;
+  @include(&#039;partials.nav&#039;)
+  &lt;main&gt;@yield(&#039;content&#039;)&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+{{-- resources/views/products/index.blade.php --}}
+@extends(&#039;layouts.app&#039;)
+@section(&#039;title&#039;, &#039;Products&#039;)
+@section(&#039;content&#039;)
+  &lt;h1&gt;Products&lt;/h1&gt;
+  @forelse ($products as $p)
+    &lt;article&gt;
+      &lt;h2&gt;{{ $p-&gt;name }}&lt;/h2&gt;
+      &lt;p&gt;${{ number_format($p-&gt;price_cents / 100, 2) }}&lt;/p&gt;
+    &lt;/article&gt;
+  @empty
+    &lt;p&gt;No products yet.&lt;/p&gt;
+  @endforelse
+  {{ $products-&gt;links() }}
+@endsection</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 11 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Forms & Validation</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">public function store(Request $request)
+{
+    $data = $request-&gt;validate([
+        &#039;name&#039;        =&gt; [&#039;required&#039;,&#039;string&#039;,&#039;max:255&#039;],
+        &#039;price_cents&#039; =&gt; [&#039;required&#039;,&#039;integer&#039;,&#039;min:1&#039;],
+        &#039;stock&#039;       =&gt; [&#039;required&#039;,&#039;integer&#039;,&#039;min:0&#039;],
+        &#039;category_id&#039; =&gt; [&#039;required&#039;,&#039;exists:categories,id&#039;],
+    ]);
+
+    $product = Product::create($data);
+
+    return redirect()
+        -&gt;route(&#039;products.show&#039;, $product)
+        -&gt;with(&#039;status&#039;, &#039;Product created!&#039;);
+}</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 12 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Authentication with Breeze</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># Install auth in one command
+composer require laravel/breeze --dev
+php artisan breeze:install blade
+npm install &amp;&amp; npm run build
+php artisan migrate
+
+# You now have: /register, /login, /forgot-password,
+# /reset-password, /verify-email, password confirmation, sessions, CSRF</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 13 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Authorization — Policies</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// app/Policies/ProductPolicy.php
+public function update(User $user, Product $product): bool {
+    return $user-&gt;id === $product-&gt;user_id || $user-&gt;is_admin;
+}
+
+// Usage in controller
+$this-&gt;authorize(&#039;update&#039;, $product);
+
+// In Blade
+@can(&#039;update&#039;, $product)
+  &lt;a href=&quot;{{ route(&#039;products.edit&#039;, $product) }}&quot;&gt;Edit&lt;/a&gt;
+@endcan</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 14 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Building A REST API</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// routes/api.php
+use App\Http\Controllers\Api\ProductApiController;
+
+Route::apiResource(&#039;products&#039;, ProductApiController::class);
+
+// Controller
+public function index(): JsonResponse {
+    return response()-&gt;json(Product::paginate(20));
+}
+public function store(StoreProductRequest $req): JsonResponse {
+    return response()-&gt;json(Product::create($req-&gt;validated()), 201);
+}
+
+// Consumers call
+// GET  /api/products
+// POST /api/products  (JSON body)
+// GET  /api/products/1
+// PUT  /api/products/1
+// DELETE /api/products/1</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 15 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">API Resources — Clean JSON</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// app/Http/Resources/ProductResource.php
+public function toArray($request): array {
+    return [
+        &#039;id&#039;      =&gt; $this-&gt;id,
+        &#039;name&#039;    =&gt; $this-&gt;name,
+        &#039;slug&#039;    =&gt; $this-&gt;slug,
+        &#039;price&#039;   =&gt; number_format($this-&gt;price_cents / 100, 2),
+        &#039;in_stock&#039;=&gt; $this-&gt;stock &gt; 0,
+        &#039;category&#039;=&gt; CategoryResource::make($this-&gt;whenLoaded(&#039;category&#039;)),
+    ];
+}
+
+// Usage
+return ProductResource::collection(Product::with(&#039;category&#039;)-&gt;paginate(20));</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 16 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Queues & Jobs</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># Generate a job
+php artisan make:job SendOrderConfirmation
+
+# In the job
+public function handle(MailService $mail): void {
+    $mail-&gt;send($this-&gt;order-&gt;customer_email, new OrderShipped($this-&gt;order));
+}
+
+# Dispatch
+SendOrderConfirmation::dispatch($order);
+
+# Start the worker
+php artisan queue:work --queue=default</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 17 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Caching</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// Remember forever
+$top = Cache::rememberForever(&#039;top-products&#039;, function () {
+    return Product::orderByDesc(&#039;sales&#039;)-&gt;limit(10)-&gt;get();
+});
+
+// TTL remember (60 seconds)
+$hot = Cache::remember(&#039;hot&#039;, 60, fn() =&gt; Product::latest()-&gt;limit(5)-&gt;get());
+
+// Manual
+Cache::put(&#039;key&#039;, &#039;value&#039;, 3600);
+Cache::forget(&#039;key&#039;);</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 18 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Middleware</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// app/Http/Middleware/LogRequest.php
+public function handle(Request $request, Closure $next): Response {
+    Log::info($request-&gt;method() . &#039; &#039; . $request-&gt;path());
+    return $next($request);
+}
+
+// Register in bootstrap/app.php (Laravel 11)
+-&gt;withMiddleware(function (Middleware $m) {
+    $m-&gt;append(LogRequest::class);
+})
+
+// Route-level
+Route::get(&#039;/admin&#039;, AdminDashboard::class)-&gt;middleware([&#039;auth&#039;, &#039;can:admin&#039;]);</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 19 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Testing With PHPUnit</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">php</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">// tests/Feature/ProductTest.php
+public function test_user_can_view_products_list(): void {
+    Product::factory(3)-&gt;create();
+    $response = $this-&gt;get(&#039;/products&#039;);
+    $response-&gt;assertStatus(200)-&gt;assertSeeText(&#039;Products&#039;);
+}
+
+public function test_guest_cannot_create_product(): void {
+    $response = $this-&gt;post(&#039;/products&#039;, [&#039;name&#039; =&gt; &#039;X&#039;]);
+    $response-&gt;assertRedirect(&#039;/login&#039;);
+}
+
+// Run: php artisan test</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 20 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">AI With Laravel — Prompt Patterns</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">prompt</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">Generate a Laravel 11 feature:
+ - Model Product + migration with columns: name, slug, price_cents, stock, description
+ - Controller with resource methods + StoreProductRequest &amp; UpdateProductRequest
+ - Policy: only owner or admin can edit/delete
+ - Blade index page with pagination + Tailwind styling
+ - Factory &amp; seeder with 50 fake products
+
+Output each file separately with its path comment at the top.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 21 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Key Takeaways</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Laravel = Artisan + Eloquent + Blade + conventions</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Migrations + Factories + Seeders replicate your DB anywhere</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Breeze gives full auth in one command</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Policies handle authorization cleanly</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>API Resources + apiResource routes = instant JSON API</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 22 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Up Next — Lesson 14</h2>
+  <p style="font-size:18px;color:#e2e8f0;line-height:1.7;margin:0 0 20px 0;">Framework mastered. Next we build a real e-commerce store end to end: <b>Project #1 — Complete Laravel E-commerce</b>.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section></div>
+</div>
+</body>
+</html>

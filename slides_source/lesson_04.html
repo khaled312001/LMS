@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 4</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0f;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;
+}
+.deck section {
+    width: 1280px !important;
+    height: 720px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 40px 48px !important;
+    overflow: hidden !important;
+    display: block !important;
+    page-break-after: always;
+}
+.deck section h2 {
+    font-size: 28px !important;
+    margin-bottom: 16px !important;
+}
+.deck section h1 {
+    font-size: 36px !important;
+}
+.deck section p,
+.deck section li,
+.deck section td,
+.deck section th {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+.deck section pre {
+    font-size: 11px !important;
+    padding: 12px !important;
+}
+.deck section code {
+    font-size: 11px !important;
+}
+.deck section table {
+    font-size: 12px !important;
+}
+.deck section ul li,
+.deck section ol li {
+    padding: 7px 12px 7px 36px !important;
+    margin: 4px 0 !important;
+    font-size: 12px !important;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<div style="max-width:100%;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;line-height:1.7;color:#e2e8f0;"><section style="background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 40%,#db2777 100%);border-radius:16px;padding:72px 48px;margin:24px 0;min-height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="Swiss Bridge Academy" style="height:52px;margin-bottom:28px;filter:brightness(0) invert(1);">
+  <div style="display:inline-block;padding:8px 20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:24px;">LESSON 4 / 24</div>
+  <h1 style="font-size:40px;font-weight:800;color:#fff;margin:12px 0;line-height:1.2;max-width:900px;">Git, GitHub & AI-Assisted Version Control Workflows</h1>
+  <p style="font-size:18px;color:rgba(255,255,255,0.9);max-width:720px;margin:16px 0 32px 0;line-height:1.6;">Git is the universal language of code collaboration. This lesson turns you into a confident Git user who writes AI-generated commits, resolves merge conflicts with Claude, and ships code through Pull Requests.</p>
+  <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">3h</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Duration</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Module 1</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Module</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">English</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Language</span></div>
+    <div style="background:rgba(255,255,255,0.12);padding:14px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);min-width:110px;"><strong style="display:block;font-size:22px;color:#fff;font-weight:800;">Hands-on</strong><span style="font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:1px;">Format</span></div>
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 2 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Objectives</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Explain what Git is and why <b>every</b> project needs it</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Execute the 15 Git commands you use daily</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Create, clone, branch, merge, and push repositories</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Resolve merge conflicts calmly with AI help</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Use the GitHub Pull Request workflow professionally</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Configure Cursor to generate commit messages automatically</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 3 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">What Is Git (and What It Is Not)</h2>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0;"><div style="background:rgba(99,102,241,0.08);border:1px solid #6366f140;border-radius:12px;padding:20px;"><div style="font-size:28px;margin-bottom:10px;">✅</div><h4 style="font-size:17px;color:#fff;margin:0 0 8px 0;font-weight:700;">Git IS</h4><p style="font-size:14px;margin:0;color:#cbd5e1;line-height:1.6;">A distributed version-control system that tracks every change to every file.</p></div><div style="background:rgba(236,72,153,0.08);border:1px solid #ec489940;border-radius:12px;padding:20px;"><div style="font-size:28px;margin-bottom:10px;">❌</div><h4 style="font-size:17px;color:#fff;margin:0 0 8px 0;font-weight:700;">Git is NOT</h4><p style="font-size:14px;margin:0;color:#cbd5e1;line-height:1.6;">GitHub, GitLab, or Bitbucket — those are hosting platforms built around Git.</p></div></div><p style="font-size:16px;color:#cbd5e1;margin:0 0 16px 0;line-height:1.7;">You can use Git 100% offline. GitHub adds collaboration, issues, Pull Requests, Actions, and backup.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 4 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Installing & Configuring Git</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># Install
+sudo apt install git           # Linux
+brew install git               # macOS
+winget install Git.Git         # Windows
+
+# One-time setup
+git config --global user.name &quot;Alice Johnson&quot;
+git config --global user.email &quot;alice@example.com&quot;
+git config --global init.defaultBranch main
+git config --global pull.rebase false
+git config --global core.editor &quot;code --wait&quot;
+
+# Verify
+git --version</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 5 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">The 15 Commands That Are 95% Of Daily Git</h2>
+  <table style="width:100%;border-collapse:collapse;margin:16px 0;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden;"><thead><tr><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Command</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">What it does</th></tr></thead><tbody><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git init</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Turn a folder into a Git repo</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git clone &lt;url&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Copy a remote repo locally</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git status</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Show what's changed / staged</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git add .</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Stage every change</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git commit -m "…"</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Save a snapshot with a message</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git push</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Upload commits to the remote</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git pull</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Download and merge remote commits</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git branch</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">List branches</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git checkout -b feat</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Create + switch to a new branch</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git merge feat</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Merge a branch into current</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git log --oneline</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Show history</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git diff</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Show unstaged differences</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git restore &lt;file&gt;</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Discard local changes</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git reset --hard</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Nuke unstaged & staged changes (careful!)</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git stash</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Temporarily shelve changes</td></tr></tbody></table>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 6 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">The Three States: Working Directory → Staging → Repository</h2>
+  <img src="https://source.unsplash.com/1200x600/?git%2Cversion%2Ccontrol%2Cflow" alt="Git three states" style="width:100%;max-height:280px;object-fit:cover;border-radius:12px;margin:16px 0;border:1px solid #334155;"><div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># 1) Modify a file
+echo &#039;console.log(&quot;hi&quot;)&#039; &gt; index.js
+
+# 2) See it:
+git status
+# → modified:   index.js
+
+# 3) Stage it (add to the &quot;about to commit&quot; list)
+git add index.js
+
+# 4) Commit it (snapshot to the repo)
+git commit -m &quot;feat: add greeting&quot;
+
+# 5) Push to GitHub
+git push origin main</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 7 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Your First GitHub Repository</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Go to <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">github.com/new</code></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Name = <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">my-first-repo</code>, keep it Public</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Do NOT tick "Initialize with README" (you'll push your own)</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Copy the SSH or HTTPS URL GitHub gives you</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Follow the next slide to push your local folder</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 8 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Pushing An Existing Folder To GitHub</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">cd my-project
+git init
+echo &#039;node_modules/&#039; &gt; .gitignore
+git add .
+git commit -m &quot;chore: initial commit&quot;
+git branch -M main
+git remote add origin git@github.com:alice/my-first-repo.git
+git push -u origin main</pre></div><div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #10b981;background:rgba(16,185,129,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">The -u flag</strong>Sets this branch to always track origin/main — subsequent pushes are just <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git push</code>.</div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 9 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Branching — The Developer's Superpower</h2>
+  <p style="font-size:16px;color:#cbd5e1;margin:0 0 16px 0;line-height:1.7;">A <b>branch</b> is an independent line of work. You can experiment freely without touching <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">main</code>.</p><div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">bash</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># Create and switch in one go
+git checkout -b feature/shopping-cart
+
+# work work work...
+git add .
+git commit -m &quot;feat(cart): add quantity stepper&quot;
+
+# Push the branch
+git push -u origin feature/shopping-cart
+
+# When merged on GitHub, delete locally
+git checkout main
+git pull
+git branch -d feature/shopping-cart</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 10 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Conventional Commits — AI Loves Them</h2>
+  <p style="font-size:16px;color:#cbd5e1;margin:0 0 16px 0;line-height:1.7;">A commit-message convention that both humans and machines can parse. Cursor can auto-generate commits in this format.</p><table style="width:100%;border-collapse:collapse;margin:16px 0;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden;"><thead><tr><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Prefix</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Meaning</th></tr></thead><tbody><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">feat:</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">New feature</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">fix:</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Bug fix</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">docs:</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Documentation only</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">style:</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Formatting, no code change</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">refactor:</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Code change that is not a fix or feature</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">test:</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Adding tests</td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">chore:</code></td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Build/tooling/dep updates</td></tr></tbody></table><div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">text</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">feat(auth): add Google OAuth login
+fix(cart): prevent negative quantities
+docs(readme): add deployment section
+refactor(orders): extract calculateTotal helper</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 11 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Pull Requests — The Review Ritual</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Push your feature branch to GitHub</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Open a Pull Request from <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">feature/x</code> into <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">main</code></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Write a clear description: <b>what</b> + <b>why</b> + <b>how to test</b></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Assign reviewers; they leave comments on specific lines</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>CI runs tests automatically</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">6</span>You push fixes; the PR updates automatically</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">7</span>Reviewer approves → you click "Squash and merge"</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 12 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">PR Description Template (copy & paste)</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">markdown</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">## What
+Short description of the change.
+
+## Why
+Business/UX reason. Link the ticket if any.
+
+## How to test
+1. Clone the branch
+2. Run \`pnpm install &amp;&amp; pnpm dev\`
+3. Navigate to /cart and add two items
+
+## Screenshots
+(Before/After if UI)
+
+## Checklist
+- [ ] Unit tests updated
+- [ ] Docs updated
+- [ ] No console.log left over</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 13 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Resolving Merge Conflicts (Without Panicking)</h2>
+  <p style="font-size:16px;color:#cbd5e1;margin:0 0 16px 0;line-height:1.7;">A conflict happens when two branches edit the same lines differently. Git marks them:</p><div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">diff</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+const price = 99.99;
+=======
+const price = 79.99;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/discount</pre></div><ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Open the file — VS Code highlights both versions</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Pick the right one, or combine them</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Remove the <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">&lt;&lt;&lt;&lt;</code> markers</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git add &lt;file&gt;</code></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git commit</code> (Git writes a merge commit for you)</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 14 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Asking Claude To Resolve Conflicts</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">prompt</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">I have a merge conflict in src/cart.ts:
+
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+&lt;paste current version&gt;
+=======
+&lt;paste incoming version&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/discount
+
+Explain what each side changed, recommend which to keep,
+and give me the merged file that preserves both intents.</pre></div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 15 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">AI-Generated Commit Messages In Cursor</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Stage your changes: <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git add .</code></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Open the Source Control panel (<code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">Ctrl+Shift+G</code>)</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Click the ✨ sparkle icon next to the message box</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Cursor reads the diff and writes a conventional commit</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Review/edit → commit</li></ol><div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #10b981;background:rgba(16,185,129,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Team impact</strong>Good commit messages = better blame, easier rollbacks, searchable history.</div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 16 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">The .gitignore File — What NEVER Goes Into Git</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">gitignore</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;"># Dependencies
+node_modules/
+vendor/
+
+# Environment
+.env
+.env.local
+*.key
+*.pem
+
+# Build artefacts
+dist/
+build/
+.next/
+.cache/
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/settings.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log</pre></div><div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #ef4444;background:rgba(239,68,68,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">If you commit a secret</strong>Rotate it <b>immediately</b>. The Git history keeps it forever even after deletion.</div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 17 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">GitHub Actions — CI/CD In 20 Lines</h2>
+  <div style="position:relative;margin:16px 0;"><span style="position:absolute;top:10px;right:14px;background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;font-family:-apple-system,sans-serif;">yaml</span><pre style="background:#020617;border:1px solid #334155;border-radius:10px;padding:20px;overflow-x:auto;font-family:'Fira Code','Cascadia Code',Consolas,monospace;font-size:14px;line-height:1.6;color:#e2e8f0;margin:16px 0;position:relative;white-space:pre;">.github/workflows/test.yml
+
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm test</pre></div><p style="font-size:16px;color:#cbd5e1;margin:0 0 16px 0;line-height:1.7;">Push this file and every future push runs your tests. Free for public repos.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 18 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Undoing Things Safely</h2>
+  <table style="width:100%;border-collapse:collapse;margin:16px 0;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden;"><thead><tr><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Situation</th><th style="background:#6366f1;color:#fff;padding:12px 16px;text-align:left;font-size:14px;font-weight:700;">Command</th></tr></thead><tbody><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Unstage a file</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git restore --staged file</code></td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Discard local changes to a file</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git restore file</code></td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Amend the last commit message</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git commit --amend</code></td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Undo last commit (keep changes)</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git reset --soft HEAD~1</code></td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Undo last commit (nuke changes)</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git reset --hard HEAD~1</code></td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Revert a published commit</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git revert &lt;sha&gt;</code></td></tr><tr><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;">Throw away all local state</td><td style="padding:10px 16px;border-top:1px solid #334155;font-size:14px;color:#cbd5e1;"><code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git reset --hard origin/main</code></td></tr></tbody></table><div style="padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid #f59e0b;background:rgba(245,158,11,0.08);font-size:15px;color:#e2e8f0;"><strong style="color:#fff;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Golden rule</strong>Never <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">reset --hard</code> on a branch other developers rely on. Use <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">revert</code>.</div>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 19 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">A Professional Branch Strategy (GitHub Flow)</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span><b>main</b> is always deployable</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Every feature gets a branch named <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">feat/*</code>, <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">fix/*</code> or <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">chore/*</code></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Open a Pull Request from day one (even with partial work) and mark it Draft</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>At least one reviewer must approve</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Squash-merge into main; delete the branch</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">6</span>Tag releases with semantic versions (<code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">v1.2.0</code>)</li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 20 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Hands-On Lab</h2>
+  <ol style="padding:0;margin:16px 0;list-style:none;counter-reset:sba;"><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">1</span>Create a GitHub repo called <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">ai-fullstack-playground</code></li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">2</span>Clone it locally</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">3</span>Create <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">hello.html</code>, commit, push</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">4</span>Open a branch <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">feat/fancy-title</code>, change the title, commit, push</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">5</span>Open a Pull Request from GitHub's UI — write a proper description</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">6</span>Squash-merge it and delete the branch</li><li style="position:relative;padding:14px 14px 14px 60px;margin:10px 0;background:rgba(255,255,255,0.04);border-radius:8px;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:14px;top:14px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">7</span>Pull locally: <code style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',Consolas,monospace;">git checkout main &amp;&amp; git pull</code></li></ol>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 21 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Key Takeaways</h2>
+  <ul style="list-style:none;padding:0;margin:16px 0;"><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Git tracks history, GitHub is the social layer on top</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Branch for every feature, PR for every merge, CI for every push</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Conventional commits + AI-generated messages = cleaner history</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Merge conflicts are just "pick which version to keep" — AI can help</li><li style="padding:12px 16px 12px 44px;margin:8px 0;background:rgba(255,255,255,0.04);border-left:3px solid #6366f1;border-radius:8px;position:relative;font-size:15px;color:#e2e8f0;"><span style="position:absolute;left:16px;color:#a5b4fc;font-weight:900;font-size:18px;">&#9654;</span>Never commit secrets — and rotate them immediately if you do</li></ul>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section>
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:16px;padding:48px 40px;margin:24px 0;position:relative;min-height:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;color:#e2e8f0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1,#ec4899,#06b6d4);"></div>
+  <div style="position:absolute;top:20px;right:24px;background:rgba(99,102,241,0.15);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid rgba(99,102,241,0.3);">Slide 22 / 22</div>
+  <h2 style="font-size:30px;font-weight:800;color:#ffffff;margin:0 0 24px 0;padding-bottom:16px;border-bottom:3px solid #6366f1;display:inline-block;">Up Next — Lesson 5</h2>
+  <p style="font-size:18px;color:#e2e8f0;line-height:1.7;margin:0 0 20px 0;">Foundations complete! Now we step into the browser with <b>HTML5 — semantic markup &amp; accessible structure with AI</b>.</p>
+  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #334155;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;">
+    <span>Swiss Bridge Academy — AI-Powered Full Stack Bootcamp</span>
+    <img src="https://swissbridgeacademy.com/public/uploads/light_logo/lightlogo-1773741888.png" alt="logo" style="height:22px;opacity:0.8;">
+  </div>
+</section></div>
+</div>
+</body>
+</html>

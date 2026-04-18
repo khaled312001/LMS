@@ -10,7 +10,17 @@
       "Bash(find /f/LMS -maxdepth 2 -name *.env* -o -name config.php -o -name .env)",
       "Bash(xargs grep:*)",
       "Bash(find f:/LMS/resources/views/frontend/default -name header* -o -name navbar* -o -name layout* -o -name master*)",
-      "Bash(grep -v \"^$\")"
+      "Bash(grep -v \"^$\")",
+      "Bash(grep -r \"الإنجليزية\\\\|0\\\\.0\\\\|language.*row\\\\|row.*language\\\\|getLanguage\\\\|get_phrase.*language\" f:/LMS/resources/views/frontend/ --include=*.php -l)",
+      "Bash(grep -r \"system_title\\\\|website_description\\\\|website_keywords\" f:/LMS/app/ --include=*.php -l)",
+      "Bash(grep -r \"system_title\\\\|site_name\\\\|website_description\" f:/LMS/database/migrations/ --include=*.php -l)",
+      "Bash(grep -r \"system_title\\\\|website_description\\\\|website_keywords\\\\|site_title\\\\|site_name\" f:/LMS/app/Http/Controllers/ --include=*.php -l)",
+      "Bash(grep -rn \"system_title\\\\|website_description\\\\|website_keywords\" f:/LMS/database/ --include=*.php)",
+      "Bash(grep -rn \"class Setting\\\\|protected $table\" f:/LMS/app/Models/Setting.php)",
+      "Bash(grep -r \"seo_fields\\\\|SeoField\\\\|name_route\\\\|og_title\\\\|og_description\\\\|og_image\\\\|meta_title\\\\|meta_description\" f:/LMS/database/migrations/ --include=*.php -l)",
+      "Bash(python3 f:/LMS/write_blog.py)",
+      "Bash(python3 -c \"print\\(''test''\\)\")",
+      "Bash(node -e \":*)"
     ]
   }
 }

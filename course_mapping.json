@@ -1,0 +1,184 @@
+{
+    "course_id": 25,
+    "course_slug": "ai-powered-full-stack-web-ecommerce-development-813",
+    "section_ids": {
+        "1": 733,
+        "2": 734,
+        "3": 735,
+        "4": 736,
+        "5": 737,
+        "6": 738
+    },
+    "lesson_ids": [
+        3242,
+        3243,
+        3244,
+        3245,
+        3246,
+        3247,
+        3248,
+        3249,
+        3250,
+        3251,
+        3252,
+        3253,
+        3254,
+        3255,
+        3256,
+        3257,
+        3258,
+        3259,
+        3260,
+        3261,
+        3262,
+        3263,
+        3264,
+        3265
+    ],
+    "lessons": [
+        {
+            "section": 1,
+            "sort": 1,
+            "duration": "03:30:00",
+            "title": "Lesson 01: The AI-Powered Developer Mindset & How The Web Works"
+        },
+        {
+            "section": 1,
+            "sort": 2,
+            "duration": "03:15:00",
+            "title": "Lesson 02: Setting Up Your Professional AI-Assisted Workstation"
+        },
+        {
+            "section": 1,
+            "sort": 3,
+            "duration": "03:45:00",
+            "title": "Lesson 03: Mastering Prompt Engineering & AI Pair-Programming"
+        },
+        {
+            "section": 1,
+            "sort": 4,
+            "duration": "03:00:00",
+            "title": "Lesson 04: Git, GitHub & AI-Assisted Version Control Workflows"
+        },
+        {
+            "section": 2,
+            "sort": 1,
+            "duration": "04:00:00",
+            "title": "Lesson 05: HTML5 — Semantic Markup & Accessible Structure with AI"
+        },
+        {
+            "section": 2,
+            "sort": 2,
+            "duration": "04:30:00",
+            "title": "Lesson 06: CSS3 Deep Dive — Flexbox, Grid, Animations & Responsive Design"
+        },
+        {
+            "section": 2,
+            "sort": 3,
+            "duration": "03:45:00",
+            "title": "Lesson 07: Bootstrap 5 & Tailwind CSS — Build Landing Pages Fast with AI"
+        },
+        {
+            "section": 2,
+            "sort": 4,
+            "duration": "05:00:00",
+            "title": "Lesson 08: JavaScript ES2024 Essentials — From Variables to Async\/Await"
+        },
+        {
+            "section": 2,
+            "sort": 5,
+            "duration": "04:30:00",
+            "title": "Lesson 09: TypeScript & Modern React 19 with Hooks and Context"
+        },
+        {
+            "section": 2,
+            "sort": 6,
+            "duration": "05:00:00",
+            "title": "Lesson 10: Building a React + TypeScript Storefront UI with AI"
+        },
+        {
+            "section": 3,
+            "sort": 1,
+            "duration": "04:30:00",
+            "title": "Lesson 11: PHP 8 Fundamentals & Object-Oriented Programming"
+        },
+        {
+            "section": 3,
+            "sort": 2,
+            "duration": "04:00:00",
+            "title": "Lesson 12: MySQL Database Design, Relationships & AI-Generated Schemas"
+        },
+        {
+            "section": 3,
+            "sort": 3,
+            "duration": "05:30:00",
+            "title": "Lesson 13: Laravel 11 Deep Dive — Eloquent, Blade, Auth & API"
+        },
+        {
+            "section": 3,
+            "sort": 4,
+            "duration": "06:00:00",
+            "title": "Lesson 14: Project #1 — Build a Complete Laravel E-commerce Store"
+        },
+        {
+            "section": 4,
+            "sort": 1,
+            "duration": "04:00:00",
+            "title": "Lesson 15: Node.js & Express — Building REST APIs with TypeScript"
+        },
+        {
+            "section": 4,
+            "sort": 2,
+            "duration": "04:00:00",
+            "title": "Lesson 16: MongoDB & Mongoose — Schema Design for E-commerce"
+        },
+        {
+            "section": 4,
+            "sort": 3,
+            "duration": "05:00:00",
+            "title": "Lesson 17: JWT Authentication, Middleware & Secure REST Patterns"
+        },
+        {
+            "section": 4,
+            "sort": 4,
+            "duration": "06:00:00",
+            "title": "Lesson 18: Project #2 — Build a Complete MERN E-commerce Store"
+        },
+        {
+            "section": 5,
+            "sort": 1,
+            "duration": "04:00:00",
+            "title": "Lesson 19: WordPress Mastery — Themes, Plugins & the Block Editor"
+        },
+        {
+            "section": 5,
+            "sort": 2,
+            "duration": "05:30:00",
+            "title": "Lesson 20: Project #3 — Build a WordPress + WooCommerce Store"
+        },
+        {
+            "section": 6,
+            "sort": 1,
+            "duration": "03:30:00",
+            "title": "Lesson 21: SEO, Analytics & Core Web Vitals with AI Optimization"
+        },
+        {
+            "section": 6,
+            "sort": 2,
+            "duration": "03:30:00",
+            "title": "Lesson 22: Web Security — OWASP Top 10, HTTPS, and AI Code Review"
+        },
+        {
+            "section": 6,
+            "sort": 3,
+            "duration": "04:00:00",
+            "title": "Lesson 23: Deploying to Hostinger — Domains, MySQL, SSL & Email"
+        },
+        {
+            "section": 6,
+            "sort": 4,
+            "duration": "04:30:00",
+            "title": "Lesson 24: Launch, Maintenance, Backups & The AI-Powered Developer Roadmap"
+        }
+    ]
+}

@@ -118,7 +118,8 @@ class CourseController extends Controller
                     'التسويق باستخدام أدوات الذكاء الاصطناعي' => 'AI-Powered Digital Marketing',
                     'التصميم باستخدام أدوات الذكاء الاصطناعي' => 'AI-Powered Design',
                     'دورة المبيعات' => 'Sales Mastery',
-                    'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة' => 'Learning Programming with Modern AI Tools'
+                    'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة' => 'Learning Programming with Modern AI Tools',
+                    'تطوير الويب والمتاجر الإلكترونية Full Stack بأدوات الذكاء الاصطناعي' => 'AI-Powered Full Stack Web & E-commerce Development: From Zero to Production'
                 ];
                 
                 if (isset($englishTitleMap[$course_details->title])) {
@@ -135,7 +136,8 @@ class CourseController extends Controller
                     'AI-Powered Digital Marketing' => 'التسويق باستخدام أدوات الذكاء الاصطناعي',
                     'AI-Powered Design' => 'التصميم باستخدام أدوات الذكاء الاصطناعي',
                     'Sales Mastery' => 'دورة المبيعات',
-                    'Learning Programming with Modern AI Tools' => 'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة'
+                    'Learning Programming with Modern AI Tools' => 'تعلم البرمجة باستخدام أدوات الذكاء الاصطناعي الحديثة',
+                    'AI-Powered Full Stack Web & E-commerce Development: From Zero to Production' => 'تطوير الويب والمتاجر الإلكترونية Full Stack بأدوات الذكاء الاصطناعي'
                 ];
                 
                 if (isset($arabicTitleMap[$course_details->title])) {

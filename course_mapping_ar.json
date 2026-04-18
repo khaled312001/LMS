@@ -1,0 +1,184 @@
+{
+    "course_id": 26,
+    "course_slug": "full-stack-web-ecommerce-ai-arabic-193",
+    "section_ids": {
+        "1": 739,
+        "2": 740,
+        "3": 741,
+        "4": 742,
+        "5": 743,
+        "6": 744
+    },
+    "lesson_ids": [
+        3266,
+        3267,
+        3268,
+        3269,
+        3270,
+        3271,
+        3272,
+        3273,
+        3274,
+        3275,
+        3276,
+        3277,
+        3278,
+        3279,
+        3280,
+        3281,
+        3282,
+        3283,
+        3284,
+        3285,
+        3286,
+        3287,
+        3288,
+        3289
+    ],
+    "lessons": [
+        {
+            "section": 1,
+            "sort": 1,
+            "duration": "03:30:00",
+            "title": "الدرس 01: عقلية المطور المدعوم بالذكاء الاصطناعي وكيف يعمل الويب"
+        },
+        {
+            "section": 1,
+            "sort": 2,
+            "duration": "03:15:00",
+            "title": "الدرس 02: إعداد بيئة العمل الاحترافية بمساعدة الذكاء الاصطناعي"
+        },
+        {
+            "section": 1,
+            "sort": 3,
+            "duration": "03:45:00",
+            "title": "الدرس 03: إتقان هندسة الـ Prompts والبرمجة الزوجية مع AI"
+        },
+        {
+            "section": 1,
+            "sort": 4,
+            "duration": "03:00:00",
+            "title": "الدرس 04: Git و GitHub وسير العمل للتحكم بالنسخ بمساعدة AI"
+        },
+        {
+            "section": 2,
+            "sort": 1,
+            "duration": "04:00:00",
+            "title": "الدرس 05: HTML5 — الترميز الدلالي والبنية الوصولية مع AI"
+        },
+        {
+            "section": 2,
+            "sort": 2,
+            "duration": "04:30:00",
+            "title": "الدرس 06: تعمق في CSS3 — Flexbox و Grid والحركات والتصميم المتجاوب"
+        },
+        {
+            "section": 2,
+            "sort": 3,
+            "duration": "03:45:00",
+            "title": "الدرس 07: Bootstrap 5 و Tailwind CSS — بناء صفحات الهبوط بسرعة مع AI"
+        },
+        {
+            "section": 2,
+            "sort": 4,
+            "duration": "05:00:00",
+            "title": "الدرس 08: أساسيات JavaScript ES2024 — من المتغيرات إلى Async\/Await"
+        },
+        {
+            "section": 2,
+            "sort": 5,
+            "duration": "04:30:00",
+            "title": "الدرس 09: TypeScript و React 19 الحديث مع الـ Hooks و Context"
+        },
+        {
+            "section": 2,
+            "sort": 6,
+            "duration": "05:00:00",
+            "title": "الدرس 10: بناء واجهة متجر إلكتروني بـ React + TypeScript مع AI"
+        },
+        {
+            "section": 3,
+            "sort": 1,
+            "duration": "04:30:00",
+            "title": "الدرس 11: أساسيات PHP 8 والبرمجة الكائنية OOP"
+        },
+        {
+            "section": 3,
+            "sort": 2,
+            "duration": "04:00:00",
+            "title": "الدرس 12: تصميم قاعدة بيانات MySQL والعلاقات والمخططات المولّدة بالذكاء الاصطناعي"
+        },
+        {
+            "section": 3,
+            "sort": 3,
+            "duration": "05:30:00",
+            "title": "الدرس 13: تعمق في Laravel 11 — Eloquent و Blade والمصادقة و API"
+        },
+        {
+            "section": 3,
+            "sort": 4,
+            "duration": "06:00:00",
+            "title": "الدرس 14: مشروع #1 — بناء متجر إلكتروني كامل بـ Laravel"
+        },
+        {
+            "section": 4,
+            "sort": 1,
+            "duration": "04:00:00",
+            "title": "الدرس 15: Node.js و Express — بناء REST APIs مع TypeScript"
+        },
+        {
+            "section": 4,
+            "sort": 2,
+            "duration": "04:00:00",
+            "title": "الدرس 16: MongoDB و Mongoose — تصميم المخططات للتجارة الإلكترونية"
+        },
+        {
+            "section": 4,
+            "sort": 3,
+            "duration": "05:00:00",
+            "title": "الدرس 17: مصادقة JWT والـ Middleware وأنماط REST الآمنة"
+        },
+        {
+            "section": 4,
+            "sort": 4,
+            "duration": "06:00:00",
+            "title": "الدرس 18: مشروع #2 — بناء متجر إلكتروني كامل بـ MERN Stack"
+        },
+        {
+            "section": 5,
+            "sort": 1,
+            "duration": "04:00:00",
+            "title": "الدرس 19: إتقان WordPress — القوالب والإضافات ومحرر Block"
+        },
+        {
+            "section": 5,
+            "sort": 2,
+            "duration": "05:30:00",
+            "title": "الدرس 20: مشروع #3 — بناء متجر WordPress + WooCommerce"
+        },
+        {
+            "section": 6,
+            "sort": 1,
+            "duration": "03:30:00",
+            "title": "الدرس 21: SEO والتحليلات و Core Web Vitals مع تحسين AI"
+        },
+        {
+            "section": 6,
+            "sort": 2,
+            "duration": "03:30:00",
+            "title": "الدرس 22: أمان الويب — OWASP Top 10 و HTTPS ومراجعة الكود بالذكاء الاصطناعي"
+        },
+        {
+            "section": 6,
+            "sort": 3,
+            "duration": "04:00:00",
+            "title": "الدرس 23: النشر على Hostinger — الدومين و MySQL و SSL والبريد"
+        },
+        {
+            "section": 6,
+            "sort": 4,
+            "duration": "04:30:00",
+            "title": "الدرس 24: الإطلاق والصيانة والنسخ الاحتياطية وخارطة طريق المطور بالذكاء الاصطناعي"
+        }
+    ]
+}
