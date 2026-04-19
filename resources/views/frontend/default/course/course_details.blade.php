@@ -258,7 +258,9 @@
                                 <i class="fa fa-star"></i>
                                 <span class="ms-1 fw-bold">5.0</span>
                             </div>
-                            <span class="small opacity-50">({{ $total }} {{ $is_arabic ? 'تقييم' : get_phrase('Reviews') }})</span>
+                            @if ($total > 0)
+                                <span class="small opacity-50">({{ $total }} {{ $is_arabic ? 'تقييم' : get_phrase('Reviews') }})</span>
+                            @endif
                         </div>
                         <div class="vr opacity-25 d-none d-md-block"></div>
                         <div class="d-flex align-items-center gap-2 small opacity-75">

@@ -24,27 +24,26 @@
                 </p>
                 <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
                     <i class="fa-solid fa-location-dot" style="color:#818cf8;margin-top:3px;"></i>
-                    <span style="color:#9db8d2;font-size:0.88rem;">Bahnhofstrasse 37, 8001 Zürich</span>
+                    <span style="color:#9db8d2;font-size:0.88rem;">Swiss Bridge Academy | Zürich, Switzerland</span>
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
                     <i class="fa-brands fa-whatsapp" style="color:#25d366;margin-top:3px;"></i>
-                    <a href="https://wa.me/41779412126" target="_blank" style="color:#9db8d2;font-size:0.88rem;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9db8d2'">41779412126+</a>
+                    <a href="https://wa.me/41779412126" target="_blank" style="color:#9db8d2;font-size:0.88rem;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9db8d2'">+41 77 941 21 26</a>
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;">
                     <i class="fa-solid fa-envelope" style="color:#818cf8;margin-top:3px;"></i>
                     <a href="mailto:info@swissbridgeacademy.com" style="color:#9db8d2;font-size:0.88rem;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9db8d2'">info@swissbridgeacademy.com</a>
                 </div>
 
-                {{-- Social icons --}}
+                {{-- Social icons: Facebook + Instagram only --}}
                 <div style="display:flex;gap:10px;">
                     @foreach([
-                        ['fa-facebook-f',  get_frontend_settings('facebook'),  '#1877f2'],
-                        ['fa-x-twitter',   get_frontend_settings('twitter'),   '#555'],
-                        ['fa-linkedin-in', get_frontend_settings('linkedin'),  '#0a66c2'],
+                        ['fa-facebook-f',  'https://www.facebook.com/61578503481427/',       '#1877f2'],
+                        ['fa-instagram',   'https://www.instagram.com/swiss_bridgeacademy/', 'linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)'],
                     ] as [$icon, $href, $hc])
-                    <a href="{{ $href }}" aria-label="{{ $icon }}"
+                    <a href="{{ $href }}" target="_blank" rel="noopener" aria-label="{{ $icon }}"
                        style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);display:inline-flex;align-items:center;justify-content:center;color:#c9d6e3;font-size:0.95rem;text-decoration:none;transition:all .3s;"
-                       onmouseover="this.style.background='{{ $hc }}';this.style.borderColor='{{ $hc }}';this.style.color='#fff';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.35)';"
+                       onmouseover="this.style.background='{{ $hc }}';this.style.borderColor='transparent';this.style.color='#fff';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.35)';"
                        onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='#c9d6e3';this.style.transform='';this.style.boxShadow='';">
                         <i class="fa-brands {{ $icon }}"></i>
                     </a>

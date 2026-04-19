@@ -170,15 +170,59 @@
                 @endguest
             </div>
             
-            <!-- Mobile Footer Info -->
-            <div class="text-center mt-5 pt-3">
-                <p class="text-muted small mb-0 fw-medium">© {{ date('Y') }} {{ get_frontend_settings('website_title') }}</p>
-                <div class="d-flex justify-content-center gap-3 mt-2">
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="text-muted text-decoration-none transition-all hover-text-primary" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <!-- Mobile Footer: Brand + Contact Card -->
+            <div class="mt-4 pt-4" style="border-top:1px solid #e2e8f0;">
+                <p style="font-size:0.72rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#94a3b8;margin:0 0 12px 0;">
+                    {{ $is_arabic ? 'تواصل معنا' : 'Get in Touch' }}
+                </p>
+
+                {{-- Contact rows --}}
+                <a href="https://wa.me/41779412126" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid #e2e8f0;text-decoration:none;color:#0f172a;margin-bottom:8px;transition:all .25s;" onmouseover="this.style.background='#ecfdf5';this.style.borderColor='#86efac'" onmouseout="this.style.background='#f8fafc';this.style.borderColor='#e2e8f0'">
+                    <div style="width:38px;height:38px;border-radius:10px;background:#25d366;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 10px rgba(37,211,102,0.35);">
+                        <i class="fa-brands fa-whatsapp" style="color:#fff;font-size:1.05rem;"></i>
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-size:0.72rem;color:#64748b;font-weight:600;letter-spacing:0.3px;">{{ $is_arabic ? 'واتساب' : 'WhatsApp' }}</div>
+                        <div style="font-size:0.88rem;font-weight:700;color:#0f172a;" dir="ltr">+41 77 941 21 26</div>
+                    </div>
+                </a>
+
+                <a href="mailto:info@swissbridgeacademy.com" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid #e2e8f0;text-decoration:none;color:#0f172a;margin-bottom:8px;transition:all .25s;" onmouseover="this.style.background='#eef2ff';this.style.borderColor='#a5b4fc'" onmouseout="this.style.background='#f8fafc';this.style.borderColor='#e2e8f0'">
+                    <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#7e22ce);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 10px rgba(79,70,229,0.3);">
+                        <i class="fa-solid fa-envelope" style="color:#fff;font-size:1rem;"></i>
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-size:0.72rem;color:#64748b;font-weight:600;letter-spacing:0.3px;">{{ $is_arabic ? 'البريد الإلكتروني' : 'Email' }}</div>
+                        <div style="font-size:0.78rem;font-weight:700;color:#0f172a;word-break:break-all;" dir="ltr">info@swissbridgeacademy.com</div>
+                    </div>
+                </a>
+
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid #e2e8f0;margin-bottom:16px;">
+                    <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#dc2626,#fbbf24);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 10px rgba(220,38,38,0.25);">
+                        <i class="fa-solid fa-location-dot" style="color:#fff;font-size:1rem;"></i>
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-size:0.72rem;color:#64748b;font-weight:600;letter-spacing:0.3px;">{{ $is_arabic ? 'المقر' : 'Location' }}</div>
+                        <div style="font-size:0.82rem;font-weight:700;color:#0f172a;">Zürich, Switzerland 🇨🇭</div>
+                    </div>
                 </div>
+
+                {{-- Social icons --}}
+                <p style="font-size:0.72rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#94a3b8;margin:18px 0 10px 0;">
+                    {{ $is_arabic ? 'تابعنا' : 'Follow Us' }}
+                </p>
+                <div style="display:flex;gap:10px;margin-bottom:16px;">
+                    <a href="https://www.facebook.com/61578503481427/" target="_blank" rel="noopener" aria-label="Facebook" style="flex:1;height:46px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;color:#64748b;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='#1877f2';this.style.color='#fff';this.style.borderColor='#1877f2';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8fafc';this.style.color='#64748b';this.style.borderColor='#e2e8f0';this.style.transform=''">
+                        <i class="fa-brands fa-facebook-f fs-5"></i>
+                    </a>
+                    <a href="https://www.instagram.com/swiss_bridgeacademy/" target="_blank" rel="noopener" aria-label="Instagram" style="flex:1;height:46px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;color:#64748b;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)';this.style.color='#fff';this.style.borderColor='transparent';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8fafc';this.style.color='#64748b';this.style.borderColor='#e2e8f0';this.style.transform=''">
+                        <i class="fa-brands fa-instagram fs-5"></i>
+                    </a>
+                </div>
+
+                <p class="text-center" style="font-size:0.72rem;color:#94a3b8;margin:0;font-weight:500;">
+                    © {{ date('Y') }} Swiss Bridge Academy
+                </p>
             </div>
         </div>
     </div>

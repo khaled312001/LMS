@@ -28,7 +28,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $page_data['blogs']    = Blog::where('status', 1)->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
+        // Filter home-page blogs by current UI language (English/Arabic)
+        $current_lang = strtolower(session('language') ?? get_settings('language'));
+        $blog_query   = Blog::where('status', 1);
+        if (in_array($current_lang, ['english', 'arabic'])) {
+            $blog_query->where('language', $current_lang);
+        }
+        $page_data['blogs']    = $blog_query->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
         $page_data['reviews']  = Review::all();
         $page_data['instructor'] = User::join('courses', 'users.id', 'courses.user_id')
             ->select('users.*', 'courses.title as course_title')

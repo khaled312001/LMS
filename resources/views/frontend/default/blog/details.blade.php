@@ -188,10 +188,11 @@
 
                     <!-- Related Articles -->
                     @if(isset($related_blogs) && $related_blogs->count() > 0)
+                        @php $__is_ar = strtolower(session('language') ?? get_settings('language')) === 'arabic'; @endphp
                         <div class="mt-100">
                             <div class="text-center mb-5">
-                                <h2 class="display-5 fw-900 letter-spacing-tight">{{ get_phrase('Related Articles') }}</h2>
-                                <p class="text-muted">{{ get_phrase('Deepen your knowledge with these similar topics.') }}</p>
+                                <h2 class="display-5 fw-900 letter-spacing-tight">{{ $__is_ar ? 'مقالات ذات صلة' : get_phrase('Related Articles') }}</h2>
+                                <p class="text-muted">{{ $__is_ar ? 'وسّع معرفتك بهذه المواضيع المشابهة.' : get_phrase('Deepen your knowledge with these similar topics.') }}</p>
                             </div>
                             <div class="row g-4">
                                 @foreach ($related_blogs as $r_blog)

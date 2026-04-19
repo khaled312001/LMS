@@ -327,19 +327,21 @@
                         <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover; border: 10px solid #fff;" alt="Student learning on laptop with creative courseware">
                     </div>
                     
-                    <!-- Floating Achievement Cards -->
-                    <div class="position-absolute animate-float shadow-lg floating-stat-mini bg-white rounded-4 border-0" data-aos="fade-left" data-aos-delay="600" style="top: -40px; {{ $is_arabic ? 'left: -20px;' : 'right: -20px;' }} width: 180px; z-index: 5;">
-                        <div class="d-flex align-items-center gap-2 mb-1">
-                            <div class="bg-success rounded-circle flex-shrink-0" style="width: 10px; height: 10px;"></div>
-                            <span class="small fw-bold">{{ $is_arabic ? ($ar['Live Learners'] ?? get_phrase('Live Learners')) : get_phrase('Live Learners') }}</span>
+                    <!-- Floating Achievement Cards (SOLID WHITE, well-padded) -->
+                    <div class="position-absolute animate-float" data-aos="fade-left" data-aos-delay="600" style="top: -30px; {{ $is_arabic ? 'left: -20px;' : 'right: -20px;' }} width: 210px; z-index: 5; background:#ffffff; border-radius:20px; padding:18px 22px; box-shadow:0 20px 50px rgba(79,70,229,0.18); border:1px solid rgba(79,70,229,0.08);">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,0.18);"></div>
+                            <span style="font-size:0.8rem;font-weight:700;color:#475569;letter-spacing:0.3px;">{{ $is_arabic ? ($ar['Live Learners'] ?? get_phrase('Live Learners')) : get_phrase('Live Learners') }}</span>
                         </div>
-                        <h4 class="fw-900 mb-0 fs-5">12,482+</h4>
+                        <h4 style="font-size:1.5rem;font-weight:900;margin:0;background:linear-gradient(135deg,#4f46e5,#7e22ce);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">12,482+</h4>
                     </div>
-                    
-                    <div class="position-absolute animate-float shadow-lg p-4 bg-vibrant-primary text-white rounded-4 border-0" data-aos="fade-right" data-aos-delay="800" style="bottom: 40px; {{ $is_arabic ? 'right: -40px;' : 'left: -40px;' }} width: 200px; z-index: 5; animation-delay: 1.5s;">
-                        <div class="fs-1 mb-2">🏆</div>
-                        <h5 class="fw-bold mb-1">{{ $is_arabic ? ($ar['Top Rated'] ?? get_phrase('Top Rated')) : get_phrase('Top Rated') }}</h5>
-                        <p class="small mb-0 opacity-75">{{ $is_arabic ? ($ar['#1 LMS Choice 2026'] ?? get_phrase('#1 LMS Choice 2026')) : get_phrase('#1 LMS Choice 2026') }}</p>
+
+                    <div class="position-absolute animate-float" data-aos="fade-right" data-aos-delay="800" style="bottom: 30px; {{ $is_arabic ? 'right: -30px;' : 'left: -30px;' }} width: 220px; z-index: 5; animation-delay: 1.5s; background:#ffffff; border-radius:20px; padding:18px 22px; box-shadow:0 20px 50px rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.12);">
+                        <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#f97316);margin-bottom:10px;box-shadow:0 8px 16px rgba(245,158,11,0.3);">
+                            <i class="fa-solid fa-trophy" style="color:#fff;font-size:1.1rem;"></i>
+                        </div>
+                        <h5 style="font-size:1.05rem;font-weight:900;color:#0f172a;margin:0 0 4px 0;">{{ $is_arabic ? ($ar['Top Rated'] ?? get_phrase('Top Rated')) : get_phrase('Top Rated') }}</h5>
+                        <p style="font-size:0.78rem;color:#64748b;margin:0;line-height:1.5;">{{ $is_arabic ? ($ar['#1 LMS Choice 2026'] ?? get_phrase('#1 LMS Choice 2026')) : get_phrase('#1 LMS Choice 2026') }}</p>
                     </div>
                 </div>
             </div>
@@ -349,31 +351,89 @@
     <!-- Stats Bar -->
     <div class="container position-relative" style="z-index:10; margin-top:70px;">
         @php
+            // Unified brand gradient (indigo → purple → cyan) — every card uses the same palette
+            $brand_grad = 'linear-gradient(135deg,#4f46e5 0%,#7e22ce 50%,#06b6d4 100%)';
+            $brand_shadow = 'rgba(79,70,229,0.22)';
+            // Each stat has: target = numeric target, prefix/suffix for display, decimals
             $stats = [
-                ['icon'=>'fi-rr-users',         'value'=>'+12K', 'label'=> $is_arabic?'طالب نشط':'Active Students',  'color'=>'#4f46e5','grad'=>'linear-gradient(135deg,#4f46e5,#7e22ce)','shadow'=>'rgba(79,70,229,0.25)'],
-                ['icon'=>'fi-rr-book-open-cover','value'=>'+120', 'label'=> $is_arabic?'دورة تدريبية':'Courses',      'color'=>'#06b6d4','grad'=>'linear-gradient(135deg,#06b6d4,#0ea5e9)','shadow'=>'rgba(6,182,212,0.25)'],
-                ['icon'=>'fi-rr-badge-check',   'value'=>'98%',  'label'=> $is_arabic?'معدل النجاح':'Success Rate',  'color'=>'#10b981','grad'=>'linear-gradient(135deg,#10b981,#059669)','shadow'=>'rgba(16,185,129,0.25)'],
-                ['icon'=>'fi-rr-star',          'value'=>'4.9★', 'label'=> $is_arabic?'تقييم المنصة':'Rating',       'color'=>'#f59e0b','grad'=>'linear-gradient(135deg,#f59e0b,#f97316)','shadow'=>'rgba(245,158,11,0.25)'],
+                ['icon'=>'fa-solid fa-users',        'target'=>12000, 'prefix'=>'+', 'suffix'=>'K',  'divide'=>1000, 'decimals'=>0, 'label'=> $is_arabic?'طالب نشط':'Active Students'],
+                ['icon'=>'fa-solid fa-book-open',    'target'=>120,   'prefix'=>'+', 'suffix'=>'',   'divide'=>1,    'decimals'=>0, 'label'=> $is_arabic?'دورة تدريبية':'Courses'],
+                ['icon'=>'fa-solid fa-circle-check', 'target'=>98,    'prefix'=>'',  'suffix'=>'%',  'divide'=>1,    'decimals'=>0, 'label'=> $is_arabic?'معدل النجاح':'Success Rate'],
+                ['icon'=>'fa-solid fa-star',         'target'=>4.9,   'prefix'=>'',  'suffix'=>'',   'divide'=>1,    'decimals'=>1, 'label'=> $is_arabic?'تقييم المنصة':'Rating'],
             ];
         @endphp
-        <div class="row g-4 justify-content-center">
+        <div class="row g-4 justify-content-center" id="sba-stats-row">
         @foreach($stats as $i => $s)
         <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="{{ 80 + $i * 70 }}">
-            <div style="background:#fff;border-radius:20px;padding:28px 16px 24px;text-align:center;border:1px solid rgba(0,0,0,0.06);box-shadow:0 4px 24px rgba(0,0,0,0.07);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 48px {{ $s['shadow'] }}'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.07)'">
+            <div style="background:#fff;border-radius:22px;padding:32px 18px 26px;text-align:center;border:1px solid rgba(79,70,229,0.08);box-shadow:0 6px 24px rgba(79,70,229,0.08);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;" onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 24px 52px {{ $brand_shadow }}'" onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(79,70,229,0.08)'">
+                {{-- soft brand glow behind icon --}}
+                <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(79,70,229,0.10) 0%,transparent 70%);pointer-events:none;"></div>
                 {{-- icon --}}
-                <div style="width:54px;height:54px;border-radius:14px;background:{{ $s['grad'] }};display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;box-shadow:0 8px 20px {{ $s['shadow'] }};">
-                    <i class="{{ $s['icon'] }}" style="color:#fff;font-size:1.35rem;"></i>
+                <div style="position:relative;width:62px;height:62px;border-radius:16px;background:{{ $brand_grad }};display:inline-flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 10px 24px {{ $brand_shadow }};">
+                    <i class="{{ $s['icon'] }}" style="color:#fff;font-size:1.45rem;"></i>
                 </div>
-                {{-- value --}}
-                <div style="font-size:2rem;font-weight:900;color:{{ $s['color'] }};line-height:1;margin-bottom:8px;letter-spacing:-1px;">{{ $s['value'] }}</div>
+                {{-- animated counter --}}
+                <div class="sba-counter" data-target="{{ $s['target'] }}" data-prefix="{{ $s['prefix'] }}" data-suffix="{{ $s['suffix'] }}" data-divide="{{ $s['divide'] }}" data-decimals="{{ $s['decimals'] }}"
+                     style="font-size:2.25rem;font-weight:900;line-height:1;margin-bottom:10px;letter-spacing:-1px;background:{{ $brand_grad }};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                    {{ $s['prefix'] }}0{{ $s['suffix'] }}
+                </div>
                 {{-- label --}}
-                <div style="font-size:0.78rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;">{{ $s['label'] }}</div>
-                {{-- bottom glow strip --}}
-                <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:{{ $s['grad'] }};border-radius:0 0 20px 20px;"></div>
+                <div style="font-size:0.8rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;">{{ $s['label'] }}</div>
+                {{-- bottom gradient strip --}}
+                <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:{{ $brand_grad }};"></div>
             </div>
         </div>
         @endforeach
         </div>
+        <script>
+            (function () {
+                function animateCounter(el) {
+                    if (el.dataset.sbaAnimated === '1') return;
+                    el.dataset.sbaAnimated = '1';
+                    var target   = parseFloat(el.dataset.target)   || 0;
+                    var prefix   = el.dataset.prefix || '';
+                    var suffix   = el.dataset.suffix || '';
+                    var divide   = parseFloat(el.dataset.divide)   || 1;
+                    var decimals = parseInt(el.dataset.decimals, 10) || 0;
+                    var duration = 1800;                 // ms
+                    var start    = performance.now();
+                    // easeOutCubic for a natural feel
+                    function frame(t) {
+                        var p = Math.min((t - start) / duration, 1);
+                        var eased = 1 - Math.pow(1 - p, 3);
+                        var current = target * eased;
+                        var displayed = (current / divide).toFixed(decimals);
+                        el.textContent = prefix + displayed + suffix;
+                        if (p < 1) requestAnimationFrame(frame);
+                        else el.textContent = prefix + (target / divide).toFixed(decimals) + suffix;
+                    }
+                    requestAnimationFrame(frame);
+                }
+                function init() {
+                    var counters = document.querySelectorAll('.sba-counter');
+                    if (!counters.length) return;
+                    if (typeof IntersectionObserver === 'undefined') {
+                        // Fallback: animate immediately
+                        counters.forEach(animateCounter);
+                        return;
+                    }
+                    var obs = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (e) {
+                            if (e.isIntersecting) {
+                                animateCounter(e.target);
+                                obs.unobserve(e.target);
+                            }
+                        });
+                    }, { threshold: 0.3 });
+                    counters.forEach(function (c) { obs.observe(c); });
+                }
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
+            })();
+        </script>
     </div>
 </section>
 
@@ -592,7 +652,15 @@
             <p class="text-muted">{{ $is_arabic ? ($ar['Stay updated with the latest trends in education and technology'] ?? get_phrase('Stay updated with the latest trends in education and technology')) : get_phrase('Stay updated with the latest trends in education and technology') }}</p>
         </div>
         <div class="row g-4">
-            @foreach (App\Models\Blog::where('status', 1)->take(3)->get() as $blog)
+            @php
+                $__home_lang = strtolower(session('language') ?? get_settings('language'));
+                $__home_blogs = App\Models\Blog::where('status', 1);
+                if (in_array($__home_lang, ['english', 'arabic'])) {
+                    $__home_blogs = $__home_blogs->where('language', $__home_lang);
+                }
+                $__home_blogs = $__home_blogs->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
+            @endphp
+            @foreach ($__home_blogs as $blog)
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 150 }}">
                     <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important; background: #fff;">
                         <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 210px; object-fit: cover; border-radius: 22px;" alt="{{ $blog->title }}">
