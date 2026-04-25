@@ -137,6 +137,28 @@
         padding: 0;
     }
 
+    /* Round back button (mobile-first thumb-friendly) */
+    .sba-player-header .sba-ph-back {
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #fff;
+        text-decoration: none;
+        transition: all .25s ease;
+    }
+    .sba-player-header .sba-ph-back:hover {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        border-color: transparent;
+        transform: translateY(-1px);
+        color: #fff;
+    }
+
     @media (max-width: 992px) {
         .sba-player-header .sba-ph-title .sba-title-text {
             font-size: 0.88rem;
@@ -151,22 +173,58 @@
 
     @media (max-width: 640px) {
         .sba-player-header {
-            padding: 10px 14px;
-            gap: 10px;
+            padding: 10px 12px;
+            gap: 8px;
+        }
+        .sba-player-header .sba-ph-brand img {
+            height: 32px;
+        }
+        .sba-player-header .sba-ph-back {
+            width: 36px;
+            height: 36px;
+        }
+        .sba-player-header .sba-ph-title {
+            text-align: start;
+        }
+        .sba-player-header .sba-ph-title .sba-title-text {
+            font-size: 0.85rem;
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            line-height: 1.35;
         }
         .sba-player-header .sba-ph-title .sba-progress-row {
+            display: none;
+        }
+        .sba-player-header .sba-ph-actions {
+            gap: 6px;
+        }
+        /* Hide brand image on very small screens — back button + title is enough */
+        .sba-player-header .sba-ph-brand {
             display: none;
         }
     }
 </style>
 
 <div class="sba-player-header">
+    <a href="{{ url()->previous() && url()->previous() !== url()->current() ? url()->previous() : route('my.courses') }}"
+       class="sba-ph-back" id="sbaPhBack"
+       title="{{ $sba_is_arabic ? 'رجوع' : get_phrase('Back') }}"
+       aria-label="{{ $sba_is_arabic ? 'رجوع' : get_phrase('Back') }}">
+        @if ($sba_is_arabic)
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        @else
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        @endif
+    </a>
+
     <a href="{{ route('home') }}" class="sba-ph-brand" title="{{ get_phrase('Home') }}">
         <img src="{{ asset(get_frontend_settings('light_logo')) }}" alt="Logo">
     </a>
 
     <div class="sba-ph-title">
-        <p class="sba-title-text">{{ ucfirst($course_details->title) }}</p>
+        <p class="sba-title-text">{{ ucfirst(course_title($course_details)) }}</p>
         <div class="sba-progress-row">
             <span class="sba-progress-label">{{ $sba_completed_count }} / {{ $sba_total_lessons }}</span>
             <div class="sba-progress-track">
@@ -194,3 +252,20 @@
         @endif
     </div>
 </div>
+
+<script>
+(function () {
+    // Make the back button truly use browser history when available; fall back to my-courses.
+    var btn = document.getElementById('sbaPhBack');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+        // Only intercept on left click without modifier keys
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if (window.history.length > 1 && document.referrer && document.referrer.indexOf(location.host) !== -1) {
+            e.preventDefault();
+            window.history.back();
+        }
+        // Otherwise let the link's href take over (fallback to my-courses)
+    });
+})();
+</script>

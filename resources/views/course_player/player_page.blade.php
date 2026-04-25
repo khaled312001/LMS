@@ -60,10 +60,17 @@
                     display: block;
                 }
 
-                @media (max-width: 768px) {
+                @media (max-width: 992px) {
                     .sba-slide-frame-wrap {
-                        height: 85vh;
-                        min-height: 560px;
+                        height: auto !important;
+                        min-height: 0 !important;
+                        aspect-ratio: 16 / 11;
+                        max-width: 100%;
+                    }
+                }
+                @media (max-width: 480px) {
+                    .sba-slide-frame-wrap {
+                        aspect-ratio: 4 / 3;
                     }
                 }
             </style>
@@ -339,23 +346,73 @@
                 }
 
                 @media (max-width: 768px) {
+                    .sba-slides-deck { border-radius: 18px; }
+                    .sba-slides-toolbar { padding: 10px 14px; gap: 8px; }
+                    .sba-slides-title { font-size: 0.82rem; }
+                    .sba-slides-title span { display: none; }
+                    .sba-slides-indicator { padding: 4px 12px; font-size: 0.82rem; }
+                    .sba-slides-action { width: 32px; height: 32px; }
+
                     .sba-slides-stage {
-                        padding: 16px 12px;
+                        padding: 12px 8px;
                     }
 
+                    /* Smaller, lower-positioned navigation buttons that don't eat slide width */
                     .sba-slides-nav {
                         width: 40px;
                         height: 40px;
+                        font-size: 1.2rem;
+                        border-width: 1.5px;
                     }
+                    .sba-slides-prev { inset-inline-start: 4px; }
+                    .sba-slides-next { inset-inline-end: 4px; }
 
                     .sba-slides-viewport,
                     .sba-slides-viewport > section {
-                        min-height: 420px !important;
+                        min-height: 320px !important;
+                    }
+                    .sba-slides-viewport {
+                        padding: 0 4px;
+                    }
+                    /* Make slide content adapt: smaller paddings/fonts inside */
+                    .sba-slides-viewport > section,
+                    .sba-slides-viewport section * {
+                        max-width: 100% !important;
+                    }
+                    .sba-slides-viewport section h1 { font-size: 1.4rem !important; line-height: 1.35 !important; }
+                    .sba-slides-viewport section h2 { font-size: 1.15rem !important; line-height: 1.4 !important; }
+                    .sba-slides-viewport section h3 { font-size: 1.02rem !important; line-height: 1.4 !important; }
+                    .sba-slides-viewport section p,
+                    .sba-slides-viewport section li,
+                    .sba-slides-viewport section span:not([class*="badge"]) {
+                        font-size: 0.92rem !important;
+                        line-height: 1.55 !important;
+                    }
+                    .sba-slides-viewport section img,
+                    .sba-slides-viewport section svg {
+                        max-width: 100% !important;
+                        height: auto !important;
                     }
 
-                    .sba-slides-title span {
-                        display: none;
+                    .sba-slides-footer { padding: 10px 12px 14px; }
+                    .sba-slides-dots button { width: 8px; height: 8px; }
+                }
+
+                @media (max-width: 480px) {
+                    .sba-slides-viewport,
+                    .sba-slides-viewport > section {
+                        min-height: 260px !important;
                     }
+                    .sba-slides-nav {
+                        width: 36px;
+                        height: 36px;
+                        font-size: 1.05rem;
+                    }
+                    .sba-slides-stage { padding: 10px 4px; }
+                    .sba-slides-indicator #sbaSlideCurrent,
+                    .sba-slides-indicator #sbaSlideTotal { font-size: 0.85rem; }
+                    .sba-slides-viewport section h1 { font-size: 1.2rem !important; }
+                    .sba-slides-viewport section h2 { font-size: 1.05rem !important; }
                 }
             </style>
 
