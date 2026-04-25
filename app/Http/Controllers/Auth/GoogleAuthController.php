@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -111,14 +112,16 @@ class GoogleAuthController extends Controller
             return redirect()->route('login');
         }
 
-        $email = strtolower(trim($googleUser['email']));
-        $name  = trim($googleUser['name'] ?? Str::before($email, '@'));
-        $photo = $googleUser['picture'] ?? null;
+        $email      = strtolower(trim($googleUser['email']));
+        $name       = trim($googleUser['name'] ?? Str::before($email, '@'));
+        $photoUrl   = $googleUser['picture'] ?? null;
 
         // Find or create the user
         $user = User::where('email', $email)->first();
 
         if (!$user) {
+            $localPhoto = $this->downloadGooglePhoto($photoUrl, $email);
+
             $user = User::create([
                 'name'              => $name,
                 'email'             => $email,
@@ -126,12 +129,44 @@ class GoogleAuthController extends Controller
                 'status'            => 1,
                 'email_verified_at' => Carbon::now(),
                 'password'          => Hash::make(Str::random(40)),
-                'photo'             => $photo,
+                'photo'             => $localPhoto,
             ]);
             Session::flash('success', get_phrase('Welcome! Your account has been created.'));
+
+            try {
+                notify_admins(
+                    'New Student Registered (via Google)',
+                    "Name: {$user->name}\nEmail: {$user->email}\nSource: Google Sign-In",
+                    url('/admin/users/students'),
+                    'registration',
+                    'fa-user-plus'
+                );
+                notify_users(
+                    [$user->id],
+                    'Welcome to ' . get_settings('system_title'),
+                    "Hi {$user->name},\n\nYour account has been created successfully. You can now browse and enroll in courses.",
+                    url('/courses'),
+                    'welcome',
+                    'fa-hand-wave'
+                );
+            } catch (\Throwable $e) {
+                Log::warning('Google signup notify failed: ' . $e->getMessage());
+            }
         } else {
+            $changed = false;
             if (empty($user->email_verified_at)) {
                 $user->email_verified_at = Carbon::now();
+                $changed = true;
+            }
+            // Backfill the profile photo from Google if user does not have one yet
+            if (empty($user->photo) && $photoUrl) {
+                $localPhoto = $this->downloadGooglePhoto($photoUrl, $email);
+                if ($localPhoto) {
+                    $user->photo = $localPhoto;
+                    $changed = true;
+                }
+            }
+            if ($changed) {
                 $user->save();
             }
         }
@@ -141,5 +176,59 @@ class GoogleAuthController extends Controller
 
         // Route by role (default RouteServiceProvider::HOME usually goes to dashboard)
         return redirect()->intended(url('/'));
+    }
+
+    /**
+     * Download Google profile picture into uploads/users/{role}/ and return the relative path.
+     * Returns null on failure; caller should handle a null photo gracefully.
+     */
+    protected function downloadGooglePhoto(?string $url, string $emailForFallback): ?string
+    {
+        if (empty($url)) {
+            return null;
+        }
+
+        try {
+            $http = new Client(['timeout' => 10, 'http_errors' => false]);
+            // Request a larger size when possible (Google supports =sNNN-c suffix)
+            $sized = preg_replace('~=s\d+(-c)?$~', '=s400-c', $url);
+            if ($sized === $url && !str_contains($url, '=s')) {
+                $sized = $url . (str_contains($url, '?') ? '&' : '?') . 'sz=400';
+            }
+
+            $response = $http->get($sized);
+            if ($response->getStatusCode() !== 200) {
+                return null;
+            }
+
+            $body = (string) $response->getBody();
+            if (strlen($body) < 200) {
+                return null;
+            }
+
+            $contentType = strtolower($response->getHeaderLine('Content-Type'));
+            $extension = match (true) {
+                str_contains($contentType, 'jpeg'), str_contains($contentType, 'jpg') => 'jpg',
+                str_contains($contentType, 'png')   => 'png',
+                str_contains($contentType, 'webp')  => 'webp',
+                str_contains($contentType, 'gif')   => 'gif',
+                default => 'jpg',
+            };
+
+            $relativeDir = 'uploads/users/student';
+            $absoluteDir = public_path($relativeDir);
+            if (!File::isDirectory($absoluteDir)) {
+                File::makeDirectory($absoluteDir, 0755, true);
+            }
+
+            $fileName = 'google_' . substr(md5($emailForFallback . microtime(true)), 0, 16) . '.' . $extension;
+            $relativePath = $relativeDir . '/' . $fileName;
+            File::put(public_path($relativePath), $body);
+
+            return $relativePath;
+        } catch (\Throwable $e) {
+            Log::warning('Google photo download failed: ' . $e->getMessage());
+            return null;
+        }
     }
 }

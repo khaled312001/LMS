@@ -2,9 +2,220 @@
 // import facade
 
 use App\Models\Addon;
+use App\Models\Notification;
+use App\Models\User;
+use App\Mail\GenericNotification;
 use function PHPUnit\Framework\fileExists;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+
+/**
+ * Send a notification (DB row + email) to one or many users.
+ *
+ * @param int|array $userIds  single user id or array of user ids
+ * @param string    $title    short title
+ * @param string    $body     longer body text (plain or with newlines)
+ * @param string|null $link   absolute URL to deep-link to
+ * @param string    $type     event slug (e.g. 'message','enrollment')
+ * @param string|null $icon   font-awesome class for in-app rendering
+ */
+if (!function_exists('notify_users')) {
+    function notify_users($userIds, string $title, string $body, ?string $link = null, string $type = 'general', ?string $icon = null): void
+    {
+        $ids = is_array($userIds) ? $userIds : [$userIds];
+        $ids = array_values(array_unique(array_filter(array_map('intval', $ids))));
+        if (empty($ids)) {
+            return;
+        }
+
+        foreach ($ids as $uid) {
+            try {
+                Notification::create([
+                    'user_id' => $uid,
+                    'type'    => $type,
+                    'title'   => $title,
+                    'body'    => $body,
+                    'link'    => $link,
+                    'icon'    => $icon,
+                ]);
+            } catch (\Throwable $e) {
+                Log::warning('notify_users DB insert failed: ' . $e->getMessage());
+            }
+        }
+
+        // Email each user (best-effort, non-blocking on failure)
+        try {
+            $users = User::whereIn('id', $ids)->get(['id', 'name', 'email']);
+            foreach ($users as $u) {
+                if (!empty($u->email)) {
+                    try {
+                        Mail::to($u->email, $u->name)
+                            ->send(new GenericNotification($title, $body, $link, $u->name ?? ''));
+                    } catch (\Throwable $e) {
+                        Log::warning('notify_users mail failed for ' . $u->email . ': ' . $e->getMessage());
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning('notify_users user lookup failed: ' . $e->getMessage());
+        }
+    }
+}
+
+/**
+ * Notify all admins about an event.
+ */
+if (!function_exists('notify_admins')) {
+    function notify_admins(string $title, string $body, ?string $link = null, string $type = 'admin', ?string $icon = null): void
+    {
+        $adminIds = User::where('role', 'admin')->pluck('id')->toArray();
+        if (!empty($adminIds)) {
+            notify_users($adminIds, $title, $body, $link, $type, $icon);
+        }
+    }
+}
+
+/**
+ * Return the course localized to the active site language.
+ *
+ * If the course has a paired translation (`pair_id`) and the current language matches the pair,
+ * return that pair instead. Otherwise return the original course untouched.
+ *
+ * @param  mixed $course Course model or stdClass row
+ * @return mixed
+ */
+if (!function_exists('localize_course')) {
+    function localize_course($course)
+    {
+        if (!$course || empty($course->id)) {
+            return $course;
+        }
+        $current = strtolower(session('language') ?? get_settings('language') ?? 'english');
+
+        // 1) Pair-based redirect: prefer the paired course in the active language.
+        if (!empty($course->pair_id)) {
+            static $pairCache = [];
+            $pkey = $course->pair_id . ':' . $current;
+            if (array_key_exists($pkey, $pairCache)) {
+                $course = $pairCache[$pkey] ?? $course;
+            } else {
+                try {
+                    $pair = DB::table('courses')->where('id', $course->pair_id)->first();
+                    if ($pair && strtolower($pair->language ?? '') === $current) {
+                        $pairCache[$pkey] = $pair;
+                        $course = $pair;
+                    } else {
+                        $pairCache[$pkey] = $course;
+                    }
+                } catch (\Throwable $e) {
+                    // ignore — keep original
+                }
+            }
+        }
+
+        // 2) Inline translation: when the site is Arabic, swap *_ar fields onto the main fields.
+        if ($current === 'arabic') {
+            $course = clone (object) $course; // ensure we don't mutate cached/db rows
+            if (!empty($course->title_ar))             $course->title             = $course->title_ar;
+            if (!empty($course->short_description_ar)) $course->short_description = $course->short_description_ar;
+            if (!empty($course->description_ar))       $course->description       = $course->description_ar;
+            if (!empty($course->requirements_ar))      $course->requirements      = $course->requirements_ar;
+            if (!empty($course->outcomes_ar))          $course->outcomes          = $course->outcomes_ar;
+            if (!empty($course->faqs_ar))              $course->faqs              = $course->faqs_ar;
+            if (!empty($course->meta_keywords_ar))     $course->meta_keywords     = $course->meta_keywords_ar;
+            if (!empty($course->meta_description_ar))  $course->meta_description  = $course->meta_description_ar;
+        }
+
+        return $course;
+    }
+}
+
+/**
+ * Localize a collection / array of courses by replacing each item with its
+ * language-matching pair when available. Deduplicates so the same logical course
+ * does not appear twice (once EN + once AR).
+ */
+if (!function_exists('localize_courses')) {
+    function localize_courses($courses)
+    {
+        if (!$courses) return $courses;
+        $out = [];
+        foreach ($courses as $course) {
+            $out[] = localize_course($course);
+        }
+        if ($courses instanceof \Illuminate\Support\Collection) {
+            return collect($out);
+        }
+        return $out;
+    }
+}
+
+/**
+ * Return the title of a course in the active site language.
+ * Falls back to English if no translation is available.
+ *
+ * Usage in blades: {{ course_title($row) }} instead of {{ $row->title }}
+ */
+if (!function_exists('course_title')) {
+    function course_title($course): string
+    {
+        if (!$course) return '';
+        $current = strtolower(session('language') ?? get_settings('language') ?? 'english');
+        if ($current === 'arabic' && !empty($course->title_ar)) {
+            return $course->title_ar;
+        }
+        return (string) ($course->title ?? '');
+    }
+}
+
+if (!function_exists('course_short_description')) {
+    function course_short_description($course): string
+    {
+        if (!$course) return '';
+        $current = strtolower(session('language') ?? get_settings('language') ?? 'english');
+        if ($current === 'arabic' && !empty($course->short_description_ar)) {
+            return $course->short_description_ar;
+        }
+        return (string) ($course->short_description ?? '');
+    }
+}
+
+if (!function_exists('course_description')) {
+    function course_description($course): string
+    {
+        if (!$course) return '';
+        $current = strtolower(session('language') ?? get_settings('language') ?? 'english');
+        if ($current === 'arabic' && !empty($course->description_ar)) {
+            return $course->description_ar;
+        }
+        return (string) ($course->description ?? '');
+    }
+}
+
+/**
+ * Resolve all instructors of a course (primary + secondary instructor_ids JSON).
+ *
+ * @return int[]
+ */
+if (!function_exists('course_instructor_ids')) {
+    function course_instructor_ids($course): array
+    {
+        $ids = [];
+        if (!$course) return $ids;
+        if (!empty($course->user_id)) {
+            $ids[] = (int) $course->user_id;
+        }
+        if (!empty($course->instructor_ids)) {
+            $arr = is_array($course->instructor_ids) ? $course->instructor_ids : (json_decode($course->instructor_ids, true) ?: []);
+            foreach ($arr as $id) {
+                $ids[] = (int) $id;
+            }
+        }
+        return array_values(array_unique(array_filter($ids)));
+    }
+}
 
 // Global Settings
 if (!function_exists('get_src')) {

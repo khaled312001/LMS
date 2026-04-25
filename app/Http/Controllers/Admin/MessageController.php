@@ -51,6 +51,30 @@ class MessageController extends Controller
 
         $message_thread = MessageThread::find($request->thread_id)->code;
 
+        // Notify the receiver (student or instructor) about the admin's message
+        try {
+            $sender   = auth()->user();
+            $preview  = mb_substr(strip_tags($request->message ?? ''), 0, 140);
+            $receiver = \App\Models\User::find($request->receiver_id);
+            if ($receiver) {
+                $inboxRoute = match ($receiver->role) {
+                    'instructor' => url('/instructor/message'),
+                    'admin'      => url('/admin/message'),
+                    default      => url('/message'),
+                };
+                notify_users(
+                    [$receiver->id],
+                    'New message from ' . ($sender->name ?? 'Admin'),
+                    $preview,
+                    $inboxRoute,
+                    'message',
+                    'fa-comment-dots'
+                );
+            }
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Admin message notify failed: ' . $e->getMessage());
+        }
+
         Session::flash('success', get_phrase('Your message successfully has been sent'));
         return redirect(route('admin.message', ['message_thread' => $message_thread]));
     }

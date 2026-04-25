@@ -258,7 +258,7 @@
                                                         <div class="dAdmin_profile d-flex align-items-center min-w-200px">
                                                             <div class="dAdmin_profile_name">
                                                                 <h4 class="title fs-14px">
-                                                                    <a href="{{ route('instructor.course.edit', [$row->id, 'tab' => 'curriculum']) }}">{{ ucfirst($row->title) }}</a>
+                                                                    <a href="{{ route('instructor.course.edit', [$row->id, 'tab' => 'curriculum']) }}">{{ ucfirst(course_title($row)) }}</a>
                                                                 </h4>
 
                                                                 <a href="{{ route('instructor.courses', ['instructor' => $row->user_id]) }}">

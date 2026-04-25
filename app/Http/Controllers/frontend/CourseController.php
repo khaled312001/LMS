@@ -68,15 +68,12 @@ class CourseController extends Controller
             $query = $query->where('level', $level);
         }
 
-        // filter by language
+        // Filter by language ONLY when explicitly requested. Otherwise show every course
+        // and let the view layer translate titles/descriptions to the active site language
+        // (see localize_course() helper). This way a single deduplicated catalog is shown.
         if (request()->has('language')) {
             $language = request()->query('language');
             $query    = $query->where('language', $language);
-        } else {
-            $language = strtolower(session('language') ?? get_settings('language'));
-            if ($language) {
-                $query = $query->where('language', $language);
-            }
         }
 
         // filter by rating
@@ -90,7 +87,9 @@ class CourseController extends Controller
             $wishlist = Wishlist::where('user_id', auth()->user()->id)->pluck('course_id')->toArray();
         }
 
-        $page_data['courses']  = $query->latest('id')->get();
+        $rawCourses = $query->latest('id')->get();
+        // Translate each course to the active site language (uses pair_id when available)
+        $page_data['courses']  = localize_courses($rawCourses);
         $page_data['wishlist'] = $wishlist;
         $page_data['category_details'] = Category::where('slug', $category)->first();
         return view('frontend' . '.' . get_frontend_settings('theme') . '.course.index', $page_data);
@@ -148,6 +147,8 @@ class CourseController extends Controller
                 }
             }
 
+            // Translate to active site language (uses pair_id if set)
+            $course_details = localize_course($course_details);
             $page_data['course_details'] = $course_details;
             $page_data['sections']       = Section::where('course_id', $course_details->id)->orderBy('sort')->get() ?? collect([]);
             $page_data['total_lesson']   = Lesson::where('course_id', $course_details->id)->count();

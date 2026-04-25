@@ -73,6 +73,19 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        // Notify admins of the new registration (DB + email)
+        try {
+            notify_admins(
+                'New ' . ucfirst($user->role) . ' Registered',
+                "A new {$user->role} just signed up.\n\nName: {$user->name}\nEmail: {$user->email}",
+                url('/admin/users/students'),
+                'registration',
+                'fa-user-plus'
+            );
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Registration notify failed: ' . $e->getMessage());
+        }
+
         Auth::login($user);
 
         // If applying as an instructor, process the application

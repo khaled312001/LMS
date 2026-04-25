@@ -101,6 +101,41 @@ class PurchaseController extends Controller
             }
 
             Enrollment::insert($enrollment);
+
+            // Notify admin + course instructor(s) + student about the enrollment
+            try {
+                $student   = auth()->user();
+                $courseUrl = url('/admin/course/edit/' . $course_id);
+                notify_admins(
+                    'New Free Enrollment',
+                    "Student: {$student->name} ({$student->email})\nCourse: {$course_details->title}",
+                    $courseUrl,
+                    'enrollment',
+                    'fa-user-graduate'
+                );
+                $instIds = course_instructor_ids($course_details);
+                if (!empty($instIds)) {
+                    notify_users(
+                        $instIds,
+                        'A new student enrolled',
+                        "{$student->name} enrolled in your course: {$course_details->title}",
+                        url('/instructor/student'),
+                        'enrollment',
+                        'fa-user-graduate'
+                    );
+                }
+                notify_users(
+                    [$student->id],
+                    'You enrolled in ' . $course_details->title,
+                    "Welcome aboard! You can start learning right away.",
+                    url('/my-courses'),
+                    'enrollment',
+                    'fa-book-open'
+                );
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning('Enrollment notify failed: ' . $e->getMessage());
+            }
+
             return redirect()->route('my.courses');
         } else {
             $query = CartItem::where('course_id', $course_id)->where('user_id', auth()->user()->id);

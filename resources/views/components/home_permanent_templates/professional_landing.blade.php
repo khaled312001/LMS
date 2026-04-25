@@ -783,16 +783,16 @@
         @php
             $current_lang = strtolower(session('language') ?? get_settings('language'));
             [$featured_categories, $all_courses, $__home_category_lookup] = \Illuminate\Support\Facades\Cache::remember(
-                'home:featured_courses:' . $current_lang,
+                'home:featured_courses:v2:' . $current_lang,
                 600,
                 function () use ($current_lang) {
-                    // One query each, no per-row lookups.
+                    // Show ALL active courses (not language-filtered). Translation happens
+                    // per-card via localize_course() so paired courses display in the user's language.
                     $categories = DB::table('categories')->get();
                     $categoryMap = $categories->keyBy('id');
                     $parents = $categories->where('parent_id', 0);
                     $courseCountsByCat = DB::table('courses')
                         ->where('status', 'active')
-                        ->where('language', $current_lang)
                         ->selectRaw('category_id, count(*) as cnt')
                         ->groupBy('category_id')
                         ->pluck('cnt', 'category_id');
@@ -802,13 +802,14 @@
                     })->take(5)->values();
                     $courses = DB::table('courses')
                         ->where('status', 'active')
-                        ->where('language', $current_lang)
                         ->orderBy('id', 'desc')
-                        ->take(12)
+                        ->take(24)
                         ->get();
                     return [$featured, $courses, $categoryMap];
                 }
             );
+            // Localize titles/descriptions to active site language and dedupe paired courses
+            $all_courses = localize_courses($all_courses);
         @endphp
 
 

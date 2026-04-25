@@ -100,6 +100,38 @@ class MessageController extends Controller
         MessageThread::where('id', $request->thread)->update(['updated_at' => date('Y-m-d H:i:s')]);
         $conversation = Message::latest()->first();
 
+        // Notify the receiver + admins (admins are always copied so they have visibility)
+        try {
+            $sender   = auth()->user();
+            $preview  = mb_substr(strip_tags($request->message ?? ''), 0, 140);
+            $receiver = User::find($request->receiver_id);
+            if ($receiver) {
+                notify_users(
+                    [$receiver->id],
+                    'New message from ' . $sender->name,
+                    $preview ?: '(media attachment)',
+                    url('/' . ($receiver->role === 'instructor' ? 'instructor' : ($receiver->role === 'admin' ? 'admin' : '')) . '/message'),
+                    'message',
+                    'fa-comment-dots'
+                );
+            }
+            // Always notify admins (skip duplicate when receiver is already admin)
+            $adminIds = User::where('role', 'admin')->pluck('id')->toArray();
+            $adminIds = array_diff($adminIds, [(int) ($receiver->id ?? 0), (int) $sender->id]);
+            if (!empty($adminIds)) {
+                notify_users(
+                    array_values($adminIds),
+                    'Student message activity',
+                    "{$sender->name} sent a message to " . ($receiver->name ?? '#' . $request->receiver_id) . ":\n\n" . $preview,
+                    url('/admin/message'),
+                    'message',
+                    'fa-comment-dots'
+                );
+            }
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Message notify failed: ' . $e->getMessage());
+        }
+
         // upload media files
         if ($request->media_files) {
             $thread_code = MessageThread::where('id', $request->thread)->value('code');
