@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 @php
     $active_lan = session('language') ?? get_settings('language');
-    $active_lan_id = DB::table('languages')->where('name', 'like', $active_lan)->value('id');
-    $language_direction = DB::table('languages')->where('id', $active_lan_id)->value('direction') ?? 'ltr';
-    $html_lang = ($active_lan == 'arabic' || $active_lan == 'Arabic') ? 'ar' : 'en';
+    $__languages_all = \Illuminate\Support\Facades\Cache::remember('languages:all', 600, function () {
+        return DB::table('languages')->get();
+    });
+    $__active_lang_row = $__languages_all->first(function ($l) use ($active_lan) {
+        return strcasecmp($l->name, (string) $active_lan) === 0;
+    });
+    $active_lan_id = $__active_lang_row->id ?? null;
+    $language_direction = $__active_lang_row->direction ?? 'ltr';
+    $html_lang = (strcasecmp((string) $active_lan, 'arabic') === 0) ? 'ar' : 'en';
 @endphp
 <html lang="{{ $html_lang }}" dir="{{ $language_direction }}">
 
@@ -21,6 +27,17 @@
         }
         * {
             box-sizing: border-box;
+        }
+        /* Utility: page sections that should start below the fixed glass header.
+           Apply class="page-below-header" on the first <section> of any inner page
+           (course details, blog post, etc.) so the header never overlaps it. */
+        .page-below-header {
+            padding-top: 130px !important;
+        }
+        @media (max-width: 991px) {
+            .page-below-header {
+                padding-top: 90px !important;
+            }
         }
     </style>
 
@@ -43,7 +60,7 @@
     
     <!-- Custom Style -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/custom_style.css') }}?v=2.5">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/default/css/custom_style.css') }}?v=2.8">
 
     <!-- Jquery Js -->
     <script src="{{ asset('assets/frontend/default/js/jquery-3.7.1.min.js') }}"></script>

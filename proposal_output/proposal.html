@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>بروبوزل منصة تعليم إلكتروني متكاملة</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: A4; margin: 0; }
+
+  html, body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background: #eef2f7;
+    color: #1a2540;
+    line-height: 1.55;
+    font-size: 10pt;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    background: #ffffff;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ================= SVG ICONS ================= */
+  .svg-icon {
+    width: 18px; height: 18px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .svg-icon-lg {
+    width: 22px; height: 22px;
+  }
+  .svg-icon-xl {
+    width: 30px; height: 30px;
+  }
+
+  /* ================= COVER PAGE ================= */
+  .cover {
+    background: #0a1f44;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-accent-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: #fbbf24;
+  }
+  .cover-accent-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40mm;
+    background: #081631;
+  }
+  .cover-diagonal {
+    position: absolute;
+    bottom: 35mm; left: 0; right: 0;
+    height: 10mm;
+    background: #0a1f44;
+    transform: skewY(-3deg);
+    transform-origin: top left;
+  }
+  .cover-circle-lg {
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 2px solid #1e3a8a;
+  }
+  .cover-circle-sm {
+    position: absolute;
+    top: 60mm; left: 30mm;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    border: 1.5px dashed #fbbf24;
+    opacity: 0.3;
+  }
+  .cover-dot-pattern {
+    position: absolute;
+    top: 30mm; left: 15mm;
+    width: 80px; height: 80px;
+    background-image: radial-gradient(#1e3a8a 2px, transparent 2px);
+    background-size: 14px 14px;
+    opacity: 0.5;
+  }
+  .cover-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    padding: 22mm 20mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cover-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cover-logo-mark {
+    width: 58px; height: 58px;
+    background: #fbbf24;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: #0a1f44;
+  }
+  .cover-logo-mark svg {
+    width: 32px; height: 32px;
+  }
+  .cover-logo-text h3 { font-size: 16pt; font-weight: 800; letter-spacing: 0.5px; }
+  .cover-logo-text p { font-size: 8.5pt; opacity: 0.7; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
+  .cover-year {
+    background: rgba(255,255,255,0.08);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .cover-middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cover-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fbbf24;
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .cover-eyebrow::before {
+    content: '';
+    width: 32px; height: 2px;
+    background: #fbbf24;
+  }
+
+  .cover h1 {
+    font-size: 38pt;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+  .cover h1 .highlight {
+    color: #fbbf24;
+  }
+  .cover-en {
+    font-size: 13pt;
+    font-weight: 300;
+    opacity: 0.5;
+    letter-spacing: 3px;
+    margin-bottom: 22px;
+    direction: ltr;
+    text-align: right;
+  }
+  .cover-subtitle {
+    font-size: 11.5pt;
+    opacity: 0.85;
+    max-width: 155mm;
+    line-height: 1.85;
+    font-weight: 400;
+  }
+
+  .cover-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .cover-feature {
+    text-align: center;
+    padding: 4px;
+  }
+  .cover-feature .cf-icon {
+    width: 40px; height: 40px;
+    background: rgba(251,191,36,0.12);
+    border: 1px solid rgba(251,191,36,0.35);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    color: #fbbf24;
+  }
+  .cover-feature .cf-icon svg {
+    width: 20px; height: 20px;
+  }
+  .cover-feature h6 {
+    font-size: 10pt;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+  .cover-feature p {
+    font-size: 7.5pt;
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+  }
+
+  .cover-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 22px;
+    margin-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .cover-meta small {
+    display: block;
+    opacity: 0.55;
+    font-size: 8pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .cover-meta h5 {
+    font-weight: 700;
+    font-size: 10.5pt;
+  }
+  .cover-version-badge {
+    background: #fbbf24;
+    color: #0a1f44;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 9pt;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  /* ================= SHARED LAYOUT ================= */
+  .page-inner {
+    padding: 14mm 14mm 18mm 14mm;
+    height: 100%;
+    position: relative;
+  }
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5e9f2;
+    margin-bottom: 10px;
+  }
+  .page-header-left {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 8.5pt; color: #64748b; font-weight: 600;
+  }
+  .page-header-left .dot {
+    width: 7px; height: 7px; background: #f59e0b; border-radius: 50%;
+  }
+  .page-header-right {
+    font-size: 8.5pt; color: #64748b; font-weight: 600;
+    direction: ltr;
+  }
+
+  .page-footer {
+    position: absolute;
+    bottom: 6mm;
+    left: 14mm;
+    right: 14mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8pt;
+    color: #94a3b8;
+    border-top: 1px solid #e5e9f2;
+    padding-top: 6px;
+  }
+  .page-footer .brand { font-weight: 700; color: #1e3a8a; }
+  .page-num {
+    background: #1e3a8a;
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 8.5pt;
+    direction: ltr;
+  }
+
+  /* ============ TITLES ============ */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .section-title-num {
+    background: linear-gradient(135deg,#1e3a8a,#2563eb);
+    color: #fff;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14pt; font-weight: 800;
+    box-shadow: 0 4px 10px rgba(30,58,138,0.25);
+  }
+  .section-title h2 {
+    font-size: 17pt;
+    font-weight: 800;
+    color: #0a1f44;
+    line-height: 1.2;
+  }
+  .section-title small {
+    font-size: 9pt;
+    color: #64748b;
+    font-weight: 500;
+    display: block;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .subsection {
+    margin-top: 6px;
+    background: linear-gradient(135deg,#f8fafc,#eef2f7);
+    border-right: 4px solid #2563eb;
+    padding: 7px 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  .subsection h3 {
+    font-size: 11pt;
+    color: #1e3a8a;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .subsection h3::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: #f59e0b;
+    border-radius: 50%;
+  }
+  .subsection p { font-size: 9pt; color: #334155; margin-top: 2px; line-height: 1.5; }
+
+  p.lead { font-size: 9.5pt; color: #334155; margin-bottom: 8px; line-height: 1.7; }
+
+  /* ============ CARDS ============ */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+
+  .card {
+    background: #fff;
+    border: 1px solid #e5e9f2;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+  }
+  .card.blue { background: linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
+  .card.amber { background: linear-gradient(135deg,#fffbeb,#fef3c7); border-color:#fde68a; }
+  .card.green { background: linear-gradient(135deg,#ecfdf5,#d1fae5); border-color:#a7f3d0; }
+  .card.purple { background: linear-gradient(135deg,#faf5ff,#ede9fe); border-color:#ddd6fe; }
+  .card.rose { background: linear-gradient(135deg,#fff1f2,#ffe4e6); border-color:#fecdd3; }
+  .card.slate { background: linear-gradient(135deg,#f8fafc,#e2e8f0); border-color:#cbd5e1; }
+
+  .card-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    margin-bottom: 7px;
+  }
+  .card-icon svg { width: 18px; height: 18px; }
+  .icon-blue { background: linear-gradient(135deg,#2563eb,#1d4ed8); }
+  .icon-amber { background: linear-gradient(135deg,#f59e0b,#d97706); }
+  .icon-green { background: linear-gradient(135deg,#10b981,#059669); }
+  .icon-purple { background: linear-gradient(135deg,#8b5cf6,#6d28d9); }
+  .icon-rose { background: linear-gradient(135deg,#f43f5e,#be123c); }
+  .icon-slate { background: linear-gradient(135deg,#475569,#1e293b); }
+
+  .card h4 {
+    font-size: 10.5pt;
+    font-weight: 800;
+    color: #0a1f44;
+    margin-bottom: 3px;
+  }
+  .card p {
+    font-size: 9pt;
+    color: #475569;
+    line-height: 1.55;
+  }
+  .card ul { list-style: none; padding: 0; margin-top: 3px; }
+  .card ul li {
+    font-size: 8.5pt;
+    color: #1e293b;
+    padding: 2px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.45;
+  }
+  .card ul li::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: #f59e0b;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  /* bigger cards variant (fills the whole available page height) */
+  .card.lg {
+    padding: 24px 26px;
+    min-height: 165mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.lg .card-icon {
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+  }
+  .card.lg .card-icon svg { width: 34px; height: 34px; }
+  .card.lg h4 {
+    font-size: 18pt;
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .card.lg > p {
+    font-size: 12pt;
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+  .card.lg ul {
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1.5px dashed rgba(10,31,68,0.15);
+    flex: 1;
+  }
+  .card.lg ul li {
+    font-size: 12pt;
+    padding: 8px 0;
+    line-height: 1.65;
+    gap: 10px;
+  }
+  .card.lg ul li::before {
+    width: 8px; height: 8px;
+    margin-top: 10px;
+  }
+
+  /* ============ TOC ============ */
+  .toc-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background: #f8fafc;
+    border-radius: 8px;
+    gap: 10px;
+    border: 1px solid #e5e9f2;
+  }
+  .toc-num {
+    background: #1e3a8a;
+    color: #fff;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10pt; font-weight: 800;
+    flex-shrink: 0;
+    direction: ltr;
+  }
+  .toc-text { flex: 1; }
+  .toc-text h5 { font-size: 10pt; font-weight: 800; color: #0a1f44; }
+  .toc-text small { font-size: 8pt; color: #64748b; font-weight: 500; }
+  .toc-dots {
+    flex: 1;
+    border-bottom: 1.5px dotted #cbd5e1;
+    margin: 0 6px;
+    min-width: 15px;
+    align-self: flex-end;
+    margin-bottom: 6px;
+  }
+  .toc-page {
+    color: #f59e0b;
+    font-weight: 900;
+    font-size: 12pt;
+    min-width: 30px;
+    text-align: center;
+    direction: ltr;
+    letter-spacing: 0.5px;
+  }
+
+  /* ============ ROLE BANNER ============ */
+  .role-banner {
+    background: linear-gradient(135deg,#1e3a8a,#2563eb);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .role-banner.admin { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
+  .role-banner.instructor { background: linear-gradient(135deg,#0891b2,#0e7490); }
+  .role-banner.student { background: linear-gradient(135deg,#059669,#065f46); }
+  .role-icon-big {
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid rgba(255,255,255,0.3);
+    color: #fff;
+  }
+  .role-icon-big svg { width: 22px; height: 22px; }
+  .role-banner h3 { font-size: 13pt; font-weight: 800; }
+  .role-banner p { font-size: 9pt; opacity: 0.9; margin-top: 1px; }
+
+  /* ============ TECH TABLE ============ */
+  table.tech {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin-top: 4px;
+  }
+  table.tech thead th {
+    background: linear-gradient(135deg,#0a1f44,#1e3a8a);
+    color: #fff;
+    padding: 7px 10px;
+    font-weight: 700;
+    text-align: right;
+    font-size: 9pt;
+  }
+  table.tech tbody td {
+    padding: 5.5px 10px;
+    border-bottom: 1px solid #e5e9f2;
+    color: #1e293b;
+    font-size: 9pt;
+  }
+  table.tech tbody tr:nth-child(even) { background: #f8fafc; }
+  table.tech .badge-tech {
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 2.5px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 8.5pt;
+    display: inline-block;
+  }
+  table.tech .badge-tech.amber { background:#fef3c7; color:#92400e; }
+  table.tech .badge-tech.green { background:#d1fae5; color:#065f46; }
+  table.tech .badge-tech.purple { background:#ede9fe; color:#5b21b6; }
+
+  /* ============ STATS ============ */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 8px;
+    margin: 8px 0;
+  }
+  .stat-box {
+    background: linear-gradient(135deg,#0a1f44,#1e3a8a);
+    color: #fff;
+    padding: 9px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .stat-box.amber { background: linear-gradient(135deg,#f59e0b,#d97706); }
+  .stat-box.green { background: linear-gradient(135deg,#10b981,#059669); }
+  .stat-box.purple { background: linear-gradient(135deg,#8b5cf6,#6d28d9); }
+  .stat-box h3 { font-size: 18pt; font-weight: 900; line-height: 1; }
+  .stat-box p { font-size: 8pt; margin-top: 3px; opacity: 0.9; }
+
+  /* ============ TIMELINE ============ */
+  .timeline {
+    position: relative;
+    padding-right: 20px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 8px; top: 4px; bottom: 4px;
+    width: 2px;
+    background: linear-gradient(180deg,#2563eb,#f59e0b);
+  }
+  .t-item {
+    position: relative;
+    padding: 7px 14px;
+    margin-bottom: 6px;
+    background: #f8fafc;
+    border-radius: 8px;
+  }
+  .t-item::before {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 12px;
+    width: 14px; height: 14px;
+    background: #f59e0b;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #2563eb;
+  }
+  .t-item h5 {
+    font-size: 10.5pt;
+    color: #0a1f44;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .t-item h5 span {
+    background: #2563eb;
+    color: #fff;
+    padding: 2px 9px;
+    border-radius: 16px;
+    font-size: 8pt;
+    font-weight: 700;
+  }
+  .t-item p { font-size: 8.5pt; color: #475569; margin-top: 2px; line-height: 1.5; }
+
+  /* ============ PIPELINE ============ */
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 6px;
+    margin: 8px 0;
+  }
+  .pipe-step {
+    background: #fff;
+    border: 1.5px solid #e5e9f2;
+    border-radius: 8px;
+    padding: 7px 5px;
+    text-align: center;
+    position: relative;
+  }
+  .pipe-step:not(:last-child)::after {
+    content: '◄';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f59e0b;
+    font-weight: 900;
+    font-size: 10pt;
+    z-index: 2;
+  }
+  .pipe-step .n {
+    width: 20px; height: 20px;
+    background: linear-gradient(135deg,#2563eb,#1e40af);
+    color: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    font-size: 8pt;
+    font-weight: 900;
+    margin-bottom: 3px;
+  }
+  .pipe-step h6 {
+    font-size: 8.5pt;
+    color: #0a1f44;
+    font-weight: 800;
+  }
+  .pipe-step p {
+    font-size: 7.5pt;
+    color: #64748b;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  /* ============ CTA ============ */
+  .cta {
+    background: linear-gradient(135deg,#0a1f44 0%,#1e3a8a 50%, #2563eb 100%);
+    color: #fff;
+    padding: 10mm 12mm;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(245,158,11,0.3), transparent 70%);
+    border-radius: 50%;
+  }
+  .cta h2 {
+    font-size: 15pt;
+    font-weight: 900;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 2;
+  }
+  .cta h2 span { color: #fbbf24; }
+  .cta p {
+    font-size: 9pt;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .cta-info-row {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+  }
+  .cta-info-row .info {
+    background: rgba(255,255,255,0.15);
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+  }
+  .cta-info-row .info small {
+    display: block;
+    font-size: 7.5pt;
+    opacity: 0.75;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .cta-info-row .info h4 {
+    font-size: 10pt;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .signature-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14mm;
+    margin-top: 6mm;
+    padding: 0 6mm;
+  }
+  .sig {
+    border-top: 2px solid #0a1f44;
+    padding-top: 4px;
+  }
+  .sig h5 { font-size: 9.5pt; font-weight: 800; color: #0a1f44; }
+  .sig p { font-size: 8pt; color: #64748b; }
+
+  /* ============ LANDING PREVIEW ============ */
+  .landing-preview {
+    border: 1.5px solid #e5e9f2;
+    border-radius: 10px;
+    padding: 6px;
+    background: #f8fafc;
+    margin-bottom: 8px;
+  }
+  .landing-nav {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 8px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    font-size: 8pt;
+  }
+  .landing-nav .brand-mini {
+    color: #1e3a8a; font-weight: 900;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .landing-nav .brand-mini span {
+    width: 16px; height: 16px;
+    background: #f59e0b;
+    border-radius: 4px;
+  }
+  .landing-nav ul {
+    display: flex; gap: 10px; list-style: none;
+    color: #475569;
+    font-weight: 600;
+  }
+  .landing-hero {
+    background: linear-gradient(135deg,#1e3a8a,#2563eb);
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 8pt;
+  }
+  .landing-hero h5 { font-size: 11pt; font-weight: 800; margin-bottom: 2px; }
+  .landing-hero small { opacity: 0.8; font-size: 7.5pt; }
+
+  .badge-inline {
+    display: inline-block;
+    background: #1e3a8a;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 8pt;
+    font-weight: 700;
+    margin-inline-end: 3px;
+  }
+  .badge-inline.amber { background:#f59e0b; color:#0a1f44; }
+
+  .api-detail {
+    background: #fff;
+    border: 1px solid #e5e9f2;
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .api-detail.blue { background: linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
+  .api-detail.green { background: linear-gradient(135deg,#ecfdf5,#d1fae5); border-color:#a7f3d0; }
+  .api-detail.amber { background: linear-gradient(135deg,#fffbeb,#fef3c7); border-color:#fde68a; }
+  .api-detail-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .api-detail-icon svg { width: 18px; height: 18px; }
+  .api-detail h4 { font-size: 10pt; font-weight: 800; color: #0a1f44; margin-bottom: 2px; }
+  .api-detail p { font-size: 8.5pt; color: #475569; line-height: 1.5; }
+
+</style>
+</head>
+<body>
+
+<!-- ================= SVG ICONS DEFINITIONS ================= -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/><circle cx="9" cy="7" r="4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-credit" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-check-sq" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+    <symbol id="i-check-circ" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-lock-open" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol>
+    <symbol id="i-shuffle" viewBox="0 0 24 24"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+    <symbol id="i-smart" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-graduation" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol>
+  </defs>
+</svg>
+
+<!-- ================= PAGE 1: COVER ================= -->
+<section class="page cover">
+  <div class="cover-accent-top"></div>
+  <div class="cover-dot-pattern"></div>
+  <div class="cover-circle-sm"></div>
+  <div class="cover-circle-lg"></div>
+  <div class="cover-content">
+
+    <div class="cover-top-row">
+      <div class="cover-logo">
+        <div class="cover-logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="cover-logo-text">
+          <h3>QTD Academy</h3>
+          <p>Learning Management System</p>
+        </div>
+      </div>
+      <div class="cover-year">2026 · PROPOSAL</div>
+    </div>
+
+    <div class="cover-middle">
+      <div class="cover-eyebrow">Business Proposal</div>
+      <h1>منصة التعليم الإلكتروني<br><span class="highlight">المتكاملة والذكية</span></h1>
+      <div class="cover-en">QTD Academy · Integrated Learning Platform</div>
+      <p class="cover-subtitle">
+        مقترح متكامل لإنشاء منصة تعليمية احترافية لتعليم اللغة الإنجليزية والمحتوى الأكاديمي،
+        تدعم التعليم المسجّل والمباشر، ونظام اختبارات وشهادات، مع تجربة مستخدم متقدّمة،
+        ونظام صلاحيات متعدّد الأدوار: طالب · معلم · إدارة.
+      </p>
+
+      <div class="cover-features">
+        <div class="cover-feature">
+          <div class="cf-icon"><svg class="svg-icon"><use href="#i-users"/></svg></div>
+          <h6>ثلاثة أدوار</h6>
+          <p>STUDENT · INSTRUCTOR · ADMIN</p>
+        </div>
+        <div class="cover-feature">
+          <div class="cf-icon"><svg class="svg-icon"><use href="#i-layers"/></svg></div>
+          <h6>ويب متجاوب</h6>
+          <p>FULLY RESPONSIVE PLATFORM</p>
+        </div>
+        <div class="cover-feature">
+          <div class="cf-icon"><svg class="svg-icon"><use href="#i-globe"/></svg></div>
+          <h6>لغتان</h6>
+          <p>ARABIC · ENGLISH</p>
+        </div>
+        <div class="cover-feature">
+          <div class="cf-icon"><svg class="svg-icon"><use href="#i-zap"/></svg></div>
+          <h6>3-4 أسابيع</h6>
+          <p>DELIVERY · قابلة للنقصان</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-bottom-row">
+      <div class="cover-meta">
+        <small>Prepared For</small>
+        <h5>QTD Academy · أكاديمية كيو تي دي</h5>
+      </div>
+      <div class="cover-meta" style="text-align:center;">
+        <small>Prepared By</small>
+        <h5>Marbrnd Agency<br><span style="font-size:8.5pt;font-weight:500;opacity:0.7;letter-spacing:1px;">Marketing Agency</span></h5>
+      </div>
+      <div class="cover-version-badge">VERSION 1.0</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= PAGE 2: TOC + EXECUTIVE SUMMARY ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> فهرس المحتويات · Table of Contents</div>
+      <div class="page-header-right">QTD Academy LMS Proposal</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">1</div>
+      <div>
+        <h2>الملخّص التنفيذي</h2>
+        <small>Executive Summary · Table of Contents</small>
+      </div>
+    </div>
+
+    <p class="lead">
+      منصّة تعليمية متكاملة تجمع بين التعليم المسجّل والمباشر، مبنية بالكامل على
+      <b>Node.js و Next.js</b>، وتخدم ثلاثة أدوار رئيسية: الطالب، المعلم، الإدارة،
+      مع موقع تعريفي احترافي متعدّد اللغات، ومنصّة ويب متجاوبة بالكامل مع كل الأجهزة.
+    </p>
+
+    <div class="grid-2" style="gap:6px;">
+      <div class="toc-item">
+        <div class="toc-num">1</div>
+        <div class="toc-text"><h5>الملخّص التنفيذي</h5><small>Executive Summary</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">02</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">2</div>
+        <div class="toc-text"><h5>أهداف المشروع</h5><small>Project Objectives</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">03</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">3</div>
+        <div class="toc-text"><h5>الموقع التعريفي</h5><small>Landing / Marketing Site</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">04</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">4</div>
+        <div class="toc-text"><h5>رحلة الطالب</h5><small>Student Journey</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">05</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">5</div>
+        <div class="toc-text"><h5>بوابة المعلم</h5><small>Instructor Portal</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">06</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">6</div>
+        <div class="toc-text"><h5>لوحة الإدارة</h5><small>Admin Dashboard</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">07</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">7</div>
+        <div class="toc-text"><h5>الحصص المباشرة وحماية الفيديو</h5><small>Live Classes + DRM</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">08</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">8</div>
+        <div class="toc-text"><h5>الاختبارات والشهادات</h5><small>Exams & Certificates</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">09</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">9</div>
+        <div class="toc-text"><h5>المدفوعات والإشعارات</h5><small>Payments & Community</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">10</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">10</div>
+        <div class="toc-text"><h5>التقنيات والبنية التحتية</h5><small>Technology Stack</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">11</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">11</div>
+        <div class="toc-text"><h5>الجدول الزمني والخاتمة</h5><small>Timeline & Next Steps</small></div>
+        <div class="toc-dots"></div>
+        <div class="toc-page">12</div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">02</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 3: PROJECT OBJECTIVES ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل الثاني · Project Objectives</div>
+      <div class="page-header-right">02 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">2</div>
+      <div>
+        <h2>أهداف المشروع</h2>
+        <small>Project Objectives & Vision</small>
+      </div>
+    </div>
+
+    <p class="lead">
+      إطلاق منصّة تعليمية جاهزة للاستخدام الفعليّ خلال 3–4 أسابيع (قابلة للنقصان)، قادرة على استقبال الطلاب
+      وتقديم المحتوى التعليمي فور إطلاقها، مع بنية قابلة للتوسّع مستقبلاً.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat-box"><h3>3</h3><p>أدوار رئيسية</p></div>
+      <div class="stat-box amber"><h3>6+</h3><p>منصّات تسليم</p></div>
+      <div class="stat-box green"><h3>2</h3><p>لغتان مدعومتان</p></div>
+      <div class="stat-box purple"><h3>3-4</h3><p>أسابيع للتسليم</p></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-target"/></svg></div>
+        <h4>تجربة موحّدة لكل الأدوار</h4>
+        <p>دعم جميع أطراف العملية التعليمية (الطلاب، المدرسون، الإدارة) عبر نظام موحّد بصلاحيات منفصلة لكل دور.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-bolt"/></svg></div>
+        <h4>تعليم مباشر ومسجّل</h4>
+        <p>حصص مباشرة (فردية وجماعية) عبر Google Meet، إلى جانب مكتبة محتوى مسجّل بمشغّل محمي.</p>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-shield"/></svg></div>
+        <h4>حماية المحتوى</h4>
+        <p>حماية المحتوى من النسخ والتحميل عبر Signed URLs، Custom Video Player، وعلامة مائية ديناميكية.</p>
+      </div>
+      <div class="card purple">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-mobile"/></svg></div>
+        <h4>ويب متجاوب مع قابلية التوسّع</h4>
+        <p>منصّة ويب متجاوبة بالكامل (Responsive) تعمل على الجوال واللاب والتابلت، مع <b>قابلية إضافة تطبيقات موبايل مستقبلاً</b>.</p>
+      </div>
+      <div class="card rose">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-layers"/></svg></div>
+        <h4>بنية قابلة للتوسّع</h4>
+        <p>تجهيز البنية التحتية بحيث يمكن إضافة ميزات ومراحل جديدة دون الحاجة لإعادة بناء النظام من الصفر.</p>
+      </div>
+      <div class="card slate">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-chart"/></svg></div>
+        <h4>إدارة ذكية بالبيانات</h4>
+        <p>لوحات تحكّم مبنيّة على بيانات حيّة (إيرادات، تسجيلات، أداء الطلاب) لاتخاذ قرارات مدعومة بالأرقام.</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">03</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 4: LANDING SITE ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل الثالث · Landing Website</div>
+      <div class="page-header-right">03 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">3</div>
+      <div>
+        <h2>الموقع التعريفي · صفحة الماركتنج</h2>
+        <small>Landing Page & Marketing Website</small>
+      </div>
+    </div>
+
+    <p class="lead">
+      الواجهة الأولى للأكاديمية أمام الزوّار والعملاء، مصمّمة لتحويل الزائر إلى طالب.
+      تدعم اللغتين العربية والإنجليزية، ومتوافقة مع جميع الأجهزة.
+    </p>
+
+    <div class="landing-preview">
+      <div class="landing-nav">
+        <div class="brand-mini"><span></span> QTD Academy</div>
+        <ul><li>الرئيسية</li><li>الدورات</li><li>من نحن</li><li>المدوّنة</li><li>تواصل</li></ul>
+        <div><span class="badge-inline amber">تسجيل</span><span class="badge-inline">AR/EN</span></div>
+      </div>
+      <div class="landing-hero">
+        <h5>منصّة التعلّم الأولى لتعليم اللغة الإنجليزية</h5>
+        <small>ابدأ رحلتك التعليمية · دورات متنوّعة · معلّمون محترفون · شهادات معتمدة</small>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-home"/></svg></div>
+        <h4>الصفحة الرئيسية</h4>
+        <ul>
+          <li>Hero Section تفاعلي</li>
+          <li>الدورات المميّزة</li>
+          <li>شهادات الطلاب</li>
+          <li>إحصائيات الأكاديمية</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-info"/></svg></div>
+        <h4>من نحن · About</h4>
+        <ul>
+          <li>قصّة الأكاديمية والرؤية</li>
+          <li>فريق العمل والمدرّبين</li>
+          <li>القيم والرسالة</li>
+          <li>الإنجازات والأرقام</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-book"/></svg></div>
+        <h4>قائمة الدورات</h4>
+        <ul>
+          <li>تصنيفات متعدّدة وفلترة</li>
+          <li>بحث متقدّم</li>
+          <li>تفاصيل كل دورة</li>
+          <li>تسجيل/شراء مباشر</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-edit"/></svg></div>
+        <h4>المدوّنة · Blog</h4>
+        <ul>
+          <li>مقالات تعليمية</li>
+          <li>تصنيفات وبحث</li>
+          <li>تعليقات وتفاعل</li>
+          <li>SEO محسّن</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-phone"/></svg></div>
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li>نموذج تواصل ذكي</li>
+          <li>تكامل WhatsApp</li>
+          <li>بريد إلكتروني وهاتف</li>
+          <li>موقع على الخريطة</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-globe"/></svg></div>
+        <h4>ميزات إضافية</h4>
+        <ul>
+          <li>دعم ثنائي اللغة AR/EN</li>
+          <li>FAQ · أسئلة متكرّرة</li>
+          <li>صفحات Privacy/Terms</li>
+          <li>Newsletter · نشرة بريدية</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">04</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 5: STUDENT ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل الرابع · Student Journey</div>
+      <div class="page-header-right">04 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">4</div>
+      <div>
+        <h2>رحلة الطالب · Student</h2>
+        <small>Student Portal & Experience</small>
+      </div>
+    </div>
+
+    <div class="role-banner student">
+      <div class="role-icon-big"><svg class="svg-icon-lg"><use href="#i-graduation"/></svg></div>
+      <div>
+        <h3>بوّابة الطالب</h3>
+        <p>تجربة تعليمية متكاملة من التسجيل حتى استلام الشهادة — كل شيء في مكان واحد</p>
+      </div>
+    </div>
+
+    <h4 style="font-size:10.5pt;color:#0a1f44;margin:4px 0;font-weight:800;">رحلة الطالب الكاملة · End-to-End Journey</h4>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="n">1</div><h6>التسجيل</h6><p>إنشاء حساب وتفعيل</p></div>
+      <div class="pipe-step"><div class="n">2</div><h6>التصفّح</h6><p>اختيار دورة مناسبة</p></div>
+      <div class="pipe-step"><div class="n">3</div><h6>الاشتراك</h6><p>الدفع عبر Stripe</p></div>
+      <div class="pipe-step"><div class="n">4</div><h6>التعلّم</h6><p>مسجّل ومباشر</p></div>
+      <div class="pipe-step"><div class="n">5</div><h6>الشهادة</h6><p>اختبار وتحميل</p></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-lock"/></svg></div>
+        <h4>التسجيل والحساب</h4>
+        <ul>
+          <li>تسجيل دخول (Email/Social)</li>
+          <li>استعادة كلمة المرور</li>
+          <li>تفعيل الحساب بـ OTP</li>
+          <li>ملف شخصي قابل للتعديل</li>
+          <li>Wishlist · قائمة الأمنيات</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-book"/></svg></div>
+        <h4>تصفّح الدورات والاشتراك</h4>
+        <ul>
+          <li>بحث متقدّم بالتصنيف والسعر</li>
+          <li>معاينة مجّانية للدرس الأول</li>
+          <li>سلّة مشتريات وكوبونات</li>
+          <li>شراء دورة أو اشتراك شهري</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-video"/></svg></div>
+        <h4>مشاهدة الدروس</h4>
+        <ul>
+          <li>مشغّل فيديو محمي ضدّ النسخ</li>
+          <li>سرعات تشغيل متعدّدة</li>
+          <li>حفظ آخر موضع تلقائيّاً</li>
+          <li>ملفات داعمة (PDF/Slides)</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-wifi"/></svg></div>
+        <h4>الحصص المباشرة</h4>
+        <ul>
+          <li>جدول الحصص القادمة</li>
+          <li>الدخول بنقرة واحدة</li>
+          <li>تذكيرات قبل بداية الحصّة</li>
+          <li>حضور فردي وجماعي</li>
+        </ul>
+      </div>
+      <div class="card rose">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-edit"/></svg></div>
+        <h4>الاختبارات وتتبُّع التقدّم</h4>
+        <ul>
+          <li>اختبارات بأنواع متعدّدة</li>
+          <li>نتائج فورية ومراجعة</li>
+          <li>تقدّم تفصيلي لكل دورة</li>
+          <li>شريط إنجاز تفاعلي</li>
+        </ul>
+      </div>
+      <div class="card slate">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-award"/></svg></div>
+        <h4>الشهادات والمجتمع</h4>
+        <ul>
+          <li>تحميل شهادة PDF تلقائيّاً</li>
+          <li>QR Code للتحقّق من صحّتها</li>
+          <li>مجتمع نقاش لكل دورة</li>
+          <li>محادثة مباشرة مع المعلّم</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">05</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 6: INSTRUCTOR ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل الخامس · Instructor Portal</div>
+      <div class="page-header-right">05 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">5</div>
+      <div>
+        <h2>بوّابة المعلّم · Instructor</h2>
+        <small>Instructor Portal & Reports</small>
+      </div>
+    </div>
+
+    <div class="role-banner instructor">
+      <div class="role-icon-big"><svg class="svg-icon-lg"><use href="#i-user"/></svg></div>
+      <div>
+        <h3>المكتب الشخصي للمعلّم</h3>
+        <p>لوحة مستقلة تمنح المعلّم رؤية شاملة على أدائه وطلّابه ودخله المالي</p>
+      </div>
+    </div>
+
+    <h4 style="font-size:10.5pt;color:#0a1f44;margin:4px 0;font-weight:800;">رحلة المعلّم · Instructor Flow</h4>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="n">1</div><h6>التقديم</h6><p>Become Instructor</p></div>
+      <div class="pipe-step"><div class="n">2</div><h6>إنشاء دورة</h6><p>Modules + Lessons</p></div>
+      <div class="pipe-step"><div class="n">3</div><h6>رفع محتوى</h6><p>فيديو وملفات</p></div>
+      <div class="pipe-step"><div class="n">4</div><h6>جدولة حصص</h6><p>Google Meet</p></div>
+      <div class="pipe-step"><div class="n">5</div><h6>التقارير</h6><p>تحليلات ودخل</p></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-chart"/></svg></div>
+        <h4>لوحة معلومات المعلّم</h4>
+        <ul>
+          <li>ملخّص فوري لأهم المؤشّرات</li>
+          <li>عدد الطلاب المسجّلين</li>
+          <li>الدورات النشطة والمسوّدة</li>
+          <li>الحصص القادمة وآخر النتائج</li>
+          <li>الإيرادات والمبالغ المستحقّة</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-video"/></svg></div>
+        <h4>إدارة المحتوى والدورات</h4>
+        <ul>
+          <li>إنشاء دورة وتقسيمها لوحدات</li>
+          <li>رفع فيديوهات/ملفات/نصوص</li>
+          <li>ترتيب الوحدات بسحب وإفلات</li>
+          <li>نشر/إخفاء دورة أو درس</li>
+          <li>إدارة المعاينة المجّانية</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-wifi"/></svg></div>
+        <h4>إدارة الحصص المباشرة</h4>
+        <ul>
+          <li>إنشاء اجتماعات Google Meet بنقرة</li>
+          <li>جلسات 1-to-1 وجماعية</li>
+          <li>تعيين الطلاب لكل حصّة</li>
+          <li>تسجيل تلقائي للحصص</li>
+          <li>تكامل مع Tutor Booking</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-edit"/></svg></div>
+        <h4>إدارة الاختبارات والتقييم</h4>
+        <ul>
+          <li>MCQ / True-False / Essay</li>
+          <li>مؤقّت ومحاولات وعشوائية</li>
+          <li>تصحيح تلقائي ويدوي</li>
+          <li>تقييم أداء الطلاب</li>
+          <li>تقارير نتائج تفصيلية</li>
+        </ul>
+      </div>
+      <div class="card rose">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-users"/></svg></div>
+        <h4>متابعة الطلاب</h4>
+        <ul>
+          <li>قائمة الطلاب في دوراتي</li>
+          <li>نسب الإتمام والحضور</li>
+          <li>تواصل مباشر (Chat/Email)</li>
+          <li>تقييم الأداء لكل طالب</li>
+          <li>إرسال تنبيهات جماعية</li>
+        </ul>
+      </div>
+      <div class="card slate">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-credit"/></svg></div>
+        <h4>التقارير المالية · Payouts</h4>
+        <ul>
+          <li>نصيبي من إيرادات كل دورة</li>
+          <li>المبالغ المستحقّة والمدفوعة</li>
+          <li>سجل المعاملات المالية</li>
+          <li>إعدادات التحويل المالي</li>
+          <li>تصدير تقارير PDF/Excel</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">06</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 7: ADMIN ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل السادس · Admin Dashboard</div>
+      <div class="page-header-right">06 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">6</div>
+      <div>
+        <h2>لوحة الإدارة · Admin</h2>
+        <small>Admin Dashboard · Next.js</small>
+      </div>
+    </div>
+
+    <div class="role-banner admin">
+      <div class="role-icon-big"><svg class="svg-icon-lg"><use href="#i-settings"/></svg></div>
+      <div>
+        <h3>لوحة التحكّم الإدارية الكاملة</h3>
+        <p>رؤية كاملة وتحكّم مطلق في كل جوانب المنصّة: المستخدمون، الدورات، المدفوعات، التقارير</p>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:6px;">
+      لوحة إدارية مبنيّة بتقنية <b>Next.js</b>، سريعة وتفاعلية، تدعم اللغتين العربية والإنجليزية،
+      وتمنح الإدارة تحكّماً كاملاً في كل مكوّنات المنصّة.
+    </p>
+
+    <div class="grid-3" style="margin-top: 4px;">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-users"/></svg></div>
+        <h4>إدارة المستخدمين</h4>
+        <ul>
+          <li>إضافة/تعديل/حذف الحسابات</li>
+          <li>تعيين الصلاحيات (Roles)</li>
+          <li>الموافقة على المعلّمين</li>
+          <li>تتبّع النشاط واللوجات</li>
+          <li>حظر/تفعيل الحسابات</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-book"/></svg></div>
+        <h4>إدارة الدورات</h4>
+        <ul>
+          <li>إنشاء/تعديل/حذف الدورات</li>
+          <li>مراجعة الدورات قبل النشر</li>
+          <li>إدارة التصنيفات</li>
+          <li>إدارة Bootcamps</li>
+          <li>المدوّنة والتصنيفات</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-wifi"/></svg></div>
+        <h4>إدارة الحصص</h4>
+        <ul>
+          <li>جدولة الحصص ومراجعتها</li>
+          <li>تعيين المدرّسين والطلاب</li>
+          <li>مراجعة سجل الحضور</li>
+          <li>إدارة Google Meet API</li>
+          <li>تقارير الحصص</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-credit"/></svg></div>
+        <h4>إدارة المدفوعات</h4>
+        <ul>
+          <li>متابعة المعاملات المالية</li>
+          <li>بوّابة Stripe + محلي</li>
+          <li>الاشتراكات الشهرية</li>
+          <li>إصدار الكوبونات</li>
+          <li>الفواتير اليدوية</li>
+        </ul>
+      </div>
+      <div class="card rose">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-chart"/></svg></div>
+        <h4>التقارير والإحصاءات</h4>
+        <ul>
+          <li>المستخدمون والتسجيلات</li>
+          <li>أداء الدورات والمعلّمين</li>
+          <li>الإيرادات والمدفوعات</li>
+          <li>Sales + Payout Reports</li>
+          <li>تصدير Excel/PDF</li>
+        </ul>
+      </div>
+      <div class="card slate">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-layout"/></svg></div>
+        <h4>إعدادات النظام</h4>
+        <ul>
+          <li>Page Builder للصفحات</li>
+          <li>إعدادات SEO و Meta</li>
+          <li>إعدادات الإشعارات</li>
+          <li>اللغات والعملات</li>
+          <li>API Keys (Stripe, Meet)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">07</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 8: LIVE + DRM ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل السابع · Live Sessions + DRM</div>
+      <div class="page-header-right">07 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">7</div>
+      <div>
+        <h2>الحصص المباشرة وحماية الفيديو</h2>
+        <small>Live Classes + Video Protection System</small>
+      </div>
+    </div>
+
+    <p class="lead">
+      يدعم النظام التعليم المباشر عبر نظامين متكاملين: نظام بثّ داخلي (Custom WebRTC)،
+      وتكامل تلقائي مع <b>Google Meet API</b>؛ كبديل يمنح الأكاديمية مرونة كاملة.
+    </p>
+
+    <div class="grid-2" style="margin-bottom: 8px;">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-wifi"/></svg></div>
+        <h4>نظام بثّ داخلي · Custom</h4>
+        <ul>
+          <li>نظام مبنيّ داخل المنصّة (WebRTC)</li>
+          <li>لا يحتاج أي برنامج خارجي</li>
+          <li>تحكّم كامل في التجربة</li>
+          <li>Whiteboard تفاعلي</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-video"/></svg></div>
+        <h4>تكامل Google Meet API</h4>
+        <ul>
+          <li>إنشاء اجتماعات تلقائيّاً</li>
+          <li>حفظ الرابط داخل النظام</li>
+          <li>حصص فردية (1-to-1)</li>
+          <li>حصص جماعية (Many-to-1)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3>نظام حماية الفيديو · DRM System</h3>
+      <p>حماية متقدّمة للمحتوى المسجّل تمنع أي محاولة نسخ أو تسريب.</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-download"/></svg></div>
+        <h4>منع التحميل</h4>
+        <p>منع تحميل الفيديو عبر أي أداة خارجية أو امتداد متصفّح.</p>
+      </div>
+      <div class="card rose">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-ban"/></svg></div>
+        <h4>تعطيل الزرّ الأيمن</h4>
+        <p>تعطيل Right-Click واختصارات الحفظ و Dev Tools.</p>
+      </div>
+      <div class="card purple">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-link"/></svg></div>
+        <h4>Signed URLs</h4>
+        <p>روابط مؤقّتة لكل مستخدم، تنتهي صلاحيّتها تلقائيّاً.</p>
+      </div>
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-droplet"/></svg></div>
+        <h4>علامة مائية</h4>
+        <p>Watermark ديناميكي باسم الطالب و IP أثناء المشاهدة.</p>
+      </div>
+    </div>
+
+    <div class="subsection" style="margin-top: 8px;">
+      <h3>البنية التحتية للفيديو · Storage & Delivery</h3>
+    </div>
+    <div class="grid-3">
+      <div class="card slate">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-cloud"/></svg></div>
+        <h4>تخزين على Hostinger</h4>
+        <p>مساحات تخزين آمنة ومشفّرة ضمن خوادم Hostinger المخصّصة للفيديو.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-bolt"/></svg></div>
+        <h4>Bunny.net CDN</h4>
+        <p>توزيع المحتوى عالميّاً مع سرعة بثّ عالية وجودة تكيُّفية.</p>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-play"/></svg></div>
+        <h4>Custom Player</h4>
+        <p>مشغّل مخصّص يدمج كل طبقات الحماية في تجربة سلسة.</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">08</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 9: EXAMS & CERTIFICATES ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل الثامن · Exams & Certificates</div>
+      <div class="page-header-right">08 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">8</div>
+      <div>
+        <h2>الاختبارات والشهادات</h2>
+        <small>Exams System & Certificates</small>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3>نظام الاختبارات · Exams System</h3>
+      <p>نظام تقييم متكامل يدعم أنواعاً متعدّدة من الأسئلة وخصائص احترافية.</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom: 6px;">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-check-sq"/></svg></div>
+        <h4>Multiple Choice</h4>
+        <p>أسئلة اختيار من متعدّد مع خيارات غير محدودة وتصحيح تلقائي.</p>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-check-circ"/></svg></div>
+        <h4>True / False</h4>
+        <p>أسئلة صحّ أو خطأ، مثالية للتقييم السريع لفهم الأساسيات.</p>
+      </div>
+      <div class="card purple">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-edit"/></svg></div>
+        <h4>Essay · مقالي</h4>
+        <p>أسئلة مقالية تتطلّب تصحيحاً يدويّاً من المعلّم مع تعليقات.</p>
+      </div>
+    </div>
+
+    <h4 style="font-size:10.5pt;color:#0a1f44;margin:4px 0;font-weight:800;">خصائص نظام الاختبارات</h4>
+    <div class="grid-4">
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-clock"/></svg></div>
+        <h4>Timer · مؤقّت</h4>
+        <p>تحديد وقت زمني والتسليم التلقائي عند انتهاء المدّة.</p>
+      </div>
+      <div class="card rose">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-refresh"/></svg></div>
+        <h4>Attempts</h4>
+        <p>تحديد عدد المحاولات المسموحة لكل طالب.</p>
+      </div>
+      <div class="card slate">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-shuffle"/></svg></div>
+        <h4>Random</h4>
+        <p>ترتيب عشوائي للأسئلة والخيارات لمنع الغشّ.</p>
+      </div>
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-zap"/></svg></div>
+        <h4>Auto + Manual</h4>
+        <p>تصحيح تلقائي للموضوعي ويدوي للمقالي.</p>
+      </div>
+    </div>
+
+    <div class="subsection" style="margin-top: 10px;">
+      <h3>نظام الشهادات · Certificates System</h3>
+      <p>توليد تلقائي للشهادات الإلكترونية فور اجتياز شروط إتمام الدورة.</p>
+    </div>
+
+    <div class="grid-2" style="gap: 12px;">
+      <div class="card green lg">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-award"/></svg></div>
+        <h4>توليد PDF تلقائي</h4>
+        <p>شهادة رسمية تُولَّد تلقائياً بصيغة PDF بمجرد اجتياز الطالب لشروط الإتمام.</p>
+        <ul>
+          <li>اسم الطالب بالكامل</li>
+          <li>اسم الدورة والمدرّس</li>
+          <li>تاريخ الإتمام والمدّة الكلية</li>
+          <li>الدرجة النهائية والتقدير</li>
+          <li>توقيع وختم الأكاديمية الرسمي</li>
+          <li>رقم تسلسلي فريد للشهادة</li>
+        </ul>
+      </div>
+      <div class="card purple lg">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-grid"/></svg></div>
+        <h4>QR Code للتحقّق</h4>
+        <p>رمز تحقّق ذكي يسمح لأيّ جهة بالتأكّد من صحّة الشهادة في ثوانٍ.</p>
+        <ul>
+          <li>رمز QR فريد لكل شهادة صادرة</li>
+          <li>صفحة تحقّق عامّة على الموقع</li>
+          <li>التأكّد بمسح سريع من الجوّال</li>
+          <li>حماية قويّة ضدّ التزوير</li>
+          <li>مشاركة مباشرة عبر LinkedIn</li>
+          <li>إمكانية إلغاء الشهادة عند الحاجة</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">09</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 10: PAYMENTS + NOTIFICATIONS + COMMUNITY ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل التاسع · Payments & Community</div>
+      <div class="page-header-right">09 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">9</div>
+      <div>
+        <h2>المدفوعات · الإشعارات · المجتمع</h2>
+        <small>Payments · Notifications · Community</small>
+      </div>
+    </div>
+
+    <div class="subsection"><h3>نظام المدفوعات · Stripe Payment System</h3></div>
+    <div class="grid-3" style="margin-bottom: 6px;">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-credit"/></svg></div>
+        <h4>Stripe Integration</h4>
+        <ul>
+          <li>دفع آمن بالبطاقات</li>
+          <li>Apple Pay و Google Pay</li>
+          <li>حماية ضدّ الاحتيال</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-refresh"/></svg></div>
+        <h4>اشتراك وشراء</h4>
+        <ul>
+          <li>اشتراك متجدّد تلقائيّاً</li>
+          <li>شراء دورة مفردة</li>
+          <li>Team Packages</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-file"/></svg></div>
+        <h4>فواتير تلقائية</h4>
+        <ul>
+          <li>فاتورة PDF لكل عملية</li>
+          <li>إرسال للبريد تلقائيّاً</li>
+          <li>Offline وكوبونات</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subsection"><h3>نظام الإشعارات · Multi-Channel Notifications</h3></div>
+    <div class="grid-3" style="margin-bottom: 6px;">
+      <div class="card purple">
+        <div class="card-icon icon-purple"><svg class="svg-icon"><use href="#i-mail"/></svg></div>
+        <h4>بريد إلكتروني</h4>
+        <ul>
+          <li>ترحيب وتفعيل</li>
+          <li>إعادة كلمة مرور</li>
+          <li>تذكير الحصص</li>
+          <li>نتائج الاختبارات</li>
+        </ul>
+      </div>
+      <div class="card rose">
+        <div class="card-icon icon-rose"><svg class="svg-icon"><use href="#i-smart"/></svg></div>
+        <h4>SMS · رسائل نصيّة</h4>
+        <ul>
+          <li>تذكير الحصص المباشرة</li>
+          <li>تنبيهات مهمّة</li>
+          <li>OTP للتفعيل</li>
+          <li>تأكيد الدفع</li>
+        </ul>
+      </div>
+      <div class="card slate">
+        <div class="card-icon icon-slate"><svg class="svg-icon"><use href="#i-bell"/></svg></div>
+        <h4>داخل المنصّة · In-App</h4>
+        <ul>
+          <li>إشعارات فورية In-App</li>
+          <li>Web Push Notifications</li>
+          <li>مركز إشعارات موحّد</li>
+          <li>تحكّم المستخدم بالإعدادات</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subsection"><h3>المجتمع التعليمي · Community System</h3></div>
+    <div class="grid-3">
+      <div class="card blue">
+        <div class="card-icon icon-blue"><svg class="svg-icon"><use href="#i-chat"/></svg></div>
+        <h4>مجموعات نقاش</h4>
+        <p>Forum لكل دورة مع مواضيع فرعية وتصويت على الإجابات.</p>
+      </div>
+      <div class="card green">
+        <div class="card-icon icon-green"><svg class="svg-icon"><use href="#i-send"/></svg></div>
+        <h4>محادثة مباشرة</h4>
+        <p>Chat بين الطالب والمعلّم ومحادثات جماعية وإرسال ملفات.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-icon icon-amber"><svg class="svg-icon"><use href="#i-star"/></svg></div>
+        <h4>تقييمات ومراجعات</h4>
+        <p>Reviews لكل دورة ومعلّم مع نظام Like/Dislike.</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">10</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 11: TECH STACK ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل العاشر · Technology Stack</div>
+      <div class="page-header-right">10 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">10</div>
+      <div>
+        <h2>التقنيات والبنية التحتية</h2>
+        <small>Technology Stack & Infrastructure</small>
+      </div>
+    </div>
+
+    <p class="lead">
+      النظام بالكامل مبنيّ على <b>Node.js و Next.js</b> والتقنيات المرتبطة بهما،
+      مما يضمن اتّساق البيئة ومرونة الصيانة وسرعة التطوير المستقبلي.
+    </p>
+
+    <table class="tech">
+      <thead>
+        <tr>
+          <th style="width: 25%;">المكوّن · Component</th>
+          <th style="width: 30%;">التقنية · Technology</th>
+          <th>الوصف · Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>النظام الخلفي · Backend</td>
+          <td><span class="badge-tech">Node.js + Express / NestJS</span></td>
+          <td>بيئة تشغيل JavaScript سريعة وقابلة للتوسّع تبني واجهة API موحّدة.</td>
+        </tr>
+        <tr>
+          <td>لوحة التحكّم · Admin</td>
+          <td><span class="badge-tech">Next.js + React</span></td>
+          <td>واجهة إدارة سريعة وتفاعلية مع SSR وأداء متميّز.</td>
+        </tr>
+        <tr>
+          <td>موقع الواجهة · Landing</td>
+          <td><span class="badge-tech">Next.js + Tailwind</span></td>
+          <td>موقع تعريفي سريع، متعدّد اللغات، محسّن SEO.</td>
+        </tr>
+        <tr>
+          <td>بوّابات الطالب والمعلّم</td>
+          <td><span class="badge-tech">Next.js + TypeScript</span></td>
+          <td>بوّابات موحّدة ضمن نفس الـ Stack لتقليل التعقيد.</td>
+        </tr>
+        <tr>
+          <td>تجربة الموبايل</td>
+          <td><span class="badge-tech amber">Responsive Web (PWA)</span></td>
+          <td>واجهة متجاوبة بالكامل + PWA قابلة للتثبيت، مع إمكانية عمل تطبيق أصلي مستقبلاً.</td>
+        </tr>
+        <tr>
+          <td>الاستضافة والدومين</td>
+          <td><span class="badge-tech green">Hostinger (شهري/سنوي)</span></td>
+          <td>استضافة باشتراك شهري أو سنوي يتضمّن الدومين وشهادة SSL.</td>
+        </tr>
+        <tr>
+          <td>الحصص المباشرة</td>
+          <td><span class="badge-tech amber">Google Meet API</span></td>
+          <td>تكامل تلقائي لإنشاء الاجتماعات وإرسال الروابط وجدولتها.</td>
+        </tr>
+        <tr>
+          <td>المدفوعات · Payment</td>
+          <td><span class="badge-tech green">Stripe API</span></td>
+          <td>Checkout Sessions و Subscriptions و Webhooks لمعالجة المدفوعات.</td>
+        </tr>
+        <tr>
+          <td>قاعدة البيانات</td>
+          <td><span class="badge-tech">MongoDB / PostgreSQL</span></td>
+          <td>قاعدة بيانات مرنة وطبقة كاش (Redis) لتحسين الأداء.</td>
+        </tr>
+        <tr>
+          <td>الإشعارات · Notifications</td>
+          <td><span class="badge-tech purple">Nodemailer · Twilio · FCM</span></td>
+          <td>بريد و SMS و Push مع مركز تحكّم موحّد.</td>
+        </tr>
+        <tr>
+          <td>الأمان · Security</td>
+          <td><span class="badge-tech green">JWT · OAuth · SSL</span></td>
+          <td>مصادقة قويّة، تشفير كامل، حماية OWASP Top 10.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+      <div class="api-detail blue">
+        <div class="api-detail-icon icon-blue"><svg class="svg-icon"><use href="#i-video"/></svg></div>
+        <div>
+          <h4>Google Meet API</h4>
+          <p>إنشاء اجتماعات تلقائيّاً، إرسال الروابط، جدولة عبر Google Calendar، وتسجيل الحصص.</p>
+        </div>
+      </div>
+      <div class="api-detail green">
+        <div class="api-detail-icon icon-green"><svg class="svg-icon"><use href="#i-credit"/></svg></div>
+        <div>
+          <h4>Stripe API</h4>
+          <p>Checkout، Subscriptions، Webhooks، بطاقات عالمية، و Apple / Google Pay.</p>
+        </div>
+      </div>
+      <div class="api-detail amber">
+        <div class="api-detail-icon icon-amber"><svg class="svg-icon"><use href="#i-cloud"/></svg></div>
+        <div>
+          <h4>Hostinger Hosting</h4>
+          <p>اشتراك شهري أو سنوي يشمل الاستضافة والدومين و SSL، مع إدارة مبسّطة.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">11</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 12: TIMELINE + CTA ================= -->
+<section class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-left"><span class="dot"></span> الفصل الحادي عشر · Timeline</div>
+      <div class="page-header-right">11 / 11</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-title-num">11</div>
+      <div>
+        <h2>الجدول الزمني والخاتمة</h2>
+        <small>Project Timeline & Next Steps</small>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="t-item">
+        <h5>المرحلة 1 · التحليل والتخطيط السريع <span>الأسبوع 1</span></h5>
+        <p>جمع المتطلّبات، تصميم قاعدة البيانات، UI/UX، معمارية النظام، وتوثيق الـ API بشكل مكثّف.</p>
+      </div>
+      <div class="t-item">
+        <h5>المرحلة 2 · Backend و Core APIs <span>الأسبوع 1-2</span></h5>
+        <p>بناء Node.js API، نظام المصادقة والصلاحيات، إدارة الدورات والمحتوى، تكامل Stripe.</p>
+      </div>
+      <div class="t-item">
+        <h5>المرحلة 3 · لوحة الإدارة والموقع التعريفي <span>الأسبوع 2</span></h5>
+        <p>تطوير Admin Dashboard بـ Next.js مع Landing Site متعدّد اللغات و Page Builder.</p>
+      </div>
+      <div class="t-item">
+        <h5>المرحلة 4 · الحصص المباشرة وحماية الفيديو <span>الأسبوع 2-3</span></h5>
+        <p>تكامل Google Meet API ونظام البثّ و Custom Video Player و Signed URLs.</p>
+      </div>
+      <div class="t-item">
+        <h5>المرحلة 5 · تحسين التجربة المتجاوبة · PWA <span>الأسبوع 3</span></h5>
+        <p>ضبط التصميم المتجاوب على الجوّال واللاب والتابلت + إعداد PWA قابلة للتثبيت كتطبيق.</p>
+      </div>
+      <div class="t-item">
+        <h5>المرحلة 6 · الاختبار والإطلاق <span>الأسبوع 3-4</span></h5>
+        <p>QA شامل، اختبار الأداء والأمان، تدريب الفريق، نشر الإنتاج والإطلاق الرسمي.</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h2>مستعدّون لبدء رحلة <span>QTD Academy</span></h2>
+      <p>
+        كل ما ورد في هذا المقترح قابل للتنفيذ خلال 3–4 أسابيع (قابلة للنقصان حسب جاهزية المحتوى)،
+        بفريق محترف يعمل بشفافية كاملة وتسليمات أسبوعية. نحن متحمّسون لبناء منصّة تكون مصدر فخر.
+      </p>
+      <div class="cta-info-row">
+        <div class="info">
+          <small>المدّة الإجمالية</small>
+          <h4>3-4 أسابيع</h4>
+        </div>
+        <div class="info">
+          <small>المنصّة</small>
+          <h4>Web + PWA (Responsive)</h4>
+        </div>
+        <div class="info">
+          <small>اللغات المدعومة</small>
+          <h4>عربي · English</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="signature-row">
+      <div class="sig">
+        <h5>عن الأكاديمية · Client</h5>
+        <p>QTD Academy · الاسم والتوقيع</p>
+      </div>
+      <div class="sig">
+        <h5>عن الوكالة · Provider</h5>
+        <p>Marbrnd Agency · Marketing Agency</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="brand">QTD Academy · LMS Proposal</div>
+      <div>www.qtd-academy.com</div>
+      <div class="page-num">12</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

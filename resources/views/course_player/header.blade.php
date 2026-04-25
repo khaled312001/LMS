@@ -1,40 +1,196 @@
-<div class="my-container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="course-playing-header d-flex align-items-center justify-content-between py-1">
-                <div class="course-play-logo">
-                    <a href="{{ route('home') }}">
-                        <img class="d-none d-lg-block" src="{{ asset(get_frontend_settings('light_logo')) }}"
-                            alt="" height="40px">
-                    </a>
-                </div>
-                <div class="playing-video-title py-2">
-                    <p class="title text-16px mb-0">{{ ucfirst($course_details->title) }}</p>
-                </div>
-                <div class="playing-header-btns d-flex align-items-center">
-                    <a href="javascript:void(0);" class="video-zoom-btn p-2" id="fullscreen">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_3_915)">
-                                <path
-                                    d="M8.08917 11.9108C8.415 12.2367 8.415 12.7633 8.08917 13.0892L2.845 18.3333H6.66667C7.1275 18.3333 7.5 18.7067 7.5 19.1667C7.5 19.6267 7.1275 20 6.66667 20H2.5C1.12167 20 0 18.8783 0 17.5V13.3333C0 12.8733 0.3725 12.5 0.833333 12.5C1.29417 12.5 1.66667 12.8733 1.66667 13.3333V17.155L6.91083 11.9108C7.23667 11.585 7.76333 11.585 8.08917 11.9108ZM17.5 0H13.3333C12.8725 0 12.5 0.373333 12.5 0.833333C12.5 1.29333 12.8725 1.66667 13.3333 1.66667H17.155L11.9108 6.91083C11.585 7.23667 11.585 7.76333 11.9108 8.08917C12.0733 8.25167 12.2867 8.33333 12.5 8.33333C12.7133 8.33333 12.9267 8.25167 13.0892 8.08917L18.3333 2.845V6.66667C18.3333 7.12667 18.7058 7.5 19.1667 7.5C19.6275 7.5 20 7.12667 20 6.66667V2.5C20 1.12167 18.8783 0 17.5 0Z"
-                                    fill="#C7C7C7" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_3_915">
-                                    <rect width="20" height="20" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </a>
+@php
+    $sba_is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
+    $sba_progress_pct = progress_bar($course_details->id);
+    $sba_completed_count = count(json_decode(
+        App\Models\Watch_history::where('course_id', $course_details->id)
+            ->where('student_id', auth()->user()->id)
+            ->value('completed_lesson') ?? '[]',
+        true
+    ) ?: []);
+    $sba_total_lessons = lesson_count($course_details->id);
+@endphp
 
-                    @if(is_course_instructor($course_details->id) || auth()->user()->role == 'admin')
-                        <a href="{{ route(auth()->user()->role.'.course.edit', ['id' => $course_details->id, 'tab' => 'curriculum']) }}" class="my-courses-btn d-none d-lg-block py-1 px-2">{{ get_phrase('Manage Course') }}</a>
-                    @else
-                        <a href="{{ route('my.courses') }}" class="my-courses-btn d-none d-lg-block py-1 px-2">{{ get_phrase('My Courses') }}</a>
-                    @endif
-                </div>
+<style>
+    .playing-header-section {
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+    }
+
+    .sba-player-header {
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 55%, #3b0764 100%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 24px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .sba-player-header .sba-ph-brand {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .sba-player-header .sba-ph-brand img {
+        height: 42px;
+    }
+
+    .sba-player-header .sba-ph-title {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+    }
+
+    .sba-player-header .sba-ph-title .sba-title-text {
+        font-size: 0.98rem;
+        font-weight: 800;
+        color: #fff;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sba-player-header .sba-ph-title .sba-progress-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .sba-player-header .sba-progress-track {
+        flex: 0 1 240px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        overflow: hidden;
+    }
+
+    .sba-player-header .sba-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #06b6d4, #8b5cf6, #ec4899);
+        border-radius: 100px;
+        transition: width .5s ease;
+    }
+
+    .sba-player-header .sba-progress-label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.85);
+        min-width: 50px;
+    }
+
+    .sba-player-header .sba-ph-actions {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .sba-player-header .sba-ph-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 40px;
+        padding: 0 18px;
+        border-radius: 100px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all .25s ease;
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+
+    .sba-player-header .sba-ph-btn.ghost {
+        background: rgba(255, 255, 255, 0.08);
+        color: #e0e7ff;
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .sba-player-header .sba-ph-btn.ghost:hover {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .sba-player-header .sba-ph-btn.primary {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: #fff;
+        box-shadow: 0 8px 18px -8px rgba(99, 102, 241, 0.6);
+    }
+
+    .sba-player-header .sba-ph-btn.primary:hover {
+        transform: translateY(-1px);
+        color: #fff;
+    }
+
+    .sba-player-header .sba-ph-btn.icon-only {
+        width: 40px;
+        padding: 0;
+    }
+
+    @media (max-width: 992px) {
+        .sba-player-header .sba-ph-title .sba-title-text {
+            font-size: 0.88rem;
+        }
+        .sba-player-header .sba-progress-track {
+            flex-basis: 140px;
+        }
+        .sba-player-header .sba-ph-btn.primary {
+            display: none;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .sba-player-header {
+            padding: 10px 14px;
+            gap: 10px;
+        }
+        .sba-player-header .sba-ph-title .sba-progress-row {
+            display: none;
+        }
+    }
+</style>
+
+<div class="sba-player-header">
+    <a href="{{ route('home') }}" class="sba-ph-brand" title="{{ get_phrase('Home') }}">
+        <img src="{{ asset(get_frontend_settings('light_logo')) }}" alt="Logo">
+    </a>
+
+    <div class="sba-ph-title">
+        <p class="sba-title-text">{{ ucfirst($course_details->title) }}</p>
+        <div class="sba-progress-row">
+            <span class="sba-progress-label">{{ $sba_completed_count }} / {{ $sba_total_lessons }}</span>
+            <div class="sba-progress-track">
+                <div class="sba-progress-fill" style="width: {{ $sba_progress_pct }}%"></div>
             </div>
+            <span class="sba-progress-label">{{ round($sba_progress_pct) }}%</span>
         </div>
+    </div>
+
+    <div class="sba-ph-actions">
+        <button type="button" class="sba-ph-btn ghost icon-only" id="fullscreen" title="{{ get_phrase('Fullscreen') }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+
+        @if (is_course_instructor($course_details->id) || auth()->user()->role == 'admin')
+            <a href="{{ route(auth()->user()->role . '.course.edit', ['id' => $course_details->id, 'tab' => 'curriculum']) }}" class="sba-ph-btn primary">
+                <i class="fi-rr-settings"></i>
+                {{ get_phrase('Manage Course') }}
+            </a>
+        @else
+            <a href="{{ route('my.courses') }}" class="sba-ph-btn primary">
+                <i class="fi-rr-book-alt"></i>
+                {{ $sba_is_arabic ? 'دوراتي' : get_phrase('My Courses') }}
+            </a>
+        @endif
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\DeviceIp;
@@ -24,6 +25,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(Request $request)
     {
+        // Google OAuth callback lands on /login with ?code=...&state=...
+        if ($request->filled('code') && $request->filled('state')) {
+            return app(GoogleAuthController::class)->callback($request);
+        }
+
         if($request->user_agent){
             $session_id = DeviceIp::where('user_agent', $request->user_agent)->first()->session_id;
             if($session_id){

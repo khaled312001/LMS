@@ -279,7 +279,182 @@
 
 @section('content')
 <!-- Ultra Hero 4.0 -->
-<section id="home" class="mesh-gradient-bg py-100 overflow-hidden" style="padding-top: 210px !important; background: linear-gradient(160deg, #f8faff 0%, #eef2ff 50%, #f0f9ff 100%) !important;">
+<style>
+    #home {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 130px !important;
+        padding-bottom: 60px !important;
+        position: relative;
+        background: #070b1e !important;
+        overflow: hidden;
+    }
+    #home::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(900px 600px at 15% 10%, rgba(99, 102, 241, 0.35), transparent 60%),
+            radial-gradient(700px 500px at 90% 85%, rgba(236, 72, 153, 0.25), transparent 60%),
+            radial-gradient(700px 600px at 70% 15%, rgba(6, 182, 212, 0.20), transparent 60%),
+            linear-gradient(160deg, #070b1e 0%, #0f172a 55%, #1e1b4b 100%);
+        z-index: 0;
+        pointer-events: none;
+    }
+    #home::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+        background-size: 28px 28px;
+        opacity: 0.5;
+        z-index: 0;
+        pointer-events: none;
+    }
+    /* Orb animations */
+    .sba-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.55;
+    }
+    .sba-orb.o1 { width: 380px; height: 380px; background: #6366f1; top: 12%; left: 8%; animation: sba-orb-1 18s ease-in-out infinite; }
+    .sba-orb.o2 { width: 320px; height: 320px; background: #ec4899; bottom: 10%; right: 8%; animation: sba-orb-2 22s ease-in-out infinite; }
+    .sba-orb.o3 { width: 280px; height: 280px; background: #06b6d4; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: sba-orb-3 25s ease-in-out infinite; }
+    @keyframes sba-orb-1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,40px)} }
+    @keyframes sba-orb-2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,-30px)} }
+    @keyframes sba-orb-3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.15)} }
+
+    /* Bright hero typography on dark bg */
+    #home h1 { color: #fff !important; }
+    #home h1 .text-vibrant-gradient {
+        background: linear-gradient(135deg,#fbbf24 0%,#ec4899 50%,#06b6d4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    #home p.fs-4 {
+        color: #cbd5e1 !important;
+    }
+    #home p.fs-4 .text-dark {
+        color: #fff !important;
+        font-weight: 800;
+    }
+    #home .glass-pill {
+        background: rgba(255,255,255,0.08) !important;
+        border: 1px solid rgba(255,255,255,0.18) !important;
+        color: #e0e7ff !important;
+        backdrop-filter: blur(12px);
+    }
+    /* Trusted-by chips */
+    #home .mt-5.pt-2 p.small {
+        color: rgba(255,255,255,0.55) !important;
+    }
+    #home .mt-5.pt-2 span[style*="background:rgba(255,255,255"] {
+        background: rgba(255,255,255,0.08) !important;
+        border-color: rgba(255,255,255,0.15) !important;
+        color: #e2e8f0 !important;
+    }
+
+    /* Stats cards on dark hero */
+    #home #sba-stats-row > [class*="col-"] > div {
+        background: rgba(255,255,255,0.06) !important;
+        border-color: rgba(255,255,255,0.12) !important;
+        box-shadow: 0 10px 30px -15px rgba(0,0,0,0.5) !important;
+        backdrop-filter: blur(10px);
+    }
+    #home #sba-stats-row > [class*="col-"] > div > div[style*="color:#64748b"] {
+        color: rgba(255,255,255,0.7) !important;
+    }
+
+    /* Floating stat cards around hero image */
+    #home .hero-visual-container .position-absolute {
+        background: #fff !important;
+    }
+    #home .hero-visual-container img {
+        border-color: rgba(255,255,255,0.08) !important;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.6) !important;
+    }
+
+    /* Outline buttons readable on dark */
+    #home .btn-outline-vibrant {
+        color: #fff !important;
+        border-color: rgba(255,255,255,0.35) !important;
+    }
+    #home .btn-outline-vibrant:hover {
+        background: rgba(255,255,255,0.1) !important;
+        border-color: rgba(255,255,255,0.6) !important;
+    }
+
+    @media (max-width: 992px) {
+        #home { min-height: auto; padding-top: 120px !important; padding-bottom: 40px !important; }
+    }
+
+    /* Keep columns truly side-by-side and prevent overlap */
+    #home .container > .row {
+        position: relative;
+        z-index: 3;
+    }
+    #home .col-lg-7 {
+        position: relative;
+        z-index: 4;
+    }
+    #home .col-lg-5 {
+        position: relative;
+        z-index: 2;
+    }
+    /* Don't let absolutely-positioned floating cards leak into the text column */
+    #home .hero-visual-container {
+        max-width: 100%;
+        overflow: visible;
+    }
+    #home .hero-visual-container .position-absolute {
+        z-index: 6;
+    }
+    /* Tighten the hero image so it sits inside its column */
+    #home .hero-visual-container img {
+        max-width: 100%;
+        width: 100%;
+        height: 440px !important;
+    }
+    /* Typography tune-down so 2-column layout fits on standard screens */
+    #home h1.display-1 {
+        font-size: clamp(2.2rem, 4.2vw, 3.6rem) !important;
+        line-height: 1.15 !important;
+    }
+    #home p.fs-4 {
+        font-size: 1.05rem !important;
+        line-height: 1.75;
+    }
+    /* Floating cards shrink a bit so they don't reach the text */
+    #home .hero-visual-container > div.position-absolute {
+        width: 180px !important;
+    }
+    /* On tablet, stack the columns so nothing overlaps */
+    @media (max-width: 991.98px) {
+        #home .col-lg-7,
+        #home .col-lg-5 {
+            text-align: center;
+        }
+        #home .hero-visual-container {
+            margin-top: 40px;
+        }
+        #home .hero-visual-container > div.position-absolute {
+            display: none !important;
+        }
+        #home h1.display-1 {
+            font-size: 2.2rem !important;
+        }
+    }
+</style>
+<section id="home" class="overflow-hidden">
+    <span class="sba-orb o1"></span>
+    <span class="sba-orb o2"></span>
+    <span class="sba-orb o3"></span>
     <div class="container position-relative" style="z-index: 10;">
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
@@ -321,40 +496,141 @@
             </div>
             
             <div class="col-lg-5 position-relative">
-                <div class="hero-visual-container position-relative">
-                    <!-- Main Image with 3D Float -->
-                    <div class="floating-3d-card relative z-2" data-aos="zoom-in" data-aos-duration="1200">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" class="w-100 rounded-5 shadow-2xl" style="height: 500px; object-fit: cover; border: 10px solid #fff;" alt="Student learning on laptop with creative courseware">
-                    </div>
-                    
-                    <!-- Floating Achievement Cards (SOLID WHITE, well-padded) -->
-                    <div class="position-absolute animate-float" data-aos="fade-left" data-aos-delay="600" style="top: -30px; {{ $is_arabic ? 'left: -20px;' : 'right: -20px;' }} width: 210px; z-index: 5; background:#ffffff; border-radius:20px; padding:18px 22px; box-shadow:0 20px 50px rgba(79,70,229,0.18); border:1px solid rgba(79,70,229,0.08);">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,0.18);"></div>
-                            <span style="font-size:0.8rem;font-weight:700;color:#475569;letter-spacing:0.3px;">{{ $is_arabic ? ($ar['Live Learners'] ?? get_phrase('Live Learners')) : get_phrase('Live Learners') }}</span>
+                <div class="sba-hero-image-wrap" data-aos="zoom-in" data-aos-duration="1000">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200"
+                         alt="Students learning"
+                         class="sba-hero-image">
+                    <div class="sba-hero-image-overlay"></div>
+
+                    {{-- Inline chips inside the image, not floating outside --}}
+                    <div class="sba-hero-chip sba-hero-chip-tl">
+                        <span class="sba-hero-dot"></span>
+                        <div>
+                            <div class="sba-hero-chip-label">{{ $is_arabic ? ($ar['Live Learners'] ?? 'Live Learners') : get_phrase('Live Learners') }}</div>
+                            <div class="sba-hero-chip-value">12,482+</div>
                         </div>
-                        <h4 style="font-size:1.5rem;font-weight:900;margin:0;background:linear-gradient(135deg,#4f46e5,#7e22ce);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">12,482+</h4>
                     </div>
 
-                    <div class="position-absolute animate-float" data-aos="fade-right" data-aos-delay="800" style="bottom: 30px; {{ $is_arabic ? 'right: -30px;' : 'left: -30px;' }} width: 220px; z-index: 5; animation-delay: 1.5s; background:#ffffff; border-radius:20px; padding:18px 22px; box-shadow:0 20px 50px rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.12);">
-                        <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#f97316);margin-bottom:10px;box-shadow:0 8px 16px rgba(245,158,11,0.3);">
-                            <i class="fa-solid fa-trophy" style="color:#fff;font-size:1.1rem;"></i>
+                    <div class="sba-hero-chip sba-hero-chip-br">
+                        <div class="sba-hero-chip-ico"><i class="fa-solid fa-trophy"></i></div>
+                        <div>
+                            <div class="sba-hero-chip-title">{{ $is_arabic ? 'الأعلى تقييمًا' : 'Top Rated' }}</div>
+                            <div class="sba-hero-chip-sub">#1 LMS 2026</div>
                         </div>
-                        <h5 style="font-size:1.05rem;font-weight:900;color:#0f172a;margin:0 0 4px 0;">{{ $is_arabic ? ($ar['Top Rated'] ?? get_phrase('Top Rated')) : get_phrase('Top Rated') }}</h5>
-                        <p style="font-size:0.78rem;color:#64748b;margin:0;line-height:1.5;">{{ $is_arabic ? ($ar['#1 LMS Choice 2026'] ?? get_phrase('#1 LMS Choice 2026')) : get_phrase('#1 LMS Choice 2026') }}</p>
                     </div>
                 </div>
             </div>
+
+            <style>
+                .sba-hero-image-wrap {
+                    position: relative;
+                    width: 100%;
+                    aspect-ratio: 4 / 5;
+                    max-height: 560px;
+                    border-radius: 28px;
+                    overflow: hidden;
+                    box-shadow: 0 35px 70px -20px rgba(0, 0, 0, 0.55);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+                .sba-hero-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+                .sba-hero-image-overlay {
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(180deg, transparent 45%, rgba(7, 11, 30, 0.7) 100%);
+                    pointer-events: none;
+                }
+                .sba-hero-chip {
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.96);
+                    backdrop-filter: blur(14px);
+                    border: 1px solid rgba(255, 255, 255, 0.6);
+                    border-radius: 16px;
+                    padding: 12px 16px;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+                    z-index: 2;
+                }
+                .sba-hero-chip-tl {
+                    top: 18px;
+                    inset-inline-start: 18px;
+                }
+                .sba-hero-chip-br {
+                    bottom: 18px;
+                    inset-inline-end: 18px;
+                }
+                .sba-hero-dot {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: #10b981;
+                    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+                    flex-shrink: 0;
+                }
+                .sba-hero-chip-label {
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    color: #475569;
+                    letter-spacing: 0.3px;
+                }
+                .sba-hero-chip-value {
+                    font-size: 1.1rem;
+                    font-weight: 900;
+                    background: linear-gradient(135deg, #4f46e5, #7e22ce);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    line-height: 1.2;
+                }
+                .sba-hero-chip-ico {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 10px;
+                    background: linear-gradient(135deg, #f59e0b, #f97316);
+                    color: #fff;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    box-shadow: 0 6px 14px rgba(245, 158, 11, 0.35);
+                }
+                .sba-hero-chip-title {
+                    font-size: 0.9rem;
+                    font-weight: 900;
+                    color: #0f172a;
+                    line-height: 1.2;
+                }
+                .sba-hero-chip-sub {
+                    font-size: 0.72rem;
+                    color: #64748b;
+                }
+                @media (max-width: 991.98px) {
+                    .sba-hero-image-wrap {
+                        max-width: 520px;
+                        margin: 30px auto 0;
+                        aspect-ratio: 16/11;
+                    }
+                }
+            </style>
         </div>
     </div>
 
-    <!-- Stats Bar -->
-    <div class="container position-relative" style="z-index:10; margin-top:70px;">
+    </div>
+</section>
+
+<!-- Stats Section - separate section right under the hero -->
+<section id="sba-stats-section" style="background: linear-gradient(180deg, #070b1e 0%, #0f172a 100%); padding: 60px 0 70px; position: relative; overflow: hidden;">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);background-size:28px 28px;opacity:0.6;pointer-events:none;"></div>
+    <div class="container position-relative" style="z-index:2;">
         @php
-            // Unified brand gradient (indigo → purple → cyan) — every card uses the same palette
             $brand_grad = 'linear-gradient(135deg,#4f46e5 0%,#7e22ce 50%,#06b6d4 100%)';
-            $brand_shadow = 'rgba(79,70,229,0.22)';
-            // Each stat has: target = numeric target, prefix/suffix for display, decimals
+            $brand_shadow = 'rgba(79,70,229,0.28)';
             $stats = [
                 ['icon'=>'fa-solid fa-users',        'target'=>12000, 'prefix'=>'+', 'suffix'=>'K',  'divide'=>1000, 'decimals'=>0, 'label'=> $is_arabic?'طالب نشط':'Active Students'],
                 ['icon'=>'fa-solid fa-book-open',    'target'=>120,   'prefix'=>'+', 'suffix'=>'',   'divide'=>1,    'decimals'=>0, 'label'=> $is_arabic?'دورة تدريبية':'Courses'],
@@ -365,21 +641,16 @@
         <div class="row g-4 justify-content-center" id="sba-stats-row">
         @foreach($stats as $i => $s)
         <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="{{ 80 + $i * 70 }}">
-            <div style="background:#fff;border-radius:22px;padding:32px 18px 26px;text-align:center;border:1px solid rgba(79,70,229,0.08);box-shadow:0 6px 24px rgba(79,70,229,0.08);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;" onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 24px 52px {{ $brand_shadow }}'" onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(79,70,229,0.08)'">
-                {{-- soft brand glow behind icon --}}
-                <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(79,70,229,0.10) 0%,transparent 70%);pointer-events:none;"></div>
-                {{-- icon --}}
+            <div style="background:rgba(255,255,255,0.04);border-radius:22px;padding:32px 18px 26px;text-align:center;border:1px solid rgba(255,255,255,0.1);box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);position:relative;overflow:hidden;backdrop-filter:blur(12px);transition:transform .3s,box-shadow .3s,border-color .3s;" onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 30px 60px {{ $brand_shadow }}';this.style.borderColor='rgba(255,255,255,0.2)'" onmouseout="this.style.transform='';this.style.boxShadow='0 20px 50px -20px rgba(0,0,0,0.5)';this.style.borderColor='rgba(255,255,255,0.1)'">
+                <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.25) 0%,transparent 70%);pointer-events:none;"></div>
                 <div style="position:relative;width:62px;height:62px;border-radius:16px;background:{{ $brand_grad }};display:inline-flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 10px 24px {{ $brand_shadow }};">
                     <i class="{{ $s['icon'] }}" style="color:#fff;font-size:1.45rem;"></i>
                 </div>
-                {{-- animated counter --}}
                 <div class="sba-counter" data-target="{{ $s['target'] }}" data-prefix="{{ $s['prefix'] }}" data-suffix="{{ $s['suffix'] }}" data-divide="{{ $s['divide'] }}" data-decimals="{{ $s['decimals'] }}"
-                     style="font-size:2.25rem;font-weight:900;line-height:1;margin-bottom:10px;letter-spacing:-1px;background:{{ $brand_grad }};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                     style="font-size:2.25rem;font-weight:900;line-height:1;margin-bottom:10px;letter-spacing:-1px;background:linear-gradient(135deg,#fff 0%,#a5b4fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
                     {{ $s['prefix'] }}0{{ $s['suffix'] }}
                 </div>
-                {{-- label --}}
-                <div style="font-size:0.8rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;">{{ $s['label'] }}</div>
-                {{-- bottom gradient strip --}}
+                <div style="font-size:0.8rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:1.5px;">{{ $s['label'] }}</div>
                 <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:{{ $brand_grad }};"></div>
             </div>
         </div>
@@ -395,9 +666,8 @@
                     var suffix   = el.dataset.suffix || '';
                     var divide   = parseFloat(el.dataset.divide)   || 1;
                     var decimals = parseInt(el.dataset.decimals, 10) || 0;
-                    var duration = 1800;                 // ms
+                    var duration = 1800;
                     var start    = performance.now();
-                    // easeOutCubic for a natural feel
                     function frame(t) {
                         var p = Math.min((t - start) / duration, 1);
                         var eased = 1 - Math.pow(1 - p, 3);
@@ -413,7 +683,6 @@
                     var counters = document.querySelectorAll('.sba-counter');
                     if (!counters.length) return;
                     if (typeof IntersectionObserver === 'undefined') {
-                        // Fallback: animate immediately
                         counters.forEach(animateCounter);
                         return;
                     }
@@ -464,7 +733,26 @@
                     'Music' => 'fa-solid fa-music'
                 ];
             @endphp
-            @foreach (App\Models\Category::where('parent_id', 0)->get()->filter(fn($c) => count_category_courses($c->id) > 0)->take(8) as $category)
+            @php
+                $__home_categories = \Illuminate\Support\Facades\Cache::remember('home:parent_categories_with_counts', 600, function () {
+                    $cats = App\Models\Category::where('parent_id', 0)->get();
+                    $result = [];
+                    foreach ($cats as $c) {
+                        $cnt = count_category_courses($c->id);
+                        if ($cnt > 0) {
+                            $result[] = (object) [
+                                'id'    => $c->id,
+                                'title' => $c->title,
+                                'icon'  => $c->icon,
+                                'count' => $cnt,
+                            ];
+                        }
+                        if (count($result) >= 8) break;
+                    }
+                    return $result;
+                });
+            @endphp
+            @foreach ($__home_categories as $category)
                 <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="category-item text-center">
                         <a href="javascript:void(0)" class="text-decoration-none d-block p-4 rounded-5 transition-all h-100 bento-item border-0" style="background: rgba(255,255,255,0.03) !important; backdrop-filter: blur(10px); cursor: default;">
@@ -472,7 +760,7 @@
                                 <i class="{{ $icons[$category->title] ?? ($category->icon ?: 'fa-solid fa-graduation-cap') }} text-vibrant-gradient fs-1"></i>
                             </div>
                             <h5 class="text-white fw-900 mb-2">{{ get_phrase($category->title) }}</h5>
-                            <span class="badge rounded-pill bg-vibrant-primary px-3 py-2">{{ count_category_courses($category->id) }} {{ get_phrase('Courses') }}</span>
+                            <span class="badge rounded-pill bg-vibrant-primary px-3 py-2">{{ $category->count }} {{ get_phrase('Courses') }}</span>
                         </a>
                     </div>
                 </div>
@@ -494,19 +782,33 @@
         
         @php
             $current_lang = strtolower(session('language') ?? get_settings('language'));
-            $featured_categories = DB::table('categories')
-                ->where('parent_id', 0)
-                ->get()
-                ->filter(function($c) use ($current_lang) {
-                    return DB::table('courses')
+            [$featured_categories, $all_courses, $__home_category_lookup] = \Illuminate\Support\Facades\Cache::remember(
+                'home:featured_courses:' . $current_lang,
+                600,
+                function () use ($current_lang) {
+                    // One query each, no per-row lookups.
+                    $categories = DB::table('categories')->get();
+                    $categoryMap = $categories->keyBy('id');
+                    $parents = $categories->where('parent_id', 0);
+                    $courseCountsByCat = DB::table('courses')
                         ->where('status', 'active')
                         ->where('language', $current_lang)
-                        ->where(function($q) use ($c) {
-                            $q->where('category_id', $c->id)
-                              ->orWhereIn('category_id', DB::table('categories')->where('parent_id', $c->id)->pluck('id'));
-                        })->count() > 0;
-                })->take(5);
-            $all_courses = DB::table('courses')->where('status', 'active')->where('language', $current_lang)->orderBy('id', 'desc')->take(12)->get();
+                        ->selectRaw('category_id, count(*) as cnt')
+                        ->groupBy('category_id')
+                        ->pluck('cnt', 'category_id');
+                    $featured = $parents->filter(function ($p) use ($categoryMap, $courseCountsByCat) {
+                        $ids = $categoryMap->where('parent_id', $p->id)->pluck('id')->push($p->id);
+                        return $ids->sum(fn($id) => (int) ($courseCountsByCat[$id] ?? 0)) > 0;
+                    })->take(5)->values();
+                    $courses = DB::table('courses')
+                        ->where('status', 'active')
+                        ->where('language', $current_lang)
+                        ->orderBy('id', 'desc')
+                        ->take(12)
+                        ->get();
+                    return [$featured, $courses, $categoryMap];
+                }
+            );
         @endphp
 
 
@@ -520,7 +822,7 @@
                 @foreach ($all_courses as $row)
                     @php
                         $cat_id = $row->category_id;
-                        $parent_cat = App\Models\Category::find($cat_id);
+                        $parent_cat = $__home_category_lookup[$cat_id] ?? null;
                         $parent_id = $parent_cat ? $parent_cat->parent_id : 0;
                     @endphp
                     <div class="swiper-slide course-slide cat-{{ $cat_id }} @if($parent_id > 0) cat-{{ $parent_id }} @endif" style="height: auto;">
@@ -533,7 +835,7 @@
                             </div>
                             <div class="px-2 flex-grow-1 d-flex flex-column">
                                 <div class="d-flex justify-content-between mb-3">
-                                    <span class="vibrant-tag">{{ get_phrase(App\Models\Category::find($row->category_id)->title ?? 'Professional') }}</span>
+                                    <span class="vibrant-tag">{{ get_phrase(($__home_category_lookup[$row->category_id]->title ?? null) ?: 'Professional') }}</span>
                                     <div class="text-warning small fw-bold">
                                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                         <span class="text-muted ms-1">(5.0)</span>
@@ -654,18 +956,24 @@
         <div class="row g-4">
             @php
                 $__home_lang = strtolower(session('language') ?? get_settings('language'));
-                $__home_blogs = App\Models\Blog::where('status', 1);
-                if (in_array($__home_lang, ['english', 'arabic'])) {
-                    $__home_blogs = $__home_blogs->where('language', $__home_lang);
-                }
-                $__home_blogs = $__home_blogs->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
+                $__home_blogs = \Illuminate\Support\Facades\Cache::remember(
+                    'home:latest_blogs:' . $__home_lang,
+                    600,
+                    function () use ($__home_lang) {
+                        $q = App\Models\Blog::where('status', 1);
+                        if (in_array($__home_lang, ['english', 'arabic'])) {
+                            $q->where('language', $__home_lang);
+                        }
+                        return $q->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
+                    }
+                );
             @endphp
             @foreach ($__home_blogs as $blog)
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 150 }}">
                     <div class="bento-item h-100 p-3 shadow-sm border-0" style="border-radius: 30px !important; background: #fff;">
                         <img src="{{ get_image($blog->thumbnail) }}" class="w-100 mb-4" style="height: 210px; object-fit: cover; border-radius: 22px;" alt="{{ $blog->title }}">
                         <div class="px-2 pb-2">
-                            <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id ? get_phrase(App\Models\Category::find($blog->category_id)->title) : ($is_arabic ? ($ar['General'] ?? get_phrase('General')) : get_phrase('General')) }}</span>
+                            <span class="vibrant-tag mb-3 d-inline-block">{{ $blog->category_id && isset($__home_category_lookup[$blog->category_id]) ? get_phrase($__home_category_lookup[$blog->category_id]->title) : ($is_arabic ? ($ar['General'] ?? get_phrase('General')) : get_phrase('General')) }}</span>
                             <h4 class="fw-bold mb-3">
                                 <a href="{{ route('blog.details', $blog->slug) }}" class="text-dark text-decoration-none stretched-link">{{ Str::limit($blog->title, 50) }}</a>
                             </h4>

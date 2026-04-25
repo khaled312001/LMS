@@ -2,6 +2,17 @@
 
     $drip_content_settings = json_decode($course_details->drip_content_settings, true);
 
+    if (!is_array($drip_content_settings)) {
+        $drip_content_settings = [];
+    }
+
+    $drip_content_settings = array_merge([
+        'lesson_completion_role' => 'percentage',
+        'minimum_percentage'     => '30',
+        'minimum_duration'       => 15,
+        'locked_lesson_message'  => '',
+    ], $drip_content_settings);
+
 @endphp
 
 <div class="row mb-3 ">

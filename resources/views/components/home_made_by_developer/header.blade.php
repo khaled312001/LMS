@@ -1,5 +1,10 @@
 @php
-    $parent_categories = DB::table('categories')->where('parent_id', 0)->latest('id')->get();
+    $parent_categories = \Illuminate\Support\Facades\Cache::remember('header:parent_categories', 600, function () {
+        return DB::table('categories')->where('parent_id', 0)->latest('id')->get();
+    });
+    $__header_languages = \Illuminate\Support\Facades\Cache::remember('header:languages', 600, function () {
+        return DB::table('languages')->get();
+    });
     $current_route = Route::currentRouteName();
     $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
 @endphp
@@ -7,8 +12,8 @@
 <header class="vibrant-header d-flex align-items-center justify-content-between">
     <div class="logo-area">
         <a href="{{ route('home') }}">
-            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 65px;">
-            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo d-none" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 65px;">
+            <img src="{{ get_image(get_frontend_settings('dark_logo')) }}" class="dark-logo" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 65px;">
+            <img src="{{ get_image(get_frontend_settings('light_logo')) }}" class="light-logo d-none" alt="{{ $is_arabic ? 'اللوجو' : get_phrase('Logo') }}" style="max-height: 65px;">
         </a>
     </div>
 
@@ -21,18 +26,39 @@
         </ul>
     </nav>
 
-    <div class="action-area d-flex align-items-center gap-3">
-        <!-- Language Switcher - Desktop only -->
-        <div class="dropdown d-none d-lg-block">
-            <button class="btn btn-light rounded-pill px-3 py-2 border-0 shadow-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown">
-                <i class="fa-solid fa-globe me-1"></i> {{ get_phrase(ucfirst(session('language') ?? get_settings('language'))) }}
+    <div class="action-area d-flex align-items-center gap-2">
+        @php
+            $__current_lang = strtolower(session('language') ?? get_settings('language'));
+            // Country code per language for flagcdn (renders proper flag on all OS, including Windows)
+            $__lang_country_map = [
+                'arabic' => 'sa', 'ar' => 'sa',
+                'english' => 'gb', 'en' => 'gb',
+                'french' => 'fr', 'fr' => 'fr',
+                'spanish' => 'es', 'es' => 'es',
+                'german' => 'de', 'de' => 'de',
+                'turkish' => 'tr', 'tr' => 'tr',
+                'italian' => 'it', 'it' => 'it',
+                'portuguese' => 'pt', 'pt' => 'pt',
+                'russian' => 'ru', 'ru' => 'ru',
+                'hindi' => 'in', 'hi' => 'in',
+                'chinese' => 'cn', 'zh' => 'cn',
+                'japanese' => 'jp', 'ja' => 'jp',
+            ];
+            $__current_cc = $__lang_country_map[$__current_lang] ?? 'un';
+        @endphp
+        <!-- Compact Language Switcher (flag image only) -->
+        <div class="dropdown d-none d-lg-block lang-switcher-compact">
+            <button class="lang-flag-btn" type="button" data-bs-toggle="dropdown" aria-label="{{ $is_arabic ? 'تغيير اللغة' : 'Change language' }}">
+                <img src="https://flagcdn.com/w40/{{ $__current_cc }}.png" srcset="https://flagcdn.com/w80/{{ $__current_cc }}.png 2x" alt="{{ ucfirst($__current_lang) }}" class="lang-flag-img">
             </button>
-            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2 mt-3 animate-fade-up" style="border-radius: 20px;">
-                @foreach (DB::table('languages')->get() as $language)
+            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2 mt-2 animate-fade-up" style="border-radius: 16px; min-width: 170px;">
+                @foreach ($__header_languages as $language)
+                    @php $__lk = strtolower($language->name); $__cc = $__lang_country_map[$__lk] ?? 'un'; @endphp
                     <li>
-                        <a class="dropdown-item rounded-3 {{ (session('language') ?? get_settings('language')) == $language->name ? 'active bg-vibrant-primary text-white' : '' }}"
+                        <a class="dropdown-item rounded-3 d-flex align-items-center gap-2 py-2 {{ $__current_lang == $__lk ? 'active' : '' }}"
                            href="{{ route('select.lng', ['language' => $language->name]) }}">
-                            {{ ucfirst($language->name) }}
+                            <img src="https://flagcdn.com/w40/{{ $__cc }}.png" alt="" style="width:22px;height:16px;border-radius:3px;object-fit:cover;flex-shrink:0;">
+                            <span class="fw-semibold">{{ ucfirst($language->name) }}</span>
                         </a>
                     </li>
                 @endforeach
@@ -134,7 +160,7 @@
                     <i class="fi-rr-globe"></i> {{ get_phrase('Choose Language') }}
                 </p>
                 <div class="d-flex flex-wrap gap-2">
-                    @foreach (DB::table('languages')->get() as $language)
+                    @foreach ($__header_languages as $language)
                         <a href="{{ route('select.lng', ['language' => $language->name]) }}" 
                            class="btn btn-sm rounded-pill px-4 py-2 fw-bold transition-all shadow-sm {{ (session('language') ?? get_settings('language')) == $language->name ? 'btn-primary border-0 text-white' : 'btn-light border text-dark hover-bg-light' }}">
                             {{ ucfirst($language->name) }}

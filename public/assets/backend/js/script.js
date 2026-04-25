@@ -87,7 +87,7 @@ $(document).ready(function () {
     });
 
 
-    // Sidebar Toggle 
+    // Sidebar Toggle
     const sideToggle = $(".menu-toggler");
     const sideMenu = $(".ol-sidebar");
     if (sideToggle.length) {
@@ -95,6 +95,22 @@ $(document).ready(function () {
             event.stopPropagation();
             sideMenu.toggleClass("hide");
             sideToggle.toggleClass("active");
+        });
+        // Close sidebar when clicking outside on mobile
+        $(document).on("click", function (event) {
+            if (window.innerWidth <= 991 && sideMenu.hasClass("hide")) {
+                if (!$(event.target).closest(".ol-sidebar, .menu-toggler").length) {
+                    sideMenu.removeClass("hide");
+                    sideToggle.removeClass("active");
+                }
+            }
+        });
+        // Close sidebar when navigating on mobile (after clicking a link)
+        sideMenu.on("click", "a[href]:not([href='#']):not([href^='javascript:'])", function () {
+            if (window.innerWidth <= 991) {
+                sideMenu.removeClass("hide");
+                sideToggle.removeClass("active");
+            }
         });
     }
 

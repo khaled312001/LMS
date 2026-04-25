@@ -24,13 +24,15 @@ Route::get('home/switch/{id}', [HomeController::class, 'homepage_switcher'])->na
 
 //Redirect route
 Route::get('/dashboard', function () {
-    if (auth()->user()->role == 'admin') {
+    $role = auth()->user()->role;
+    if ($role == 'admin') {
         return redirect(route('admin.dashboard'));
-    }elseif(auth()->user()->role == 'student'){
+    } elseif ($role == 'instructor') {
+        return redirect(route('instructor.dashboard'));
+    } elseif ($role == 'student') {
         return redirect(route('my.courses'));
-    } else {
-        return redirect(route('home'));
     }
+    return redirect(route('home'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 //Common modal route

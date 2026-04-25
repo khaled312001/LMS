@@ -2,12 +2,20 @@
 
 use Illuminate\Support\Facades\Facade;
 
-$http_status = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
-$http_hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '127.0.0.1';
-$script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
-$app_url = $http_status . "://" . $http_hostname . $script_name;
-$app_url = str_replace('/index.php', '', $app_url);
-$app_url = explode("/view/", $app_url)[0];
+// Prefer the configured APP_URL from .env (so config:cache works correctly under CLI).
+// Fall back to the request host only when APP_URL is not set AND we are in an HTTP context.
+$env_app_url = env('APP_URL');
+if (!empty($env_app_url)) {
+    $app_url = rtrim($env_app_url, '/');
+} elseif (isset($_SERVER['HTTP_HOST'])) {
+    $http_status = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+    $script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
+    $app_url = $http_status . "://" . $_SERVER['HTTP_HOST'] . $script_name;
+    $app_url = str_replace('/index.php', '', $app_url);
+    $app_url = explode("/view/", $app_url)[0];
+} else {
+    $app_url = 'http://localhost';
+}
 
 $asset_url = file_exists('public') ? $app_url . '/public' : $app_url;
 

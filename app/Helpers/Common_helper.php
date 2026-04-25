@@ -533,30 +533,30 @@ if (!function_exists('removeScripts')) {
 if (!function_exists('has_permission')) {
     function has_permission($route = '', $user_id = '')
     {
-        // GET THE LOGGEDIN IN ADMIN ID
         if (empty($user_id)) {
+            if (!auth()->check()) {
+                return false;
+            }
             $user_id = auth()->user()->id;
         }
 
         $root_admin_id = App\Models\User::firstOrNew()->id;
         if ($user_id == $root_admin_id) {
             return true;
-        } else {
-            $get_admin_permission = App\Models\Permission::where('admin_id', $user_id)->firstOrNew();
-            if ($get_admin_permission) {
-                $permissions = json_decode($get_admin_permission->permissions, true);
-                if (is_array($permissions)) {
-                    if (in_array($route, $permissions)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    echo '<span class="d-none">' . redirect('/') . '</span>';
-                    die;
-                }
+        }
+
+        $get_admin_permission = App\Models\Permission::where('admin_id', $user_id)->first();
+        if ($get_admin_permission) {
+            $permissions = json_decode($get_admin_permission->permissions, true);
+            if (is_array($permissions)) {
+                return in_array($route, $permissions);
             }
         }
+
+        // No permission row configured: admins with the 'admin' role get full access
+        // by default. Non-admin roles are denied.
+        $current_user = App\Models\User::find($user_id);
+        return $current_user && $current_user->role === 'admin';
     }
 }
 
@@ -568,7 +568,7 @@ if (!function_exists('get_image')) {
         }
 
         // If the value of URL is from an online URL
-        if (str_contains($url, 'http://') && str_contains($url, 'https://')) {
+        if (str_contains($url, 'http://') || str_contains($url, 'https://')) {
             return $url;
         }
 
@@ -646,17 +646,58 @@ if (!function_exists('get_all_language')) {
 if (!function_exists('get_phrase')) {
     function get_phrase($phrase = '', $value_replace = array())
     {
-        $active_lan    = session('language') ?? get_settings('language');
-        $active_lan_id = DB::table('languages')->where('name', 'like', $active_lan)->value('id');
-        $lan_phrase    = DB::table('language_phrases')->where('language_id', $active_lan_id)->where('phrase', $phrase)->first();
+        static $phrase_map = null;       // [phrase => translated] for active lang
+        static $english_phrase_set = null; // phrases that already exist in the english row
+        static $english_lan_id = null;
+        static $active_lan_id = null;
 
-        if ($lan_phrase) {
-            $translated = $lan_phrase->translated;
+        if ($phrase_map === null) {
+            try {
+                $active_lan = session('language') ?? get_settings('language');
+            } catch (\Throwable $e) {
+                $active_lan = 'english';
+            }
+            $cacheKey = 'phrases:map:' . strtolower($active_lan ?: 'english');
+            $data = \Illuminate\Support\Facades\Cache::remember($cacheKey, 600, function () use ($active_lan) {
+                $activeId = DB::table('languages')->where('name', 'like', $active_lan)->value('id');
+                $englishId = DB::table('languages')->where('name', 'like', 'english')->value('id');
+                $map = [];
+                if ($activeId) {
+                    $map = DB::table('language_phrases')
+                        ->where('language_id', $activeId)
+                        ->pluck('translated', 'phrase')
+                        ->toArray();
+                }
+                $englishSet = [];
+                if ($englishId) {
+                    $englishSet = DB::table('language_phrases')
+                        ->where('language_id', $englishId)
+                        ->pluck('phrase', 'phrase')
+                        ->toArray();
+                }
+                return [$activeId, $englishId, $map, $englishSet];
+            });
+            [$active_lan_id, $english_lan_id, $phrase_map, $english_phrase_set] = $data;
+        }
+
+        if (isset($phrase_map[$phrase])) {
+            $translated = $phrase_map[$phrase];
         } else {
-            $translated  = $phrase;
-            $english_lan = DB::table('languages')->where('name', 'like', 'english')->first();
-            if (DB::table('language_phrases')->where('language_id', $english_lan->id)->where('phrase', $phrase)->count() == 0) {
-                DB::table('language_phrases')->insert(['language_id' => $english_lan->id, 'phrase' => $phrase, 'translated' => $translated]);
+            $translated = $phrase;
+            // Only insert once per request to avoid bloating the write path.
+            if ($english_lan_id && !isset($english_phrase_set[$phrase])) {
+                try {
+                    DB::table('language_phrases')->insert([
+                        'language_id' => $english_lan_id,
+                        'phrase'      => $phrase,
+                        'translated'  => $translated,
+                    ]);
+                } catch (\Throwable $e) {
+                    // ignore race-condition duplicate inserts
+                }
+                $english_phrase_set[$phrase] = $phrase;
+                // Invalidate so the next request sees the new phrase.
+                \Illuminate\Support\Facades\Cache::forget('phrases:map:english');
             }
         }
 
@@ -664,7 +705,7 @@ if (!function_exists('get_phrase')) {
             $value_replace = array($value_replace);
         }
         foreach ($value_replace as $replace) {
-            $translated = preg_replace('/____/', $replace, $translated, 1); // Replace one placeholder at a time
+            $translated = preg_replace('/____/', $replace, $translated, 1);
         }
 
         return $translated;
@@ -830,18 +871,26 @@ if (!function_exists('random')) {
 if (!function_exists('get_settings')) {
     function get_settings($type = "", $return_type = false)
     {
-        $value = App\Models\Setting::where('type', $type)->first();
-        if ($value) {
-            if ($return_type === true) {
-                return json_decode($value->description, true);
-            } elseif ($return_type === "object") {
-                return json_decode($value->description);
-            } else {
-                return $value->description;
+        static $__settings_cache = null;
+        if ($__settings_cache === null) {
+            try {
+                $__settings_cache = \Illuminate\Support\Facades\Cache::remember('settings:all', 600, function () {
+                    return App\Models\Setting::pluck('description', 'type')->toArray();
+                });
+            } catch (\Throwable $e) {
+                $__settings_cache = App\Models\Setting::pluck('description', 'type')->toArray();
             }
-        } else {
+        }
+        if (!array_key_exists($type, $__settings_cache)) {
             return false;
         }
+        $description = $__settings_cache[$type];
+        if ($return_type === true) {
+            return json_decode($description, true);
+        } elseif ($return_type === "object") {
+            return json_decode($description);
+        }
+        return $description;
     }
 }
 

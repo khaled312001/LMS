@@ -240,5 +240,166 @@
     .messenger-search .form-control:focus{
         width: 200px;
     }
-    
+
+}
+
+/* ============================================================
+   GLOBAL ADMIN / INSTRUCTOR DASHBOARD MOBILE FIXES
+   Added to address audit findings (sidebar, forms, tables, tabs)
+   ============================================================ */
+
+/* Sidebar overlay backdrop on mobile when open */
+@media (max-width: 991.98px) {
+    .ol-sidebar.hide ~ .ol-sidebar-content::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.5);
+        z-index: 99;
+        cursor: pointer;
+        backdrop-filter: blur(2px);
+    }
+    .ol-sidebar {
+        z-index: 100;
+        height: 100vh;
+        overflow-y: auto;
+    }
+    .ol-sidebar.hide {
+        box-shadow: 0 0 50px rgba(0,0,0,0.25);
+    }
+    /* Header should always show the toggle button */
+    .ol-header .ol-sidebar-toggle,
+    .ol-header .sidebar-toggle-btn {
+        display: inline-flex !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    /* Stack form rows globally — col-sm-* labels go above their inputs */
+    .ol-form-row,
+    form .row > [class*="col-sm-"]:not(.col-12) {
+        margin-bottom: 8px;
+    }
+    .col-form-label.col-sm-2,
+    .col-form-label.col-sm-3,
+    .col-form-label.col-sm-4 {
+        margin-bottom: 4px;
+        text-align: start !important;
+    }
+
+    /* Course edit / bootcamp edit — stack the tab sidebar above content */
+    .ol-sidebar-tab {
+        max-width: 100% !important;
+        width: 100% !important;
+        position: static !important;
+        margin-bottom: 16px;
+    }
+    .ol-sidebar-tab .nav-pills {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px !important;
+        padding-bottom: 6px;
+        scrollbar-width: thin;
+    }
+    .ol-sidebar-tab .nav-pills::-webkit-scrollbar { height: 4px; }
+    .ol-sidebar-tab .nav-link {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        padding: 10px 16px !important;
+    }
+    .ol-sidebar-tab .nav-link .text { display: inline !important; }
+
+    /* Header: hide non-essential items on small screens */
+    .ol-header .header-view-site-link,
+    .ol-header .view-site-btn {
+        display: none !important;
+    }
+    .ol-header {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        column-gap: 8px !important;
+    }
+
+    /* Tables — wrap min-w-* utilities so they don't kill mobile */
+    .table-responsive [class*="min-w-"] {
+        min-width: auto !important;
+    }
+    .table.ol-table th,
+    .table.ol-table td {
+        padding: 12px 10px !important;
+        font-size: 13px;
+    }
+
+    /* Stat cards — single column on phones */
+    .row-cols-2.row-cols-md-3,
+    .row-cols-2.row-cols-md-4,
+    .row-cols-1.row-cols-sm-2.row-cols-md-4 {
+        --bs-gutter-x: 0.75rem;
+    }
+
+    /* Charts side-by-side -> stack */
+    .chart-sm-item,
+    .pie-chart-sm {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Notification dropdown shouldn't exceed viewport */
+    .header-dropdown-menu-lg-inner {
+        width: calc(100vw - 30px) !important;
+        max-width: 100% !important;
+    }
+
+    /* Modal sizing */
+    .modal-dialog {
+        margin: 0.5rem !important;
+        max-width: calc(100% - 1rem) !important;
+    }
+
+    /* Image preview in media tab */
+    .image_preview {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .row-cols-2.row-cols-md-3.row-cols-lg-4.row-cols-xl-5,
+    .row-cols-2.row-cols-md-4 {
+        /* Override to single column */
+    }
+    .row-cols-2.row-cols-md-3.row-cols-lg-4.row-cols-xl-5 > * {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    /* Eradio buttons stack on tiny screens */
+    .eRadios {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+    /* Action button rows in cards */
+    .card-action-buttons,
+    .d-flex.gap-2.action-row {
+        flex-wrap: wrap !important;
+    }
+    /* OG image preview shrink */
+    .og-image-preview img,
+    img[width="150px"] {
+        max-width: 100px !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .ol-header {
+        column-gap: 6px !important;
+    }
+    .table.ol-table th,
+    .table.ol-table td {
+        padding: 10px 8px !important;
+        font-size: 12px;
+    }
 }

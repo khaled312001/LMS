@@ -28,18 +28,26 @@ class HomeController extends Controller
 
     public function index()
     {
-        // Filter home-page blogs by current UI language (English/Arabic)
         $current_lang = strtolower(session('language') ?? get_settings('language'));
-        $blog_query   = Blog::where('status', 1);
-        if (in_array($current_lang, ['english', 'arabic'])) {
-            $blog_query->where('language', $current_lang);
-        }
-        $page_data['blogs']    = $blog_query->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get();
-        $page_data['reviews']  = Review::all();
-        $page_data['instructor'] = User::join('courses', 'users.id', 'courses.user_id')
-            ->select('users.*', 'courses.title as course_title')
-            ->get()->unique()->take(4);
-        $page_data['category'] = Category::take(8)->get();
+
+        $page_data = \Illuminate\Support\Facades\Cache::remember(
+            'home:index_payload:' . $current_lang,
+            600,
+            function () use ($current_lang) {
+                $blog_query = Blog::where('status', 1);
+                if (in_array($current_lang, ['english', 'arabic'])) {
+                    $blog_query->where('language', $current_lang);
+                }
+                return [
+                    'blogs'      => $blog_query->orderBy('is_popular', 'desc')->orderBy('id', 'desc')->take(3)->get(),
+                    'reviews'    => Review::orderBy('id', 'desc')->take(12)->get(),
+                    'instructor' => User::where('role', 'instructor')
+                        ->whereIn('id', \DB::table('courses')->select('user_id'))
+                        ->take(4)->get(),
+                    'category'   => Category::take(8)->get(),
+                ];
+            }
+        );
 
         return view('components.home_permanent_templates.professional_landing', $page_data);
     }

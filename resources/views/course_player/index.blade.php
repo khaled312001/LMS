@@ -65,15 +65,84 @@
     <!-- End Course Playing Header -->
 
     <!-- Start Course Playing Video and Playlist Area -->
+    <style>
+        .video-playlist-section {
+            background: #f8fafc;
+            padding: 24px 0 40px;
+            min-height: calc(100vh - 65px);
+        }
+        .video-playlist-section .my-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+        #player_content > .course-video-area,
+        #player_content > .sba-slide-frame-wrap {
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -24px rgba(15, 23, 42, 0.25);
+        }
+        /* Mobile player tweaks */
+        @media (max-width: 991.98px) {
+            .video-playlist-section { padding: 12px 0 24px; min-height: auto; }
+            .video-playlist-section .my-container { padding: 0 10px; }
+            #player_side_bar { margin-top: 20px; }
+            #player_content > .course-video-area,
+            #player_content > .sba-slide-frame-wrap {
+                border-radius: 12px;
+            }
+            /* Force 16:9 aspect for video / iframe wrappers */
+            .sba-slide-frame-wrap,
+            .course-video-area,
+            .course-video-area > iframe,
+            .course-video-area > video,
+            .sba-slide-frame-wrap > iframe {
+                height: auto !important;
+                min-height: 0 !important;
+                aspect-ratio: 16 / 9;
+                max-width: 100%;
+            }
+            iframe[height] {
+                height: auto !important;
+                aspect-ratio: 16 / 9;
+            }
+            /* Sidebar inner scroll: use natural flow on mobile so page scroll isn't trapped */
+            .sba-curr-body {
+                max-height: none !important;
+                overflow-y: visible !important;
+            }
+        }
+        /* Mobile floating "Lessons" toggle button */
+        .player-mobile-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 18px;
+            inset-inline-end: 18px;
+            z-index: 1040;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            padding: 12px 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 28px rgba(99, 102, 241, 0.45);
+            gap: 8px;
+            align-items: center;
+        }
+        @media (max-width: 991.98px) {
+            .player-mobile-sidebar-toggle { display: inline-flex; }
+        }
+    </style>
     <section class="video-playlist-section">
         <div class="my-container">
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-lg-8" id="player_content">
                     @if(in_array($lesson_details->id, get_locked_lesson_ids($course_details->id, auth()->user()->id)) && $course_details->enable_drip_content)
                         @php
                            $drip_content_settings =  json_decode($course_details->drip_content_settings);
                         @endphp
-                        <div class="py-5 my-5">
+                        <div class="py-5 my-5 text-center">
                             {!! remove_js(htmlspecialchars_decode($drip_content_settings->locked_lesson_message ?? "")) !!}
                         </div>
                     @else
