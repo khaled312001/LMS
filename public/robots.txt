@@ -1,2 +1,19 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /instructor
+Disallow: /instructor/*
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /my-courses
+Disallow: /cart
+Disallow: /checkout
+Disallow: /payment
+Disallow: /payment/*
+Disallow: /install/*
+Disallow: /modal/*
+Disallow: /clear-cache
+Allow: /
+
+Sitemap: https://swissbridgeacademy.com/sitemap.xml

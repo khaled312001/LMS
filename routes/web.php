@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\ModalController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,10 @@ Route::get('/clear-cache', function () {
 
     return 'Application cache cleared';
 });
+
+//SEO: sitemap & robots
+Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 Route::get('home/switch/{id}', [HomeController::class, 'homepage_switcher'])->name('home.switch');
 

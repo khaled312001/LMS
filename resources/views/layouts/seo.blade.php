@@ -48,7 +48,54 @@
     $meta_keywords = !empty($seo_field['mets_keywords']) ? $seo_field['mets_keywords'] : $site_keywords;
 @endphp
 
-<title>@stack('title') | {{ $meta_title }}</title>
+@php
+    // Build a meaningful per-page title (most views never push a 'title' stack)
+    $page_title = trim(strip_tags($__env->yieldPushContent('title')));
+
+    if (empty($page_title)) {
+        if (isset($course_details) && !empty($course_details->title)) {
+            $page_title = $course_details->title;
+        } elseif (isset($blog_details) && !empty($blog_details->title)) {
+            $page_title = $blog_details->title;
+        } elseif (isset($bootcamp_details) && !empty($bootcamp_details->title)) {
+            $page_title = $bootcamp_details->title;
+        } elseif (!empty($seo_field['meta_title']) && stripos($seo_field['meta_title'], 'Example Domain') === false && $seo_field['meta_title'] != $site_name) {
+            $page_title = $seo_field['meta_title'];
+        } else {
+            $route_phrases = [
+                'courses'                => 'Courses',
+                'blogs'                  => 'Blogs',
+                'about.us'               => 'About Us',
+                'contact.us'             => 'Contact Us',
+                'instructors'            => 'Instructors',
+                'instructor.details'     => 'Instructor Details',
+                'bootcamps'              => 'Bootcamps',
+                'team.packages'          => 'Team Packages',
+                'tutor_list'             => 'Tutors',
+                'login'                  => 'Log In',
+                'register'               => 'Sign Up',
+                'compare'                => 'Compare Courses',
+                'knowledge.base.topicks' => 'Knowledge Base',
+            ];
+            $path_phrases = [
+                'faq'                 => 'FAQ',
+                'privacy-policy'      => 'Privacy Policy',
+                'refund-policy'       => 'Refund Policy',
+                'terms-and-condition' => 'Terms And Condition',
+                'cookie-policy'       => 'Cookie Policy',
+            ];
+            if (isset($route_phrases[$current_route])) {
+                $page_title = get_phrase($route_phrases[$current_route]);
+            } elseif (isset($path_phrases[request()->path()])) {
+                $page_title = get_phrase($path_phrases[request()->path()]);
+            }
+        }
+    }
+
+    $full_title = !empty($page_title) ? $page_title . ' | ' . $site_name : $meta_title;
+@endphp
+
+<title>{{ $full_title }}</title>
 <meta name="keywords" content="{{ $meta_keywords }}">
 <meta name="description" content="{{ $meta_description }}">
 <meta name="robots" content="{{ $seo_field['meta_robot'] ?? 'index, follow' }}">
@@ -68,6 +115,65 @@
 
 @if (!empty($seo_field['json_ld']) && stripos($seo_field['json_ld'], 'example.com') === false && stripos($seo_field['json_ld'], 'example.org') === false)
 <script type="application/ld+json">{!! $seo_field['json_ld'] !!}</script>
+@else
+    {{-- Auto-generated structured data when no custom JSON-LD is set --}}
+    @if (isset($course_details) && !empty($course_details->id))
+        <script type="application/ld+json">{!! json_encode([
+            '@context'    => 'https://schema.org',
+            '@type'       => 'Course',
+            'name'        => $course_details->title,
+            'description' => \Illuminate\Support\Str::limit(strip_tags($course_details->short_description ?? $course_details->description ?? ''), 500),
+            'url'         => url()->current(),
+            'image'       => get_image($course_details->thumbnail),
+            'inLanguage'  => strtolower($course_details->language ?? '') == 'arabic' ? 'ar' : 'en',
+            'provider'    => [
+                '@type' => 'EducationalOrganization',
+                'name'  => $site_name,
+                'url'   => url('/'),
+            ],
+            'offers'      => [
+                '@type'         => 'Offer',
+                'category'      => $course_details->is_paid ? 'Paid' : 'Free',
+                'price'         => $course_details->is_paid ? (string) ($course_details->discount_flag ? $course_details->discounted_price : $course_details->price) : '0',
+                'priceCurrency' => get_settings('system_currency') ?: 'USD',
+                'availability'  => 'https://schema.org/InStock',
+                'url'           => url()->current(),
+            ],
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    @elseif (isset($blog_details) && !empty($blog_details->id))
+        <script type="application/ld+json">{!! json_encode([
+            '@context'         => 'https://schema.org',
+            '@type'            => 'Article',
+            'headline'         => $blog_details->title,
+            'description'      => \Illuminate\Support\Str::limit(strip_tags($blog_details->description ?? ''), 300),
+            'image'            => !empty($blog_details->thumbnail) ? get_image($blog_details->thumbnail) : asset(get_frontend_settings('dark_logo')),
+            'datePublished'    => !empty($blog_details->created_at) ? date('c', strtotime($blog_details->created_at)) : null,
+            'dateModified'     => !empty($blog_details->updated_at) ? date('c', strtotime($blog_details->updated_at)) : null,
+            'mainEntityOfPage' => url()->current(),
+            'inLanguage'       => strtolower($blog_details->language ?? 'arabic') == 'arabic' ? 'ar' : 'en',
+            'author'           => ['@type' => 'Organization', 'name' => $site_name],
+            'publisher'        => [
+                '@type' => 'Organization',
+                'name'  => $site_name,
+                'logo'  => ['@type' => 'ImageObject', 'url' => asset(get_frontend_settings('dark_logo'))],
+            ],
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    @elseif ($current_route == 'home')
+        <script type="application/ld+json">{!! json_encode([
+            '@context'    => 'https://schema.org',
+            '@type'       => 'EducationalOrganization',
+            'name'        => $site_name,
+            'url'         => url('/'),
+            'logo'        => asset(get_frontend_settings('dark_logo')),
+            'description' => $site_description,
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+        <script type="application/ld+json">{!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type'    => 'WebSite',
+            'name'     => $site_name,
+            'url'      => url('/'),
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    @endif
 @endif
 
 @php
@@ -93,8 +199,7 @@
 
     // Use fallbacks if still empty
     if (empty($og_title)) {
-        $page_title = trim($__env->yieldPushContent('title'));
-        $og_title = $page_title ? $page_title . ' | ' . $meta_title : $meta_title;
+        $og_title = $full_title;
     }
     if (empty($og_description)) {
         $og_description = $meta_description;
@@ -116,6 +221,11 @@
 <meta property="og:title" content="{{ $og_title }}" />
 <meta property="og:description" content="{{ $og_description }}" />
 <meta property="og:site_name" content="{{ $site_name }}" />
+@php
+    $active_language = strtolower(session('language') ?? get_settings('language') ?? 'arabic');
+    $og_locale = $active_language == 'arabic' ? 'ar_AR' : 'en_US';
+@endphp
+<meta property="og:locale" content="{{ $og_locale }}" />
 <meta property="og:image" content="{{ $og_image }}" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
