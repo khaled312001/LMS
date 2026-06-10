@@ -68,18 +68,33 @@
         padding: 28px;
     }
 
-    @media (max-width: 640px) {
-        .sba-tabs-body { padding: 16px; }
+    @media (max-width: 991.98px) {
+        .sba-tabs { margin-top: 16px; border-radius: 14px; }
+        .sba-tabs-nav {
+            gap: 6px;
+            padding: 8px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
         .sba-tabs-nav .nav-link {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
             padding: 10px 14px;
-            font-size: 0.85rem;
+            font-size: 0.86rem;
+            border-radius: 100px;
         }
+    }
+    @media (max-width: 640px) {
+        .sba-tabs-body { padding: 14px; }
+        .sba-tabs-nav .nav-link i { font-size: 1rem; }
         .sba-tabs-nav .nav-link span {
-            display: none;
+            font-size: 0.82rem;
         }
-        .sba-tabs-nav .nav-link.active span {
-            display: inline;
-        }
+    }
+    @media (max-width: 380px) {
+        /* On the very smallest screens, show only icons for non-active tabs to save space */
+        .sba-tabs-nav .nav-link:not(.active) span { display: none; }
+        .sba-tabs-nav .nav-link { padding: 9px 12px; }
     }
 </style>
 

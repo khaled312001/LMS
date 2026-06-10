@@ -141,8 +141,26 @@ if (!function_exists('localize_courses')) {
     function localize_courses($courses)
     {
         if (!$courses) return $courses;
+        $current = strtolower(session('language') ?? get_settings('language') ?? 'english');
+        $seen = [];
         $out = [];
         foreach ($courses as $course) {
+            // For paired courses (e.g. 25 EN ↔ 26 AR), only keep the one whose
+            // language matches the active site language. Skip the other side.
+            if (!empty($course->pair_id)) {
+                $courseLang = strtolower($course->language ?? '');
+                if ($courseLang !== $current) {
+                    // This is the wrong-language side — its pair is the right side.
+                    // If we've already seen the pair, skip; otherwise mark and add the localized version.
+                    $pairKey = min((int) $course->id, (int) $course->pair_id) . '-' . max((int) $course->id, (int) $course->pair_id);
+                    if (isset($seen[$pairKey])) continue;
+                    $seen[$pairKey] = true;
+                } else {
+                    $pairKey = min((int) $course->id, (int) $course->pair_id) . '-' . max((int) $course->id, (int) $course->pair_id);
+                    if (isset($seen[$pairKey])) continue;
+                    $seen[$pairKey] = true;
+                }
+            }
             $out[] = localize_course($course);
         }
         if ($courses instanceof \Illuminate\Support\Collection) {
@@ -163,8 +181,45 @@ if (!function_exists('course_title')) {
     {
         if (!$course) return '';
         $current = strtolower(session('language') ?? get_settings('language') ?? 'english');
-        if ($current === 'arabic' && !empty($course->title_ar)) {
-            return $course->title_ar;
+        $courseLang = strtolower($course->language ?? '');
+
+        // Site=Arabic
+        if ($current === 'arabic') {
+            // The course already is Arabic — use the original title.
+            if ($courseLang === 'arabic') {
+                return (string) ($course->title ?? '');
+            }
+            // English course with an inline Arabic translation
+            if (!empty($course->title_ar)) {
+                return $course->title_ar;
+            }
+            // Try the paired Arabic course
+            if (!empty($course->pair_id)) {
+                static $pairCache1 = [];
+                if (!isset($pairCache1[$course->pair_id])) {
+                    $pairCache1[$course->pair_id] = DB::table('courses')->where('id', $course->pair_id)->first();
+                }
+                $pair = $pairCache1[$course->pair_id];
+                if ($pair && strtolower($pair->language ?? '') === 'arabic' && !empty($pair->title)) {
+                    return $pair->title;
+                }
+            }
+            return (string) ($course->title ?? '');
+        }
+
+        // Site=English (or any non-Arabic)
+        if ($courseLang === 'arabic') {
+            // Try to find the paired English course's title
+            if (!empty($course->pair_id)) {
+                static $pairCache2 = [];
+                if (!isset($pairCache2[$course->pair_id])) {
+                    $pairCache2[$course->pair_id] = DB::table('courses')->where('id', $course->pair_id)->first();
+                }
+                $pair = $pairCache2[$course->pair_id];
+                if ($pair && strtolower($pair->language ?? '') !== 'arabic' && !empty($pair->title)) {
+                    return $pair->title;
+                }
+            }
         }
         return (string) ($course->title ?? '');
     }

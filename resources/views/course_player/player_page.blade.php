@@ -25,12 +25,13 @@
 
         @if ($sba_slides_url)
             {{-- Premium slide viewer: loads the self-contained slide HTML in an iframe.
-                 Each slide keeps its original 1280x720 design, and the iframe has its
-                 own prev/next arrows, dots, keyboard & swipe navigation. --}}
-            <div class="sba-slide-frame-wrap">
+                 On mobile, the iframe takes the full viewport height minus the header
+                 so the slide content has real space to breathe (no fixed aspect ratio). --}}
+            <div class="sba-slide-frame-wrap" id="sbaSlideFrameWrap">
                 <iframe
                     src="{{ $sba_slides_url }}{{ $sba_is_arabic ? '?rtl=1' : '' }}"
                     class="sba-slide-frame"
+                    id="sbaSlideFrame"
                     title="{{ $sba_lesson_title }}"
                     loading="lazy"
                     allow="fullscreen"
@@ -60,22 +61,68 @@
                     display: block;
                 }
 
-                @media (max-width: 992px) {
+                /* === MOBILE: Pixel-precise height set by JS (no css height needed) ===
+                   The wrapper is full-bleed (edge to edge) and its height is set
+                   inline by syncHeight() based on real viewport measurements. */
+                @media (max-width: 991.98px) {
                     .sba-slide-frame-wrap {
-                        height: auto !important;
+                        position: relative;
+                        width: 100vw;
+                        margin-left: calc(50% - 50vw);
+                        margin-right: calc(50% - 50vw);
                         min-height: 0 !important;
-                        aspect-ratio: 16 / 11;
-                        max-width: 100%;
-                    }
-                }
-                @media (max-width: 480px) {
-                    .sba-slide-frame-wrap {
-                        aspect-ratio: 4 / 3;
+                        max-height: none !important;
+                        border-radius: 0 !important;
+                        border: none !important;
+                        box-shadow: none !important;
+                        aspect-ratio: auto !important;
+                        /* Fallback in case JS hasn't run yet — large enough to be usable */
+                        height: 80vh;
                     }
                 }
             </style>
+
+            <script>
+            (function () {
+                /* Set the iframe height to exactly fill the visible viewport below
+                   the sticky header. Uses pixel values measured from the actual
+                   DOM, not viewport units — this is the only approach that works
+                   reliably on iOS Safari, Chrome Android, and Samsung Internet. */
+                var wrap = document.getElementById('sbaSlideFrameWrap');
+                if (!wrap) return;
+                function isMobile() { return window.matchMedia('(max-width: 991.98px)').matches; }
+                function syncHeight() {
+                    if (!isMobile()) {
+                        wrap.style.height = '';
+                        wrap.style.width = '';
+                        wrap.style.marginLeft = '';
+                        wrap.style.marginRight = '';
+                        return;
+                    }
+                    var header = document.querySelector('.playing-header-section') || document.querySelector('.sba-player-header');
+                    var hH = header ? Math.ceil(header.getBoundingClientRect().height) : 60;
+                    var vH = (window.visualViewport && window.visualViewport.height) || window.innerHeight || document.documentElement.clientHeight;
+                    var target = Math.max(440, vH - hH);
+                    wrap.style.height = target + 'px';
+                }
+                // Run multiple times — once now, after fonts load, after iframe loads,
+                // and on every viewport change. Belt and suspenders.
+                syncHeight();
+                requestAnimationFrame(syncHeight);
+                setTimeout(syncHeight, 100);
+                setTimeout(syncHeight, 500);
+                window.addEventListener('load', syncHeight);
+                window.addEventListener('resize', syncHeight, { passive: true });
+                window.addEventListener('orientationchange', function () { setTimeout(syncHeight, 200); });
+                if (window.visualViewport) {
+                    window.visualViewport.addEventListener('resize', syncHeight);
+                }
+                var f = document.getElementById('sbaSlideFrame');
+                if (f) f.addEventListener('load', function () { setTimeout(syncHeight, 50); });
+            })();
+            </script>
         @elseif ($sba_is_carousel)
-            <div class="course-video-area border-0">
+            <div class="course-video-area has-deck border-0">
                 <div class="sba-slides-deck" id="sbaSlidesDeck" dir="{{ $sba_is_arabic ? 'rtl' : 'ltr' }}">
                     <div class="sba-slides-toolbar">
                         <div class="sba-slides-title">
@@ -345,78 +392,173 @@
                     background: rgba(255, 255, 255, 0.45);
                 }
 
-                @media (max-width: 768px) {
-                    .sba-slides-deck { border-radius: 18px; }
-                    .sba-slides-toolbar { padding: 10px 14px; gap: 8px; }
-                    .sba-slides-title { font-size: 0.82rem; }
+                /* === MOBILE: tall slide deck inside the normal flow ===
+                   Stays inside the column (no full-bleed tricks), but takes
+                   most of the viewport height so each slide has real space.
+                   The JS at the end fine-tunes the exact height. */
+                @media (max-width: 991.98px) {
+                    .sba-slides-deck {
+                        width: 100% !important;
+                        margin: 0 0 14px !important;
+                        border-radius: 14px !important;
+                        border: 1px solid rgba(255,255,255,0.08) !important;
+                        box-shadow: 0 14px 30px -16px rgba(15, 23, 42, 0.45) !important;
+                        /* Use min-height (NOT height) so the deck is always visible
+                           regardless of JS state. JS will set explicit pixel height. */
+                        min-height: 78vh !important;
+                        max-height: none !important;
+                        height: auto !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        overflow: hidden;
+                    }
+                    .sba-slides-toolbar {
+                        padding: 8px 14px;
+                        gap: 8px;
+                        flex-shrink: 0;
+                    }
+                    .sba-slides-title { font-size: 0.78rem; }
                     .sba-slides-title span { display: none; }
-                    .sba-slides-indicator { padding: 4px 12px; font-size: 0.82rem; }
-                    .sba-slides-action { width: 32px; height: 32px; }
+                    .sba-slides-indicator { padding: 3px 11px; font-size: 0.78rem; }
+                    .sba-slides-action { width: 30px; height: 30px; }
 
+                    /* Stage grows to fill the remaining space */
                     .sba-slides-stage {
-                        padding: 12px 8px;
-                    }
-
-                    /* Smaller, lower-positioned navigation buttons that don't eat slide width */
-                    .sba-slides-nav {
-                        width: 40px;
-                        height: 40px;
-                        font-size: 1.2rem;
-                        border-width: 1.5px;
-                    }
-                    .sba-slides-prev { inset-inline-start: 4px; }
-                    .sba-slides-next { inset-inline-end: 4px; }
-
-                    .sba-slides-viewport,
-                    .sba-slides-viewport > section {
-                        min-height: 320px !important;
+                        flex: 1 1 auto;
+                        padding: 10px 8px;
+                        display: flex;
+                        align-items: stretch;
+                        min-height: 0;
+                        position: relative;
                     }
                     .sba-slides-viewport {
+                        flex: 1;
+                        min-height: 0;
                         padding: 0 4px;
+                        overflow-y: auto;
+                        -webkit-overflow-scrolling: touch;
+                        height: 100%;
                     }
-                    /* Make slide content adapt: smaller paddings/fonts inside */
+                    .sba-slides-viewport > section,
+                    .sba-slides-viewport section[data-sba-slide] {
+                        min-height: 100% !important;
+                        height: auto !important;
+                    }
+
+                    /* Nav arrows: smaller, positioned at bottom corners NOT center
+                       (avoids overlap with header back button & gives slide the width). */
+                    .sba-slides-nav {
+                        position: absolute;
+                        top: auto !important;
+                        bottom: 6px;
+                        transform: none !important;
+                        width: 42px;
+                        height: 42px;
+                        font-size: 1.1rem;
+                        border-width: 1.5px;
+                        z-index: 10;
+                    }
+                    .sba-slides-nav:hover {
+                        transform: scale(1.06) !important;
+                    }
+                    .sba-slides-prev { inset-inline-start: 8px; }
+                    .sba-slides-next { inset-inline-end: 8px; }
+
+                    /* Slide content responsive */
                     .sba-slides-viewport > section,
                     .sba-slides-viewport section * {
                         max-width: 100% !important;
                     }
-                    .sba-slides-viewport section h1 { font-size: 1.4rem !important; line-height: 1.35 !important; }
-                    .sba-slides-viewport section h2 { font-size: 1.15rem !important; line-height: 1.4 !important; }
-                    .sba-slides-viewport section h3 { font-size: 1.02rem !important; line-height: 1.4 !important; }
+                    .sba-slides-viewport section h1 { font-size: 1.5rem !important; line-height: 1.3 !important; }
+                    .sba-slides-viewport section h2 { font-size: 1.2rem !important; line-height: 1.35 !important; }
+                    .sba-slides-viewport section h3 { font-size: 1.05rem !important; line-height: 1.4 !important; }
                     .sba-slides-viewport section p,
                     .sba-slides-viewport section li,
                     .sba-slides-viewport section span:not([class*="badge"]) {
-                        font-size: 0.92rem !important;
-                        line-height: 1.55 !important;
+                        font-size: 0.94rem !important;
+                        line-height: 1.6 !important;
                     }
                     .sba-slides-viewport section img,
                     .sba-slides-viewport section svg {
                         max-width: 100% !important;
                         height: auto !important;
                     }
+                    /* Compress overly-padded slide sections */
+                    .sba-slides-viewport section[style*="padding:72px"],
+                    .sba-slides-viewport section[style*="padding: 72px"] {
+                        padding: 32px 18px !important;
+                    }
+                    .sba-slides-viewport section[style*="padding:48px"],
+                    .sba-slides-viewport section[style*="padding: 48px"] {
+                        padding: 24px 14px !important;
+                    }
+                    .sba-slides-viewport section[style*="min-height:560px"],
+                    .sba-slides-viewport section[style*="min-height: 560px"],
+                    .sba-slides-viewport section[style*="min-height:400px"],
+                    .sba-slides-viewport section[style*="min-height: 400px"] {
+                        min-height: auto !important;
+                    }
 
-                    .sba-slides-footer { padding: 10px 12px 14px; }
-                    .sba-slides-dots button { width: 8px; height: 8px; }
+                    .sba-slides-footer {
+                        padding: 8px 12px 12px;
+                        flex-shrink: 0;
+                    }
+                    .sba-slides-dots button { width: 7px; height: 7px; }
+                    .sba-slides-progress { margin-bottom: 8px; }
                 }
 
                 @media (max-width: 480px) {
-                    .sba-slides-viewport,
-                    .sba-slides-viewport > section {
-                        min-height: 260px !important;
+                    .sba-slides-deck { height: calc(100dvh - 60px); }
+                    @supports not (height: 100dvh) {
+                        .sba-slides-deck { height: calc(100vh - 60px); }
                     }
                     .sba-slides-nav {
-                        width: 36px;
-                        height: 36px;
-                        font-size: 1.05rem;
+                        width: 38px;
+                        height: 38px;
+                        font-size: 1rem;
                     }
-                    .sba-slides-stage { padding: 10px 4px; }
-                    .sba-slides-indicator #sbaSlideCurrent,
-                    .sba-slides-indicator #sbaSlideTotal { font-size: 0.85rem; }
-                    .sba-slides-viewport section h1 { font-size: 1.2rem !important; }
-                    .sba-slides-viewport section h2 { font-size: 1.05rem !important; }
+                    .sba-slides-stage { padding: 8px 4px; }
+                    .sba-slides-viewport section h1 { font-size: 1.3rem !important; }
+                    .sba-slides-viewport section h2 { font-size: 1.1rem !important; }
+                    .sba-slides-viewport section[style*="padding:72px"],
+                    .sba-slides-viewport section[style*="padding: 72px"] {
+                        padding: 24px 14px !important;
+                    }
                 }
             </style>
 
             <script>
+                /* === Mobile deck height syncer ===
+                   Same pattern as the iframe viewer above: measure the real
+                   header height in pixels, then set the deck's height inline.
+                   This is the only thing that works reliably across iOS / Android. */
+                (function () {
+                    var deck = document.getElementById('sbaSlidesDeck');
+                    if (!deck) return;
+                    function isMobile() { return window.matchMedia('(max-width: 991.98px)').matches; }
+                    function syncDeckHeight() {
+                        if (!isMobile()) {
+                            deck.style.height = '';
+                            return;
+                        }
+                        var header = document.querySelector('.playing-header-section') || document.querySelector('.sba-player-header');
+                        var hH = header ? Math.ceil(header.getBoundingClientRect().height) : 60;
+                        var vH = (window.visualViewport && window.visualViewport.height) || window.innerHeight || document.documentElement.clientHeight;
+                        var target = Math.max(440, vH - hH);
+                        deck.style.height = target + 'px';
+                    }
+                    syncDeckHeight();
+                    requestAnimationFrame(syncDeckHeight);
+                    setTimeout(syncDeckHeight, 100);
+                    setTimeout(syncDeckHeight, 500);
+                    window.addEventListener('load', syncDeckHeight);
+                    window.addEventListener('resize', syncDeckHeight, { passive: true });
+                    window.addEventListener('orientationchange', function () { setTimeout(syncDeckHeight, 200); });
+                    if (window.visualViewport) {
+                        window.visualViewport.addEventListener('resize', syncDeckHeight);
+                    }
+                })();
+
                 (function() {
                     'use strict';
 

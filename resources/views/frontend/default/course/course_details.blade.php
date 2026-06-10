@@ -89,13 +89,21 @@
         background: #f8fafc !important;
     }
 
-    /* ===== Modern Animated Hero ===== */
+    /* ===== Modern Animated Hero =====
+       Note: padding-top is generous so the fixed glass header never overlaps
+       the breadcrumb / tag in either language. */
     .sba-course-header {
         background: linear-gradient(135deg, #0b1228 0%, #1a1340 50%, #2a1257 100%);
-        padding: 100px 0 70px;
+        padding: 170px 0 90px;
         position: relative;
         overflow: hidden;
         isolation: isolate;
+    }
+    @media (max-width: 991.98px) {
+        .sba-course-header { padding: 130px 0 70px; }
+    }
+    @media (max-width: 575.98px) {
+        .sba-course-header { padding: 110px 0 60px; }
     }
     .sba-course-header h1 {
         font-size: 1.55rem;
@@ -115,7 +123,8 @@
     }
     .sba-course-header .breadcrumb {
         font-size: 0.85rem;
-        margin-bottom: 1.25rem !important;
+        margin-top: 0.25rem;
+        margin-bottom: 1.5rem !important;
         animation: sbaFadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
     .sba-course-header .breadcrumb-item a {
@@ -229,13 +238,15 @@
         animation: sbaFloat 12s ease-in-out infinite 2s;
     }
 
-    /* Floating decorative icons (right side) */
+    /* Floating decorative icons — sit on the side opposite to the text content
+       (RTL: text is on the right, icons on the left; LTR: vice-versa).
+       Logical properties (inset-inline-end) handle direction automatically. */
     .sba-hero-deco {
         position: absolute;
-        right: 0;
+        inset-inline-end: 0;
         top: 0;
         bottom: 0;
-        width: 45%;
+        width: 42%;
         z-index: 1;
         pointer-events: none;
         display: none;
@@ -258,33 +269,38 @@
         box-shadow: 0 12px 35px rgba(0,0,0,0.25);
     }
     .sba-deco-1 {
-        top: 12%; right: 18%;
+        top: 12%;
+        inset-inline-end: 18%;
         background: linear-gradient(135deg, #6366f1, #4338ca);
         animation: sbaFloatY 6s ease-in-out infinite;
     }
     .sba-deco-2 {
-        top: 55%; right: 8%;
+        top: 55%;
+        inset-inline-end: 8%;
         background: linear-gradient(135deg, #a855f7, #7e22ce);
         animation: sbaFloatY 7s ease-in-out infinite 0.8s;
         width: 56px; height: 56px;
         font-size: 1.25rem;
     }
     .sba-deco-3 {
-        top: 30%; right: 42%;
+        top: 30%;
+        inset-inline-end: 42%;
         background: linear-gradient(135deg, #ec4899, #be185d);
         animation: sbaFloatY 8s ease-in-out infinite 1.5s;
         width: 50px; height: 50px;
         font-size: 1.1rem;
     }
     .sba-deco-4 {
-        top: 72%; right: 35%;
+        top: 72%;
+        inset-inline-end: 35%;
         background: linear-gradient(135deg, #06b6d4, #0e7490);
         animation: sbaFloatY 9s ease-in-out infinite 0.4s;
         width: 58px; height: 58px;
         font-size: 1.3rem;
     }
     .sba-deco-5 {
-        top: 18%; right: 50%;
+        top: 18%;
+        inset-inline-end: 50%;
         background: linear-gradient(135deg, #f59e0b, #b45309);
         animation: sbaFloatY 7.5s ease-in-out infinite 1.2s;
         width: 46px; height: 46px;
