@@ -92,6 +92,11 @@
         }
     }
 
+    // Avoid "Site Name | Site Name" when a view pushes the site name as its title
+    if (!empty($page_title) && strcasecmp(trim($page_title), trim($site_name)) === 0) {
+        $page_title = '';
+    }
+
     $full_title = !empty($page_title) ? $page_title . ' | ' . $site_name : $meta_title;
 @endphp
 

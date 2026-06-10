@@ -1,37 +1,7 @@
 @extends('layouts.landing')
 
-@push('title', 'Swiss Bridge Academy')
-
-@push('meta')
-@php
-    $sba_is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
-    $sba_og_title  = $sba_is_arabic
-        ? 'Swiss Bridge Academy | منصة تعليمية متخصصة'
-        : 'Swiss Bridge Academy | Professional Learning Platform';
-    $sba_og_desc   = $sba_is_arabic
-        ? 'تعلم البرمجة والتصميم والتسويق مع خبراء بإدارة سويسرية. دورات احترافية بمزيج عربي-إنجليزي تفتح لك أبواب سوق العمل.'
-        : 'Learn programming, design & marketing with expert instructors. Professional courses in Arabic & English. Swiss management quality.';
-    $sba_og_image  = asset(get_frontend_settings('dark_logo'));
-    $sba_url       = url('/');
-@endphp
-<title>{{ $sba_og_title }}</title>
-<meta name="description" content="{{ $sba_og_desc }}">
-<meta name="keywords" content="Swiss Bridge Academy, برمجة, تصميم, تسويق, تطوير ويب, كورسات, دورات, سويسرا, programming, design, marketing">
-<meta property="og:type"        content="website" />
-<meta property="og:url"         content="{{ $sba_url }}" />
-<meta property="og:site_name"   content="Swiss Bridge Academy" />
-<meta property="og:title"       content="{{ $sba_og_title }}" />
-<meta property="og:description" content="{{ $sba_og_desc }}" />
-<meta property="og:image"       content="{{ $sba_og_image }}" />
-<meta property="og:image:width"  content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="twitter:card"        content="summary_large_image" />
-<meta name="twitter:url"         content="{{ $sba_url }}" />
-<meta name="twitter:title"       content="{{ $sba_og_title }}" />
-<meta name="twitter:description" content="{{ $sba_og_desc }}" />
-<meta name="twitter:image"       content="{{ $sba_og_image }}" />
-<link rel="canonical" href="{{ $sba_url }}" />
-@endpush
+{{-- Title tagline only; layouts/seo.blade.php appends the site name and emits all meta/OG tags --}}
+@push('title'){{ strtolower(session('language') ?? get_settings('language')) == 'arabic' ? 'منصة تعليمية متخصصة' : 'Professional Learning Platform' }}@endpush
 
 @php
     $is_arabic = strtolower(session('language') ?? get_settings('language')) == 'arabic';
