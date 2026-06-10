@@ -44,22 +44,38 @@
     $site_description = get_settings('website_description') ?: 'مرحبًا بكم في منصتنا التعليمية الرائدة التي تتيح لكم تعلم البرمجة, التصميم, التسويق بمزيج من العربية والإنجليزية تديرها إدارة سويسرية.';
     $site_keywords = get_settings('website_keywords') ?: 'تعليم, كورس, دورة, تطوير ويب, تصميم, تسويق إلكتروني, سويسرا, Swiss Bridge Academy';
     $meta_title = !empty($seo_field['meta_title']) && stripos($seo_field['meta_title'], 'Example Domain') === false ? $seo_field['meta_title'] : $site_name;
-    $meta_description = !empty($seo_field['meta_description']) ? $seo_field['meta_description'] : $site_description;
+
+    // Per-page description: admin-defined first, then content-derived, then site default
+    if (!empty($seo_field['meta_description'])) {
+        $meta_description = $seo_field['meta_description'];
+    } elseif (isset($course_details) && !empty(strip_tags($course_details->short_description ?? $course_details->description ?? ''))) {
+        $meta_description = \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($course_details->short_description ?? $course_details->description))), 160);
+    } elseif (isset($blog_details) && !empty(strip_tags($blog_details->description ?? ''))) {
+        $meta_description = \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($blog_details->description))), 160);
+    } elseif (isset($bootcamp_details) && !empty(strip_tags($bootcamp_details->short_description ?? $bootcamp_details->description ?? ''))) {
+        $meta_description = \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($bootcamp_details->short_description ?? $bootcamp_details->description))), 160);
+    } else {
+        $meta_description = $site_description;
+    }
+
     $meta_keywords = !empty($seo_field['mets_keywords']) ? $seo_field['mets_keywords'] : $site_keywords;
 @endphp
 
 @php
-    // Build a meaningful per-page title (most views never push a 'title' stack)
-    $page_title = trim(strip_tags($__env->yieldPushContent('title')));
+    // Build a meaningful per-page title: real content titles beat generic pushed
+    // titles like "Course Details", which beat the route-based fallbacks
+    if (isset($course_details) && !empty($course_details->title)) {
+        $page_title = $course_details->title;
+    } elseif (isset($blog_details) && !empty($blog_details->title)) {
+        $page_title = $blog_details->title;
+    } elseif (isset($bootcamp_details) && !empty($bootcamp_details->title)) {
+        $page_title = $bootcamp_details->title;
+    } else {
+        $page_title = trim(strip_tags($__env->yieldPushContent('title')));
+    }
 
     if (empty($page_title)) {
-        if (isset($course_details) && !empty($course_details->title)) {
-            $page_title = $course_details->title;
-        } elseif (isset($blog_details) && !empty($blog_details->title)) {
-            $page_title = $blog_details->title;
-        } elseif (isset($bootcamp_details) && !empty($bootcamp_details->title)) {
-            $page_title = $bootcamp_details->title;
-        } elseif (!empty($seo_field['meta_title']) && stripos($seo_field['meta_title'], 'Example Domain') === false && $seo_field['meta_title'] != $site_name) {
+        if (!empty($seo_field['meta_title']) && stripos($seo_field['meta_title'], 'Example Domain') === false && $seo_field['meta_title'] != $site_name) {
             $page_title = $seo_field['meta_title'];
         } else {
             $route_phrases = [
