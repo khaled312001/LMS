@@ -134,8 +134,26 @@
 <meta name="apple-mobile-web-app-title" content="{{ config('app.name') }}">
 @endif
 
-@if (!empty($seo_field['json_ld']) && stripos($seo_field['json_ld'], 'example.com') === false && stripos($seo_field['json_ld'], 'example.org') === false)
-<script type="application/ld+json">{!! $seo_field['json_ld'] !!}</script>
+@php
+    // Sanitize admin-provided JSON-LD: strip any pasted <script> wrapper,
+    // reject leftover demo data, and require valid JSON — otherwise fall
+    // back to the auto-generated structured data below
+    $custom_json_ld = trim($seo_field['json_ld'] ?? '');
+    if ($custom_json_ld !== '') {
+        $custom_json_ld = trim(preg_replace('~</?script[^>]*>~i', '', $custom_json_ld));
+        foreach (['example.com', 'example.org', 'codecanyon'] as $demo_mark) {
+            if (stripos($custom_json_ld, $demo_mark) !== false) {
+                $custom_json_ld = '';
+                break;
+            }
+        }
+        if ($custom_json_ld !== '' && json_decode($custom_json_ld) === null) {
+            $custom_json_ld = '';
+        }
+    }
+@endphp
+@if ($custom_json_ld !== '')
+<script type="application/ld+json">{!! $custom_json_ld !!}</script>
 @else
     {{-- Auto-generated structured data when no custom JSON-LD is set --}}
     @if (isset($course_details) && !empty($course_details->id))
