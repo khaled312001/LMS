@@ -370,10 +370,24 @@
                 {{ $is_arabic ? 'ابدأ التعلم' : get_phrase('Start Now') }}
             </a>
         @else
-            <a href="{{ $whatsapp_url }}" target="_blank" rel="noopener" class="sba-primary-cta">
-                <i class="fab fa-whatsapp fs-5"></i>
-                {{ $is_arabic ? 'طلب الدورة الآن' : 'Order Course Now' }}
-            </a>
+            @if (!$course_details->is_paid)
+                {{-- Free course: one-click enroll (Google sign-in for guests, instant enrollment) --}}
+                <a href="{{ route('enroll.free', $course_details->id) }}" class="sba-primary-cta">
+                    <i class="fa-solid fa-graduation-cap fs-5"></i>
+                    {{ $is_arabic ? 'سجّل الآن مجانًا' : 'Enroll Now for Free' }}
+                </a>
+                @guest
+                    <div class="text-center mt-2" style="font-size: 13px; color: #6b7280;">
+                        <i class="fab fa-google me-1"></i>
+                        {{ $is_arabic ? 'تسجيل سريع بحساب جوجل — بدون أي بيانات إضافية' : 'Quick sign-up with Google — no extra details needed' }}
+                    </div>
+                @endguest
+            @else
+                <a href="{{ $whatsapp_url }}" target="_blank" rel="noopener" class="sba-primary-cta">
+                    <i class="fab fa-whatsapp fs-5"></i>
+                    {{ $is_arabic ? 'طلب الدورة الآن' : 'Order Course Now' }}
+                </a>
+            @endif
 
             @if (isset(auth()->user()->id))
                 @if ($in_wishlist)

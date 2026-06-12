@@ -25,6 +25,20 @@ Route::get('/clear-cache', function () {
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
+//Free course one-click enrollment: guests sign in with Google first,
+//then land on purchase.course which auto-enrolls free courses
+Route::get('enroll-free/{course_id}', function ($course_id) {
+    $course = App\Models\Course::where('id', $course_id)->where('status', 'active')->where('is_paid', 0)->first();
+    if (! $course) {
+        return redirect()->route('home');
+    }
+    if (auth()->check()) {
+        return redirect()->route('purchase.course', $course->id);
+    }
+    session(['url.intended' => route('purchase.course', $course->id)]);
+    return redirect()->route('auth.google');
+})->name('enroll.free');
+
 Route::get('home/switch/{id}', [HomeController::class, 'homepage_switcher'])->name('home.switch');
 
 //Redirect route
