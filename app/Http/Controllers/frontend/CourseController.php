@@ -161,6 +161,14 @@ class CourseController extends Controller
             $view_path = 'frontend.' . $theme . '.course.course_details';
             return view($view_path, $page_data);
         } else {
+            // Old slug fallback: slugs historically ended with "-{id}".
+            // 301 stale indexed URLs to the course's current slug.
+            if (preg_match('/-(\d+)$/', $slug, $slug_match)) {
+                $course_by_id = Course::where('id', $slug_match[1])->where('status', 'active')->first();
+                if ($course_by_id && $course_by_id->slug != $slug) {
+                    return redirect()->route('course.details', $course_by_id->slug, 301);
+                }
+            }
             return redirect()->back();
         }
     }

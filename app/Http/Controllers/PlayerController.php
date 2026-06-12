@@ -17,6 +17,17 @@ class PlayerController extends Controller
     {
         $course = Course::where('slug', $slug)->firstOrNew();
 
+        if (! $course->exists) {
+            // Old slug fallback: slugs historically ended with "-{id}".
+            if (preg_match('/-(\d+)$/', $slug, $slug_match)) {
+                $course_by_id = Course::find($slug_match[1]);
+                if ($course_by_id && $course_by_id->slug != $slug) {
+                    return redirect()->route('course.player', ['slug' => $course_by_id->slug, 'id' => $id ?: null], 301);
+                }
+            }
+            return redirect()->route('home');
+        }
+
         // check if course is paid
         if ($course->is_paid && auth()->user()->role != 'admin') {
             if (auth()->user()->role == 'student') { // for student check enrollment status
