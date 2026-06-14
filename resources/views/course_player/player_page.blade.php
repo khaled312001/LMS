@@ -834,6 +834,86 @@
         </div>
         @endif
     @endif
+
+    {{-- Mark-as-complete action: works for every lesson type, including Google
+         Drive videos whose external player fires no completion event. --}}
+    @auth
+        @if (isset($lesson_details->id) && $lesson_details->lesson_type != 'quiz')
+            @php
+                $sba_is_arabic_btn = strtolower(session('language') ?? get_settings('language')) == 'arabic';
+                $sba_completed_raw = \App\Models\Watch_history::where('course_id', $course_details->id)
+                    ->where('student_id', auth()->id())->value('completed_lesson');
+                $sba_completed_arr = json_decode($sba_completed_raw ?? '[]', true);
+                $sba_completed_arr = is_array($sba_completed_arr) ? $sba_completed_arr : [];
+                $sba_lesson_done = in_array($lesson_details->id, $sba_completed_arr);
+            @endphp
+            <div class="sba-complete-bar mt-3">
+                <button type="button" id="sbaMarkCompleteBtn"
+                    class="sba-complete-btn {{ $sba_lesson_done ? 'is-done' : '' }}"
+                    data-lesson="{{ $lesson_details->id }}"
+                    data-course="{{ $course_details->id }}"
+                    data-done="{{ $sba_lesson_done ? '1' : '0' }}">
+                    <span class="sba-complete-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span class="sba-complete-text">
+                        @if ($sba_lesson_done)
+                            {{ $sba_is_arabic_btn ? 'تم إكمال هذا الدرس — إلغاء' : 'Lesson completed — undo' }}
+                        @else
+                            {{ $sba_is_arabic_btn ? 'تحديد الدرس كمكتمل' : 'Mark lesson as complete' }}
+                        @endif
+                    </span>
+                </button>
+            </div>
+
+            <style>
+                .sba-complete-bar { display: flex; justify-content: center; }
+                .sba-complete-btn {
+                    display: inline-flex; align-items: center; gap: 10px;
+                    padding: 12px 26px; border-radius: 100px; border: 2px solid #6366f1;
+                    background: #fff; color: #4f46e5; font-weight: 700; font-size: 0.98rem;
+                    cursor: pointer; transition: all .2s ease;
+                }
+                .sba-complete-btn:hover { background: #6366f1; color: #fff; }
+                .sba-complete-btn .sba-complete-icon {
+                    display: inline-flex; align-items: center; justify-content: center;
+                    width: 24px; height: 24px; border-radius: 50%;
+                    border: 2px solid currentColor;
+                }
+                .sba-complete-btn.is-done {
+                    border-color: #16a34a; color: #fff; background: #16a34a;
+                }
+                .sba-complete-btn.is-done:hover { background: #15803d; border-color: #15803d; }
+                .sba-complete-btn.is-done .sba-complete-icon { border-color: #fff; background: rgba(255,255,255,.18); }
+                .sba-complete-btn:disabled { opacity: .65; cursor: wait; }
+            </style>
+
+            <script>
+                (function () {
+                    var btn = document.getElementById('sbaMarkCompleteBtn');
+                    if (!btn) return;
+                    btn.addEventListener('click', function () {
+                        btn.disabled = true;
+                        $.ajax({
+                            url: "{{ route('set.watch.history') }}",
+                            type: "POST",
+                            data: {
+                                lesson_id: btn.dataset.lesson,
+                                course_id: btn.dataset.course
+                            },
+                            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                            success: function () { window.location.reload(); },
+                            error: function (xhr) {
+                                btn.disabled = false;
+                                alert("{{ $sba_is_arabic_btn ? 'حدث خطأ، حاول مرة أخرى' : 'Something went wrong, please try again' }}");
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
+                })();
+            </script>
+        @endif
+    @endauth
 @endif
 
 <script>
