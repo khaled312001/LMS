@@ -10,6 +10,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(PlayerController::class)->group(function () {
         Route::get('play-course/{slug}/{id?}', 'course_player')->name('course.player');
         Route::post('set-watch-history/', 'set_watch_history')->name('set.watch.history');
+        Route::post('complete-lesson/', 'complete_lesson')->name('complete.lesson');
         Route::get('player/prepend/watermark', 'prepend_watermark')->name('player.prepend.watermark');
     });
 

@@ -226,11 +226,11 @@
     <div class="sba-ph-title">
         <p class="sba-title-text">{{ ucfirst(course_title($course_details)) }}</p>
         <div class="sba-progress-row">
-            <span class="sba-progress-label">{{ $sba_completed_count }} / {{ $sba_total_lessons }}</span>
+            <span class="sba-progress-label"><span id="sbaProgCount">{{ $sba_completed_count }}</span> / <span id="sbaProgTotal">{{ $sba_total_lessons }}</span></span>
             <div class="sba-progress-track">
-                <div class="sba-progress-fill" style="width: {{ $sba_progress_pct }}%"></div>
+                <div class="sba-progress-fill" id="sbaProgFill" style="width: {{ $sba_progress_pct }}%"></div>
             </div>
-            <span class="sba-progress-label">{{ round($sba_progress_pct) }}%</span>
+            <span class="sba-progress-label"><span id="sbaProgPct">{{ round($sba_progress_pct) }}</span>%</span>
         </div>
     </div>
 

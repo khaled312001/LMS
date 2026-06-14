@@ -147,6 +147,82 @@ class PlayerController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Idempotent auto-completion used by the player when a video finishes.
+     * Unlike set_watch_history (a toggle), this only ever ADDS the lesson to the
+     * completed list, so firing it repeatedly on "video ended" is safe. Returns
+     * JSON so the player can refresh progress in place without a reload.
+     */
+    public function complete_lesson(Request $request)
+    {
+        $course = Course::where('id', $request->course_id)->first();
+        if (! $course) {
+            return response()->json(['status' => 'error', 'message' => 'course_not_found'], 404);
+        }
+
+        $enrollment = Enrollment::where('course_id', $course->id)->where('user_id', auth()->user()->id)->first();
+        if (! $enrollment && (auth()->user()->role != 'admin' || ! is_course_instructor($course->id))) {
+            return response()->json(['status' => 'not_enrolled'], 403);
+        }
+
+        $lesson_ids   = Lesson::where('course_id', $course->id)->pluck('id')->toArray();
+        $total_lesson = count($lesson_ids);
+
+        // Guard: only accept a lesson that actually belongs to this course
+        if (! in_array((int) $request->lesson_id, array_map('intval', $lesson_ids))) {
+            return response()->json(['status' => 'invalid_lesson'], 422);
+        }
+
+        $watch_history = Watch_history::where('course_id', $course->id)
+            ->where('student_id', auth()->user()->id)->first();
+
+        if ($watch_history) {
+            $completed = json_decode($watch_history->completed_lesson, true);
+            $completed = is_array($completed) ? $completed : [];
+            $already   = in_array($request->lesson_id, $completed);
+            if (! $already) {
+                $completed[] = (int) $request->lesson_id;
+            }
+            Watch_history::where('id', $watch_history->id)->update([
+                'completed_lesson'   => json_encode(array_values($completed)),
+                'watching_lesson_id' => $request->lesson_id,
+                'completed_date'     => ($total_lesson > 0 && count($completed) >= $total_lesson) ? time() : $watch_history->completed_date,
+            ]);
+        } else {
+            $completed = [(int) $request->lesson_id];
+            Watch_history::insert([
+                'course_id'          => $course->id,
+                'student_id'         => auth()->user()->id,
+                'completed_lesson'   => json_encode($completed),
+                'watching_lesson_id' => $request->lesson_id,
+                'completed_date'     => ($total_lesson <= 1) ? time() : null,
+            ]);
+        }
+
+        // Issue the certificate once the whole course is complete
+        if (progress_bar($course->id) >= 100) {
+            $certificate = Certificate::where('user_id', auth()->user()->id)->where('course_id', $course->id);
+            if ($certificate->count() == 0) {
+                Certificate::insert([
+                    'user_id'    => auth()->user()->id,
+                    'course_id'  => $course->id,
+                    'identifier' => random(12),
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+            }
+        }
+
+        $completed_count = count(array_intersect(array_map('intval', $completed), array_map('intval', $lesson_ids)));
+        $progress_pct    = $total_lesson > 0 ? min(100, round(($completed_count / $total_lesson) * 100)) : 0;
+
+        return response()->json([
+            'status'          => 'completed',
+            'completed_count' => $completed_count,
+            'total_lessons'   => $total_lesson,
+            'progress_pct'    => $progress_pct,
+        ]);
+    }
+
     public function prepend_watermark()
     {
         return view('course_player.watermark');

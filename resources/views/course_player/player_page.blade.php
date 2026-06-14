@@ -846,6 +846,12 @@
                 $sba_completed_arr = json_decode($sba_completed_raw ?? '[]', true);
                 $sba_completed_arr = is_array($sba_completed_arr) ? $sba_completed_arr : [];
                 $sba_lesson_done = in_array($lesson_details->id, $sba_completed_arr);
+
+                // Duration in seconds, for the Google Drive watch timer
+                $sba_dur_parts = explode(':', $lesson_details->duration ?? '00:00:00');
+                $sba_dur_seconds = count($sba_dur_parts) === 3
+                    ? ((int) $sba_dur_parts[0] * 3600) + ((int) $sba_dur_parts[1] * 60) + (int) $sba_dur_parts[2]
+                    : 0;
             @endphp
             <div class="sba-complete-bar mt-3">
                 <button type="button" id="sbaMarkCompleteBtn"
@@ -891,25 +897,97 @@
             <script>
                 (function () {
                     var btn = document.getElementById('sbaMarkCompleteBtn');
-                    if (!btn) return;
-                    btn.addEventListener('click', function () {
-                        btn.disabled = true;
+                    var LESSON_ID = "{{ $lesson_details->id }}";
+                    var COURSE_ID = "{{ $course_details->id }}";
+                    var LESSON_TYPE = "{{ $lesson_details->lesson_type }}";
+                    var DUR_SECONDS = {{ $sba_dur_seconds }};
+                    var CSRF = $('meta[name="csrf-token"]').attr('content');
+                    var alreadyDone = {{ $sba_lesson_done ? 'true' : 'false' }};
+                    var autoFired = false;
+
+                    // Reflect completion in the UI without a page reload (keeps video playing)
+                    function applyCompletion(data) {
+                        if (btn) {
+                            btn.classList.add('is-done');
+                            btn.dataset.done = '1';
+                            var txt = btn.querySelector('.sba-complete-text');
+                            if (txt) txt.textContent = "{{ $sba_is_arabic_btn ? 'تم إكمال هذا الدرس — إلغاء' : 'Lesson completed — undo' }}";
+                        }
+                        if (data && typeof data.completed_count !== 'undefined') {
+                            var c = document.getElementById('sbaProgCount');
+                            var p = document.getElementById('sbaProgPct');
+                            var f = document.getElementById('sbaProgFill');
+                            if (c) c.textContent = data.completed_count;
+                            if (p) p.textContent = data.progress_pct;
+                            if (f) f.style.width = data.progress_pct + '%';
+                        }
+                        // Tick the current lesson in the sidebar
+                        var active = document.querySelector('.sba-lesson.is-active .sba-lesson-status');
+                        if (active) {
+                            active.classList.remove('active');
+                            active.classList.add('done');
+                            active.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                        }
+                    }
+
+                    // Idempotent auto-completion (safe to call repeatedly)
+                    function autoComplete() {
+                        if (autoFired || alreadyDone) return;
+                        autoFired = true;
                         $.ajax({
-                            url: "{{ route('set.watch.history') }}",
+                            url: "{{ route('complete.lesson') }}",
                             type: "POST",
-                            data: {
-                                lesson_id: btn.dataset.lesson,
-                                course_id: btn.dataset.course
-                            },
-                            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                            success: function () { window.location.reload(); },
-                            error: function (xhr) {
-                                btn.disabled = false;
-                                alert("{{ $sba_is_arabic_btn ? 'حدث خطأ، حاول مرة أخرى' : 'Something went wrong, please try again' }}");
-                                console.error(xhr.responseText);
-                            }
+                            data: { lesson_id: LESSON_ID, course_id: COURSE_ID },
+                            headers: { 'X-CSRF-TOKEN': CSRF },
+                            success: function (resp) { alreadyDone = true; applyCompletion(resp); },
+                            error: function (xhr) { autoFired = false; console.error('auto-complete failed', xhr.responseText); }
                         });
-                    });
+                    }
+
+                    // Manual button: toggle (lets the student undo), then reload to refresh state
+                    if (btn) {
+                        btn.addEventListener('click', function () {
+                            btn.disabled = true;
+                            $.ajax({
+                                url: "{{ route('set.watch.history') }}",
+                                type: "POST",
+                                data: { lesson_id: LESSON_ID, course_id: COURSE_ID },
+                                headers: { 'X-CSRF-TOKEN': CSRF },
+                                success: function () { window.location.reload(); },
+                                error: function (xhr) {
+                                    btn.disabled = false;
+                                    alert("{{ $sba_is_arabic_btn ? 'حدث خطأ، حاول مرة أخرى' : 'Something went wrong, please try again' }}");
+                                    console.error(xhr.responseText);
+                                }
+                            });
+                        });
+                    }
+
+                    // 1) Native videos (Plyr): mark complete the moment the video ends.
+                    function bindPlyrEnded(tries) {
+                        if (typeof window.player === 'object' && window.player !== null && typeof window.player.on === 'function') {
+                            window.player.on('ended', autoComplete);
+                        } else if (tries > 0) {
+                            setTimeout(function () { bindPlyrEnded(tries - 1); }, 500);
+                        }
+                    }
+                    bindPlyrEnded(10);
+
+                    // 2) Google Drive (cross-origin iframe = no end event): approximate by
+                    //    counting visible time and completing at ~90% of the lesson length.
+                    if (LESSON_TYPE === 'google_drive' && DUR_SECONDS > 0 && !alreadyDone) {
+                        var watched = 0;
+                        var threshold = Math.floor(DUR_SECONDS * 0.9);
+                        var ticker = setInterval(function () {
+                            if (document.visibilityState === 'visible') {
+                                watched++;
+                                if (watched >= threshold) {
+                                    clearInterval(ticker);
+                                    autoComplete();
+                                }
+                            }
+                        }, 1000);
+                    }
                 })();
             </script>
         @endif
