@@ -756,25 +756,37 @@
         </div>
     @elseif($lesson_details->lesson_type == 'google_drive')
         @php
-            $video_url = $lesson_details->lesson_src;
-            $url_array_1 = explode('/', $video_url . '/');
-            $url_array_2 = explode('=', $video_url);
+            // Extract the Drive file id from any common URL format:
+            // /file/d/{id}/view, open?id={id}, uc?id={id}, or a bare id
+            $video_url = trim($lesson_details->lesson_src ?? '');
             $video_id = null;
-            if ($url_array_1[4] == 'd'):
-                $video_id = $url_array_1[5];
-            else:
-                $video_id = $url_array_2[1];
-            endif;
+            if (preg_match('~/d/([a-zA-Z0-9_-]{10,})~', $video_url, $drive_match)) {
+                $video_id = $drive_match[1];
+            } elseif (preg_match('~[?&]id=([a-zA-Z0-9_-]{10,})~', $video_url, $drive_match)) {
+                $video_id = $drive_match[1];
+            } elseif (preg_match('~^[a-zA-Z0-9_-]{10,}$~', $video_url)) {
+                $video_id = $video_url;
+            }
         @endphp
-        <div class="course-video-area border-primary border">
-            <!-- Video -->
-            <div class="course-video-wrap">
-                <video width="100%" height="680" id="player" playsinline controls>
-                    <source class="" src="https://www.googleapis.com/drive/v3/files/{{ $video_id }}?alt=media&key={{ get_settings('youtube_api_key') }}" type="video/mp4">
-                </video>
-                @include('course_player.player_config')
+        @if ($video_id)
+            {{-- Google Drive's own preview player: streams without any API key.
+                 The file must be shared as "anyone with the link can view". --}}
+            <div class="course-video-area border-primary border">
+                <div class="course-video-wrap">
+                    <div class="ratio ratio-16x9 bd-r-10 overflow-hidden bg-dark">
+                        <iframe src="https://drive.google.com/file/d/{{ $video_id }}/preview"
+                            allow="autoplay; encrypted-media" allowfullscreen
+                            style="border: 0; width: 100%; height: 100%;"></iframe>
+                    </div>
+                </div>
             </div>
-        </div>
+        @else
+            <div class="course-video-area border-primary border">
+                <div class="alert alert-warning">
+                    {{ get_phrase('Invalid video source. Please update the lesson video URL.') }}
+                </div>
+            </div>
+        @endif
     @elseif($lesson_details->lesson_type == 'html5')
         <div class="course-video-area border-primary border">
             <!-- Video -->
