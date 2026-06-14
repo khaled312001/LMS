@@ -140,9 +140,9 @@
                 </li>
             @endif
 
-            @if (has_permission('admin.enroll.history') || has_permission('admin.student.enroll'))
+            @if (has_permission('admin.enroll.history') || has_permission('admin.student.enroll') || has_permission('admin.student.progress'))
                 <li
-                    class="sidebar-first-li first-li-have-sub {{ $current_route == 'admin.student.enroll' || $current_route == 'admin.enroll.history' ? 'active' : '' }}">
+                    class="sidebar-first-li first-li-have-sub {{ in_array($current_route, ['admin.student.enroll', 'admin.enroll.history', 'admin.student.progress', 'admin.student.progress.course', 'admin.student.progress.student']) ? 'active' : '' }}">
                     <a href="javascript:void(0);">
                         <span class="icon fi-rr-elevator"></span>
                         <div class="text">
@@ -164,6 +164,13 @@
                             <li
                                 class="sidebar-second-li {{ $current_route == 'admin.student.enroll' ? 'active' : '' }}">
                                 <a href="{{ route('admin.student.enroll') }}">{{ get_phrase('Enroll student') }}</a>
+                            </li>
+                        @endif
+
+                        @if (has_permission('admin.student.progress'))
+                            <li
+                                class="sidebar-second-li {{ in_array($current_route, ['admin.student.progress', 'admin.student.progress.course', 'admin.student.progress.student']) ? 'active' : '' }}">
+                                <a href="{{ route('admin.student.progress') }}">{{ get_phrase('Student Progress') }}</a>
                             </li>
                         @endif
                     </ul>

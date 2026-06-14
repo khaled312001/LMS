@@ -24,6 +24,7 @@ use App\Http\Controllers\frontend\LanguageController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LiveClassController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\Admin\StudentProgressController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SeoController;
 use App\Http\Controllers\SettingController;
@@ -169,6 +170,13 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
         // purchase history
         Route::get('purchase_history', 'purchase_history')->name('purchase.history');
         Route::get('purchase_history/invoice/{id?}', 'purchase_history_invoice')->name('purchase.history.invoice');
+    });
+
+    // student progress reports
+    Route::controller(StudentProgressController::class)->group(function () {
+        Route::get('student-progress', 'index')->name('student.progress');
+        Route::get('student-progress/course/{id}', 'course')->name('student.progress.course');
+        Route::get('student-progress/course/{course_id}/student/{student_id}', 'student')->name('student.progress.student');
     });
 
     // newsletter
