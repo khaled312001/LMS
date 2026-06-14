@@ -88,7 +88,7 @@
                                     <div class="mb-4">
                                         <label for="email" class="form-label fw-bold text-dark small text-uppercase letter-spacing-1">{{ get_phrase('Email Address') }}</label>
                                         <div class="position-relative">
-                                            <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required>
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="{{ get_phrase('Enter your email') }}" required>
                                             <i class="fi-rr-envelope position-absolute top-50 translate-middle-y opacity-30 {{ $is_arabic ? 'start-0 ms-3' : 'end-0 me-3' }}"></i>
                                         </div>
                                     </div>

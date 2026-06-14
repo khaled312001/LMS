@@ -95,13 +95,13 @@
                                     @csrf
                                     <div class="mb-4">
                                         <label for="name" class="form-label fw-bold text-dark small text-uppercase letter-spacing-1">{{ get_phrase('Full Name') }}</label>
-                                        <input type="text" name="name" class="form-control" placeholder="John Doe" required>
+                                        <input type="text" name="name" class="form-control" placeholder="{{ get_phrase('Enter your full name') }}" required>
                                         @error('name') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                     </div>
 
                                     <div class="mb-4">
                                         <label for="email" class="form-label fw-bold text-dark small text-uppercase letter-spacing-1">{{ get_phrase('Email Address') }}</label>
-                                        <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+                                        <input type="email" name="email" class="form-control" placeholder="{{ get_phrase('Enter your email') }}" required>
                                         @error('email') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                     </div>
 
