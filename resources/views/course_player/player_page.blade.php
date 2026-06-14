@@ -895,98 +895,111 @@
             </style>
 
             <script>
+                // Uses native fetch (no jQuery) so it works regardless of script
+                // load order — jQuery loads at the page bottom, after this block.
                 (function () {
-                    var btn = document.getElementById('sbaMarkCompleteBtn');
-                    var LESSON_ID = "{{ $lesson_details->id }}";
-                    var COURSE_ID = "{{ $course_details->id }}";
-                    var LESSON_TYPE = "{{ $lesson_details->lesson_type }}";
-                    var DUR_SECONDS = {{ $sba_dur_seconds }};
-                    var CSRF = $('meta[name="csrf-token"]').attr('content');
-                    var alreadyDone = {{ $sba_lesson_done ? 'true' : 'false' }};
-                    var autoFired = false;
+                    function sbaInit() {
+                        var btn = document.getElementById('sbaMarkCompleteBtn');
+                        var LESSON_ID = "{{ $lesson_details->id }}";
+                        var COURSE_ID = "{{ $course_details->id }}";
+                        var LESSON_TYPE = "{{ $lesson_details->lesson_type }}";
+                        var DUR_SECONDS = {{ $sba_dur_seconds }};
+                        var metaEl = document.querySelector('meta[name="csrf-token"]');
+                        var CSRF = metaEl ? metaEl.getAttribute('content') : '';
+                        var alreadyDone = {{ $sba_lesson_done ? 'true' : 'false' }};
+                        var autoFired = false;
 
-                    // Reflect completion in the UI without a page reload (keeps video playing)
-                    function applyCompletion(data) {
-                        if (btn) {
-                            btn.classList.add('is-done');
-                            btn.dataset.done = '1';
-                            var txt = btn.querySelector('.sba-complete-text');
-                            if (txt) txt.textContent = "{{ $sba_is_arabic_btn ? 'تم إكمال هذا الدرس — إلغاء' : 'Lesson completed — undo' }}";
-                        }
-                        if (data && typeof data.completed_count !== 'undefined') {
-                            var c = document.getElementById('sbaProgCount');
-                            var p = document.getElementById('sbaProgPct');
-                            var f = document.getElementById('sbaProgFill');
-                            if (c) c.textContent = data.completed_count;
-                            if (p) p.textContent = data.progress_pct;
-                            if (f) f.style.width = data.progress_pct + '%';
-                        }
-                        // Tick the current lesson in the sidebar
-                        var active = document.querySelector('.sba-lesson.is-active .sba-lesson-status');
-                        if (active) {
-                            active.classList.remove('active');
-                            active.classList.add('done');
-                            active.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                        }
-                    }
-
-                    // Idempotent auto-completion (safe to call repeatedly)
-                    function autoComplete() {
-                        if (autoFired || alreadyDone) return;
-                        autoFired = true;
-                        $.ajax({
-                            url: "{{ route('complete.lesson') }}",
-                            type: "POST",
-                            data: { lesson_id: LESSON_ID, course_id: COURSE_ID },
-                            headers: { 'X-CSRF-TOKEN': CSRF },
-                            success: function (resp) { alreadyDone = true; applyCompletion(resp); },
-                            error: function (xhr) { autoFired = false; console.error('auto-complete failed', xhr.responseText); }
-                        });
-                    }
-
-                    // Manual button: toggle (lets the student undo), then reload to refresh state
-                    if (btn) {
-                        btn.addEventListener('click', function () {
-                            btn.disabled = true;
-                            $.ajax({
-                                url: "{{ route('set.watch.history') }}",
-                                type: "POST",
-                                data: { lesson_id: LESSON_ID, course_id: COURSE_ID },
-                                headers: { 'X-CSRF-TOKEN': CSRF },
-                                success: function () { window.location.reload(); },
-                                error: function (xhr) {
-                                    btn.disabled = false;
-                                    alert("{{ $sba_is_arabic_btn ? 'حدث خطأ، حاول مرة أخرى' : 'Something went wrong, please try again' }}");
-                                    console.error(xhr.responseText);
-                                }
+                        function postLesson(url) {
+                            return fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': CSRF,
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                body: 'lesson_id=' + encodeURIComponent(LESSON_ID) + '&course_id=' + encodeURIComponent(COURSE_ID)
                             });
-                        });
-                    }
+                        }
 
-                    // 1) Native videos (Plyr): mark complete the moment the video ends.
-                    function bindPlyrEnded(tries) {
-                        if (typeof window.player === 'object' && window.player !== null && typeof window.player.on === 'function') {
-                            window.player.on('ended', autoComplete);
-                        } else if (tries > 0) {
-                            setTimeout(function () { bindPlyrEnded(tries - 1); }, 500);
+                        // Reflect completion in the UI without a reload (keeps video playing)
+                        function applyCompletion(data) {
+                            if (btn) {
+                                btn.classList.add('is-done');
+                                btn.dataset.done = '1';
+                                var txt = btn.querySelector('.sba-complete-text');
+                                if (txt) txt.textContent = "{{ $sba_is_arabic_btn ? 'تم إكمال هذا الدرس — إلغاء' : 'Lesson completed — undo' }}";
+                            }
+                            if (data && typeof data.completed_count !== 'undefined') {
+                                var c = document.getElementById('sbaProgCount');
+                                var p = document.getElementById('sbaProgPct');
+                                var f = document.getElementById('sbaProgFill');
+                                if (c) c.textContent = data.completed_count;
+                                if (p) p.textContent = data.progress_pct;
+                                if (f) f.style.width = data.progress_pct + '%';
+                            }
+                            var active = document.querySelector('.sba-lesson.is-active .sba-lesson-status');
+                            if (active) {
+                                active.classList.remove('active');
+                                active.classList.add('done');
+                                active.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                            }
+                        }
+
+                        // Idempotent auto-completion (safe to call repeatedly)
+                        function autoComplete() {
+                            if (autoFired || alreadyDone) return;
+                            autoFired = true;
+                            postLesson("{{ route('complete.lesson') }}")
+                                .then(function (r) { return r.ok ? r.json() : Promise.reject(r); })
+                                .then(function (resp) { alreadyDone = true; applyCompletion(resp); })
+                                .catch(function (e) { autoFired = false; console.error('auto-complete failed', e); });
+                        }
+
+                        // Manual button: toggle (lets the student undo), then reload
+                        if (btn) {
+                            btn.addEventListener('click', function () {
+                                btn.disabled = true;
+                                postLesson("{{ route('set.watch.history') }}")
+                                    .then(function () { window.location.reload(); })
+                                    .catch(function (e) {
+                                        btn.disabled = false;
+                                        alert("{{ $sba_is_arabic_btn ? 'حدث خطأ، حاول مرة أخرى' : 'Something went wrong, please try again' }}");
+                                        console.error(e);
+                                    });
+                            });
+                        }
+
+                        // 1) Native videos (Plyr): complete the moment the video ends.
+                        function bindPlyrEnded(tries) {
+                            if (typeof window.player === 'object' && window.player !== null && typeof window.player.on === 'function') {
+                                window.player.on('ended', autoComplete);
+                            } else if (tries > 0) {
+                                setTimeout(function () { bindPlyrEnded(tries - 1); }, 500);
+                            }
+                        }
+                        bindPlyrEnded(10);
+
+                        // 2) Google Drive (cross-origin iframe = no end event): approximate by
+                        //    counting visible time and completing at ~90% of the lesson length.
+                        if (LESSON_TYPE === 'google_drive' && DUR_SECONDS > 0 && !alreadyDone) {
+                            var watched = 0;
+                            var threshold = Math.floor(DUR_SECONDS * 0.9);
+                            var ticker = setInterval(function () {
+                                if (document.visibilityState === 'visible') {
+                                    watched++;
+                                    if (watched >= threshold) {
+                                        clearInterval(ticker);
+                                        autoComplete();
+                                    }
+                                }
+                            }, 1000);
                         }
                     }
-                    bindPlyrEnded(10);
 
-                    // 2) Google Drive (cross-origin iframe = no end event): approximate by
-                    //    counting visible time and completing at ~90% of the lesson length.
-                    if (LESSON_TYPE === 'google_drive' && DUR_SECONDS > 0 && !alreadyDone) {
-                        var watched = 0;
-                        var threshold = Math.floor(DUR_SECONDS * 0.9);
-                        var ticker = setInterval(function () {
-                            if (document.visibilityState === 'visible') {
-                                watched++;
-                                if (watched >= threshold) {
-                                    clearInterval(ticker);
-                                    autoComplete();
-                                }
-                            }
-                        }, 1000);
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', sbaInit);
+                    } else {
+                        sbaInit();
                     }
                 })();
             </script>
