@@ -37,6 +37,26 @@
     if (empty($canonical_url)) {
         $canonical_url = url()->current();
     }
+
+    // Enforce www in canonical URL to prevent duplicate content issues
+    $canonical_url = preg_replace('#^(https?://)(?!www\.)swissbridgeacademy\.com#i', '$1www.swissbridgeacademy.com', $canonical_url);
+    // Strip query strings from canonical (pagination, filters cause duplicates)
+    $canonical_url = strtok($canonical_url, '?');
+
+    // Determine if this page should be noindex (pagination, filter params, action routes)
+    $should_noindex = false;
+    $req_path = request()->path();
+    if (request()->has('page') || request()->has('tag') || request()->has('search')) {
+        $should_noindex = true;
+    }
+    // Action routes that should never be indexed
+    $noindex_prefixes = ['review/', 'toggleWishItem', 'cart', 'wishlist', 'my-courses', 'my-profile', 'checkout', 'purchase/'];
+    foreach ($noindex_prefixes as $prefix) {
+        if (str_starts_with($req_path, $prefix)) {
+            $should_noindex = true;
+            break;
+        }
+    }
 @endphp
 
 @php
@@ -119,7 +139,7 @@
 <title>{{ $full_title }}</title>
 <meta name="keywords" content="{{ $meta_keywords }}">
 <meta name="description" content="{{ $meta_description }}">
-<meta name="robots" content="{{ $seo_field['meta_robot'] ?? 'index, follow' }}">
+<meta name="robots" content="{{ $should_noindex ? 'noindex, follow' : ($seo_field['meta_robot'] ?? 'index, follow') }}">
 @if (!empty($canonical_url) && stripos($canonical_url, 'example.com') === false && stripos($canonical_url, 'example.org') === false)
 <link rel="canonical" href="{{ $canonical_url }}" />
 @endif
@@ -256,7 +276,7 @@
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="{{ isset($course_details) ? 'article' : 'website' }}" />
-<meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:url" content="{{ $canonical_url }}" />
 <meta property="og:title" content="{{ $og_title }}" />
 <meta property="og:description" content="{{ $og_description }}" />
 <meta property="og:site_name" content="{{ $site_name }}" />
@@ -271,7 +291,7 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content="{{ url()->current() }}" />
+<meta name="twitter:url" content="{{ $canonical_url }}" />
 <meta name="twitter:title" content="{{ $og_title }}" />
 <meta name="twitter:description" content="{{ $og_description }}" />
 <meta name="twitter:image" content="{{ $og_image }}" />

@@ -42,8 +42,7 @@ class BootcampController extends Controller
         // bootcamp details
         $bootcamp = Bootcamp::where(['status' => 1, 'slug' => $slug]);
         if ($bootcamp->doesntExist()) {
-            Session::flash('error', get_phrase('Data not found.'));
-            return redirect()->back();
+            abort(404);
         }
 
         $bootcamp_details              = $bootcamp->first();

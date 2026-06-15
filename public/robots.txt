@@ -14,6 +14,15 @@ Disallow: /payment/*
 Disallow: /install/*
 Disallow: /modal/*
 Disallow: /clear-cache
+Disallow: /review/
+Disallow: /toggleWishItem
+Disallow: /wishlist
+Disallow: /my-profile
+Disallow: /my-bootcamps
+Disallow: /my-bookings
+Disallow: /message
+Disallow: /dashboard
+Disallow: /purchase/
 Allow: /
 
-Sitemap: https://swissbridgeacademy.com/sitemap.xml
+Sitemap: https://www.swissbridgeacademy.com/sitemap.xml
