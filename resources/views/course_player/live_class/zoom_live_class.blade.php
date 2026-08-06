@@ -26,7 +26,7 @@
             $meeting_info = [];
         }
         $course = App\Models\Course::where('id', $live_class->course_id ?? 0)->first();
-        $is_host = $course && $course->instructors()->where('id', auth()->user()->id)->count() > 0 ? 1:0;
+        $is_host = $course && $course->instructors()->where('id', auth()->id())->count() > 0 ? 1:0;
         
         // Validate meeting info
         $meeting_id = $meeting_info['id'] ?? '';

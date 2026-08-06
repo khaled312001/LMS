@@ -220,7 +220,7 @@
         <div class="my-container">
             <div class="row g-4">
                 <div class="col-lg-8" id="player_content">
-                    @if(in_array($lesson_details->id, get_locked_lesson_ids($course_details->id, auth()->user()->id)) && $course_details->enable_drip_content)
+                    @if(in_array($lesson_details->id, get_locked_lesson_ids($course_details->id, auth()->id())) && $course_details->enable_drip_content)
                         @php
                            $drip_content_settings =  json_decode($course_details->drip_content_settings);
                         @endphp

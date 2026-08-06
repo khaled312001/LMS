@@ -18,7 +18,7 @@
 
                 </h1>
 
-                @if ($child->user_id == auth()->user()->id)
+                @if ($child->user_id == auth()->id())
                     <div class="d-flex gap-3">
                         <a href="javascript:void(0)" class="show-form" id="reply-edit" data-reply-id="{{ $child->id }}">
                             <div class="edit edit">

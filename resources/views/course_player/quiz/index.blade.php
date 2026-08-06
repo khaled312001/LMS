@@ -66,7 +66,7 @@
 
     $submits = DB::table('quiz_submissions')
         ->where('quiz_id', $quiz->id)
-        ->where('user_id', auth()->user()->id)
+        ->where('user_id', auth()->id())
         ->get();
 @endphp
 

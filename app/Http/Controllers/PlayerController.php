@@ -18,6 +18,14 @@ class PlayerController extends Controller
         $course = Course::where('slug', $slug)->firstOrNew();
 
         if (! $course->exists) {
+            // Retired slug (e.g. renamed to English): 301 to the current slug.
+            $legacy_id = legacy_course_id_by_slug($slug);
+            if ($legacy_id) {
+                $legacy_course = Course::find($legacy_id);
+                if ($legacy_course) {
+                    return redirect()->route('course.player', ['slug' => $legacy_course->slug, 'id' => $id ?: null], 301);
+                }
+            }
             // Old slug fallback: slugs historically ended with "-{id}".
             if (preg_match('/-(\d+)$/', $slug, $slug_match)) {
                 $course_by_id = Course::find($slug_match[1]);
@@ -28,8 +36,15 @@ class PlayerController extends Controller
             return redirect()->route('home');
         }
 
+        // Public courses (config/public_courses.php) are watchable by visitors.
+        // Any other course still requires a signed-in user.
+        $is_public = is_public_course($course->id);
+        if (! auth()->check() && ! $is_public) {
+            return redirect()->route('login');
+        }
+
         // check if course is paid
-        if ($course->is_paid && auth()->user()->role != 'admin') {
+        if ($course->is_paid && auth()->check() && auth()->user()->role != 'admin') {
             if (auth()->user()->role == 'student') { // for student check enrollment status
                 $enroll_status = enroll_status($course->id, auth()->user()->id);
                 if ($enroll_status == 'expired') {
@@ -47,34 +62,41 @@ class PlayerController extends Controller
             }
         }
 
-        $check_lesson_history = Watch_history::where('course_id', $course->id)
-            ->where('student_id', auth()->user()->id)->first();
+        // Watch history only exists for signed-in users; visitors just watch.
+        $user_id              = auth()->id();
+        $check_lesson_history = $user_id
+            ? Watch_history::where('course_id', $course->id)->where('student_id', $user_id)->first()
+            : null;
         $first_lesson_of_course = Lesson::where('course_id', $course->id)->orderBy('sort', 'asc')->value('id');
         if ($id == '') {
             $id = $check_lesson_history->watching_lesson_id ?? $first_lesson_of_course;
         }
 
-        // if user has any watched history or not
-        if (! $check_lesson_history && $id > 0) {
-            $data = [
-                'course_id'          => $course->id,
-                'student_id'         => auth()->user()->id,
-                'watching_lesson_id' => $id,
-                'completed_lesson'   => json_encode([])
-            ];
-            Watch_history::insert($data);
-        }
+        if ($user_id) {
+            // if user has any watched history or not
+            if (! $check_lesson_history && $id > 0) {
+                $data = [
+                    'course_id'          => $course->id,
+                    'student_id'         => $user_id,
+                    'watching_lesson_id' => $id,
+                    'completed_lesson'   => json_encode([])
+                ];
+                Watch_history::insert($data);
+            }
 
-        // when user plays a lesson, update that lesson id as watch history
-        if ($id > 0) {
-            Watch_history::where('course_id', $course->id)
-                ->where('student_id', auth()->user()->id)
-                ->update(['watching_lesson_id' => $id]);
+            // when user plays a lesson, update that lesson id as watch history
+            if ($id > 0) {
+                Watch_history::where('course_id', $course->id)
+                    ->where('student_id', $user_id)
+                    ->update(['watching_lesson_id' => $id]);
+            }
         }
 
         $page_data['course_details'] = $course;
         $page_data['lesson_details'] = Lesson::where('id', $id)->firstOrNew();
-        $page_data['history']        = Watch_history::where('course_id', $course->id)->where('student_id', auth()->user()->id)->first();
+        $page_data['history']        = $user_id
+            ? Watch_history::where('course_id', $course->id)->where('student_id', $user_id)->first()
+            : null;
 
         $forum_query = Forum::join('users', 'forums.user_id', 'users.id')
             ->select('forums.*', 'users.name as user_name', 'users.photo as user_photo')

@@ -16,15 +16,18 @@ class FileController extends Controller
         //     return false;
         // }
 
-        $user_id = auth()->user()->id;
+        $user_id = auth()->id();
 
-        if (isset($request->course_id) && isset($request->lesson_id) && $user_id > 0) {
+        if (isset($request->course_id) && isset($request->lesson_id) && ($user_id > 0 || is_public_course($request->course_id))) {
             $course_id = $request->course_id;
             $lesson_id = $request->lesson_id;
             $lesson = Lesson::find($lesson_id);
+            if (! $lesson || $lesson->course_id != $course_id) {
+                return abort(404);
+            }
             $get_lesson_type = $lesson->lesson_type;
 
-            if(enroll_status($course_id, $user_id) || auth()->user()->role == 'admin' || is_course_instructor($course_id, $user_id)){
+            if(is_public_course($course_id) || enroll_status($course_id, $user_id) || auth()->user()->role == 'admin' || is_course_instructor($course_id, $user_id)){
 
                 if ($get_lesson_type == 'image' || $get_lesson_type == 'document_type') {
                     $fileUrl = 'uploads/lesson_file/attachment/' . $lesson->attachment;
@@ -136,15 +139,18 @@ class FileController extends Controller
 
     public function get_video_file(Request $request)
     {
-        $user_id = auth()->user()->id;
+        $user_id = auth()->id();
 
-        if (isset($request->course_id) && isset($request->lesson_id) && $user_id > 0) {
+        if (isset($request->course_id) && isset($request->lesson_id) && ($user_id > 0 || is_public_course($request->course_id))) {
             $course_id = $request->course_id;
             $lesson_id = $request->lesson_id;
             $lesson = Lesson::find($lesson_id);
+            if (! $lesson || $lesson->course_id != $course_id) {
+                return abort(404);
+            }
             $get_lesson_type = $lesson->lesson_type;
 
-            if(enroll_status($course_id, $user_id) || auth()->user()->role == 'admin' || is_course_instructor($course_id, $user_id)){
+            if(is_public_course($course_id) || enroll_status($course_id, $user_id) || auth()->user()->role == 'admin' || is_course_instructor($course_id, $user_id)){
                 if ($get_lesson_type == 'system-video') {
                     $fileUrl = $lesson->lesson_src;
                     $filePath = public_path($fileUrl);

@@ -370,7 +370,17 @@
                 {{ $is_arabic ? 'ابدأ التعلم' : get_phrase('Start Now') }}
             </a>
         @else
-            @if (!$course_details->is_paid)
+            @if (is_public_course($course_details->id))
+                {{-- Open course: straight into the player, no sign-in needed --}}
+                <a href="{{ route('course.player', $course_details->slug) }}" class="sba-primary-cta">
+                    <i class="fa-solid fa-play fs-5"></i>
+                    {{ $is_arabic ? 'ابدأ الكورس الآن' : 'Start the Course Now' }}
+                </a>
+                <div class="text-center mt-2" style="font-size: 13px; color: #6b7280;">
+                    <i class="fa-solid fa-unlock me-1"></i>
+                    {{ $is_arabic ? 'مجاني بالكامل — بدون تسجيل دخول' : 'Completely free — no sign-in required' }}
+                </div>
+            @elseif (!$course_details->is_paid)
                 {{-- Free course: one-click enroll (Google sign-in for guests, instant enrollment) --}}
                 <a href="{{ route('enroll.free', $course_details->id) }}" class="sba-primary-cta">
                     <i class="fa-solid fa-graduation-cap fs-5"></i>
@@ -482,3 +492,63 @@
 </script>
 
 @include('frontend.default.scripts')
+
+@if (is_public_course($course_details->id))
+    {{-- Mobile sticky CTA: the course is open, so keep "start now" one tap away --}}
+    <div class="sba-mobile-cta">
+        <a href="{{ route('course.player', $course_details->slug) }}">
+            <i class="fa-solid fa-play"></i>
+            <span>{{ $is_arabic ? 'ابدأ الكورس الآن' : 'Start the Course Now' }}</span>
+        </a>
+        <small>{{ $is_arabic ? 'مجاني — بدون تسجيل دخول' : 'Free — no sign-in' }}</small>
+    </div>
+
+    <style>
+        .sba-mobile-cta { display: none; }
+
+        @media (max-width: 991.98px) {
+            .sba-mobile-cta {
+                display: block;
+                position: fixed;
+                inset-inline: 0;
+                bottom: 0;
+                z-index: 1040;
+                padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+                background: rgba(255, 255, 255, .97);
+                backdrop-filter: blur(8px);
+                border-top: 1px solid #e9ecef;
+                box-shadow: 0 -6px 20px rgba(0, 0, 0, .10);
+                text-align: center;
+            }
+
+            .sba-mobile-cta a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                min-height: 54px;
+                padding: 14px 18px;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #16a34a, #22c55e);
+                color: #fff;
+                font-size: 17px;
+                font-weight: 700;
+                text-decoration: none;
+                box-shadow: 0 4px 14px rgba(22, 163, 74, .35);
+            }
+
+            .sba-mobile-cta a:active { transform: translateY(1px); }
+
+            .sba-mobile-cta small {
+                display: block;
+                margin-top: 6px;
+                font-size: 12px;
+                color: #6b7280;
+            }
+
+            /* keep the sticky bar from covering the end of the page */
+            body { padding-bottom: 104px; }
+        }
+    </style>
+@endif

@@ -452,7 +452,7 @@ if (!function_exists('count_unread_message_of_thread')) {
     function count_unread_message_of_thread($message_thread_code = "")
     {
         $unread_message_counter = 0;
-        $current_user           = auth()->user()->id;
+        $current_user           = auth()->id();
         $messages               = DB::table('messages')->where('message_thread_code', $message_thread_code)->get();
         foreach ($messages as $row) {
             if ($row->sender != $current_user && $row->read_status == '0') {
@@ -491,7 +491,10 @@ if (!function_exists('is_course_instructor')) {
     function is_course_instructor($course_id = "", $user_id = "")
     {
         if ($user_id == '') {
-            $user_id = auth()->user()->id;
+            $user_id = auth()->id();
+        }
+        if ($user_id == '') { // visitor / not logged in
+            return false;
         }
         $course = App\Models\Course::where('id', $course_id)->firstOrNew();
         if ($course) {
@@ -546,8 +549,11 @@ if (!function_exists('progress_bar')) {
     function progress_bar($course_id = "")
     {
         if ($course_id != '') {
+            if (! auth()->check()) { // visitor watching a public course: no progress yet
+                return 0;
+            }
             $lesson_history = App\Models\Watch_history::where('course_id', $course_id)
-                ->where('student_id', auth()->user()->id)
+                ->where('student_id', auth()->id())
                 ->firstOrNew();
             $total_lesson = lesson_count($course_id);
 
@@ -755,7 +761,7 @@ if (!function_exists('is_root_admin')) {
 
         // GET THE LOGGEDIN IN ADMIN ID
         if (empty($admin_id)) {
-            $admin_id = auth()->user()->id;
+            $admin_id = auth()->id();
         }
 
         $root_admin_id = App\Models\User::limit(1)->orderBy('id', 'asc')->firstOrNew()->id;
@@ -803,7 +809,7 @@ if (!function_exists('has_permission')) {
             if (!auth()->check()) {
                 return false;
             }
-            $user_id = auth()->user()->id;
+            $user_id = auth()->id();
         }
 
         $root_admin_id = App\Models\User::firstOrNew()->id;
@@ -1164,7 +1170,7 @@ if (!function_exists('lesson_progress')) {
     function lesson_progress($lesson_id = "", $user_id = "", $course_id = "")
     {
         if ($user_id == "") {
-            $user_id = Auth()->user()->id;
+            $user_id = auth()->id();
         }
         if ($course_id == "") {
             $course_id = DB::table('lessons')->where('id', $lesson_id)->value('course_id');
@@ -1226,7 +1232,7 @@ if (!function_exists('is_permission')) {
 
         // GET THE LOGGEDIN IN ADMIN ID
         if (empty($admin_id)) {
-            $admin_id = Auth()->user()->id;
+            $admin_id = auth()->id();
         }
 
         $get_admin_permissions = DB::table('permissions')->where('admin_id', $admin_id);
@@ -1482,7 +1488,7 @@ if (!function_exists('theme_path')) {
 if (!function_exists('is_purchased_bootcamp')) {
     function is_purchased_bootcamp($bootcamp_id, $user_id = null)
     {
-        $user_id  = $user_id ?? auth()->user()->id;
+        $user_id  = $user_id ?? auth()->id();
         $purchase = App\Models\BootcampPurchase::where('user_id', $user_id)->where('bootcamp_id', $bootcamp_id)->count();
         return $purchase;
     }
@@ -1623,7 +1629,7 @@ if (! function_exists('team_packages_by_course_category')) {
 if (! function_exists('is_purchased_package')) {
     function is_purchased_package($package_id, $user_id = null)
     {
-        $user_id  = $user_id ?? auth()->user()->id;
+        $user_id  = $user_id ?? auth()->id();
         $purchase = App\Models\TeamPackagePurchase::where('user_id', $user_id)->where('package_id', $package_id)->firstOrNew();
         return $purchase;
     }
@@ -1633,7 +1639,7 @@ if (! function_exists('is_purchased_package')) {
 if (! function_exists('instructor_course_revenue')) {
     function instructor_course_revenue($user_id = null)
     {
-        $id             = $user_id ?? auth()->user()->id;
+        $id             = $user_id ?? auth()->id();
         $course_revenue = App\Models\Course::join('payment_histories', 'courses.id', 'payment_histories.course_id')
             ->select('payment_histories.*', 'courses.id as course_id')
             ->where('courses.user_id', $id)
@@ -1646,7 +1652,7 @@ if (! function_exists('instructor_course_revenue')) {
 if (! function_exists('instructor_bootcamp_revenue')) {
     function instructor_bootcamp_revenue($user_id = null)
     {
-        $id               = $user_id ?? auth()->user()->id;
+        $id               = $user_id ?? auth()->id();
         $bootcamp_revenue = App\Models\BootcampPurchase::join('bootcamps', 'bootcamp_purchases.bootcamp_id', 'bootcamps.id')
             ->where('bootcamps.user_id', $id)->sum('bootcamp_purchases.instructor_revenue');
         return $bootcamp_revenue;
@@ -1657,7 +1663,7 @@ if (! function_exists('instructor_bootcamp_revenue')) {
 if (! function_exists('instructor_team_training_revenue')) {
     function instructor_team_training_revenue($user_id = null)
     {
-        $id      = $user_id ?? auth()->user()->id;
+        $id      = $user_id ?? auth()->id();
         $revenue = App\Models\TeamPackagePurchase::join('team_training_packages', 'team_package_purchases.package_id', 'team_training_packages.id')
             ->where('team_training_packages.user_id', $id)->sum('team_package_purchases.instructor_revenue');
         return $revenue;
@@ -1668,7 +1674,7 @@ if (! function_exists('instructor_team_training_revenue')) {
 if (! function_exists('instructor_tution_revenue')) {
     function instructor_tution_revenue($user_id = null)
     {
-        $id               = $user_id ?? auth()->user()->id;
+        $id               = $user_id ?? auth()->id();
         $tution_revenue = App\Models\TutorBooking::where('tutor_id', $id)->sum('instructor_revenue');
         return $tution_revenue;
     }
@@ -1678,7 +1684,7 @@ if (! function_exists('instructor_tution_revenue')) {
 if (! function_exists('instructor_total_revenue')) {
     function instructor_total_revenue($user_id = null)
     {
-        $id            = $user_id ?? auth()->user()->id;
+        $id            = $user_id ?? auth()->id();
         $total_revenue = instructor_course_revenue($id) + instructor_bootcamp_revenue($id) + instructor_team_training_revenue($id) + + instructor_tution_revenue($id);
         return $total_revenue;
     }
@@ -1688,7 +1694,7 @@ if (! function_exists('instructor_total_revenue')) {
 if (! function_exists('instructor_total_payout')) {
     function instructor_total_payout($user_id = null)
     {
-        $id           = $user_id ?? auth()->user()->id;
+        $id           = $user_id ?? auth()->id();
         $total_payout = App\Models\Payout::where(['user_id' => $id, 'status' => 1])->sum('amount');
         return $total_payout;
     }
@@ -1699,7 +1705,7 @@ if (! function_exists('instructor_available_balance')) {
     function instructor_available_balance($user_id = null)
     {
         // sum all the revenue sources (course, ebook, bootcamp, team_training etc)
-        $id                = $user_id ?? auth()->user()->id;
+        $id                = $user_id ?? auth()->id();
         $available_balance = instructor_total_revenue($id) - instructor_total_payout($id);
         return $available_balance;
     }
@@ -1948,5 +1954,28 @@ if(!function_exists('check_recaptcha')){
         } else {
             return false;
         }
+    }
+}
+
+// Courses that visitors may watch without logging in (config/public_courses.php)
+if (!function_exists('is_public_course')) {
+    function is_public_course($course_id = "")
+    {
+        if ($course_id == "") {
+            return false;
+        }
+        return in_array((int) $course_id, config('public_courses.ids', []), true);
+    }
+}
+
+// Resolve a retired course slug to its course id, for 301 redirects
+if (!function_exists('legacy_course_id_by_slug')) {
+    function legacy_course_id_by_slug($slug = "")
+    {
+        if ($slug == "") {
+            return false;
+        }
+        $map = config('public_courses.legacy_slugs', []);
+        return $map[$slug] ?? $map[urldecode($slug)] ?? false;
     }
 }

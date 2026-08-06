@@ -15,7 +15,7 @@
 
 @php
     $lesson_history = App\Models\Watch_history::where('course_id', $course_details->id)
-        ->where('student_id', auth()->user()->id)
+        ->where('student_id', auth()->id())
         ->firstOrNew();
     $completed_lesson_arr = json_decode($lesson_history->completed_lesson, true);
     $completed_lesson_arr = is_array($completed_lesson_arr) ? $completed_lesson_arr : array();

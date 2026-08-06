@@ -6,9 +6,14 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
+// NOTE: the player itself (play-course) and the lesson file streams live in
+// routes/guest.php, because this file is registered with the 'verified'
+// middleware. Access for them is enforced inside the controllers instead:
+// courses listed in config/public_courses.php are watchable without login,
+// everything else still requires auth + enrollment.
+
 Route::middleware(['auth'])->group(function () {
     Route::controller(PlayerController::class)->group(function () {
-        Route::get('play-course/{slug}/{id?}', 'course_player')->name('course.player');
         Route::post('set-watch-history/', 'set_watch_history')->name('set.watch.history');
         Route::post('complete-lesson/', 'complete_lesson')->name('complete.lesson');
         Route::get('player/prepend/watermark', 'prepend_watermark')->name('player.prepend.watermark');
@@ -33,8 +38,6 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::controller(FileController::class)->group(function () {
-        Route::get('files', 'get_file')->name('course.get_file');
-        Route::get('video-files', 'get_video_file')->name('course.get_video_file');
         Route::get('pdf-canvas/{course_id?}/{lesson_id?}', 'pdf_canvas')->name('pdf_canvas');
     });
 });

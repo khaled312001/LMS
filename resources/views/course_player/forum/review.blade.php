@@ -16,7 +16,7 @@
                         </span>
 
                         <ul class="group-menu">
-                            @if ($question->user_id == auth()->user()->id)
+                            @if ($question->user_id == auth()->id())
                                 <li>
                                     <a href="javascript:void(0)" class="show-form" id="edit-question"
                                         data-question-id="{{ $question->id }}">
@@ -25,7 +25,7 @@
                                     </a>
                                 </li>
                             @endif
-                            @if ($question->user_id == auth()->user()->id)
+                            @if ($question->user_id == auth()->id())
                                 <li>
                                     <a href="{{ route('forum.question.delete', $question->id) }}">
                                         <i class="fi fi-rr-trash d-inline-flex"></i>
@@ -54,7 +54,7 @@
                         <a href="{{ route('forum.question.likes', $question->id) }}">
 
                             <div
-                                class="d-flex align-items-center gap-1 like @if (in_array(auth()->user()->id, $likes)) active @endif">
+                                class="d-flex align-items-center gap-1 like @if (in_array(auth()->id(), $likes)) active @endif">
                                 <span class="d-inline-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24"
                                         width="512" height="512">
@@ -69,7 +69,7 @@
                         <a href="{{ route('forum.question.dislikes', $question->id) }}">
 
                             <div
-                                class="d-flex align-items-center gap-1 dislike @if (in_array(auth()->user()->id, $dislikes)) active @endif">
+                                class="d-flex align-items-center gap-1 dislike @if (in_array(auth()->id(), $dislikes)) active @endif">
                                 <span class="d-inline-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24"
                                         width="512" height="512">

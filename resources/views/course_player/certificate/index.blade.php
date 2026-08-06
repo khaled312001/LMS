@@ -4,7 +4,7 @@
 
 
             @php
-                $certificate = App\Models\Certificate::where('course_id', $course_details->id)->where('user_id', auth()->user()->id);
+                $certificate = App\Models\Certificate::where('course_id', $course_details->id)->where('user_id', auth()->id());
             @endphp
             @if ($certificate->count() > 0 && $course_progress_out_of_100 >= 100)
                 <div class="alert alert-success text-center" role="alert">

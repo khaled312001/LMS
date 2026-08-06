@@ -232,7 +232,7 @@
     }
 
     
-    var watched_duration = @json(get_watched_duration($lesson_details['id'], auth()->user()->id));
+    var watched_duration = @json(get_watched_duration($lesson_details['id'], auth()->id()));
 
     watched_duration = JSON.parse(watched_duration);
     

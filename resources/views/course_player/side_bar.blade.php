@@ -5,21 +5,21 @@
 
     $completed_lesson = json_decode(
         App\Models\Watch_history::where('course_id', $course_details->id)
-            ->where('student_id', Auth()->user()->id)
+            ->where('student_id', auth()->id())
             ->value('completed_lesson'),
         true,
     ) ?? [];
     $active_section = App\Models\Lesson::where('id', $lesson_details->id ?? '')->value('section_id');
 
     $lesson_history = App\Models\Watch_history::where('course_id', $course_details->id)
-        ->where('student_id', auth()->user()->id)
+        ->where('student_id', auth()->id())
         ->firstOrNew();
     $completed_lesson_arr = json_decode($lesson_history->completed_lesson, true);
     $completed_lesson_arr = is_array($completed_lesson_arr) ? $completed_lesson_arr : [];
     $complated_lesson = count($completed_lesson_arr);
     $course_progress_out_of_100 = progress_bar($course_details->id);
 
-    $user_id = Auth()->user()->id;
+    $user_id = auth()->id();
     $is_course_instructor = is_course_instructor($course_details->id, $user_id);
 
     $is_locked = 0;

@@ -28,6 +28,20 @@ Route::controller(CourseController::class)->group(function () {
     Route::get('course/{slug}', 'course_details')->name('course.details');
 });
 
+// Course player + lesson file streams.
+// Registered here (no 'auth'/'verified' middleware) so that courses listed in
+// config/public_courses.php can be watched by visitors without signing in.
+// PlayerController and FileController enforce access themselves: any course
+// that is not public still requires a logged-in, enrolled user.
+Route::controller(\App\Http\Controllers\PlayerController::class)->group(function () {
+    Route::get('play-course/{slug}/{id?}', 'course_player')->name('course.player');
+});
+
+Route::controller(\App\Http\Controllers\FileController::class)->group(function () {
+    Route::get('files', 'get_file')->name('course.get_file');
+    Route::get('video-files', 'get_video_file')->name('course.get_video_file');
+});
+
 // blogs page
 Route::controller(BlogController::class)->middleware('blog.visibility')->group(function () {
     Route::get('blogs/{category?}', 'index')->name('blogs');

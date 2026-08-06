@@ -76,6 +76,14 @@
                         <p class="mb-0 fw-bold">{{ auth()->user()->name }}</p>
                         <small class="text-muted">{{ auth()->user()->email }}</small>
                     </li>
+                    @if (in_array(auth()->user()->role, ['admin', 'instructor']))
+                        <li>
+                            <a class="dropdown-item rounded-3 fw-bold" href="{{ route(auth()->user()->role . '.dashboard') }}">
+                                <i class="fi-rr-dashboard me-2"></i>{{ get_phrase('Dashboard') }}
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                    @endif
                     <li><a class="dropdown-item rounded-3" href="{{ route('my.courses') }}"><i class="fi-rr-book-open-cover me-2"></i>{{ get_phrase('My Courses') }}</a></li>
                     <li><a class="dropdown-item rounded-3" href="{{ route('my.profile') }}"><i class="fi-rr-user me-2"></i>{{ get_phrase('Profile') }}</a></li>
                     <li><hr class="dropdown-divider"></li>
@@ -186,6 +194,11 @@
                              <small class="text-secondary">{{ get_phrase('Welcome back!') }}</small>
                          </div>
                     </div>
+                    @if (in_array(auth()->user()->role, ['admin', 'instructor']))
+                        <a href="{{ route(auth()->user()->role . '.dashboard') }}" class="btn btn-primary w-100 py-3 mb-2 rounded-pill fw-bold">
+                            <i class="fi-rr-dashboard me-2"></i> {{ get_phrase('Dashboard') }}
+                        </a>
+                    @endif
                     <div class="d-flex gap-2">
                         <a href="{{ route('my.courses') }}" class="btn btn-light w-50 py-2 rounded-pill fw-bold border text-dark text-nowrap small"><i class="fi-rr-book-open-cover me-1"></i> {{ get_phrase('Courses') }}</a>
                         <a href="{{ route('my.profile') }}" class="btn btn-light w-50 py-2 rounded-pill fw-bold border text-dark text-nowrap small"><i class="fi-rr-settings me-1"></i> {{ get_phrase('Profile') }}</a>
